@@ -49,6 +49,9 @@ export async function POST(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    // 检查数据库连接
+    await prisma.$connect()
+
     const { slug } = await params
     const body = await request.json()
     const { author, email, website, content } = body
@@ -97,10 +100,26 @@ export async function POST(
       },
       message: '评论已提交，等待审核',
     }, { status: 201 })
-  } catch (error) {
+  } catch (error: any) {
     console.error('创建评论错误:', error)
+
+    // 检查是否是数据库连接错误
+    if (error?.code === 'P1001' || error?.message?.includes('Can\'t reach database')) {
+      return NextResponse.json(
+        {
+          error: '数据库连接失败，请检查数据库配置',
+          details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        },
+        { status: 500 }
+      )
+    }
+
+    // 返回更详细的错误信息
     return NextResponse.json(
-      { error: '评论提交失败' },
+      {
+        error: '评论提交失败',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     )
   }

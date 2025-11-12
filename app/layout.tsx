@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { ConfigProvider, App } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,16 +18,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "个人网站",
-    template: "%s | 个人网站",
+    default: "陈灼的网络日志",
+    template: "%s | 陈灼的网络日志",
   },
-  description: "个人博客与简历网站",
-  keywords: ["博客", "简历", "个人网站"],
+  description: "陈灼的网络日志",
+  keywords: ["博客", "简历", "陈灼的网络日志"],
   authors: [{ name: "Your Name" }],
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    siteName: "个人网站",
+    siteName: "陈灼的网络日志",
   },
 };
 
@@ -38,7 +41,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <AntdRegistry>
+          <ConfigProvider
+            locale={zhCN}
+            theme={{
+              token: {
+                colorBgContainer: 'var(--background)',
+                colorText: 'var(--foreground)',
+                colorBorder: 'var(--border)',
+              },
+            }}
+          >
+            <App>
+              <ThemeProvider>{children}</ThemeProvider>
+            </App>
+          </ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import { DownloadPDFButton } from "@/components/DownloadPDFButton";
 
 export const metadata = {
   title: "简历",
-  description: "我的个人简历",
+  description: "陈子龙的个人简历",
 };
 
 export default function ResumePage() {
@@ -30,78 +30,105 @@ export default function ResumePage() {
           </div>
         </div>
 
-        <div className="resume-content space-y-8">
+        <div className="resume-content space-y-8" style={{ backgroundColor: 'white', color: 'black', padding: '20px' }}>
           {/* 基本信息 */}
           <section>
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-2xl font-bold" style={{ color: 'black' }}>
               基本信息
             </h2>
-            <div className="space-y-2 text-gray-700 dark:text-white">
-              <p>
-                <strong className="dark:text-white">姓名：</strong>您的姓名
+            <div className="space-y-2" style={{ color: 'black' }}>
+              <p style={{ color: 'black' }}>
+                <strong style={{ color: 'black' }}>姓名：</strong>陈子龙
               </p>
-              <p>
-                <strong className="dark:text-white">位置：</strong>所在城市
+              <p style={{ color: 'black' }}>
+                <strong style={{ color: 'black' }}>手机：</strong>15874442813
               </p>
-              <p>
-                <strong className="dark:text-white">邮箱：</strong>
+              <p style={{ color: 'black' }}>
+                <strong style={{ color: 'black' }}>邮箱：</strong>
                 <a
-                  href="mailto:your.email@example.com"
-                  className="text-blue-600 hover:underline dark:text-white dark:border-white"
+                  href="mailto:chenzhuo995@gmail.com"
+                  style={{ color: 'black', textDecoration: 'underline' }}
                 >
-                  your.email@example.com
+                  chenzhuo995@gmail.com
                 </a>
               </p>
-              <p>
-                <strong className="dark:text-white">GitHub：</strong>
-                <a
-                  href="https://github.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline dark:text-white dark:border-white"
-                >
-                  github.com/yourusername
-                </a>
+              <p style={{ color: 'black' }}>
+                <strong style={{ color: 'black' }}>所在地：</strong>广州
               </p>
             </div>
           </section>
 
-          {/* 技能 */}
+          {/* 教育经历 */}
           <section>
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-              技能
+            <h2 className="mb-4 text-2xl font-bold" style={{ color: 'black' }}>
+              教育经历
+            </h2>
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <h3 className="text-xl font-semibold" style={{ color: 'black' }}>
+                  吉首大学 ｜ 软件工程 ｜ 本科
+                </h3>
+                <span className="text-sm" style={{ color: 'black' }}>
+                  2017.09 – 2021.06
+                </span>
+              </div>
+            </div>
+          </section>
+
+          {/* 个人概述 */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold" style={{ color: 'black' }}>
+              个人概述
+            </h2>
+            <p className="text-gray-700" style={{ color: 'black', lineHeight: '1.8' }}>
+              近 5 年前端经验，专注企业级后台与备份/存储场景。擅长复杂流程建模、组件化沉淀，界面性能优化与业务结合，推动效率与业务指标双提升。
+            </p>
+          </section>
+
+          {/* 核心技能 */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold" style={{ color: 'black' }}>
+              核心技能
             </h2>
             <div className="space-y-4">
               <div>
-                <h3 className="mb-2 font-semibold text-gray-900 dark:text-white">
-                  编程语言
+                <h3 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                  Web 基础
                 </h3>
-                <p className="text-gray-700 dark:text-white">
-                  JavaScript, TypeScript, Python, Java
+                <p style={{ color: 'black' }}>
+                  HTML5 / CSS3 / JavaScript / TypeScript
                 </p>
               </div>
               <div>
-                <h3 className="mb-2 font-semibold text-gray-900 dark:text-white">
-                  前端技术
+                <h3 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                  框架组件
                 </h3>
-                <p className="text-gray-700 dark:text-white">
-                  React, Next.js, Vue.js, HTML, CSS, Tailwind CSS
+                <p style={{ color: 'black' }}>
+                  Vue / React / Next.js / Ant Design / ECharts
                 </p>
               </div>
               <div>
-                <h3 className="mb-2 font-semibold text-gray-900 dark:text-white">
-                  后端技术
+                <h3 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                  数据库
                 </h3>
-                <p className="text-gray-700 dark:text-white">
-                  Node.js, Express, PostgreSQL, MongoDB
+                <p style={{ color: 'black' }}>
+                  MySQL / PostgreSQL
                 </p>
               </div>
               <div>
-                <h3 className="mb-2 font-semibold text-gray-900 dark:text-white">
-                  工具
+                <h3 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                  工程化
                 </h3>
-                <p className="text-gray-700 dark:text-white">
-                  Git, Docker, AWS, Vercel
+                <p style={{ color: 'black' }}>
+                  Vite / Webpack / NPM / Monorepo / 代码规范与单元测试
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                  协作与质量
+                </h3>
+                <p style={{ color: 'black' }}>
+                  RESTful API、异常与埋点规范、性能分析、自动化部署(CI/CD)
                 </p>
               </div>
             </div>
@@ -109,102 +136,85 @@ export default function ResumePage() {
 
           {/* 工作经历 */}
           <section>
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-2xl font-bold" style={{ color: 'black' }}>
               工作经历
             </h2>
             <div className="space-y-6">
               <div>
                 <div className="mb-2 flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    高级前端工程师
+                  <h3 className="text-xl font-semibold" style={{ color: 'black' }}>
+                    广州某计算机科技有限公司 ｜ 前端开发工程师
                   </h3>
-                  <span className="text-sm text-gray-600 dark:text-white">
-                    2022.01 - 至今
+                  <span className="text-sm" style={{ color: 'black' }}>
+                    2021.07 – 至今
                   </span>
                 </div>
-                <p className="mb-2 text-gray-600 dark:text-white">
-                  公司名称
-                </p>
-                <ul className="ml-6 list-disc space-y-1 text-gray-700 dark:text-white">
-                  <li className="dark:text-white">负责前端架构设计和开发</li>
-                  <li className="dark:text-white">优化网站性能，提升用户体验</li>
-                  <li className="dark:text-white">带领团队完成多个重要项目</li>
-                </ul>
-              </div>
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    前端工程师
-                  </h3>
-                  <span className="text-sm text-gray-600 dark:text-white">
-                    2020.06 - 2021.12
-                  </span>
+
+                {/* 项目1 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                    项目：主力软件——存储池 & 通用备份/恢复流程 & 许可证模块
+                  </h4>
+                  <p className="mb-2 text-sm" style={{ color: 'black', opacity: 0.8 }}>
+                    技术栈：Vue3
+                  </p>
+                  <ul className="ml-6 list-disc space-y-1" style={{ color: 'black' }}>
+                    <li>负责存储池配置、容量/配额/策略等核心页面与交互；抽象通用备份/恢复流程态机与表单/向导组件，适配文件/数据库/虚机等多资源类型。</li>
+                    <li>结果：复用减少重复实现【Web组人均任务工时下降1到2小时】；首屏渲染优化【TTI ↓30%】；上线版本缺陷密度极大程度的减少。</li>
+                  </ul>
                 </div>
-                <p className="mb-2 text-gray-600 dark:text-white">
-                  公司名称
-                </p>
-                <ul className="ml-6 list-disc space-y-1 text-gray-700 dark:text-white">
-                  <li className="dark:text-white">开发响应式 Web 应用</li>
-                  <li className="dark:text-white">与设计师和后端工程师协作</li>
-                  <li className="dark:text-white">维护和优化现有代码</li>
-                </ul>
-              </div>
-            </div>
-          </section>
 
-          {/* 项目 */}
-          <section>
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-              项目经验
-            </h2>
-            <div className="space-y-6">
-              <div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                  项目名称
-                </h3>
-                <p className="mb-2 text-gray-700 dark:text-white">
-                  项目描述：这是一个使用 Next.js 和 TypeScript
-                  构建的现代化 Web 应用，具有优秀的性能和用户体验。
-                </p>
-                <p className="text-sm text-gray-600 dark:text-white">
-                  技术栈：Next.js, TypeScript, Tailwind CSS, Vercel
-                </p>
-              </div>
-              <div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                  项目名称
-                </h3>
-                <p className="mb-2 text-gray-700 dark:text-white">
-                  项目描述：一个全栈应用，包含用户认证、数据管理和实时通信功能。
-                </p>
-                <p className="text-sm text-gray-600 dark:text-white">
-                  技术栈：React, Node.js, PostgreSQL, Socket.io
-                </p>
-              </div>
-            </div>
-          </section>
+                {/* 项目2 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                    项目：许可证模块（模块负责人）
+                  </h4>
+                  <ul className="ml-6 list-disc space-y-1" style={{ color: 'black' }}>
+                    <li>主导信息架构、交互与实现，覆盖许可证生成、导入校验、续期/升级、套餐/功能映射、设备绑定与异常处理；打通内管/商务/供应链流程，支持按套餐售卖。</li>
+                    <li>结果：签发耗时【3-5 分钟 → 10 秒】；错误/退单率【&lt; 20%】；覆盖【2 条产品线 / 100+ 种套餐】</li>
+                  </ul>
+                </div>
 
-          {/* 教育背景 */}
-          <section>
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-              教育背景
-            </h2>
-            <div>
-              <div className="mb-2 flex items-center justify-between">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  计算机科学 学士
-                </h3>
-                <span className="text-sm text-gray-600 dark:text-white">
-                  2016.09 - 2020.06
-                </span>
+                {/* 项目3 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                    项目：公司内部管理系统（核心办公系统）
+                  </h4>
+                  <ul className="ml-6 list-disc space-y-1" style={{ color: 'black' }}>
+                    <li>负责许可证、合同/维保、出货/归档等模块前端架构与开发；对接商务与供应链系统（单点登录/统一权限/流程状态与日志），实施"按套餐售卖"的功能分层与配置化。</li>
+                  </ul>
+                </div>
+
+                {/* 项目4 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                    项目：许可证模块（项目负责人/前端开发，后台设计）
+                  </h4>
+                  <ul className="ml-6 list-disc space-y-1" style={{ color: 'black' }}>
+                    <li>主导信息架构、交互与实现，覆盖许可证生成、导入校验、续期/升级、套餐/功能映射、TOTP设备绑定与异常处理，合同/出货系统；打通内管/商务/供应链流程，支持按套餐售卖。</li>
+                    <li>结果：签发耗时从钉钉审批化为系统化，从天级的审批流程与人工记录转为小时级别的系统记录；减少了供应链档案人员的50%-60%的工作量，错误/退单率减少百分之五十以上，作为前线支持的系统；覆盖【3 条产品线 / 50+ 种许可套餐】；上线后支撑【2000+ 笔合同 / 500+ 客户】</li>
+                    <li>结果：合同→出货平均周期【↓50%】；跨部门沟通工单【↓30%】；套餐化上线后销售额【↑30%】</li>
+                  </ul>
+                </div>
+
+                {/* 项目5 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 font-semibold" style={{ color: 'black' }}>
+                    项目：个人网站项目
+                  </h4>
+                  <p className="mb-2 text-sm" style={{ color: 'black', opacity: 0.8 }}>
+                    技术栈：Next.js 15、React 19、TypeScript、Ant Design、PostgreSQL、Prisma
+                  </p>
+                  <ul className="ml-6 list-disc space-y-1" style={{ color: 'black' }}>
+                    <li>功能：博客系统（文章发布、分类、标签）、评论系统（游客评论、审核机制）、用户认证（注册/登录）、文章管理（CRUD）、简历展示、PDF导出</li>
+                    <li>特点：响应式设计、暗黑模式支持、SEO优化、RSS订阅、最新/最热文章展示</li>
+                  </ul>
+                </div>
               </div>
-              <p className="text-gray-700 dark:text-white">大学名称</p>
             </div>
           </section>
         </div>
       </div>
-
     </div>
   );
 }
-

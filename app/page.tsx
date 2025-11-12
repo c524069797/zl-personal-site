@@ -1,36 +1,86 @@
+'use client'
+
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import Navigation from "@/components/Navigation";
+import PostTabs from "@/components/PostTabs";
+import { Layout, Typography, Space, Button } from 'antd';
+import { BookOutlined, FileTextOutlined } from '@ant-design/icons';
+
+const { Content, Footer } = Layout;
+const { Title, Paragraph } = Typography;
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-16">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
+    <>
+      <Navigation />
+      <Layout className="min-h-screen">
 
-      <main className="w-full max-w-2xl text-center">
-        <h1 className="mb-4 text-5xl font-bold text-gray-900 dark:text-white">
-          您的姓名
-        </h1>
-        <p className="mb-12 text-xl text-gray-600 dark:text-white">
-          写作与项目分享
-        </p>
-
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/blog"
-            className="rounded-lg border-2 border-gray-900 bg-gray-900 px-8 py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800 dark:border-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
-          >
-            博客
-          </Link>
-          <Link
-            href="/resume"
-            className="rounded-lg border-2 border-gray-900 px-8 py-4 text-lg font-medium text-gray-900 transition-colors hover:bg-gray-100 dark:border-white dark:text-white dark:hover:bg-gray-800"
-          >
-            简历
-          </Link>
+      <Content style={{
+        padding: '80px 24px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        width: '100%',
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <Title level={1} style={{
+            fontSize: '48px',
+            marginBottom: '16px',
+            color: 'var(--foreground)',
+          }}>
+            陈灼的网站
+          </Title>
+          <Paragraph style={{
+            fontSize: '18px',
+            color: 'var(--foreground)',
+            opacity: 0.8,
+            marginBottom: '40px',
+          }}>
+            记录与分享
+          </Paragraph>
         </div>
-      </main>
-    </div>
+
+        <Space size="large" style={{ width: '100%', justifyContent: 'center', marginBottom: '40px' }}>
+          <Link href="/blog">
+            <Button
+              type="primary"
+              size="large"
+              icon={<BookOutlined />}
+              style={{
+                height: '50px',
+                padding: '0 32px',
+                fontSize: '16px',
+              }}
+            >
+              博客
+            </Button>
+          </Link>
+          <Link href="/resume">
+            <Button
+              size="large"
+              icon={<FileTextOutlined />}
+              style={{
+                height: '50px',
+                padding: '0 32px',
+                fontSize: '16px',
+              }}
+            >
+              简历
+            </Button>
+          </Link>
+        </Space>
+
+        <PostTabs />
+      </Content>
+
+      <Footer style={{
+        textAlign: 'center',
+        background: 'var(--background)',
+        borderTop: '1px solid var(--border)',
+        color: 'var(--foreground)',
+      }}>
+        个人网站 ©2024
+      </Footer>
+      </Layout>
+    </>
   );
 }

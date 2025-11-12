@@ -10,17 +10,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --border: #e5e7eb;
 }
 
 .dark {
   --background: #111827;
   --foreground: #f9fafb;
+  --border: #374151;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     --background: #111827;
     --foreground: #f9fafb;
+    --border: #374151;
   }
 }
 
@@ -28,6 +31,64 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Ant Design 暗黑模式支持 */
+.dark .ant-layout-header {
+  background: var(--background) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.dark .ant-menu {
+  background: transparent !important;
+  color: var(--foreground) !important;
+}
+
+.dark .ant-card {
+  background: var(--background) !important;
+  border-color: var(--border) !important;
+}
+
+.dark .ant-card-body {
+  color: var(--foreground) !important;
+}
+
+.dark .ant-comment-content-author-name {
+  color: var(--foreground) !important;
+}
+
+.dark .ant-comment-content-detail {
+  color: var(--foreground) !important;
+}
+
+/* Ant Design Tag 样式 */
+.ant-tag {
+  background: #ffffff !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .ant-tag {
+  background: #1f2937 !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+/* Ant Design Tabs 样式 */
+.ant-tabs-tab {
+  color: var(--foreground) !important;
+}
+
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--foreground) !important;
+}
+
+.ant-tabs-ink-bar {
+  background: var(--foreground) !important;
+}
+
+.dark .ant-tabs-content-holder {
+  color: var(--foreground) !important;
 }
 
 .dark .hljs {
@@ -62,18 +123,77 @@ body {
 }
 
 @media print {
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
   body {
     background: white !important;
     color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
+
   .print\:hidden {
     display: none !important;
   }
+
   .resume-content {
     max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
+
+  .resume-content section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .resume-content h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .resume-content h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .resume-content ul,
+  .resume-content ol {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .resume-content li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   a {
     color: black !important;
     text-decoration: underline !important;
+  }
+
+  /* 确保所有文本在打印时可见 */
+  h1, h2, h3, h4, h5, h6,
+  p, li, span, div, strong {
+    color: black !important;
+  }
+
+  /* 移除暗黑模式样式 */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+  .dark p, .dark li, .dark span, .dark div, .dark strong {
+    color: black !important;
   }
 }

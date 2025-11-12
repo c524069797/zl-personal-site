@@ -4,6 +4,7 @@ import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
 import { formatDate, formatDateISO } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CopyLinkButton } from "@/components/CopyLinkButton";
+import CommentSection from "@/components/CommentSection";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -77,7 +78,7 @@ const markdownComponents = {
 };
 
 export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
+  const slugs = await getAllPostSlugs();
   return slugs.map((slug) => ({
     slug,
   }));
@@ -85,7 +86,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -108,7 +109,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -140,7 +141,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                      className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 dark:bg-gray-800 dark:text-white"
+                  className="rounded-full bg-white border border-gray-300 px-3 py-1 text-sm text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                 >
                   {tag}
                 </span>
@@ -162,6 +163,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="mt-12 border-t border-gray-200 pt-8 dark:border-white">
           <CopyLinkButton />
         </div>
+
+        <CommentSection postSlug={slug} />
       </article>
     </div>
   );

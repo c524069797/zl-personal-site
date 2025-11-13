@@ -23,6 +23,7 @@
     "antd": "^5.28.1",
     "bcrypt": "^6.0.0",
     "date-fns": "^4.1.0",
+    "dayjs": "^1.11.19",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "html2canvas": "^1.4.1",

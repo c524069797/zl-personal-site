@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { hashPassword, generateToken } from '@/lib/auth'
+import { generateToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,14 +37,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 加密密码（简单加密）
-    const hashedPassword = hashPassword(password)
-
+    // 直接存储明文密码（不加密）
     // 创建用户
     const user = await prisma.user.create({
       data: {
         email,
-        password: hashedPassword,
+        password: password,
         name: name || null,
         role: 'author', // 默认角色为作者
       },

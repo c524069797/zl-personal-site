@@ -20,6 +20,7 @@ export default function Home() {
         maxWidth: '1200px',
         margin: '0 auto',
         width: '100%',
+        background: 'var(--background)',
       }}>
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <Title level={1} style={{

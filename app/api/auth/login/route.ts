@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 验证密码
+    // 验证密码（直接比较明文）
     const isValid = verifyPassword(password, user.password)
 
     if (!isValid) {

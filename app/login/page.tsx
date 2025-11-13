@@ -34,12 +34,22 @@ export default function LoginPage() {
         return
       }
 
+      // 检查是否是管理员
+      if (data.user.role !== 'admin') {
+        setError('需要管理员权限')
+        setLoading(false)
+        return
+      }
+
       // 保存 token 到 localStorage
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
-      // 跳转到个人中心
-      router.push('/profile')
+      // 触发自定义事件，通知导航栏更新
+      window.dispatchEvent(new Event('auth-change'))
+
+      // 跳转到管理员界面
+      router.push('/admin')
     } catch (err) {
       setError('登录失败，请稍后重试')
       setLoading(false)
@@ -55,7 +65,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-gray-700">
           <h1 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-            登录
+            管理员登录
           </h1>
 
           {error && (
@@ -109,18 +119,6 @@ export default function LoginPage() {
               {loading ? '登录中...' : '登录'}
             </button>
           </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              还没有账号？{' '}
-              <Link
-                href="/register"
-                className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
-              >
-                立即注册
-              </Link>
-            </p>
-          </div>
 
           <div className="mt-4 text-center">
             <Link

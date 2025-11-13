@@ -27,16 +27,36 @@
   }
 }
 
+html {
+  background: var(--background) !important;
+}
+
 body {
-  background: var(--background);
+  background: var(--background) !important;
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.dark body {
+  background: var(--background) !important;
+}
+
+.dark html {
+  background: var(--background) !important;
 }
 
 /* Ant Design 暗黑模式支持 */
 .dark .ant-layout-header {
   background: var(--background) !important;
   border-bottom-color: var(--border) !important;
+}
+
+.dark .ant-layout-content {
+  background: var(--background) !important;
+}
+
+.dark .ant-layout {
+  background: var(--background) !important;
 }
 
 .dark .ant-menu {
@@ -49,7 +69,17 @@ body {
   border-color: var(--border) !important;
 }
 
+.dark .ant-card-head {
+  background: var(--background) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.dark .ant-card-head-title {
+  color: var(--foreground) !important;
+}
+
 .dark .ant-card-body {
+  background: var(--background) !important;
   color: var(--foreground) !important;
 }
 
@@ -75,7 +105,27 @@ body {
 }
 
 /* Ant Design Tabs 样式 */
+.ant-tabs {
+  background: #ffffff !important;
+}
+
+.dark .ant-tabs {
+  background: var(--background) !important;
+}
+
+.ant-tabs-nav {
+  background: #ffffff !important;
+}
+
+.dark .ant-tabs-nav {
+  background: var(--background) !important;
+}
+
 .ant-tabs-tab {
+  color: var(--foreground) !important;
+}
+
+.dark .ant-tabs-tab {
   color: var(--foreground) !important;
 }
 
@@ -83,12 +133,165 @@ body {
   color: var(--foreground) !important;
 }
 
+.dark .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--foreground) !important;
+}
+
 .ant-tabs-ink-bar {
   background: var(--foreground) !important;
 }
 
+.dark .ant-tabs-ink-bar {
+  background: var(--foreground) !important;
+}
+
+.ant-tabs-content-holder {
+  background: #ffffff !important;
+}
+
 .dark .ant-tabs-content-holder {
+  background: var(--background) !important;
   color: var(--foreground) !important;
+}
+
+.ant-tabs-tabpane {
+  background: #ffffff !important;
+}
+
+.dark .ant-tabs-tabpane {
+  background: var(--background) !important;
+}
+
+/* Ant Design List 样式 */
+.ant-list {
+  background: #ffffff !important;
+}
+
+.dark .ant-list {
+  background: var(--background) !important;
+}
+
+.ant-list-item {
+  background: #ffffff !important;
+  color: var(--foreground) !important;
+}
+
+.dark .ant-list-item {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.ant-empty {
+  color: var(--foreground) !important;
+}
+
+.dark .ant-empty {
+  color: var(--foreground) !important;
+}
+
+/* Ant Design Button 样式 */
+.dark .ant-btn {
+  color: var(--foreground) !important;
+}
+
+.dark .ant-btn-default {
+  background: var(--background) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .ant-btn-primary {
+  background: #1890ff !important;
+  border-color: #1890ff !important;
+}
+
+/* Ant Design Input 样式 */
+.dark .ant-input {
+  background: var(--background) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .ant-input-search {
+  background: var(--background) !important;
+}
+
+.dark .ant-input-search .ant-input {
+  background: var(--background) !important;
+}
+
+/* Ant Design Modal 样式 */
+.dark .ant-modal-content {
+  background: var(--background) !important;
+}
+
+.dark .ant-modal-header {
+  background: var(--background) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.dark .ant-modal-title {
+  color: var(--foreground) !important;
+}
+
+.dark .ant-modal-body {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .ant-modal-footer {
+  background: var(--background) !important;
+  border-top-color: var(--border) !important;
+}
+
+/* Ant Design Table 样式 */
+.ant-table-thead > tr > th {
+  background: #ffffff !important;
+  color: #171717 !important;
+  border-bottom-color: #e5e7eb !important;
+}
+
+.dark .ant-table-thead > tr > th {
+  background: #111827 !important;
+  color: #f9fafb !important;
+  border-bottom-color: #374151 !important;
+}
+
+/* 确保表格容器背景正确 */
+.ant-table {
+  background: var(--background) !important;
+}
+
+.dark .ant-table {
+  background: var(--background) !important;
+}
+
+.ant-table-container {
+  background: var(--background) !important;
+}
+
+.dark .ant-table-container {
+  background: var(--background) !important;
+}
+
+.ant-table-tbody > tr > td {
+  background: #ffffff !important;
+  color: #171717 !important;
+  border-bottom-color: #e5e7eb !important;
+}
+
+.dark .ant-table-tbody > tr > td {
+  background: #111827 !important;
+  color: #f9fafb !important;
+  border-bottom-color: #374151 !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fafafa !important;
+}
+
+.dark .ant-table-tbody > tr:hover > td {
+  background: rgba(255, 255, 255, 0.05) !important;
 }
 
 .dark .hljs {

@@ -91,6 +91,8 @@ export default function ProfilePage() {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    // 触发自定义事件，通知导航栏更新
+    window.dispatchEvent(new Event('auth-change'))
     router.push('/')
   }
 

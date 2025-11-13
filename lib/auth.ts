@@ -1,9 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { prisma } from './prisma'
-import crypto from 'crypto'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production'
-const PASSWORD_SECRET = process.env.PASSWORD_SECRET || 'password-secret-key'
 
 export interface JWTPayload {
   userId: string
@@ -11,21 +9,18 @@ export interface JWTPayload {
   role: string
 }
 
-// 简单密码加密（使用 HMAC-SHA256）
+// 密码直接返回（不加密）
 export function hashPassword(password: string): string {
-  return crypto
-    .createHmac('sha256', PASSWORD_SECRET)
-    .update(password)
-    .digest('hex')
+  return password
 }
 
-// 验证密码
+// 验证密码（直接比较明文）
 export function verifyPassword(
   password: string,
-  hashedPassword: string
+  storedPassword: string
 ): boolean {
-  const hashed = hashPassword(password)
-  return hashed === hashedPassword
+  // 直接比较明文密码
+  return password === storedPassword
 }
 
 // 生成 JWT Token

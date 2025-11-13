@@ -4,9 +4,10 @@ import { prisma } from '@/lib/prisma'
 export async function GET() {
   try {
     // 检查环境变量
-    const hasDatabaseUrl = !!process.env.DATABASE_URL
-    const databaseUrlPreview = hasDatabaseUrl
-      ? process.env.DATABASE_URL.substring(0, 20) + '...'
+    const databaseUrl = process.env.DATABASE_URL
+    const hasDatabaseUrl = !!databaseUrl
+    const databaseUrlPreview = databaseUrl
+      ? databaseUrl.substring(0, 20) + '...'
       : '未设置'
 
     // 尝试连接数据库
@@ -31,13 +32,14 @@ export async function GET() {
       timestamp: new Date().toISOString()
     })
   } catch (error: any) {
+    const databaseUrl = process.env.DATABASE_URL
     return NextResponse.json({
       success: false,
       error: error.message,
       errorCode: error.code,
-      hasDatabaseUrl: !!process.env.DATABASE_URL,
-      databaseUrlPreview: process.env.DATABASE_URL
-        ? process.env.DATABASE_URL.substring(0, 20) + '...'
+      hasDatabaseUrl: !!databaseUrl,
+      databaseUrlPreview: databaseUrl
+        ? databaseUrl.substring(0, 20) + '...'
         : '未设置',
       timestamp: new Date().toISOString()
     }, { status: 500 })

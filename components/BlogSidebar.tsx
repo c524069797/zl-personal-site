@@ -20,6 +20,7 @@ interface Post {
   title: string
   date: string
   commentCount: number
+  summary?: string
 }
 
 interface Tag {
@@ -205,7 +206,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                 >
                   <PostCoverImage
                     title={post.title}
-                    summary={post.summary}
+                    summary={post.summary || ''}
                     height={60}
                     gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
                   />

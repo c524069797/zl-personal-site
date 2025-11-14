@@ -1,19 +1,20 @@
-import { getAllPosts } from "@/lib/posts";
+'use client'
+
 import Navigation from "@/components/Navigation";
-import BlogList from "@/components/BlogList";
+import BlogListNew from "@/components/BlogListNew";
+import { Layout } from 'antd';
 
-export const metadata = {
-  title: "博客",
-  description: "我的博客文章列表",
-};
+const { Content } = Layout;
 
-export default async function BlogPage() {
-  const posts = await getAllPosts();
-
+export default function BlogPage() {
   return (
     <>
       <Navigation />
-      <BlogList posts={posts} />
+      <Layout className="min-h-screen" style={{ background: 'var(--background)' }}>
+        <Content style={{ background: 'var(--background)' }}>
+          <BlogListNew />
+        </Content>
+      </Layout>
     </>
   );
 }

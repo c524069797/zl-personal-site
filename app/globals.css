@@ -11,12 +11,28 @@
   --background: #ffffff;
   --foreground: #171717;
   --border: #e5e7eb;
+  --primary-color: #1890ff;
+  --text-color: #333;
+  --text-secondary: #666;
+  --background-light: #f9f9f9;
+  --success-color: #52c41a;
+  --danger-color: #ff4d4f;
+  --border-radius: 4px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .dark {
   --background: #111827;
   --foreground: #f9fafb;
   --border: #374151;
+  --primary-color: #1890ff;
+  --text-color: #f9fafb;
+  --text-secondary: #9ca3af;
+  --background-light: #1f2937;
+  --success-color: #52c41a;
+  --danger-color: #ff4d4f;
+  --border-radius: 4px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -323,6 +339,24 @@ body {
 .dark a {
   color: #ffffff;
   border-color: #ffffff;
+}
+
+/* 博客详情页响应式样式 */
+@media (min-width: 992px) {
+  .blog-detail-container {
+    flex-direction: row !important;
+  }
+
+  .blog-sidebar {
+    width: 300px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-detail-container {
+    padding: 16px !important;
+    gap: 24px !important;
+  }
 }
 
 @media print {

@@ -1,69 +1,130 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
+import { getAllPostSlugs, getPostWithAuthorBySlug } from "@/lib/posts";
 import { formatDate, formatDateISO } from "@/lib/utils";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { CopyLinkButton } from "@/components/CopyLinkButton";
+import Navigation from "@/components/Navigation";
+import BlogSidebar from "@/components/BlogSidebar";
+import Footer from "@/components/Footer";
 import CommentSection from "@/components/CommentSection";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import ArticleHeader from "@/components/ArticleHeader";
+import ArticleActions from "@/components/ArticleActions";
 
 const markdownComponents = {
   h1: ({ children }: any) => (
-    <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
+    <h1 style={{
+      fontSize: '1.875rem',
+      fontWeight: 'bold',
+      margin: '2rem 0 1.5rem',
+      paddingBottom: '0.5rem',
+      borderBottom: '1px solid var(--border)',
+      color: 'var(--foreground)',
+    }}>
       {children}
     </h1>
   ),
   h2: ({ children }: any) => (
-    <h2 className="mb-3 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">
+    <h2 style={{
+      fontSize: '1.5rem',
+      fontWeight: '600',
+      margin: '2rem 0 1.5rem',
+      paddingBottom: '0.5rem',
+      borderBottom: '1px solid var(--border)',
+      color: 'var(--foreground)',
+    }}>
       {children}
     </h2>
   ),
   h3: ({ children }: any) => (
-    <h3 className="mb-2 mt-6 text-xl font-semibold text-gray-900 dark:text-white">
+    <h3 style={{
+      fontSize: '1.25rem',
+      fontWeight: '600',
+      margin: '1.5rem 0 1rem',
+      color: 'var(--foreground)',
+    }}>
       {children}
     </h3>
   ),
   p: ({ children }: any) => (
-    <p className="mb-4 leading-7 text-gray-700 dark:text-white">
+    <p style={{
+      marginBottom: '1.5rem',
+      lineHeight: '1.6',
+      color: 'var(--foreground)',
+    }}>
       {children}
     </p>
   ),
   a: ({ href, children }: any) => (
     <a
       href={href}
-      className="text-blue-600 hover:underline dark:text-white dark:border-white"
+      style={{
+        color: '#1890ff',
+        textDecoration: 'none',
+      }}
       target="_blank"
       rel="noopener noreferrer"
+      onMouseEnter={(e) => {
+        e.currentTarget.style.textDecoration = 'underline';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.textDecoration = 'none';
+      }}
     >
       {children}
     </a>
   ),
   ul: ({ children }: any) => (
-    <ul className="mb-4 ml-6 list-disc text-gray-700 dark:text-white">
+    <ul style={{
+      marginBottom: '1.5rem',
+      paddingLeft: '1.5rem',
+      color: 'var(--foreground)',
+    }}>
       {children}
     </ul>
   ),
   ol: ({ children }: any) => (
-    <ol className="mb-4 ml-6 list-decimal text-gray-700 dark:text-white">
+    <ol style={{
+      marginBottom: '1.5rem',
+      paddingLeft: '1.5rem',
+      color: 'var(--foreground)',
+    }}>
       {children}
     </ol>
   ),
   li: ({ children }: any) => (
-    <li className="mb-2 text-gray-700 dark:text-white">{children}</li>
+    <li style={{
+      marginBottom: '0.5rem',
+      color: 'var(--foreground)',
+    }}>
+      {children}
+    </li>
   ),
   code: ({ inline, className, children, ...props }: any) => {
     const match = /language-(\w+)/.exec(className || "");
     return !inline && match ? (
-      <pre className="mb-4 overflow-x-auto rounded-lg bg-gray-100 p-4 dark:bg-gray-800 dark:text-white">
-        <code className={`${className} dark:text-white`} {...props}>
+      <pre style={{
+        background: '#2d2d2d',
+        color: '#f8f8f2',
+        padding: '1rem',
+        borderRadius: '4px',
+        margin: '1.5rem 0',
+        overflow: 'auto',
+      }}>
+        <code className={className} {...props}>
           {children}
         </code>
       </pre>
     ) : (
       <code
-        className="rounded bg-gray-100 px-1.5 py-0.5 text-sm dark:bg-gray-800 dark:text-white"
+        style={{
+          background: 'var(--background-light)',
+          padding: '0.125rem 0.375rem',
+          borderRadius: '4px',
+          fontSize: '0.875rem',
+          color: 'var(--foreground)',
+        }}
         {...props}
       >
         {children}
@@ -71,9 +132,27 @@ const markdownComponents = {
     );
   },
   blockquote: ({ children }: any) => (
-    <blockquote className="my-4 border-l-4 border-gray-300 pl-4 italic text-gray-600 dark:border-white dark:text-white">
+    <blockquote style={{
+      borderLeft: '3px solid #1890ff',
+      padding: '1rem 1.5rem',
+      background: 'var(--background-light)',
+      margin: '1.5rem 0',
+      color: 'var(--text-secondary)',
+      fontStyle: 'italic',
+    }}>
       {children}
     </blockquote>
+  ),
+  img: ({ src, alt }: any) => (
+    <img
+      src={src}
+      alt={alt}
+      style={{
+        maxWidth: '100%',
+        borderRadius: '4px',
+        margin: '1rem 0',
+      }}
+    />
   ),
 };
 
@@ -86,7 +165,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostWithAuthorBySlug(slug);
 
   if (!post) {
     return {
@@ -102,71 +181,85 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.summary,
       type: "article",
       publishedTime: formatDateISO(post.date),
-      tags: post.tags,
+      tags: post.tags?.map((t) => t.name) || [],
     },
   };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostWithAuthorBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
+  // 计算阅读时间（假设每分钟200字）
+  const readingTime = Math.ceil(post.content?.length / 200 || 0);
+
   return (
-    <div className="min-h-screen">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      background: 'var(--background)',
+    }}>
+      <Navigation />
+
+      {/* 主体内容区域 */}
+      <div style={{
+        display: 'flex',
+        padding: '32px 5%',
+        flex: 1,
+        gap: '32px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        width: '100%',
+        flexDirection: 'column',
+      }}
+      className="blog-detail-container"
+      >
+        {/* 文章主体部分 */}
+        <div style={{ flex: 1 }}>
+          {/* 文章头部 */}
+          <ArticleHeader
+            title={post.title}
+            date={post.date}
+            tags={post.tags}
+            author={post.author}
+            readingTime={readingTime}
+          />
+
+
+          {/* 文章内容 */}
+          <div style={{
+            marginBottom: '48px',
+            color: 'var(--foreground)',
+          }}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeHighlight]}
+              components={markdownComponents}
+            >
+              {post.content}
+            </ReactMarkdown>
+          </div>
+
+          {/* 文章操作区 */}
+          <ArticleActions />
+
+          {/* 评论区 */}
+          <CommentSection postSlug={slug} />
+        </div>
+
+        {/* 侧边栏 */}
+        <aside style={{ width: '100%', flexShrink: 0 }} className="blog-sidebar">
+          <BlogSidebar author={post.author} excludeSlug={slug} />
+        </aside>
       </div>
 
-      <article className="mx-auto max-w-3xl px-4 py-16">
-        <Link
-          href="/blog"
-            className="mb-8 inline-block text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"
-        >
-          ← 返回博客列表
-        </Link>
-
-        <header className="mb-8">
-          <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
-            {post.title}
-          </h1>
-          <p className="mb-4 text-sm text-gray-500 dark:text-white">
-            {formatDate(post.date)}
-          </p>
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-white border border-gray-300 px-3 py-1 text-sm text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </header>
-
-        <div className="prose prose-lg max-w-none">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeHighlight]}
-            components={markdownComponents}
-          >
-            {post.content}
-          </ReactMarkdown>
-        </div>
-
-        <div className="mt-12 border-t border-gray-200 pt-8 dark:border-white">
-          <CopyLinkButton />
-        </div>
-
-        <CommentSection postSlug={slug} />
-      </article>
+      {/* 页脚 */}
+      <Footer />
     </div>
   );
 }
-

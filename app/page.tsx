@@ -1,86 +1,49 @@
 'use client'
 
-import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import PostTabs from "@/components/PostTabs";
-import { Layout, Typography, Space, Button } from 'antd';
-import { BookOutlined, FileTextOutlined } from '@ant-design/icons';
+import HomePage from "@/components/HomePage";
+import { Layout, Typography } from 'antd';
 
 const { Content, Footer } = Layout;
-const { Title, Paragraph } = Typography;
 
 export default function Home() {
   return (
     <>
       <Navigation />
       <Layout className="min-h-screen">
+        <Content style={{
+          padding: '0 24px 60px',
+          maxWidth: '1440px',
+          margin: '0 auto',
+          width: '100%',
+          background: 'var(--background)',
+        }}>
+          <HomePage />
+        </Content>
 
-      <Content style={{
-        padding: '80px 24px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        width: '100%',
-        background: 'var(--background)',
-      }}>
-        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-          <Title level={1} style={{
-            fontSize: '48px',
-            marginBottom: '16px',
+        <Footer style={{
+          textAlign: 'center',
+          background: 'var(--background)',
+          borderTop: '1px solid var(--border)',
+          color: 'var(--foreground)',
+          padding: '48px 24px',
+        }}>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#2563eb', marginBottom: '16px' }}>
+            陈灼的网络日志
+          </div>
+          <div style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+            体验设计与创新技术的完美融合
+          </div>
+          <div style={{
+            marginTop: '32px',
+            paddingTop: '32px',
+            borderTop: '1px solid var(--border)',
             color: 'var(--foreground)',
+            opacity: 0.6,
           }}>
-            陈灼的网站
-          </Title>
-          <Paragraph style={{
-            fontSize: '18px',
-            color: 'var(--foreground)',
-            opacity: 0.8,
-            marginBottom: '40px',
-          }}>
-            记录与分享
-          </Paragraph>
-        </div>
-
-        <Space size="large" style={{ width: '100%', justifyContent: 'center', marginBottom: '40px' }}>
-          <Link href="/blog">
-            <Button
-              type="primary"
-              size="large"
-              icon={<BookOutlined />}
-              style={{
-                height: '50px',
-                padding: '0 32px',
-                fontSize: '16px',
-              }}
-            >
-              博客
-            </Button>
-          </Link>
-          <Link href="/resume">
-            <Button
-              size="large"
-              icon={<FileTextOutlined />}
-              style={{
-                height: '50px',
-                padding: '0 32px',
-                fontSize: '16px',
-              }}
-            >
-              简历
-            </Button>
-          </Link>
-        </Space>
-
-        <PostTabs />
-      </Content>
-
-      <Footer style={{
-        textAlign: 'center',
-        background: 'var(--background)',
-        borderTop: '1px solid var(--border)',
-        color: 'var(--foreground)',
-      }}>
-        个人网站 ©2024
-      </Footer>
+            © 2024 陈灼 | 个人网站 | 版权所有
+          </div>
+        </Footer>
       </Layout>
     </>
   );

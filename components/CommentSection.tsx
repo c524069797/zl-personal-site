@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Form, Input, Button, List, Avatar, Card, Space, Typography, App } from 'antd'
-import { UserOutlined, SendOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Avatar, Space, Typography, App } from 'antd'
+import { UserOutlined, SendOutlined, HeartOutlined } from '@ant-design/icons'
 
 const { TextArea } = Input
-const { Text } = Typography
+const { Title, Text } = Typography
 
 interface CommentItem {
   id: string
@@ -79,105 +79,202 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
     }
   }
 
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diff = now.getTime() - date.getTime()
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+
+    if (days === 0) {
+      return '今天 ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
+    } else if (days === 1) {
+      return '昨天 ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
+    } else if (days < 7) {
+      return `${days}天前`
+    } else {
+      return date.toLocaleDateString('zh-CN')
+    }
+  }
+
   return (
     <div style={{ marginTop: '48px' }}>
-      <h3 style={{
-        fontSize: '20px',
-        fontWeight: 'bold',
-        marginBottom: '24px',
-        color: 'var(--foreground)',
-      }}>
-        评论 ({comments.length})
-      </h3>
-
-      <Form
-        form={form}
-        onFinish={handleSubmit}
-        layout="vertical"
-        style={{ marginBottom: '32px' }}
+      <Title
+        level={2}
+        style={{
+          fontSize: '24px',
+          marginBottom: '24px',
+          paddingBottom: '12px',
+          borderBottom: '1px solid var(--border)',
+        }}
       >
-        <Form.Item
-          name="author"
-          label="姓名"
-          rules={[{ required: true, message: '请输入您的姓名' }]}
-        >
-          <Input placeholder="请输入您的姓名" />
-        </Form.Item>
+        评论 ({comments.length})
+      </Title>
 
-        <Form.Item
-          name="email"
-          label="邮箱（可选）"
-          rules={[{ type: 'email', message: '请输入有效的邮箱地址' }]}
+      {/* 评论表单 */}
+      <div
+        style={{
+          background: 'var(--background-light)',
+          padding: '24px',
+          borderRadius: '8px',
+          marginBottom: '32px',
+        }}
+      >
+        <Title level={3} style={{ fontSize: '20px', marginBottom: '24px' }}>
+          发表评论
+        </Title>
+        <Form
+          form={form}
+          onFinish={handleSubmit}
+          layout="vertical"
         >
-          <Input placeholder="your@email.com" />
-        </Form.Item>
-
-        <Form.Item
-          name="website"
-          label="网站（可选）"
-        >
-          <Input placeholder="https://yourwebsite.com" />
-        </Form.Item>
-
-        <Form.Item
-          name="content"
-          label="评论内容"
-          rules={[{ required: true, message: '请输入评论内容' }]}
-        >
-          <TextArea
-            rows={4}
-            placeholder="写下您的评论..."
-            showCount
-            maxLength={1000}
-          />
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={submitting}
-            icon={<SendOutlined />}
+          <Form.Item
+            name="author"
+            rules={[{ required: true, message: '请输入您的姓名' }]}
           >
-            提交评论
-          </Button>
-        </Form.Item>
-      </Form>
+            <Input placeholder="请输入您的姓名" />
+          </Form.Item>
 
-      <List
-        loading={loading}
-        dataSource={comments}
-        itemLayout="horizontal"
-        renderItem={(item) => (
-          <List.Item>
-            <Card
+          <Form.Item
+            name="email"
+            rules={[{ type: 'email', message: '请输入有效的邮箱地址' }]}
+          >
+            <Input placeholder="邮箱（可选）" />
+          </Form.Item>
+
+          <Form.Item
+            name="website"
+          >
+            <Input placeholder="网站（可选）" />
+          </Form.Item>
+
+          <Form.Item
+            name="content"
+            rules={[{ required: true, message: '请输入评论内容' }]}
+          >
+            <TextArea
+              rows={6}
+              placeholder="写下你的想法..."
+              showCount
+              maxLength={1000}
+            />
+          </Form.Item>
+
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={submitting}
+              icon={<SendOutlined />}
               style={{
-                width: '100%',
-                border: '1px solid var(--border)',
-                background: 'var(--background)',
+                height: '40px',
+                padding: '0 24px',
               }}
-              bodyStyle={{ padding: '16px' }}
             >
-              <Space align="start" style={{ width: '100%' }}>
-                <Avatar icon={<UserOutlined />} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ marginBottom: '8px' }}>
-                    <Text strong style={{ color: 'var(--foreground)', marginRight: '12px' }}>
-                      {item.author}
-                    </Text>
-                    <Text type="secondary" style={{ fontSize: '12px' }}>
-                      {new Date(item.createdAt).toLocaleString('zh-CN')}
-                    </Text>
-                  </div>
-                  <div style={{ color: 'var(--foreground)', lineHeight: '1.6' }}>
-                    {item.content}
-                  </div>
+              提交评论
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+
+      {/* 评论列表 */}
+      <div>
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <Text type="secondary">加载中...</Text>
+          </div>
+        ) : comments.length > 0 ? (
+          comments.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                padding: '24px 0',
+                borderBottom: '1px solid var(--border)',
+              }}
+            >
+              <Avatar
+                size={48}
+                icon={<UserOutlined />}
+                style={{
+                  marginRight: '16px',
+                  flexShrink: 0,
+                }}
+              />
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '8px',
+                  }}
+                >
+                  <Text strong style={{ marginRight: '16px', fontSize: '16px' }}>
+                    {item.author}
+                  </Text>
+                  <Text type="secondary" style={{ fontSize: '14px' }}>
+                    {formatTime(item.createdAt)}
+                  </Text>
                 </div>
-              </Space>
-            </Card>
-          </List.Item>
+                <div
+                  style={{
+                    marginBottom: '12px',
+                    color: 'var(--foreground)',
+                    lineHeight: '1.6',
+                  }}
+                >
+                  {item.content}
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '24px',
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--primary-color)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)'
+                    }}
+                  >
+                    <HeartOutlined style={{ marginRight: '4px' }} />
+                    赞 (0)
+                  </a>
+                  <a
+                    href="#"
+                    style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--primary-color)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)'
+                    }}
+                  >
+                    回复
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <Text type="secondary">暂无评论，快来发表第一条评论吧！</Text>
+          </div>
         )}
-      />
+      </div>
     </div>
   )
 }

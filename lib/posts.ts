@@ -173,6 +173,53 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   return getPostBySlugFromFS(slug);
 }
 
+// 从数据库获取单篇文章（包含作者信息）
+export async function getPostWithAuthorBySlug(slug: string) {
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        slug,
+        published: true,
+      },
+      include: {
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    if (!post) {
+      return null;
+    }
+
+    return {
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      date: post.date.toISOString(),
+      summary: post.summary || '',
+      tags: post.tags.map((pt) => ({
+        name: pt.tag.name,
+        slug: pt.tag.slug,
+      })),
+      content: post.content,
+      author: post.author,
+    };
+  } catch (error) {
+    console.error('Error fetching post with author from database:', error);
+    return null;
+  }
+}
+
 // 获取所有文章的 slug
 export async function getAllPostSlugs(): Promise<string[]> {
   try {

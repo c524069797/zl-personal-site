@@ -102,10 +102,10 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
               fontSize: '32px',
             }}
           >
-            {author.name.charAt(0)}
+            {author.name?.charAt(0) || 'U'}
           </Avatar>
           <Title level={4} style={{ marginBottom: '8px' }}>
-            {author.name}
+            {author.name || '未知用户'}
           </Title>
           <Text type="secondary" style={{ marginBottom: '24px', display: 'block' }}>
             前端开发工程师 | React专家 | 技术博主

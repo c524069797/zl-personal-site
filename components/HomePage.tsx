@@ -17,6 +17,7 @@ import {
   DribbbleOutlined
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
+import PostCoverImage from '@/components/PostCoverImage'
 
 const { Title, Paragraph } = Typography
 
@@ -57,7 +58,7 @@ export default function HomePage() {
         setHotPosts(hotData.posts || [])
       }
     } catch (error) {
-      console.error('获取文章失败:', error)
+      // 错误已静默处理
     } finally {
       setLoading(false)
     }
@@ -176,7 +177,6 @@ export default function HomePage() {
                 latestPosts.map((post) => (
                   <Col xs={24} sm={12} md={8} key={post.id}>
                     <Card
-                      hoverable
                       style={{
                         borderRadius: '12px',
                         overflow: 'hidden',
@@ -185,17 +185,12 @@ export default function HomePage() {
                       }}
                       styles={{ body: { padding: 0 } }}
                       cover={
-                        <div style={{
-                          height: '180px',
-                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'white',
-                          fontSize: '48px',
-                        }}>
-                          <BookOutlined />
-                        </div>
+                        <PostCoverImage
+                          title={post.title}
+                          summary={post.summary}
+                          height={180}
+                          gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                        />
                       }
                     >
                       <div style={{ padding: '20px' }}>
@@ -291,7 +286,6 @@ export default function HomePage() {
                 hotPosts.map((post) => (
                   <Col xs={24} sm={12} md={8} key={post.id}>
                     <Card
-                      hoverable
                       style={{
                         borderRadius: '12px',
                         overflow: 'hidden',
@@ -300,17 +294,12 @@ export default function HomePage() {
                       }}
                       styles={{ body: { padding: 0 } }}
                       cover={
-                        <div style={{
-                          height: '180px',
-                          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'white',
-                          fontSize: '48px',
-                        }}>
-                          <BookOutlined />
-                        </div>
+                        <PostCoverImage
+                          title={post.title}
+                          summary={post.summary}
+                          height={180}
+                          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                        />
                       }
                     >
                       <div style={{ padding: '20px' }}>

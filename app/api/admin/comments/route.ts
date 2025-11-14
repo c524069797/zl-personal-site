@@ -48,7 +48,6 @@ export async function GET(request: NextRequest) {
       totalPages: Math.ceil(total / limit),
     })
   } catch (error) {
-    console.error('获取评论错误:', error)
     return NextResponse.json(
       { error: '获取评论失败' },
       { status: 500 }

@@ -21,25 +21,14 @@ export function ThemeToggle() {
 
   const handleToggle = () => {
     const currentTheme = theme || "system";
-    console.log("当前主题:", currentTheme, "解析主题:", resolvedTheme);
 
     if (currentTheme === "light") {
-      console.log("切换到: dark");
       setTheme("dark");
     } else if (currentTheme === "dark") {
-      console.log("切换到: system");
       setTheme("system");
     } else {
-      console.log("切换到: light");
       setTheme("light");
     }
-
-    // 延迟检查 HTML 元素
-    setTimeout(() => {
-      const htmlElement = document.documentElement;
-      console.log("HTML class:", htmlElement.className);
-      console.log("是否有 dark class:", htmlElement.classList.contains("dark"));
-    }, 100);
   };
 
   const getIcon = () => {

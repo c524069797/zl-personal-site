@@ -48,7 +48,6 @@ export default function ProfilePage() {
       const data = await response.json()
       setUser(data.user)
     } catch (error) {
-      console.error('获取用户信息失败:', error)
       router.push('/login')
     } finally {
       setLoading(false)
@@ -76,7 +75,7 @@ export default function ProfilePage() {
         setPosts(myPosts)
       }
     } catch (error) {
-      console.error('获取文章列表失败:', error)
+      // 错误已静默处理
     } finally {
       setPostsLoading(false)
     }
@@ -119,7 +118,6 @@ export default function ProfilePage() {
         alert('删除失败')
       }
     } catch (error) {
-      console.error('删除文章失败:', error)
       alert('删除失败')
     }
   }

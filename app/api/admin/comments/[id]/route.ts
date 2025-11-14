@@ -49,7 +49,6 @@ export async function PATCH(
         { status: 404 }
       )
     }
-    console.error('审批评论错误:', error)
     return NextResponse.json(
       { error: '审批评论失败' },
       { status: 500 }
@@ -84,7 +83,6 @@ export async function DELETE(
         { status: 404 }
       )
     }
-    console.error('删除评论错误:', error)
     return NextResponse.json(
       { error: '删除评论失败' },
       { status: 500 }

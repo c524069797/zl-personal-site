@@ -23,7 +23,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ user })
   } catch (error) {
-    console.error('获取用户信息错误:', error)
     return NextResponse.json(
       { error: '获取用户信息失败' },
       { status: 500 }

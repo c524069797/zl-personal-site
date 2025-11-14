@@ -53,7 +53,6 @@ export async function GET(
 
     return NextResponse.json(formattedPost)
   } catch (error) {
-    console.error('Error fetching post:', error)
     return NextResponse.json(
       { error: 'Failed to fetch post' },
       { status: 500 }

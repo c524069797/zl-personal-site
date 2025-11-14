@@ -76,7 +76,6 @@ export async function GET(request: NextRequest) {
       totalPages: Math.ceil(total / limit),
     })
   } catch (error) {
-    console.error('获取文章列表错误:', error)
     return NextResponse.json(
       { error: '获取文章列表失败' },
       { status: 500 }
@@ -185,7 +184,6 @@ export async function POST(request: NextRequest) {
       message: '文章创建成功',
     }, { status: 201 })
   } catch (error) {
-    console.error('创建文章错误:', error)
     return NextResponse.json(
       { error: '创建文章失败' },
       { status: 500 }

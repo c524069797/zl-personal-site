@@ -169,7 +169,6 @@ export function DownloadPDFButton() {
       // 下载 PDF
       pdf.save('resume.pdf');
     } catch (error) {
-      console.error('生成 PDF 失败:', error);
       alert('生成 PDF 失败，请重试');
     }
   };

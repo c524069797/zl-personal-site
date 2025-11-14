@@ -44,7 +44,6 @@ async function getAllPostsFromDB(): Promise<Post[]> {
       content: post.content,
     }));
   } catch (error) {
-    console.error('Error fetching posts from database:', error);
     // 如果数据库连接失败，回退到文件系统
     return [];
   }
@@ -131,7 +130,6 @@ async function getPostBySlugFromDB(slug: string): Promise<Post | null> {
       content: post.content,
     };
   } catch (error) {
-    console.error('Error fetching post from database:', error);
     return null;
   }
 }
@@ -215,7 +213,6 @@ export async function getPostWithAuthorBySlug(slug: string) {
       author: post.author,
     };
   } catch (error) {
-    console.error('Error fetching post with author from database:', error);
     return null;
   }
 }
@@ -246,7 +243,6 @@ export async function getAllPostSlugs(): Promise<string[]> {
       .filter((name) => name.endsWith(".md") || name.endsWith(".mdx"))
       .map((fileName) => fileName.replace(/\.(md|mdx)$/, ""));
   } catch (error) {
-    console.error('Error fetching post slugs:', error);
 
     // 回退到文件系统
     if (!fs.existsSync(postsDirectory)) {

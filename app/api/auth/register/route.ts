@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
       message: '注册成功',
     })
   } catch (error: any) {
-    console.error('注册错误:', error)
     // 返回更详细的错误信息用于调试
     return NextResponse.json(
       {

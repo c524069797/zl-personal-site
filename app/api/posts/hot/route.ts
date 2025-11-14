@@ -56,7 +56,6 @@ export async function GET(request: NextRequest) {
       posts: formattedPosts,
     })
   } catch (error) {
-    console.error('Error fetching hot posts:', error)
     return NextResponse.json(
       { error: 'Failed to fetch hot posts' },
       { status: 500 }

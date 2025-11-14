@@ -55,7 +55,6 @@ export async function POST(request: NextRequest) {
       message: '登录成功',
     })
   } catch (error) {
-    console.error('登录错误:', error)
     return NextResponse.json(
       { error: '登录失败，请稍后重试' },
       { status: 500 }

@@ -69,7 +69,6 @@ export async function fetchCurrentUser(): Promise<User | null> {
     const data = await response.json()
     return data.user
   } catch (error) {
-    console.error('获取用户信息失败:', error)
     return null
   }
 }

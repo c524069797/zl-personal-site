@@ -5,6 +5,7 @@ import { Tabs, List, Card, Tag, Space, Typography, Empty } from 'antd'
 import { CalendarOutlined, MessageOutlined, FireOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
+import PostCoverImage from '@/components/PostCoverImage'
 
 const { Title, Paragraph } = Typography
 
@@ -45,7 +46,7 @@ export default function PostTabs() {
         setHotPosts(hotData.posts || [])
       }
     } catch (error) {
-      console.error('获取文章失败:', error)
+      // 错误已静默处理
     } finally {
       setLoading(false)
     }
@@ -143,63 +144,82 @@ export default function PostTabs() {
           locale={{ emptyText: <Empty description="暂无文章" /> }}
           renderItem={(post) => (
             <List.Item style={{ padding: '16px 0', borderBottom: '1px solid var(--border)' }}>
-              <div style={{ width: '100%' }}>
-                <Link href={`/blog/${post.slug}`}>
-                  <Title
-                    level={4}
-                    style={{
-                      marginBottom: '8px',
-                      color: 'var(--foreground)',
-                      fontSize: '16px',
-                    }}
-                  >
-                    {post.title}
-                  </Title>
-                </Link>
-                <Space style={{ marginBottom: '8px' }} size="middle">
-                  <Space size="small">
-                    <CalendarOutlined style={{ color: 'var(--foreground)', opacity: 0.6 }} />
-                    <span style={{ color: 'var(--foreground)', opacity: 0.6, fontSize: '12px' }}>
-                      {formatDate(post.date)}
-                    </span>
+              <div style={{ width: '100%', display: 'flex', gap: '16px' }}>
+                <div style={{
+                  width: '120px',
+                  height: '80px',
+                  borderRadius: '6px',
+                  overflow: 'hidden',
+                  flexShrink: 0,
+                }}>
+                  <PostCoverImage
+                    title={post.title}
+                    summary={post.summary}
+                    height={80}
+                    gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <Link href={`/blog/${post.slug}`}>
+                    <Title
+                      level={4}
+                      style={{
+                        marginBottom: '8px',
+                        color: 'var(--foreground)',
+                        fontSize: '16px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {post.title}
+                    </Title>
+                  </Link>
+                  <Space style={{ marginBottom: '8px' }} size="middle">
+                    <Space size="small">
+                      <CalendarOutlined style={{ color: 'var(--foreground)', opacity: 0.6 }} />
+                      <span style={{ color: 'var(--foreground)', opacity: 0.6, fontSize: '12px' }}>
+                        {formatDate(post.date)}
+                      </span>
+                    </Space>
+                    <Space size="small">
+                      <MessageOutlined style={{ color: 'var(--foreground)', opacity: 0.6 }} />
+                      <span style={{ color: 'var(--foreground)', opacity: 0.6, fontSize: '12px' }}>
+                        {post.commentCount} 条评论
+                      </span>
+                    </Space>
                   </Space>
-                  <Space size="small">
-                    <MessageOutlined style={{ color: 'var(--foreground)', opacity: 0.6 }} />
-                    <span style={{ color: 'var(--foreground)', opacity: 0.6, fontSize: '12px' }}>
-                      {post.commentCount} 条评论
-                    </span>
-                  </Space>
-                </Space>
-                {post.summary && (
-                  <Paragraph
-                    ellipsis={{ rows: 2, expandable: false }}
-                    style={{
-                      color: 'var(--foreground)',
-                      opacity: 0.8,
-                      marginBottom: '8px',
-                      fontSize: '14px',
-                    }}
-                  >
-                    {post.summary}
-                  </Paragraph>
-                )}
-                {post.tags && post.tags.length > 0 && (
-                  <Space wrap size="small">
-                    {post.tags.map((tag) => (
-                      <Tag
-                        key={tag.slug}
-                        style={{
-                          background: 'var(--background)',
-                          border: '1px solid var(--border)',
-                          color: 'var(--foreground)',
-                          fontSize: '12px',
-                        }}
-                      >
-                        {tag.name}
-                      </Tag>
-                    ))}
-                  </Space>
-                )}
+                  {post.summary && (
+                    <Paragraph
+                      ellipsis={{ rows: 2, expandable: false }}
+                      style={{
+                        color: 'var(--foreground)',
+                        opacity: 0.8,
+                        marginBottom: '8px',
+                        fontSize: '14px',
+                      }}
+                    >
+                      {post.summary}
+                    </Paragraph>
+                  )}
+                  {post.tags && post.tags.length > 0 && (
+                    <Space wrap size="small">
+                      {post.tags.map((tag) => (
+                        <Link key={tag.slug} href={`/blog?tag=${tag.slug}`}>
+                          <Tag
+                            style={{
+                              background: 'var(--background)',
+                              border: '1px solid var(--border)',
+                              color: 'var(--foreground)',
+                              fontSize: '12px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {tag.name}
+                          </Tag>
+                        </Link>
+                      ))}
+                    </Space>
+                  )}
+                </div>
               </div>
             </List.Item>
           )}

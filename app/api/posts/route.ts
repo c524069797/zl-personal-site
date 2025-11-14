@@ -79,7 +79,6 @@ export async function GET(request: NextRequest) {
       totalPages: Math.ceil(total / limit),
     })
   } catch (error) {
-    console.error('Error fetching posts:', error)
     return NextResponse.json(
       { error: 'Failed to fetch posts' },
       { status: 500 }

@@ -12,6 +12,7 @@ import {
   FireOutlined
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
+import PostCoverImage from '@/components/PostCoverImage'
 
 const { Title, Paragraph, Text } = Typography
 const { Search } = Input
@@ -89,7 +90,7 @@ export default function BlogListNew() {
         setHotPosts(hotData.posts || [])
       }
     } catch (error) {
-      console.error('获取数据失败:', error)
+      // 错误已静默处理
     } finally {
       setLoading(false)
     }
@@ -162,7 +163,6 @@ export default function BlogListNew() {
                 {posts.map((post) => (
                   <Card
                     key={post.id}
-                    hoverable
                     style={{
                       marginBottom: '24px',
                       borderRadius: '6px',
@@ -373,37 +373,47 @@ export default function BlogListNew() {
                 style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
               >
                 {hotPosts.map((post) => (
-                  <Link key={post.id} href={`/blog/${post.slug}`}>
-                    <div style={{
+                  <div
+                    key={post.id}
+                    style={{
                       display: 'flex',
                       gap: '15px',
                       padding: '12px 0',
                       borderBottom: '1px solid var(--border)',
-                      cursor: 'pointer',
+                    }}
+                  >
+                    <div style={{
+                      width: '80px',
+                      height: '60px',
+                      borderRadius: '4px',
+                      overflow: 'hidden',
+                      flexShrink: 0,
                     }}>
-                      <div style={{
-                        width: '80px',
-                        height: '60px',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        borderRadius: '4px',
-                        flexShrink: 0,
-                      }} />
-                      <div style={{ flex: 1 }}>
+                      <PostCoverImage
+                        title={post.title}
+                        summary={post.summary}
+                        height={60}
+                        gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <Link href={`/blog/${post.slug}`}>
                         <Title level={5} style={{
                           fontSize: '14px',
                           fontWeight: 500,
                           marginBottom: '5px',
                           color: 'var(--foreground)',
+                          cursor: 'pointer',
                         }}>
                           {post.title}
                         </Title>
-                        <Space size="small" style={{ fontSize: '12px', color: 'var(--foreground)', opacity: 0.5 }}>
-                          <MessageOutlined />
-                          <span>{post.commentCount || 0}</span>
-                        </Space>
-                      </div>
+                      </Link>
+                      <Space size="small" style={{ fontSize: '12px', color: 'var(--foreground)', opacity: 0.5 }}>
+                        <MessageOutlined />
+                        <span>{post.commentCount || 0}</span>
+                      </Space>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </Card>
             </Space>

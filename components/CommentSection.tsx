@@ -40,7 +40,7 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
         setComments(data.comments || [])
       }
     } catch (error) {
-      console.error('获取评论失败:', error)
+      // 错误已静默处理
     } finally {
       setLoading(false)
     }

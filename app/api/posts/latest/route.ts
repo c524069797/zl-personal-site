@@ -50,7 +50,6 @@ export async function GET(request: NextRequest) {
       posts: formattedPosts,
     })
   } catch (error) {
-    console.error('Error fetching latest posts:', error)
     return NextResponse.json(
       { error: 'Failed to fetch latest posts' },
       { status: 500 }

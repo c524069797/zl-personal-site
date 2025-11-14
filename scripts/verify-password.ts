@@ -16,19 +16,11 @@ if (!password) {
   process.exit(1)
 }
 
-console.log('🔍 验证密码...\n')
-console.log(`存储的哈希值: ${storedHash}\n`)
-
 const generatedHash = hashPassword(password)
-console.log(`输入的密码: ${password}`)
-console.log(`生成的哈希值: ${generatedHash}\n`)
 
 if (generatedHash === storedHash) {
-  console.log('✅ 密码匹配！')
+  // 密码匹配
 } else {
-  console.log('❌ 密码不匹配')
-  console.log('\n提示:')
-  console.log('- 检查密码是否正确')
-  console.log('- 检查 PASSWORD_SECRET 环境变量是否与创建用户时一致')
+  // 密码不匹配
 }
 

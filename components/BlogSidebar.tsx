@@ -10,6 +10,7 @@ import {
   MailOutlined,
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
+import PostCoverImage from '@/components/PostCoverImage'
 
 const { Title, Text } = Typography
 
@@ -75,7 +76,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
         setTags(sortedTags)
       }
     } catch (error) {
-      console.error('获取侧边栏数据失败:', error)
+      // 错误已静默处理
     } finally {
       setLoading(false)
     }
@@ -184,14 +185,12 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
         {popularPosts.length > 0 ? (
           <div>
             {popularPosts.map((post) => (
-              <Link
+              <div
                 key={post.id}
-                href={`/blog/${post.slug}`}
                 style={{
                   display: 'flex',
                   padding: '16px 0',
                   borderBottom: '1px solid var(--border)',
-                  textDecoration: 'none',
                 }}
               >
                 <div
@@ -200,27 +199,37 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                     height: '60px',
                     borderRadius: '4px',
                     marginRight: '12px',
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    overflow: 'hidden',
                     flexShrink: 0,
                   }}
-                />
+                >
+                  <PostCoverImage
+                    title={post.title}
+                    summary={post.summary}
+                    height={60}
+                    gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                  />
+                </div>
                 <div style={{ flex: 1 }}>
-                  <Text
-                    strong
-                    style={{
-                      display: 'block',
-                      marginBottom: '4px',
-                      color: 'var(--foreground)',
-                    }}
-                    ellipsis={{ tooltip: post.title }}
-                  >
-                    {post.title}
-                  </Text>
+                  <Link href={`/blog/${post.slug}`}>
+                    <Text
+                      strong
+                      style={{
+                        display: 'block',
+                        marginBottom: '4px',
+                        color: 'var(--foreground)',
+                        cursor: 'pointer',
+                      }}
+                      ellipsis={{ tooltip: post.title }}
+                    >
+                      {post.title}
+                    </Text>
+                  </Link>
                   <Text type="secondary" style={{ fontSize: '12px' }}>
                     {formatDate(post.date)} · {post.commentCount} 条评论
                   </Text>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         ) : (

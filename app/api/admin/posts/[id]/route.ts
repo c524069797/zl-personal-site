@@ -59,7 +59,6 @@ export async function GET(
       },
     })
   } catch (error) {
-    console.error('获取文章错误:', error)
     return NextResponse.json(
       { error: '获取文章失败' },
       { status: 500 }
@@ -183,7 +182,6 @@ export async function PUT(
       message: '文章更新成功',
     })
   } catch (error) {
-    console.error('更新文章错误:', error)
     return NextResponse.json(
       { error: '更新文章失败' },
       { status: 500 }
@@ -233,7 +231,6 @@ export async function DELETE(
       message: '文章删除成功',
     })
   } catch (error) {
-    console.error('删除文章错误:', error)
     return NextResponse.json(
       { error: '删除文章失败' },
       { status: 500 }

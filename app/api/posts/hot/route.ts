@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma'
 // 获取最热文章（按评论数量排序）
 export async function GET(request: NextRequest) {
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+    
     const searchParams = request.nextUrl.searchParams
     const limit = parseInt(searchParams.get('limit') || '10')
 
@@ -55,9 +58,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       posts: formattedPosts,
     })
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error fetching hot posts:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch hot posts' },
+      { 
+        error: 'Failed to fetch hot posts',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     )
   }

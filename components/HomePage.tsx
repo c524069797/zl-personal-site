@@ -18,6 +18,7 @@ import {
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const { Title, Paragraph } = Typography
 
@@ -32,6 +33,7 @@ interface Post {
 }
 
 export default function HomePage() {
+  const { t } = useTranslation()
   const [latestPosts, setLatestPosts] = useState<Post[]>([])
   const [hotPosts, setHotPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
@@ -82,7 +84,7 @@ export default function HomePage() {
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
         }}>
-          创造数字体验，设计美好未来
+          {t('home.hero.title')}
         </Title>
         <Paragraph style={{
           fontSize: '18px',
@@ -91,7 +93,7 @@ export default function HomePage() {
           maxWidth: '700px',
           margin: '0 auto 32px',
         }}>
-          我是一名专注的前端开发者，致力于打造直观、美观和高效的界面解决方案。在这里您可以找到我的技术见解、开发经验和最新作品。
+          {t('home.hero.description')}
         </Paragraph>
         <Space size="large">
           <Link href="/blog">
@@ -106,7 +108,7 @@ export default function HomePage() {
                 borderRadius: '50px',
               }}
             >
-              浏览博客
+              {t('common.browseBlog')}
             </Button>
           </Link>
           <Link href="/resume">
@@ -122,7 +124,7 @@ export default function HomePage() {
                 color: '#2563eb',
               }}
             >
-              查看简历
+              {t('common.viewResume')}
             </Button>
           </Link>
         </Space>
@@ -147,7 +149,7 @@ export default function HomePage() {
                 position: 'relative',
                 paddingBottom: '16px',
               }}>
-                最新文章
+                {t('home.latestPosts')}
                 <div style={{
                   position: 'absolute',
                   bottom: 0,
@@ -163,7 +165,7 @@ export default function HomePage() {
                 fontWeight: 600,
                 textDecoration: 'none',
               }}>
-                查看全部 <RightOutlined />
+                {t('common.viewAll')} <RightOutlined />
               </Link>
             </div>
             <Row gutter={[24, 24]}>
@@ -198,7 +200,7 @@ export default function HomePage() {
                           <CalendarOutlined />
                           <span>{formatDate(post.date)}</span>
                           <MessageOutlined style={{ marginLeft: '12px' }} />
-                          <span>{post.commentCount} 条评论</span>
+                          <span>{post.commentCount} {t('common.comments')}</span>
                         </Space>
                         <Link href={`/blog/${post.slug}`}>
                           <Title level={4} style={{
@@ -227,7 +229,7 @@ export default function HomePage() {
                           fontWeight: 500,
                           textDecoration: 'none',
                         }}>
-                          阅读全文 <RightOutlined />
+                          {t('common.readMore')} <RightOutlined />
                         </Link>
                       </div>
                     </Card>
@@ -235,7 +237,7 @@ export default function HomePage() {
                 ))
               ) : (
                 <Col span={24}>
-                  <Empty description="暂无文章" />
+                  <Empty description={t('common.noPosts')} />
                 </Col>
               )}
             </Row>
@@ -256,7 +258,7 @@ export default function HomePage() {
                 position: 'relative',
                 paddingBottom: '16px',
               }}>
-                热门文章
+                {t('home.hotPosts')}
                 <div style={{
                   position: 'absolute',
                   bottom: 0,
@@ -272,7 +274,7 @@ export default function HomePage() {
                 fontWeight: 600,
                 textDecoration: 'none',
               }}>
-                查看全部 <RightOutlined />
+                {t('common.viewAll')} <RightOutlined />
               </Link>
             </div>
             <Row gutter={[24, 24]}>
@@ -307,7 +309,7 @@ export default function HomePage() {
                           <CalendarOutlined />
                           <span>{formatDate(post.date)}</span>
                           <MessageOutlined style={{ marginLeft: '12px' }} />
-                          <span>{post.commentCount} 条评论</span>
+                          <span>{post.commentCount} {t('common.comments')}</span>
                         </Space>
                         <Link href={`/blog/${post.slug}`}>
                           <Title level={4} style={{
@@ -336,7 +338,7 @@ export default function HomePage() {
                           fontWeight: 500,
                           textDecoration: 'none',
                         }}>
-                          阅读全文 <RightOutlined />
+                          {t('common.readMore')} <RightOutlined />
                         </Link>
                       </div>
                     </Card>
@@ -344,7 +346,7 @@ export default function HomePage() {
                 ))
               ) : (
                 <Col span={24}>
-                  <Empty description="暂无文章" />
+                  <Empty description={t('common.noPosts')} />
                 </Col>
               )}
             </Row>
@@ -367,10 +369,10 @@ export default function HomePage() {
             >
               <FileTextOutlined style={{ fontSize: '48px', marginBottom: '24px', color: 'white' }} />
               <Title level={4} style={{ color: 'white', marginBottom: '12px' }}>
-                我的专业简历
+                {t('home.resumeCard.title')}
               </Title>
               <Paragraph style={{ color: 'white', opacity: 0.9, marginBottom: '24px' }}>
-                获取完全版本简历，包括工作履历、专业技能和项目经历。
+                {t('home.resumeCard.description')}
               </Paragraph>
               <Link href="/resume">
                 <Button
@@ -386,14 +388,14 @@ export default function HomePage() {
                     fontWeight: 600,
                   }}
                 >
-                  下载简历PDF
+                  {t('common.downloadResume')}
                 </Button>
               </Link>
             </Card>
 
             {/* Blog Categories */}
             <Card
-              title={<Title level={4} style={{ margin: 0 }}>博客分类</Title>}
+              title={<Title level={4} style={{ margin: 0 }}>{t('home.categories')}</Title>}
               style={{ borderRadius: '12px' }}
             >
               <Space direction="vertical" style={{ width: '100%' }} size="middle">
@@ -458,9 +460,9 @@ export default function HomePage() {
               }}>
                 陈
               </div>
-              <Title level={4} style={{ marginBottom: '12px' }}>陈灼</Title>
+              <Title level={4} style={{ marginBottom: '12px' }}>{t('home.aboutMe.name')}</Title>
               <Paragraph style={{ color: 'var(--foreground)', opacity: 0.8, marginBottom: '24px' }}>
-                前端开发工程师 | 拥有5年行业经验，专注于创建直观美观的数字体验。
+                {t('home.aboutMe.description')}
               </Paragraph>
               <Space size="middle">
                 <Button

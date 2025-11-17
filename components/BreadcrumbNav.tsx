@@ -1,8 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { Breadcrumb } from 'antd'
 import { HomeOutlined, BookOutlined } from '@ant-design/icons'
+import { LinkTransition } from '@/lib/link-transition'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface BreadcrumbNavProps {
   items?: Array<{
@@ -12,28 +13,42 @@ interface BreadcrumbNavProps {
 }
 
 export default function BreadcrumbNav({ items = [] }: BreadcrumbNavProps) {
+  const { t } = useTranslation()
+
   const breadcrumbItems = [
     {
       title: (
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <LinkTransition href="/" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          color: 'var(--foreground)',
+        }}>
           <HomeOutlined />
-          <span>首页</span>
-        </Link>
+          <span>{t('nav.home')}</span>
+        </LinkTransition>
       ),
     },
     {
       title: (
-        <Link href="/blog" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <LinkTransition href="/blog" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          color: 'var(--foreground)',
+        }}>
           <BookOutlined />
-          <span>博客</span>
-        </Link>
+          <span>{t('nav.blog')}</span>
+        </LinkTransition>
       ),
     },
     ...items.map((item) => ({
       title: item.href ? (
-        <Link href={item.href}>{item.title}</Link>
+        <LinkTransition href={item.href} style={{ color: 'var(--foreground)' }}>
+          {item.title}
+        </LinkTransition>
       ) : (
-        <span>{item.title}</span>
+        <span style={{ color: 'var(--foreground)' }}>{item.title}</span>
       ),
     })),
   ]
@@ -42,8 +57,8 @@ export default function BreadcrumbNav({ items = [] }: BreadcrumbNavProps) {
     <Breadcrumb
       items={breadcrumbItems}
       style={{
-        marginBottom: '24px',
-        padding: '12px 0',
+        color: 'var(--foreground)',
+        margin: 0,
       }}
     />
   )

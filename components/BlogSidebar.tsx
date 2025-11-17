@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const { Title, Text } = Typography
 
@@ -42,6 +43,7 @@ interface BlogSidebarProps {
 }
 
 export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
+  const { t } = useTranslation()
   const [popularPosts, setPopularPosts] = useState<Post[]>([])
   const [tags, setTags] = useState<Tag[]>([])
   const [loading, setLoading] = useState(true)
@@ -126,19 +128,19 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
               <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '4px' }}>
                 128
               </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>文章</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{t('blog.posts')}</div>
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '4px' }}>
                 24K
               </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>粉丝</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{t('blog.followers')}</div>
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '4px' }}>
                 3.6K
               </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>收藏</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{t('blog.favorites')}</div>
             </div>
           </div>
 
@@ -179,7 +181,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
 
       {/* 推荐文章 */}
       <Card
-        title={<Title level={4} style={{ margin: 0 }}>推荐文章</Title>}
+        title={<Title level={4} style={{ margin: 0 }}>{t('blog.recommendedPosts')}</Title>}
         style={{ marginBottom: '24px', borderRadius: '8px' }}
         loading={loading}
       >
@@ -234,13 +236,13 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
             ))}
           </div>
         ) : (
-          <Empty description="暂无推荐文章" />
+                  <Empty description={t('blog.noRecommendedPosts')} />
         )}
       </Card>
 
       {/* 热门标签 */}
       <Card
-        title={<Title level={4} style={{ margin: 0 }}>热门标签</Title>}
+        title={<Title level={4} style={{ margin: 0 }}>{t('blog.hotTags')}</Title>}
         style={{ borderRadius: '8px' }}
         loading={loading}
       >
@@ -279,7 +281,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
               </Link>
             ))
           ) : (
-            <Empty description="暂无标签" />
+            <Empty description={t('blog.noTags')} />
           )}
         </div>
       </Card>

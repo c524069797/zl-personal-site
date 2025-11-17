@@ -9,6 +9,7 @@ import type { ColumnsType } from 'antd/es/table'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import { useTranslation } from '@/hooks/useTranslation'
 
 dayjs.locale('zh-cn')
 
@@ -38,6 +39,7 @@ interface Post {
 }
 
 export default function PostManagement() {
+  const { t } = useTranslation()
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(false)
   const [searchText, setSearchText] = useState('')
@@ -57,13 +59,13 @@ export default function PostManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('获取文章失败')
+        throw new Error(t('admin.messages.fetchPostsFailed'))
       }
 
       const data = await response.json()
       setPosts(data.posts || [])
     } catch (error) {
-      message.error('获取文章失败')
+      message.error(t('admin.messages.fetchPostsFailed'))
     } finally {
       setLoading(false)
     }
@@ -88,7 +90,7 @@ export default function PostManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('获取文章详情失败')
+        throw new Error(t('admin.messages.fetchPostDetailFailed'))
       }
 
       const data = await response.json()
@@ -106,7 +108,7 @@ export default function PostManagement() {
       })
       setIsModalOpen(true)
     } catch (error) {
-      message.error('获取文章详情失败')
+      message.error(t('admin.messages.fetchPostDetailFailed'))
     } finally {
       setLoading(false)
     }
@@ -120,13 +122,13 @@ export default function PostManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('删除失败')
+        throw new Error(t('admin.messages.deleteFailed'))
       }
 
-      message.success('文章已删除')
+      message.success(t('admin.messages.postDeleted'))
       fetchPosts()
     } catch (error) {
-      message.error('删除失败')
+      message.error(t('admin.messages.deleteFailed'))
     }
   }
 
@@ -159,10 +161,10 @@ export default function PostManagement() {
       })
 
       if (!response.ok) {
-        throw new Error(editingPost ? '更新失败' : '创建失败')
+        throw new Error(editingPost ? t('admin.messages.updateFailed') : t('admin.messages.createFailed'))
       }
 
-      message.success(editingPost ? '文章已更新' : '文章已创建')
+      message.success(editingPost ? t('admin.messages.postUpdated') : t('admin.messages.postCreated'))
       setIsModalOpen(false)
       setEditingPost(null)
       form.resetFields()
@@ -171,25 +173,25 @@ export default function PostManagement() {
       if (error.errorFields) {
         return
       }
-      message.error(error.message || '操作失败')
+      message.error(error.message || t('admin.messages.operationFailed'))
     }
   }
 
   const columns: ColumnsType<Post> = [
     {
-      title: '标题',
+      title: t('admin.columns.title'),
       dataIndex: 'title',
       key: 'title',
       ellipsis: true,
     },
     {
-      title: '作者',
+      title: t('admin.columns.author'),
       key: 'author',
       width: 150,
       render: (_, record) => record.author.name || record.author.email,
     },
     {
-      title: '标签',
+      title: t('admin.columns.tags'),
       key: 'tags',
       width: 200,
       render: (_, record) => (
@@ -201,32 +203,32 @@ export default function PostManagement() {
       ),
     },
     {
-      title: '状态',
+      title: t('admin.columns.status'),
       dataIndex: 'published',
       key: 'published',
       width: 100,
       render: (published: boolean) => (
         <Tag color={published ? 'green' : 'default'}>
-          {published ? '已发布' : '草稿'}
+          {published ? t('admin.status.published') : t('admin.status.draft')}
         </Tag>
       ),
     },
     {
-      title: '日期',
+      title: t('admin.columns.date'),
       dataIndex: 'date',
       key: 'date',
       width: 180,
       render: (date: string) => new Date(date).toLocaleDateString('zh-CN'),
     },
     {
-      title: '操作',
+      title: t('admin.columns.action'),
       key: 'action',
       width: 200,
       render: (_, record) => (
         <Space size="small" wrap>
           <Link href={`/blog/${record.slug}`} target="_blank">
             <Button size="small" icon={<EyeOutlined />} type="link">
-              查看
+              {t('admin.actions.view')}
             </Button>
           </Link>
           <Button
@@ -235,13 +237,13 @@ export default function PostManagement() {
             type="link"
             onClick={() => handleEdit(record)}
           >
-            编辑
+            {t('admin.actions.edit')}
           </Button>
           <Popconfirm
-            title="确定要删除这篇文章吗？"
+            title={t('admin.confirm.deletePost')}
             onConfirm={() => handleDelete(record.id)}
-            okText="确定"
-            cancelText="取消"
+            okText={t('admin.actions.confirm')}
+            cancelText={t('admin.actions.cancel')}
           >
             <Button
               danger
@@ -249,7 +251,7 @@ export default function PostManagement() {
               icon={<DeleteOutlined />}
               type="link"
             >
-              删除
+              {t('admin.actions.delete')}
             </Button>
           </Popconfirm>
         </Space>
@@ -260,11 +262,11 @@ export default function PostManagement() {
   return (
     <>
       <Card
-        title="文章管理"
+        title={t('admin.postManagement')}
         extra={
           <Space>
             <Search
-              placeholder="搜索文章"
+              placeholder={t('admin.searchPosts')}
               allowClear
               style={{ width: 200 }}
               onSearch={setSearchText}
@@ -275,13 +277,13 @@ export default function PostManagement() {
               icon={<PlusOutlined />}
               onClick={handleCreate}
             >
-              新建文章
+              {t('admin.newPost')}
             </Button>
             <Button
               icon={<ReloadOutlined />}
               onClick={fetchPosts}
             >
-              刷新
+              {t('admin.refresh')}
             </Button>
           </Space>
         }
@@ -295,13 +297,13 @@ export default function PostManagement() {
           pagination={{
             pageSize: 10,
             showSizeChanger: true,
-            showTotal: (total) => `共 ${total} 条`,
+            showTotal: (total) => `${t('admin.pagination.total')} ${total} ${t('admin.pagination.items')}`,
           }}
         />
       </Card>
 
       <Modal
-        title={editingPost ? '编辑文章' : '新建文章'}
+        title={editingPost ? t('admin.editPost') : t('admin.newPost')}
         open={isModalOpen}
         onOk={handleSubmit}
         onCancel={() => {
@@ -314,8 +316,8 @@ export default function PostManagement() {
           form.resetFields()
         }}
         width={800}
-        okText="保存"
-        cancelText="取消"
+        okText={t('admin.actions.save')}
+        cancelText={t('admin.actions.cancel')}
       >
         <ConfigProvider locale={zhCN}>
           <Form
@@ -328,55 +330,55 @@ export default function PostManagement() {
           >
           <Form.Item
             name="title"
-            label="标题"
-            rules={[{ required: true, message: '请输入标题' }]}
+            label={t('admin.form.title')}
+            rules={[{ required: true, message: t('admin.form.titleRequired') }]}
           >
-            <AntInput placeholder="文章标题" />
+            <AntInput placeholder={t('admin.form.titlePlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="slug"
-            label="URL Slug"
-            rules={[{ required: true, message: '请输入 URL Slug' }]}
+            label={t('admin.form.urlSlug')}
+            rules={[{ required: true, message: t('admin.form.slugRequired') }]}
           >
-            <AntInput placeholder="url-slug" />
+            <AntInput placeholder={t('admin.form.slugPlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="summary"
-            label="摘要"
+            label={t('admin.form.summary')}
           >
-            <TextArea rows={3} placeholder="文章摘要（可选）" />
+            <TextArea rows={3} placeholder={t('admin.form.summaryPlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="content"
-            label="内容"
-            rules={[{ required: true, message: '请输入内容' }]}
+            label={t('admin.form.content')}
+            rules={[{ required: true, message: t('admin.form.contentRequired') }]}
           >
-            <TextArea rows={15} placeholder="文章内容（Markdown 格式）" />
+            <TextArea rows={15} placeholder={t('admin.form.contentPlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="tags"
-            label="标签"
+            label={t('admin.form.tags')}
           >
-            <AntInput placeholder="标签，用逗号分隔，例如：React, Next.js, TypeScript" />
+            <AntInput placeholder={t('admin.form.tagsPlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="date"
-            label="发布日期"
+            label={t('admin.form.publishDate')}
           >
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
 
           <Form.Item
             name="published"
-            label="发布状态"
+            label={t('admin.form.publishStatus')}
             valuePropName="checked"
           >
-            <Switch checkedChildren="已发布" unCheckedChildren="草稿" />
+            <Switch checkedChildren={t('admin.status.published')} unCheckedChildren={t('admin.status.draft')} />
           </Form.Item>
         </Form>
         </ConfigProvider>

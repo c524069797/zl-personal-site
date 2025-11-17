@@ -6,6 +6,7 @@ import { CheckOutlined, CloseOutlined, DeleteOutlined, ReloadOutlined } from '@a
 import { getAuthHeaders } from '@/lib/client-auth'
 import type { ColumnsType } from 'antd/es/table'
 import Link from 'next/link'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const { Search } = Input
 const { TabPane } = Tabs
@@ -26,6 +27,7 @@ interface Comment {
 }
 
 export default function CommentManagement() {
+  const { t } = useTranslation()
   const [comments, setComments] = useState<Comment[]>([])
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('pending')
@@ -43,13 +45,13 @@ export default function CommentManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('获取评论失败')
+        throw new Error(t('admin.messages.fetchCommentsFailed'))
       }
 
       const data = await response.json()
       setComments(data.comments || [])
     } catch (error) {
-      message.error('获取评论失败')
+      message.error(t('admin.messages.fetchCommentsFailed'))
     } finally {
       setLoading(false)
     }
@@ -69,13 +71,13 @@ export default function CommentManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('审批失败')
+        throw new Error(t('admin.messages.approveFailed'))
       }
 
-      message.success('评论已通过审核')
+      message.success(t('admin.messages.commentApproved'))
       fetchComments(activeTab === 'approved')
     } catch (error) {
-      message.error('审批失败')
+      message.error(t('admin.messages.approveFailed'))
     }
   }
 
@@ -88,13 +90,13 @@ export default function CommentManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('操作失败')
+        throw new Error(t('admin.messages.operationFailed'))
       }
 
-      message.success('评论已拒绝')
+      message.success(t('admin.messages.commentRejected'))
       fetchComments(activeTab === 'approved')
     } catch (error) {
-      message.error('操作失败')
+      message.error(t('admin.messages.operationFailed'))
     }
   }
 
@@ -106,13 +108,13 @@ export default function CommentManagement() {
       })
 
       if (!response.ok) {
-        throw new Error('删除失败')
+        throw new Error(t('admin.messages.deleteFailed'))
       }
 
-      message.success('评论已删除')
+      message.success(t('admin.messages.commentDeleted'))
       fetchComments(activeTab === 'approved')
     } catch (error) {
-      message.error('删除失败')
+      message.error(t('admin.messages.deleteFailed'))
     }
   }
 
@@ -128,13 +130,13 @@ export default function CommentManagement() {
 
   const columns: ColumnsType<Comment> = [
     {
-      title: '作者',
+      title: t('admin.columns.author'),
       dataIndex: 'author',
       key: 'author',
       width: 120,
     },
     {
-      title: '内容',
+      title: t('admin.columns.content'),
       dataIndex: 'content',
       key: 'content',
       ellipsis: true,
@@ -143,7 +145,7 @@ export default function CommentManagement() {
       ),
     },
     {
-      title: '文章',
+      title: t('admin.columns.post'),
       key: 'post',
       width: 200,
       render: (_, record) => (
@@ -153,25 +155,25 @@ export default function CommentManagement() {
       ),
     },
     {
-      title: '状态',
+      title: t('admin.columns.status'),
       dataIndex: 'approved',
       key: 'approved',
       width: 100,
       render: (approved: boolean) => (
         <Tag color={approved ? 'green' : 'orange'}>
-          {approved ? '已审核' : '待审核'}
+          {approved ? t('admin.status.approved') : t('admin.status.pending')}
         </Tag>
       ),
     },
     {
-      title: '时间',
+      title: t('admin.columns.time'),
       dataIndex: 'createdAt',
       key: 'createdAt',
       width: 180,
       render: (date: string) => new Date(date).toLocaleString('zh-CN'),
     },
     {
-      title: '操作',
+      title: t('admin.columns.action'),
       key: 'action',
       width: 200,
       render: (_, record) => (
@@ -183,7 +185,7 @@ export default function CommentManagement() {
               icon={<CheckOutlined />}
               onClick={() => handleApprove(record.id)}
             >
-              通过
+              {t('admin.actions.approve')}
             </Button>
           )}
           {record.approved && (
@@ -192,21 +194,21 @@ export default function CommentManagement() {
               icon={<CloseOutlined />}
               onClick={() => handleReject(record.id)}
             >
-              拒绝
+              {t('admin.actions.reject')}
             </Button>
           )}
           <Popconfirm
-            title="确定要删除这条评论吗？"
+            title={t('admin.confirm.deleteComment')}
             onConfirm={() => handleDelete(record.id)}
-            okText="确定"
-            cancelText="取消"
+            okText={t('admin.actions.confirm')}
+            cancelText={t('admin.actions.cancel')}
           >
             <Button
               danger
               size="small"
               icon={<DeleteOutlined />}
             >
-              删除
+              {t('admin.actions.delete')}
             </Button>
           </Popconfirm>
         </Space>
@@ -216,11 +218,11 @@ export default function CommentManagement() {
 
   return (
     <Card
-      title="评论管理"
+      title={t('admin.commentManagement')}
       extra={
         <Space>
           <Search
-            placeholder="搜索评论"
+            placeholder={t('admin.searchComments')}
             allowClear
             style={{ width: 200 }}
             onSearch={setSearchText}
@@ -230,13 +232,13 @@ export default function CommentManagement() {
             icon={<ReloadOutlined />}
             onClick={() => fetchComments(activeTab === 'approved')}
           >
-            刷新
+            {t('admin.refresh')}
           </Button>
         </Space>
       }
     >
       <Tabs activeKey={activeTab} onChange={setActiveTab}>
-        <TabPane tab="待审核" key="pending">
+        <TabPane tab={t('admin.pendingReview')} key="pending">
           <Table
             columns={columns}
             dataSource={filteredComments.filter((c) => !c.approved)}
@@ -245,11 +247,11 @@ export default function CommentManagement() {
             pagination={{
               pageSize: 10,
               showSizeChanger: true,
-              showTotal: (total) => `共 ${total} 条`,
+              showTotal: (total) => `${t('admin.pagination.total')} ${total} ${t('admin.pagination.items')}`,
             }}
           />
         </TabPane>
-        <TabPane tab="已审核" key="approved">
+        <TabPane tab={t('admin.approved')} key="approved">
           <Table
             columns={columns}
             dataSource={filteredComments.filter((c) => c.approved)}
@@ -258,7 +260,7 @@ export default function CommentManagement() {
             pagination={{
               pageSize: 10,
               showSizeChanger: true,
-              showTotal: (total) => `共 ${total} 条`,
+              showTotal: (total) => `${t('admin.pagination.total')} ${total} ${t('admin.pagination.items')}`,
             }}
           />
         </TabPane>

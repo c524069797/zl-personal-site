@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import CommentSection from "@/components/CommentSection";
 import ArticleHeader from "@/components/ArticleHeader";
 import ArticleActions from "@/components/ArticleActions";
-import BreadcrumbNav from "@/components/BreadcrumbNav";
 import MarkdownContent from "@/components/MarkdownContent";
 
 export async function generateStaticParams() {
@@ -59,7 +58,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       flexDirection: 'column',
       background: 'var(--background)',
     }}>
-      <Navigation />
+      <Navigation
+        breadcrumbItems={[
+          {
+            title: post.title,
+          },
+        ]}
+      />
 
       {/* 主体内容区域 */}
       <div style={{
@@ -67,22 +72,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         padding: '32px 5%',
         flex: 1,
         gap: '32px',
-        maxWidth: '1200px',
+        maxWidth: '1600px',
         margin: '0 auto',
         width: '100%',
         flexDirection: 'column',
       }}
       className="blog-detail-container"
       >
-        {/* 面包屑导航 */}
-        <BreadcrumbNav
-          items={[
-            {
-              title: post.title,
-            },
-          ]}
-        />
-
         {/* 文章主体部分 */}
         <div style={{ flex: 1 }}>
           {/* 文章头部 */}

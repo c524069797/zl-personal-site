@@ -2,47 +2,40 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Layout, Tabs, message, Button } from 'antd'
-import { CommentOutlined, FileTextOutlined, LogoutOutlined } from '@ant-design/icons'
+import { Layout, Tabs, message } from 'antd'
+import { CommentOutlined, FileTextOutlined } from '@ant-design/icons'
 import Navigation from '@/components/Navigation'
 import CommentManagement from '@/components/admin/CommentManagement'
 import PostManagement from '@/components/admin/PostManagement'
 import { isAdmin, isAuthenticated, fetchCurrentUser } from '@/lib/client-auth'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const { Content } = Layout
 const { TabPane } = Tabs
 
 export default function AdminPage() {
+  const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [isAuthorized, setIsAuthorized] = useState(false)
 
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    // 触发自定义事件，通知导航栏更新
-    window.dispatchEvent(new Event('auth-change'))
-    message.success('已退出登录')
-    router.push('/')
-  }
-
   useEffect(() => {
     const checkAuth = async () => {
       if (!isAuthenticated()) {
-        message.warning('请先登录')
+        message.warning(t('admin.messages.loginRequired'))
         router.push('/login')
         return
       }
 
       const user = await fetchCurrentUser()
       if (!user) {
-        message.error('登录已过期，请重新登录')
+        message.error(t('admin.messages.loginExpired'))
         router.push('/login')
         return
       }
 
       if (!isAdmin()) {
-        message.error('需要管理员权限')
+        message.error(t('admin.messages.adminRequired'))
         router.push('/')
         return
       }
@@ -52,7 +45,7 @@ export default function AdminPage() {
     }
 
     checkAuth()
-  }, [router])
+  }, [router, t])
 
   if (loading) {
     return (
@@ -60,7 +53,7 @@ export default function AdminPage() {
         <Navigation />
         <Layout className="min-h-screen">
           <Content style={{ padding: '50px 24px', textAlign: 'center' }}>
-            <div>加载中...</div>
+            <div>{t('admin.messages.loading')}</div>
           </Content>
         </Layout>
       </>
@@ -76,20 +69,12 @@ export default function AdminPage() {
       <Navigation />
       <Layout className="min-h-screen">
         <Content style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto', width: '100%', background: 'var(--background)' }}>
-          <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              icon={<LogoutOutlined />}
-              onClick={handleLogout}
-            >
-              退出登录
-            </Button>
-          </div>
           <Tabs defaultActiveKey="comments" size="large">
             <TabPane
               tab={
                 <span>
                   <CommentOutlined />
-                  评论管理
+                  {t('admin.commentManagement')}
                 </span>
               }
               key="comments"
@@ -100,7 +85,7 @@ export default function AdminPage() {
               tab={
                 <span>
                   <FileTextOutlined />
-                  文章管理
+                  {t('admin.postManagement')}
                 </span>
               }
               key="posts"

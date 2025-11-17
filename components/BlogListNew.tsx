@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const { Title, Paragraph, Text } = Typography
 const { Search } = Input
@@ -35,6 +36,7 @@ interface Tag {
 }
 
 export default function BlogListNew() {
+  const { t } = useTranslation()
   const router = useRouter()
   const searchParams = useSearchParams()
   const [posts, setPosts] = useState<Post[]>([])
@@ -136,7 +138,7 @@ export default function BlogListNew() {
             marginBottom: '8px',
             color: 'var(--foreground)',
           }}>
-            技术博客
+            {t('blog.title')}
           </Title>
           <Paragraph style={{
             fontSize: '16px',
@@ -144,7 +146,7 @@ export default function BlogListNew() {
             opacity: 0.7,
             maxWidth: '800px',
           }}>
-            探索最新技术文章、开发技巧和行业趋势，提升您的开发技能
+            {t('blog.description')}
           </Paragraph>
         </div>
       </div>
@@ -271,7 +273,7 @@ export default function BlogListNew() {
               </>
             ) : (
               <Card>
-                <Empty description="暂无文章" />
+                <Empty description={t('common.noPosts')} />
               </Card>
             )}
           </Col>
@@ -282,7 +284,7 @@ export default function BlogListNew() {
               {/* Search */}
               <Card style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}>
                 <Search
-                  placeholder="搜索文章..."
+                  placeholder={t('blog.search')}
                   allowClear
                   enterButton={<SearchOutlined />}
                   size="large"
@@ -296,7 +298,7 @@ export default function BlogListNew() {
                 title={
                   <Space>
                     <FolderOutlined />
-                    <span>文章分类</span>
+                    <span>{t('blog.categories')}</span>
                   </Space>
                 }
                 style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
@@ -335,7 +337,7 @@ export default function BlogListNew() {
                 title={
                   <Space>
                     <TagsOutlined />
-                    <span>热门标签</span>
+                    <span>{t('blog.hotTags')}</span>
                   </Space>
                 }
                 style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
@@ -367,7 +369,7 @@ export default function BlogListNew() {
                 title={
                   <Space>
                     <FireOutlined />
-                    <span>热门文章</span>
+                    <span>{t('home.hotPosts')}</span>
                   </Space>
                 }
                 style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}

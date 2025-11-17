@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider, App } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
+import { LoadingBar } from "@/components/LoadingBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,7 +54,10 @@ export default function RootLayout({
             }}
           >
             <App>
-              <ThemeProvider>{children}</ThemeProvider>
+              <ThemeProvider>
+                <LoadingBar />
+                {children}
+              </ThemeProvider>
             </App>
           </ConfigProvider>
         </AntdRegistry>

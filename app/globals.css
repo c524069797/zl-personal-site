@@ -341,6 +341,38 @@ body {
   border-color: #ffffff;
 }
 
+/* 面包屑导航样式 */
+.ant-breadcrumb {
+  color: var(--foreground) !important;
+}
+
+.ant-breadcrumb a {
+  color: var(--foreground) !important;
+}
+
+.ant-breadcrumb span {
+  color: var(--foreground) !important;
+}
+
+.ant-breadcrumb-link {
+  color: var(--foreground) !important;
+}
+
+.ant-breadcrumb-separator {
+  color: var(--foreground) !important;
+  opacity: 0.6;
+}
+
+.dark .ant-breadcrumb a,
+.dark .ant-breadcrumb span,
+.dark .ant-breadcrumb-link {
+  color: #ffffff !important;
+}
+
+.dark .ant-breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
 /* 博客详情页响应式样式 */
 @media (min-width: 992px) {
   .blog-detail-container {
@@ -348,7 +380,13 @@ body {
   }
 
   .blog-sidebar {
-    width: 300px !important;
+    width: 320px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .blog-detail-container > div:first-child {
+    flex: 1;
+    min-width: 0;
   }
 }
 
@@ -357,6 +395,26 @@ body {
     padding: 16px !important;
     gap: 24px !important;
   }
+}
+
+/* 页面跳转加载条动画 */
+@keyframes loading-bar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* 链接点击反馈 */
+a {
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+a:active {
+  opacity: 0.7;
+  transform: scale(0.98);
 }
 
 @media print {

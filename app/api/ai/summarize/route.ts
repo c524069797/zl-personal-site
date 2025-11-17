@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       if (daysSinceSummary < 7) {
         return NextResponse.json({
           summary: post.aiSummary,
-          keywords: post.aiKeywords.split(',').map((k) => k.trim()),
+          keywords: post.aiKeywords.split(',').map((k: string) => k.trim()),
         })
       }
     }

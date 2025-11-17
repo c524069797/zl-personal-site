@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/middleware'
+import { vectorizePost } from '@/lib/vectorize'
 
 // 获取单篇文章
 export async function GET(
@@ -162,6 +163,13 @@ export async function PUT(
         },
       },
     })
+
+    // 如果文章已发布，异步向量化
+    if (post.published) {
+      vectorizePost(post.id).catch((error) => {
+        console.error('Failed to vectorize post:', error)
+      })
+    }
 
     return NextResponse.json({
       post: {

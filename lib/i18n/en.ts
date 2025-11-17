@@ -150,5 +150,27 @@ export default {
       createFailed: 'Create failed',
     },
   },
+  ai: {
+    chat: {
+      title: 'Ask Blog',
+      placeholder: 'Enter your question...',
+      send: 'Send',
+      welcome: 'Hello! I am a blog AI assistant and can answer questions about blog posts.',
+      examples: 'For example:',
+      example1: 'How do you practice Next.js SEO?',
+      example2: 'How to configure Prisma relationship models?',
+      loading: 'Thinking...',
+      error: 'Sorry, an error occurred while processing your question.',
+      networkError: 'Sorry, network error, please try again later.',
+      sources: 'Sources',
+    },
+    summary: {
+      title: 'AI Summary',
+      generate: 'Generate Summary',
+      regenerate: 'Regenerate',
+      keywords: 'Keywords:',
+      selectModel: 'Select AI Model:',
+    },
+  },
 }
 

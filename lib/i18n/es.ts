@@ -150,5 +150,27 @@ export default {
       createFailed: 'Error al crear',
     },
   },
+  ai: {
+    chat: {
+      title: 'Preguntar al Blog',
+      placeholder: 'Ingresa tu pregunta...',
+      send: 'Enviar',
+      welcome: '¡Hola! Soy un asistente de IA del blog y puedo responder preguntas sobre las publicaciones del blog.',
+      examples: 'Por ejemplo:',
+      example1: '¿Cómo practicas SEO en Next.js?',
+      example2: '¿Cómo configurar modelos de relaciones de Prisma?',
+      loading: 'Pensando...',
+      error: 'Lo siento, ocurrió un error al procesar tu pregunta.',
+      networkError: 'Lo siento, error de red, por favor intenta más tarde.',
+      sources: 'Fuentes',
+    },
+    summary: {
+      title: 'Resumen de IA',
+      generate: 'Generar Resumen',
+      regenerate: 'Regenerar',
+      keywords: 'Palabras clave:',
+      selectModel: 'Seleccionar Modelo de IA:',
+    },
+  },
 }
 

@@ -150,5 +150,27 @@ export default {
       createFailed: '創建失敗',
     },
   },
+  ai: {
+    chat: {
+      title: '問部落格',
+      placeholder: '輸入您的問題...',
+      send: '發送',
+      welcome: '您好！我是部落格AI助手，可以回答關於部落格文章的問題。',
+      examples: '例如：',
+      example1: '你的 Next.js SEO 實踐怎麼做？',
+      example2: '如何配置 Prisma 的關係模型？',
+      loading: '思考中...',
+      error: '抱歉，處理您的問題時出現了錯誤。',
+      networkError: '抱歉，網路錯誤，請稍後重試。',
+      sources: '參考來源',
+    },
+    summary: {
+      title: 'AI 總結',
+      generate: '生成摘要',
+      regenerate: '重新生成',
+      keywords: '關鍵詞：',
+      selectModel: '選擇AI模型：',
+    },
+  },
 }
 

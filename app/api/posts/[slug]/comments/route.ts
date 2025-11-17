@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { moderateComment } from '@/lib/openai'
 
 // 获取文章评论
 export async function GET(
@@ -76,7 +77,24 @@ export async function POST(
       )
     }
 
-    // 创建评论（默认需要审核）
+    // AI审核评论（默认使用deepseek）
+    let aiCheckResult
+    try {
+      aiCheckResult = await moderateComment(content, 'deepseek')
+    } catch (error) {
+      console.error('AI moderation failed:', error)
+      // AI审核失败不影响评论创建，继续使用默认审核流程
+    }
+
+    // 创建评论
+    // 如果AI判断不是垃圾且无攻击性，可以自动通过
+    const shouldAutoApprove =
+      aiCheckResult &&
+      !aiCheckResult.isSpam &&
+      !aiCheckResult.isToxic &&
+      aiCheckResult.spamScore < 0.3 &&
+      aiCheckResult.toxicScore < 0.3
+
     const comment = await prisma.comment.create({
       data: {
         author,
@@ -84,7 +102,12 @@ export async function POST(
         website: website || null,
         content,
         postId: post.id,
-        approved: false, // 默认需要审核
+        approved: shouldAutoApprove || false,
+        aiChecked: !!aiCheckResult,
+        aiSpamScore: aiCheckResult?.spamScore || null,
+        aiToxicScore: aiCheckResult?.toxicScore || null,
+        aiAutoReply: aiCheckResult?.autoReply || null,
+        aiCheckedAt: aiCheckResult ? new Date() : null,
       },
     })
 

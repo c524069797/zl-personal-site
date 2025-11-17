@@ -9,6 +9,8 @@ import CommentSection from "@/components/CommentSection";
 import ArticleHeader from "@/components/ArticleHeader";
 import ArticleActions from "@/components/ArticleActions";
 import MarkdownContent from "@/components/MarkdownContent";
+import AISummary from "@/components/AISummary";
+import AIChatBot from "@/components/AIChatBot";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -108,12 +110,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* 侧边栏 */}
         <aside style={{ width: '100%', flexShrink: 0 }} className="blog-sidebar">
+          <AISummary postId={post.id} postSlug={slug} />
           <BlogSidebar author={post.author} excludeSlug={slug} />
         </aside>
       </div>
 
       {/* 页脚 */}
       <Footer />
+
+      {/* AI聊天机器人 */}
+      <AIChatBot />
     </div>
   );
 }

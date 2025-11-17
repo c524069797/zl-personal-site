@@ -37,6 +37,12 @@ model Post {
   updatedAt DateTime @updatedAt
   published Boolean  @default(false)
 
+  // AI相关字段
+  aiSummary      String?   @db.Text // AI生成的摘要
+  aiKeywords     String?   // AI提取的关键词，逗号分隔
+  aiSummaryAt    DateTime? // 摘要生成时间
+  vectorized     Boolean   @default(false) // 是否已向量化
+
   // 关系
   authorId  String
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -46,6 +52,7 @@ model Post {
   @@index([slug])
   @@index([date])
   @@index([published])
+  @@index([vectorized])
   @@map("posts")
 }
 
@@ -85,10 +92,18 @@ model Comment {
   createdAt DateTime @default(now())
   approved  Boolean  @default(false)
 
+  // AI审核相关字段
+  aiChecked     Boolean   @default(false) // 是否已AI审核
+  aiSpamScore   Float?    // 垃圾信息评分 (0-1)
+  aiToxicScore  Float?    // 攻击性内容评分 (0-1)
+  aiAutoReply   String?   @db.Text // AI生成的自动回复
+  aiCheckedAt   DateTime? // AI审核时间
+
   postId    String
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@index([postId])
   @@index([approved])
+  @@index([aiChecked])
   @@map("comments")
 }

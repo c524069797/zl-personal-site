@@ -150,5 +150,27 @@ export default {
       createFailed: '创建失败',
     },
   },
+  ai: {
+    chat: {
+      title: '问博客',
+      placeholder: '输入您的问题...',
+      send: '发送',
+      welcome: '您好！我是博客AI助手，可以回答关于博客文章的问题。',
+      examples: '例如：',
+      example1: '你的 Next.js SEO 实践怎么做？',
+      example2: '如何配置 Prisma 的关系模型？',
+      loading: '思考中...',
+      error: '抱歉，处理您的问题时出现了错误。',
+      networkError: '抱歉，网络错误，请稍后重试。',
+      sources: '参考来源',
+    },
+    summary: {
+      title: 'AI 总结',
+      generate: '生成摘要',
+      regenerate: '重新生成',
+      keywords: '关键词：',
+      selectModel: '选择AI模型：',
+    },
+  },
 }
 

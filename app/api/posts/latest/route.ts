@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   try {
     // 确保数据库连接
     await prisma.$connect()
-    
+
     const searchParams = request.nextUrl.searchParams
     const limit = parseInt(searchParams.get('limit') || '10')
 
@@ -14,12 +14,7 @@ export async function GET(request: NextRequest) {
       where: {
         published: true,
       },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        date: true,
-        summary: true,
+      include: {
         tags: {
           include: {
             tag: true,
@@ -60,7 +55,7 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Error fetching latest posts:', error)
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to fetch latest posts',
         details: process.env.NODE_ENV === 'development' ? error.message : undefined
       },

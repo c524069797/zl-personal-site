@@ -12,6 +12,7 @@
     "db:studio": "DATABASE_URL=\"postgresql://chenzilong@localhost:5432/personal_site?schema=public\" npx prisma studio",
     "db:migrate": "DATABASE_URL=\"postgresql://chenzilong@localhost:5432/personal_site?schema=public\" npx prisma migrate dev",
     "db:generate": "DATABASE_URL=\"postgresql://chenzilong@localhost:5432/personal_site?schema=public\" npx prisma generate",
+    "db:add-ai-fields": "tsx scripts/add-ai-fields.ts",
     "ai:vectorize": "tsx scripts/vectorize-posts.ts"
   },
   "dependencies": {

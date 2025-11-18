@@ -15,7 +15,12 @@ export async function GET(request: NextRequest) {
       where: {
         published: true,
       },
-      include: {
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        date: true,
+        summary: true,
         tags: {
           include: {
             tag: true,

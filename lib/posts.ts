@@ -102,10 +102,10 @@ export async function getAllPosts(): Promise<Post[]> {
 // 从数据库获取单篇文章
 async function getPostBySlugFromDB(slug: string): Promise<Post | null> {
   try {
+    // findUnique 只能使用唯一字段，所以先查找 slug，再检查 published
     const post = await prisma.post.findUnique({
       where: {
         slug,
-        published: true,
       },
       include: {
         tags: {
@@ -116,7 +116,8 @@ async function getPostBySlugFromDB(slug: string): Promise<Post | null> {
       },
     });
 
-    if (!post) {
+    // 检查文章是否存在且已发布
+    if (!post || !post.published) {
       return null;
     }
 
@@ -174,10 +175,10 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 // 从数据库获取单篇文章（包含作者信息）
 export async function getPostWithAuthorBySlug(slug: string) {
   try {
+    // findUnique 只能使用唯一字段，所以先查找 slug，再检查 published
     const post = await prisma.post.findUnique({
       where: {
         slug,
-        published: true,
       },
       include: {
         tags: {
@@ -195,7 +196,8 @@ export async function getPostWithAuthorBySlug(slug: string) {
       },
     });
 
-    if (!post) {
+    // 检查文章是否存在且已发布
+    if (!post || !post.published) {
       return null;
     }
 

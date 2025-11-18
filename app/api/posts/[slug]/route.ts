@@ -8,10 +8,10 @@ export async function GET(
   try {
     const { slug } = await params
 
+    // findUnique 只能使用唯一字段，所以先查找 slug，再检查 published
     const post = await prisma.post.findUnique({
       where: {
         slug,
-        published: true,
       },
       include: {
         tags: {
@@ -29,7 +29,8 @@ export async function GET(
       },
     })
 
-    if (!post) {
+    // 检查文章是否存在且已发布
+    if (!post || !post.published) {
       return NextResponse.json(
         { error: 'Post not found' },
         { status: 404 }

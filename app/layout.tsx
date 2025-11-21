@@ -26,7 +26,10 @@ export const metadata: Metadata = {
   keywords: ["博客", "简历", "陈灼的网络日志"],
   authors: [{ name: "Your Name" }],
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
+    ],
     shortcut: '/favicon.png',
     apple: '/favicon.png',
   },

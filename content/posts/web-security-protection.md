@@ -182,9 +182,7 @@ export default {
    - 检查所有定时器是否清除
    - 检查全局变量引用是否清除
 
-**参考资源：**
-- [内存泄露排查指南](https://juejin.cn/post/6947841638118998029?utm_source=gold_browser_extension)
-- [内存泄露详解](https://blog.csdn.net/weixin_42178670/article/details/131963569)
+如果遇到内存泄露问题，可以使用Chrome DevTools的Memory面板进行排查，或者查阅相关的技术文档。
 
 ## XSS跨站脚本攻击防护
 
@@ -517,18 +515,19 @@ WAF可以检测和阻止常见的Web攻击：
 - CSRF攻击
 - DDoS攻击
 
-## 安全防护 checklist
+## 安全防护要点总结
 
-- [ ] 所有用户输入都经过验证和转义
-- [ ] 使用CSP内容安全策略
-- [ ] 设置安全的HTTP头（HSTS、X-Frame-Options等）
-- [ ] 使用SameSite Cookie防止CSRF
-- [ ] 实施CSRF Token验证
-- [ ] 验证所有URL和链接跳转
-- [ ] 敏感信息使用httpOnly cookie存储
-- [ ] 组件销毁时清除所有引用和监听器
-- [ ] 定期更新依赖，修复安全漏洞
-- [ ] 实施日志监控和异常检测
+在实际开发中，我们需要关注以下几个关键点：
+
+1. **输入验证和转义**：所有用户输入都要经过验证和转义
+2. **CSP策略**：使用内容安全策略限制资源加载
+3. **HTTP安全头**：设置HSTS、X-Frame-Options等安全头
+4. **CSRF防护**：使用SameSite Cookie和CSRF Token
+5. **URL验证**：验证所有URL和链接跳转，防止恶意跳转
+6. **敏感信息保护**：使用httpOnly cookie存储敏感信息
+7. **内存管理**：组件销毁时清除所有引用和监听器
+8. **依赖更新**：定期更新依赖，修复安全漏洞
+9. **监控和日志**：实施日志监控和异常检测
 
 ## 总结
 
@@ -539,12 +538,7 @@ Web界面安全防护是一个系统性工程，需要从多个层面进行防�
 3. **CSRF防护**：SameSite Cookie、CSRF Token、Referer验证
 4. **其他措施**：安全HTTP头、输入验证、敏感信息保护、定期审计
 
-记住：**安全不是一次性的工作，而是持续的过程**。要定期审查代码、更新依赖、监控异常，才能构建真正安全的Web应用。
+安全不是一次性的工作，而是持续的过程。要定期审查代码、更新依赖、监控异常，才能构建真正安全的Web应用。
 
-**参考资源：**
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [内存泄露排查指南](https://juejin.cn/post/6947841638118998029)
-- [内存泄露详解](https://blog.csdn.net/weixin_42178670/article/details/131963569)
-
-开始行动吧，从检查你的代码开始！
+如果你对某个安全点有疑问，可以查阅OWASP Top 10等权威资源，或者在实际项目中多实践、多总结。
 

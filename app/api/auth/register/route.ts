@@ -67,11 +67,12 @@ export async function POST(request: NextRequest) {
       message: '注册成功',
     })
   } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
     // 返回更详细的错误信息用于调试
     return NextResponse.json(
       {
         error: '注册失败，请稍后重试',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       },
       { status: 500 }
     )

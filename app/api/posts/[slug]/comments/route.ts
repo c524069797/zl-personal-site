@@ -123,23 +123,24 @@ export async function POST(
       message: '评论已提交，等待审核',
     }, { status: 201 })
   } catch (error: unknown) {
-
+    const errorWithCode = error as { code?: string; message?: string }
     // 检查是否是数据库连接错误
-    if (error?.code === 'P1001' || error?.message?.includes('Can\'t reach database')) {
+    if (errorWithCode.code === 'P1001' || errorWithCode.message?.includes('Can\'t reach database')) {
       return NextResponse.json(
         {
           error: '数据库连接失败，请检查数据库配置',
-          details: process.env.NODE_ENV === 'development' ? error.message : undefined
+          details: process.env.NODE_ENV === 'development' ? errorWithCode.message : undefined
         },
         { status: 500 }
       )
     }
 
     // 返回更详细的错误信息
+    const errorMessage = error instanceof Error ? error.message : String(error)
     return NextResponse.json(
       {
         error: '评论提交失败',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       },
       { status: 500 }
     )

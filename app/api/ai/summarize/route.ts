@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (error: unknown) {
     const errorObj = error instanceof Error ? error : new Error(String(error))
+    const errorWithCode = error as { code?: string; message?: string; stack?: string }
     console.error('AI summarize error:', errorObj)
     console.error('Error details:', {
       message: errorObj.message,
@@ -81,22 +82,22 @@ export async function POST(request: NextRequest) {
     })
 
     // 处理超时错误
-    if (error.message?.includes('timed out') || error.message?.includes('timeout')) {
+    if (errorObj.message?.includes('timed out') || errorObj.message?.includes('timeout')) {
       return NextResponse.json(
         {
           error: '请求超时。可能是OpenAI API响应较慢，请稍后重试。如果问题持续，请检查网络连接和OpenAI API状态。',
-          details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+          details: process.env.NODE_ENV === 'development' ? errorObj.message : undefined,
         },
         { status: 504 }
       )
     }
 
     // 处理OpenAI API错误
-    if (error.message?.includes('OpenAI') || error.code === 'ECONNREFUSED') {
+    if (errorObj.message?.includes('OpenAI') || errorWithCode.code === 'ECONNREFUSED') {
       return NextResponse.json(
         {
           error: 'OpenAI API连接失败。请检查网络连接和API密钥配置。',
-          details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+          details: process.env.NODE_ENV === 'development' ? errorObj.message : undefined,
         },
         { status: 503 }
       )
@@ -104,8 +105,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error: error.message || '生成摘要失败，请稍后重试。',
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+        error: errorObj.message || '生成摘要失败，请稍后重试。',
+        details: process.env.NODE_ENV === 'development' ? errorObj.stack : undefined,
       },
       { status: 500 }
     )

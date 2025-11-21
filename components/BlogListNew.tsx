@@ -98,7 +98,11 @@ export default function BlogListNew() {
 
       if (tagsRes.ok) {
         const tagsData = await tagsRes.json()
-        setTags(tagsData.tags || [])
+        // 只显示有文章数的标签，并按数量排序
+        const sortedTags = (tagsData.tags || [])
+          .filter((tag: Tag) => tag.count > 0)
+          .sort((a: Tag, b: Tag) => b.count - a.count)
+        setTags(sortedTags)
       }
 
       if (categoriesRes.ok) {

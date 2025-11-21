@@ -76,11 +76,10 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
 
         if (tagsRes.ok) {
           const tagsData = await tagsRes.json()
-          // 只显示有文章数的标签，并按数量排序
+          // 显示所有有文章数的标签，并按数量排序
           const sortedTags = (tagsData.tags || [])
             .filter((tag: Tag) => tag.count > 0)
             .sort((a: Tag, b: Tag) => b.count - a.count)
-            .slice(0, 9)
           setTags(sortedTags)
         }
 

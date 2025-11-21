@@ -6,8 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "format": "prettier --write .",
+    "prepare": "husky",
     "studio": "DATABASE_URL=\"postgresql://chenzilong@localhost:5432/personal_site?schema=public\" npx prisma studio",
     "db:studio": "DATABASE_URL=\"postgresql://chenzilong@localhost:5432/personal_site?schema=public\" npx prisma studio",
     "db:migrate": "DATABASE_URL=\"postgresql://chenzilong@localhost:5432/personal_site?schema=public\" npx prisma migrate dev",
@@ -54,9 +56,16 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prisma": "^6.19.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.6",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix --max-warnings=0"
+    ]
   }
 }

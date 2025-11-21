@@ -5,8 +5,6 @@ import Link from 'next/link'
 import { Card, Avatar, Space, Typography, Empty } from 'antd'
 import {
   GithubOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
   MailOutlined,
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
@@ -49,41 +47,41 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const fetchSidebarData = async () => {
+      setLoading(true)
+      try {
+        const [hotRes, tagsRes] = await Promise.all([
+          fetch('/api/posts/hot?limit=3'),
+          fetch('/api/tags'),
+        ])
+
+        if (hotRes.ok) {
+          const hotData = await hotRes.json()
+          // 排除当前文章
+          const filteredPosts = (hotData.posts || []).filter(
+            (post: Post) => post.slug !== excludeSlug
+          )
+          setPopularPosts(filteredPosts.slice(0, 3))
+        }
+
+        if (tagsRes.ok) {
+          const tagsData = await tagsRes.json()
+          // 只显示有文章数的标签，并按数量排序
+          const sortedTags = (tagsData.tags || [])
+            .filter((tag: Tag) => tag.count > 0)
+            .sort((a: Tag, b: Tag) => b.count - a.count)
+            .slice(0, 9)
+          setTags(sortedTags)
+        }
+      } catch {
+        // 错误已静默处理
+      } finally {
+        setLoading(false)
+      }
+    }
+
     fetchSidebarData()
   }, [excludeSlug])
-
-  const fetchSidebarData = async () => {
-    setLoading(true)
-    try {
-      const [hotRes, tagsRes] = await Promise.all([
-        fetch('/api/posts/hot?limit=3'),
-        fetch('/api/tags'),
-      ])
-
-      if (hotRes.ok) {
-        const hotData = await hotRes.json()
-        // 排除当前文章
-        const filteredPosts = (hotData.posts || []).filter(
-          (post: Post) => post.slug !== excludeSlug
-        )
-        setPopularPosts(filteredPosts.slice(0, 3))
-      }
-
-      if (tagsRes.ok) {
-        const tagsData = await tagsRes.json()
-        // 只显示有文章数的标签，并按数量排序
-        const sortedTags = (tagsData.tags || [])
-          .filter((tag: Tag) => tag.count > 0)
-          .sort((a: Tag, b: Tag) => b.count - a.count)
-          .slice(0, 9)
-        setTags(sortedTags)
-      }
-    } catch (error) {
-      // 错误已静默处理
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <div style={{ width: '100%' }}>
@@ -243,7 +241,6 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                       }}
                       ellipsis={{
                         tooltip: post.title,
-                        rows: 2
                       }}
                     >
                       {post.title}

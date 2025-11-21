@@ -126,7 +126,7 @@ ${content.substring(0, 3000)}${content.length > 3000 ? '...' : ''}
       messages: [
         {
           role: 'system',
-          content: '你是一个专业的博客内容分析助手，擅长生成简洁准确的摘要和提取关键词。',
+          content: '你是一个专业的博客内容分析助手，擅长生成简洁准确的摘要和提取关键词。请只返回JSON格式，不要包含任何markdown代码块标记。',
         },
         {
           role: 'user',
@@ -139,7 +139,37 @@ ${content.substring(0, 3000)}${content.length > 3000 ? '...' : ''}
       timeout: 30000, // 30秒超时
     })
 
-    const result = JSON.parse(response.choices[0].message.content || '{}')
+    // 提取并清理响应内容
+    let content = response.choices[0].message.content || '{}'
+    
+    // 移除可能的markdown代码块标记
+    content = content.trim()
+    // 移除开头的 ```json 或 ``` 标记
+    content = content.replace(/^```(?:json)?\s*/i, '')
+    // 移除结尾的 ``` 标记
+    content = content.replace(/\s*```$/i, '')
+    content = content.trim()
+    
+    // 尝试解析JSON
+    let result
+    try {
+      result = JSON.parse(content)
+    } catch (parseError: any) {
+      console.error('❌ JSON解析失败，原始内容:', content)
+      console.error('❌ 解析错误:', parseError)
+      // 尝试提取JSON对象
+      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        try {
+          result = JSON.parse(jsonMatch[0])
+        } catch (e) {
+          throw new Error(`生成摘要失败: JSON解析错误 - ${parseError.message}`)
+        }
+      } else {
+        throw new Error(`生成摘要失败: JSON解析错误 - ${parseError.message}`)
+      }
+    }
+    
     return {
       summary: result.summary || '',
       keywords: result.keywords || [],
@@ -197,7 +227,7 @@ export async function moderateComment(
       messages: [
         {
           role: 'system',
-          content: '你是一个专业的内容审核助手，能够准确识别垃圾信息和攻击性内容。',
+          content: '你是一个专业的内容审核助手，能够准确识别垃圾信息和攻击性内容。请只返回JSON格式，不要包含任何markdown代码块标记。',
         },
         {
           role: 'user',
@@ -210,7 +240,36 @@ export async function moderateComment(
       timeout: 30000, // 30秒超时
     })
 
-    const result = JSON.parse(response.choices[0].message.content || '{}')
+    // 提取并清理响应内容
+    let content = response.choices[0].message.content || '{}'
+    
+    // 移除可能的markdown代码块标记
+    content = content.trim()
+    // 移除开头的 ```json 或 ``` 标记
+    content = content.replace(/^```(?:json)?\s*/i, '')
+    // 移除结尾的 ``` 标记
+    content = content.replace(/\s*```$/i, '')
+    content = content.trim()
+    
+    // 尝试解析JSON
+    let result
+    try {
+      result = JSON.parse(content)
+    } catch (parseError: any) {
+      console.error('❌ JSON解析失败，原始内容:', content)
+      console.error('❌ 解析错误:', parseError)
+      // 尝试提取JSON对象
+      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        try {
+          result = JSON.parse(jsonMatch[0])
+        } catch (e) {
+          throw new Error(`审核评论失败: JSON解析错误 - ${parseError.message}`)
+        }
+      } else {
+        throw new Error(`审核评论失败: JSON解析错误 - ${parseError.message}`)
+      }
+    }
     return {
       isSpam: result.isSpam || false,
       isToxic: result.isToxic || false,
@@ -263,7 +322,7 @@ ${contextText}
       messages: [
         {
           role: 'system',
-          content: '你是一个专业的博客助手，能够基于提供的文章内容准确回答用户问题。',
+          content: '你是一个专业的博客助手，能够基于提供的文章内容准确回答用户问题。请只返回JSON格式，不要包含任何markdown代码块标记。',
         },
         {
           role: 'user',
@@ -276,7 +335,36 @@ ${contextText}
       timeout: 30000, // 30秒超时
     })
 
-    const result = JSON.parse(response.choices[0].message.content || '{}')
+    // 提取并清理响应内容
+    let content = response.choices[0].message.content || '{}'
+    
+    // 移除可能的markdown代码块标记
+    content = content.trim()
+    // 移除开头的 ```json 或 ``` 标记
+    content = content.replace(/^```(?:json)?\s*/i, '')
+    // 移除结尾的 ``` 标记
+    content = content.replace(/\s*```$/i, '')
+    content = content.trim()
+    
+    // 尝试解析JSON
+    let result
+    try {
+      result = JSON.parse(content)
+    } catch (parseError: any) {
+      console.error('❌ JSON解析失败，原始内容:', content)
+      console.error('❌ 解析错误:', parseError)
+      // 尝试提取JSON对象
+      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        try {
+          result = JSON.parse(jsonMatch[0])
+        } catch (e) {
+          throw new Error(`回答问题失败: JSON解析错误 - ${parseError.message}`)
+        }
+      } else {
+        throw new Error(`回答问题失败: JSON解析错误 - ${parseError.message}`)
+      }
+    }
     return {
       answer: result.answer || '抱歉，我无法回答这个问题。',
       sources: result.sources || uniqueSources.map((s) => ({ title: s.title, slug: s.slug })),

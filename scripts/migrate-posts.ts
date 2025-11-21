@@ -2,6 +2,7 @@ import { prisma } from '../lib/prisma'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { categorizeBlog } from '../lib/blog-category'
 
 async function migratePosts() {
   try {
@@ -78,6 +79,10 @@ async function migratePosts() {
           })
         )
 
+        // 自动分类博客
+        const categoryInfo = categorizeBlog(data.title || '', data.summary || '')
+        const category = data.category || categoryInfo.category
+
         // 创建文章
         const post = await prisma.post.create({
           data: {
@@ -87,6 +92,7 @@ async function migratePosts() {
             summary: data.summary || '',
             date: data.date ? new Date(data.date) : new Date(),
             published: !data.draft,
+            category,
             authorId: user.id,
             tags: {
               create: tagConnections.map(tag => ({
@@ -100,10 +106,11 @@ async function migratePosts() {
         successFiles.push(file)
         const status = post.published ? '✅ 已发布' : '📝 草稿'
         console.log(`${status}: ${data.title || slug}`)
-      } catch (error: any) {
+      } catch (error) {
         errorCount++
         errorFiles.push(file)
-        console.error(`❌ 导入失败 ${file}:`, error.message || error)
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        console.error(`❌ 导入失败 ${file}:`, errorMessage)
       }
     }
 
@@ -124,8 +131,9 @@ async function migratePosts() {
       errorFiles.forEach(f => console.log(`   - ${f}`))
     }
     console.log('='.repeat(50))
-  } catch (error: any) {
-    console.error('❌ 迁移失败:', error.message || error)
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error('❌ 迁移失败:', errorMessage)
     process.exit(1)
   } finally {
     await prisma.$disconnect()

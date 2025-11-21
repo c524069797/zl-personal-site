@@ -20,11 +20,13 @@ const LIFE_KEYWORDS = [
   '学习', '读书', '阅读', '笔记',
 ]
 
-// 核心技术关键词（React、Next.js、Vue等，这些必须分类为技术博客）
+// 核心技术关键词（React、Next.js、Vue、MCP、n8n等，这些必须分类为技术博客）
 const CORE_TECH_KEYWORDS = [
   'vue', 'vuejs', 'vue.js', 'vue2', 'vue3',
   'react', 'reactjs', 'react.js',
   'nextjs', 'next.js', 'next',
+  'mcp', 'model context protocol',
+  'n8n',
 ]
 
 // 其他技术关键词
@@ -35,6 +37,8 @@ const OTHER_TECH_KEYWORDS = [
   '性能', '优化', '安全', 'xss', 'csrf',
   'webpack', 'vite', 'node', 'docker', 'git',
   '算法', '数据结构', '设计模式',
+  '自动化', '工作流', '部署', 'ci/cd', 'devops',
+  'vercel',
 ]
 
 /**
@@ -44,13 +48,8 @@ export function categorizeBlog(title: string, summary?: string): CategoryInfo {
   const searchText = summary ? `${title} ${summary}` : title
   const lowerText = searchText.toLowerCase()
 
-  // 优先检查核心技术关键词（React、Next.js、Vue等）
+  // 优先检查核心技术关键词（React、Next.js、Vue、MCP、n8n等）
   const hasCoreTechKeyword = CORE_TECH_KEYWORDS.some(keyword =>
-    lowerText.includes(keyword.toLowerCase())
-  )
-
-  // 检查其他技术关键词
-  const hasOtherTechKeyword = OTHER_TECH_KEYWORDS.some(keyword =>
     lowerText.includes(keyword.toLowerCase())
   )
 
@@ -59,12 +58,17 @@ export function categorizeBlog(title: string, summary?: string): CategoryInfo {
     lowerText.includes(keyword.toLowerCase())
   )
 
+  // 检查其他技术关键词（用于日志或调试，但当前逻辑不直接使用）
+  const hasOtherTechKeyword = OTHER_TECH_KEYWORDS.some(keyword =>
+    lowerText.includes(keyword.toLowerCase())
+  )
+
   // 分类逻辑：
-  // 1. 如果包含核心技术关键词（React、Next.js、Vue），必须分类为技术博客
+  // 1. 如果包含核心技术关键词（React、Next.js、Vue、MCP、n8n等），必须分类为技术博客
   // 2. 如果包含生活关键词（表达、沟通、习惯等），分类为生活记录
   // 3. 如果包含其他技术关键词，分类为技术博客
   // 4. 否则默认为技术博客
-  if (hasCoreTechKeyword) {
+  if (hasCoreTechKeyword || hasOtherTechKeyword) {
     return {
       category: 'tech',
       label: '技术博客',

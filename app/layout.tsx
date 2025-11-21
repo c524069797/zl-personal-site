@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   description: "陈灼的网络日志",
   keywords: ["博客", "简历", "陈灼的网络日志"],
   authors: [{ name: "Your Name" }],
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     type: "website",
     locale: "zh_CN",

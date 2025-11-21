@@ -42,7 +42,10 @@ export async function POST(request: NextRequest) {
 
     // 获取文章ID并去重
     const postIds = [
-      ...new Set(searchResults.map((r) => r.payload?.postId as string)),
+      ...new Set(searchResults.map((r) => {
+        const payload = r.payload as { postId?: string } | undefined
+        return payload?.postId
+      }).filter((id): id is string => Boolean(id))),
     ]
 
     // 从数据库获取完整文章信息
@@ -63,13 +66,16 @@ export async function POST(request: NextRequest) {
     const contextMap = new Map<string, { title: string; content: string; slug: string }>()
 
     for (const result of searchResults) {
-      const postId = result.payload?.postId as string
+      const payload = result.payload as { postId?: string; content?: string } | undefined
+      const postId = payload?.postId
+      if (!postId) continue
+      
       const post = posts.find((p) => p.id === postId)
 
       if (post && !contextMap.has(postId)) {
         contextMap.set(postId, {
           title: post.title,
-          content: result.payload?.content as string || post.content.substring(0, 500),
+          content: payload?.content || post.content.substring(0, 500),
           slug: post.slug,
         })
       }
@@ -90,10 +96,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result)
   } catch (error: unknown) {
-    console.error('RAG ask error:', error)
+    const errorObj = error instanceof Error ? error : new Error(String(error))
+    console.error('RAG ask error:', errorObj)
 
     // 处理超时错误
-    if (error.message === 'Request timed out.') {
+    if (errorObj.message === 'Request timed out.') {
       return NextResponse.json(
         { error: '请求超时，请稍后重试。如果问题持续，可能是OpenAI API响应较慢或Qdrant服务未启动。' },
         { status: 504 }
@@ -101,7 +108,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 处理Qdrant连接错误
-    if (error.message?.includes('ECONNREFUSED') || error.message?.includes('Qdrant')) {
+    if (errorObj.message?.includes('ECONNREFUSED') || errorObj.message?.includes('Qdrant')) {
       return NextResponse.json(
         { error: '向量数据库连接失败，请确保Qdrant服务正在运行。' },
         { status: 503 }
@@ -109,7 +116,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: error.message || '处理问题时出现错误，请稍后重试。' },
+      { error: errorObj.message || '处理问题时出现错误，请稍后重试。' },
       { status: 500 }
     )
   }

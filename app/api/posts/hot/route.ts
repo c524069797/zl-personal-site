@@ -60,10 +60,11 @@ export async function GET(request: NextRequest) {
     })
   } catch (error: unknown) {
     console.error('Error fetching hot posts:', error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
     return NextResponse.json(
       {
         error: 'Failed to fetch hot posts',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       },
       { status: 500 }
     )

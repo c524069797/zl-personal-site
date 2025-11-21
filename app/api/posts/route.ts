@@ -110,16 +110,18 @@ export async function GET(request: NextRequest) {
       totalPages: Math.ceil(total / limit),
     })
   } catch (error: unknown) {
-    console.error('Error fetching posts:', error)
+    const errorObj = error instanceof Error ? error : new Error(String(error))
+    const errorWithCode = error as { code?: string }
+    console.error('Error fetching posts:', errorObj)
     console.error('Error details:', {
-      message: error.message,
-      code: error.code,
-      stack: error.stack,
+      message: errorObj.message,
+      code: errorWithCode.code,
+      stack: errorObj.stack,
     })
     return NextResponse.json(
       {
         error: 'Failed to fetch posts',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        details: process.env.NODE_ENV === 'development' ? errorObj.message : undefined,
       },
       { status: 500 }
     )

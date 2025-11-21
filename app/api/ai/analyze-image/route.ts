@@ -62,9 +62,10 @@ ${summary ? `文章摘要：${summary.substring(0, 200)}` : ''}
     })
   } catch (error: unknown) {
     console.error('AI analyze image error:', error)
+    const errorMessage = error instanceof Error ? error.message : '分析失败'
     return NextResponse.json(
       {
-        error: error.message || '分析失败',
+        error: errorMessage,
         imageType: 'default', // 失败时返回默认类型
       },
       { status: 500 }

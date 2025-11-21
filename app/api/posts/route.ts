@@ -8,11 +8,27 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10')
     const tag = searchParams.get('tag')
     const search = searchParams.get('search')
+    const category = searchParams.get('category') // tech 或 life
 
     const where: any = {
       published: true,
     }
 
+    // 分类筛选
+    if (category === 'tech' || category === 'life') {
+      if (category === 'tech') {
+        // tech分类：查询category为'tech'或null的文章（null默认为tech）
+        where.OR = [
+          { category: 'tech' },
+          { category: null },
+        ]
+      } else {
+        // life分类：只查询category为'life'的文章
+        where.category = 'life'
+      }
+    }
+
+    // 标签筛选
     if (tag) {
       where.tags = {
         some: {
@@ -23,12 +39,26 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // 搜索筛选 - 需要与category条件合并
     if (search) {
-      where.OR = [
+      const searchConditions = [
         { title: { contains: search, mode: 'insensitive' } },
         { summary: { contains: search, mode: 'insensitive' } },
         { content: { contains: search, mode: 'insensitive' } },
       ]
+
+      // 如果已经有category的OR条件，需要用AND合并
+      if (where.OR && Array.isArray(where.OR) && where.OR.length > 0 && where.OR[0].category !== undefined) {
+        const categoryOr = where.OR
+        delete where.OR
+        where.AND = [
+          { OR: categoryOr },
+          { OR: searchConditions },
+        ]
+      } else {
+        // 没有category条件，直接设置search的OR
+        where.OR = searchConditions
+      }
     }
 
     const [posts, total] = await Promise.all([
@@ -64,6 +94,7 @@ export async function GET(request: NextRequest) {
       title: post.title,
       date: post.date.toISOString(),
       summary: post.summary || '',
+      category: post.category || 'tech',
       tags: post.tags.map((pt) => ({
         name: pt.tag.name,
         slug: pt.tag.slug,
@@ -78,9 +109,18 @@ export async function GET(request: NextRequest) {
       page,
       totalPages: Math.ceil(total / limit),
     })
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error fetching posts:', error)
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      stack: error.stack,
+    })
     return NextResponse.json(
-      { error: 'Failed to fetch posts' },
+      {
+        error: 'Failed to fetch posts',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      },
       { status: 500 }
     )
   }

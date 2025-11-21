@@ -14,11 +14,14 @@ import {
   GithubOutlined,
   LinkedinOutlined,
   TwitterOutlined,
-  DribbbleOutlined
+  DribbbleOutlined,
+  CodeOutlined,
+  HeartOutlined
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
 import { useTranslation } from '@/hooks/useTranslation'
+import { categorizeBlog } from '@/lib/blog-category'
 
 const { Title, Paragraph } = Typography
 
@@ -168,108 +171,121 @@ export default function HomePage() {
                 {t('common.viewAll')} <RightOutlined />
               </Link>
             </div>
-            <Row gutter={[24, 24]}>
+            <div>
               {loading ? (
                 [1, 2, 3].map((i) => (
-                  <Col xs={24} sm={12} md={8} key={i}>
-                    <Card loading style={{ borderRadius: '12px' }} />
-                  </Col>
+                  <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '12px' }} />
                 ))
               ) : latestPosts.length > 0 ? (
-                latestPosts.map((post) => (
-                  <Col xs={24} sm={12} md={8} key={post.id}>
+                latestPosts.map((post) => {
+                  const categoryInfo = categorizeBlog(post.title, post.summary)
+                  return (
                     <Card
+                      key={post.id}
                       style={{
+                        marginBottom: '24px',
                         borderRadius: '12px',
-                        overflow: 'hidden',
-                        height: '100%',
+                        border: 'none',
+                        boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
                         transition: 'all 0.3s',
                       }}
-                      styles={{ body: { padding: 0 } }}
-                      cover={
-                        <PostCoverImage
-                          title={post.title}
-                          summary={post.summary}
-                          height={180}
-                          gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                        />
-                      }
+                      styles={{ body: { padding: '24px' } }}
                     >
-                      <div style={{ padding: '20px' }}>
-                        <Space style={{ marginBottom: '12px', fontSize: '12px', color: 'var(--foreground)', opacity: 0.6 }}>
-                          <CalendarOutlined />
-                          <span>{formatDate(post.date)}</span>
-                          <MessageOutlined style={{ marginLeft: '12px' }} />
-                          <span>{post.commentCount} {t('common.comments')}</span>
-                        </Space>
-                        <Link 
-                          href={`/blog/${post.slug}`}
-                          style={{ 
-                            display: 'block',
-                            transition: 'all 0.2s',
-                          }}
-                          onClick={(e) => {
-                            const target = e.currentTarget
-                            target.style.opacity = '0.7'
-                            target.style.transform = 'scale(0.98)'
-                            setTimeout(() => {
-                              target.style.opacity = '1'
-                              target.style.transform = 'scale(1)'
-                            }, 200)
-                          }}
-                        >
-                          <Title level={4} style={{
-                            fontSize: '18px',
-                            fontWeight: 600,
-                            marginBottom: '12px',
-                            color: 'var(--foreground)',
-                            cursor: 'pointer',
-                          }}>
-                            {post.title}
-                          </Title>
-                        </Link>
-                        <Paragraph
-                          ellipsis={{ rows: 2 }}
-                          style={{
-                            color: 'var(--foreground)',
-                            opacity: 0.7,
-                            marginBottom: '12px',
-                            fontSize: '14px',
-                          }}
-                        >
-                          {post.summary}
-                        </Paragraph>
-                        <Link 
-                          href={`/blog/${post.slug}`} 
-                          style={{
-                            color: '#2563eb',
-                            fontWeight: 500,
-                            textDecoration: 'none',
-                            transition: 'all 0.2s',
-                            display: 'inline-block',
-                          }}
-                          onClick={(e) => {
-                            const target = e.currentTarget
-                            target.style.opacity = '0.7'
-                            target.style.transform = 'scale(0.95)'
-                            setTimeout(() => {
-                              target.style.opacity = '1'
-                              target.style.transform = 'scale(1)'
-                            }, 200)
-                          }}
-                        >
-                          {t('common.readMore')} <RightOutlined />
-                        </Link>
+                      <div style={{ display: 'flex', gap: '16px' }}>
+                        <div style={{
+                          width: '120px',
+                          height: '90px',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          flexShrink: 0,
+                        }}>
+                          <PostCoverImage
+                            title={post.title}
+                            summary={post.summary}
+                            height={90}
+                            gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                          />
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <Space style={{ marginBottom: '12px', fontSize: '12px', color: 'var(--foreground)', opacity: 0.6 }} wrap>
+                            <Tag color={categoryInfo.color} style={{ margin: 0 }}>
+                              {categoryInfo.label}
+                            </Tag>
+                            <CalendarOutlined />
+                            <span>{formatDate(post.date)}</span>
+                            <MessageOutlined style={{ marginLeft: '12px' }} />
+                            <span>{post.commentCount} {t('common.comments')}</span>
+                          </Space>
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            style={{
+                              display: 'block',
+                              transition: 'all 0.2s',
+                              marginBottom: '8px',
+                            }}
+                            onClick={(e) => {
+                              const target = e.currentTarget
+                              target.style.opacity = '0.7'
+                              target.style.transform = 'scale(0.98)'
+                              setTimeout(() => {
+                                target.style.opacity = '1'
+                                target.style.transform = 'scale(1)'
+                              }, 200)
+                            }}
+                          >
+                            <Title level={4} style={{
+                              fontSize: '18px',
+                              fontWeight: 600,
+                              marginBottom: '8px',
+                              color: 'var(--foreground)',
+                              cursor: 'pointer',
+                            }}>
+                              {post.title}
+                            </Title>
+                          </Link>
+                          <Paragraph
+                            ellipsis={{ rows: 2 }}
+                            style={{
+                              color: 'var(--foreground)',
+                              opacity: 0.7,
+                              marginBottom: '12px',
+                              fontSize: '14px',
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {post.summary}
+                          </Paragraph>
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            style={{
+                              color: '#2563eb',
+                              fontWeight: 500,
+                              textDecoration: 'none',
+                              transition: 'all 0.2s',
+                              display: 'inline-block',
+                              fontSize: '14px',
+                            }}
+                            onClick={(e) => {
+                              const target = e.currentTarget
+                              target.style.opacity = '0.7'
+                              target.style.transform = 'scale(0.95)'
+                              setTimeout(() => {
+                                target.style.opacity = '1'
+                                target.style.transform = 'scale(1)'
+                              }, 200)
+                            }}
+                          >
+                            {t('common.readMore')} <RightOutlined />
+                          </Link>
+                        </div>
                       </div>
                     </Card>
-                  </Col>
-                ))
+                  )
+                })
               ) : (
-                <Col span={24}>
-                  <Empty description={t('common.noPosts')} />
-                </Col>
+                <Empty description={t('common.noPosts')} />
               )}
-            </Row>
+            </div>
           </section>
 
           {/* Hot Posts */}
@@ -306,108 +322,121 @@ export default function HomePage() {
                 {t('common.viewAll')} <RightOutlined />
               </Link>
             </div>
-            <Row gutter={[24, 24]}>
+            <div>
               {loading ? (
                 [1, 2, 3].map((i) => (
-                  <Col xs={24} sm={12} md={8} key={i}>
-                    <Card loading style={{ borderRadius: '12px' }} />
-                  </Col>
+                  <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '12px' }} />
                 ))
               ) : hotPosts.length > 0 ? (
-                hotPosts.map((post) => (
-                  <Col xs={24} sm={12} md={8} key={post.id}>
+                hotPosts.map((post) => {
+                  const categoryInfo = categorizeBlog(post.title, post.summary)
+                  return (
                     <Card
+                      key={post.id}
                       style={{
+                        marginBottom: '24px',
                         borderRadius: '12px',
-                        overflow: 'hidden',
-                        height: '100%',
+                        border: 'none',
+                        boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
                         transition: 'all 0.3s',
                       }}
-                      styles={{ body: { padding: 0 } }}
-                      cover={
-                        <PostCoverImage
-                          title={post.title}
-                          summary={post.summary}
-                          height={180}
-                          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                        />
-                      }
+                      styles={{ body: { padding: '24px' } }}
                     >
-                      <div style={{ padding: '20px' }}>
-                        <Space style={{ marginBottom: '12px', fontSize: '12px', color: 'var(--foreground)', opacity: 0.6 }}>
-                          <CalendarOutlined />
-                          <span>{formatDate(post.date)}</span>
-                          <MessageOutlined style={{ marginLeft: '12px' }} />
-                          <span>{post.commentCount} {t('common.comments')}</span>
-                        </Space>
-                        <Link 
-                          href={`/blog/${post.slug}`}
-                          style={{ 
-                            display: 'block',
-                            transition: 'all 0.2s',
-                          }}
-                          onClick={(e) => {
-                            const target = e.currentTarget
-                            target.style.opacity = '0.7'
-                            target.style.transform = 'scale(0.98)'
-                            setTimeout(() => {
-                              target.style.opacity = '1'
-                              target.style.transform = 'scale(1)'
-                            }, 200)
-                          }}
-                        >
-                          <Title level={4} style={{
-                            fontSize: '18px',
-                            fontWeight: 600,
-                            marginBottom: '12px',
-                            color: 'var(--foreground)',
-                            cursor: 'pointer',
-                          }}>
-                            {post.title}
-                          </Title>
-                        </Link>
-                        <Paragraph
-                          ellipsis={{ rows: 2 }}
-                          style={{
-                            color: 'var(--foreground)',
-                            opacity: 0.7,
-                            marginBottom: '12px',
-                            fontSize: '14px',
-                          }}
-                        >
-                          {post.summary}
-                        </Paragraph>
-                        <Link 
-                          href={`/blog/${post.slug}`} 
-                          style={{
-                            color: '#2563eb',
-                            fontWeight: 500,
-                            textDecoration: 'none',
-                            transition: 'all 0.2s',
-                            display: 'inline-block',
-                          }}
-                          onClick={(e) => {
-                            const target = e.currentTarget
-                            target.style.opacity = '0.7'
-                            target.style.transform = 'scale(0.95)'
-                            setTimeout(() => {
-                              target.style.opacity = '1'
-                              target.style.transform = 'scale(1)'
-                            }, 200)
-                          }}
-                        >
-                          {t('common.readMore')} <RightOutlined />
-                        </Link>
+                      <div style={{ display: 'flex', gap: '16px' }}>
+                        <div style={{
+                          width: '120px',
+                          height: '90px',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          flexShrink: 0,
+                        }}>
+                          <PostCoverImage
+                            title={post.title}
+                            summary={post.summary}
+                            height={90}
+                            gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                          />
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <Space style={{ marginBottom: '12px', fontSize: '12px', color: 'var(--foreground)', opacity: 0.6 }} wrap>
+                            <Tag color={categoryInfo.color} style={{ margin: 0 }}>
+                              {categoryInfo.label}
+                            </Tag>
+                            <CalendarOutlined />
+                            <span>{formatDate(post.date)}</span>
+                            <MessageOutlined style={{ marginLeft: '12px' }} />
+                            <span>{post.commentCount} {t('common.comments')}</span>
+                          </Space>
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            style={{
+                              display: 'block',
+                              transition: 'all 0.2s',
+                              marginBottom: '8px',
+                            }}
+                            onClick={(e) => {
+                              const target = e.currentTarget
+                              target.style.opacity = '0.7'
+                              target.style.transform = 'scale(0.98)'
+                              setTimeout(() => {
+                                target.style.opacity = '1'
+                                target.style.transform = 'scale(1)'
+                              }, 200)
+                            }}
+                          >
+                            <Title level={4} style={{
+                              fontSize: '18px',
+                              fontWeight: 600,
+                              marginBottom: '8px',
+                              color: 'var(--foreground)',
+                              cursor: 'pointer',
+                            }}>
+                              {post.title}
+                            </Title>
+                          </Link>
+                          <Paragraph
+                            ellipsis={{ rows: 2 }}
+                            style={{
+                              color: 'var(--foreground)',
+                              opacity: 0.7,
+                              marginBottom: '12px',
+                              fontSize: '14px',
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {post.summary}
+                          </Paragraph>
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            style={{
+                              color: '#2563eb',
+                              fontWeight: 500,
+                              textDecoration: 'none',
+                              transition: 'all 0.2s',
+                              display: 'inline-block',
+                              fontSize: '14px',
+                            }}
+                            onClick={(e) => {
+                              const target = e.currentTarget
+                              target.style.opacity = '0.7'
+                              target.style.transform = 'scale(0.95)'
+                              setTimeout(() => {
+                                target.style.opacity = '1'
+                                target.style.transform = 'scale(1)'
+                              }, 200)
+                            }}
+                          >
+                            {t('common.readMore')} <RightOutlined />
+                          </Link>
+                        </div>
                       </div>
                     </Card>
-                  </Col>
-                ))
+                  )
+                })
               ) : (
-                <Col span={24}>
-                  <Empty description={t('common.noPosts')} />
-                </Col>
+                <Empty description={t('common.noPosts')} />
               )}
-            </Row>
+            </div>
           </section>
         </Col>
 
@@ -457,45 +486,56 @@ export default function HomePage() {
               style={{ borderRadius: '12px' }}
             >
               <Space direction="vertical" style={{ width: '100%' }} size="middle">
-                <Link href="/blog" style={{ display: 'block', width: '100%' }}>
-                  <Button
-                    block
-                    style={{
-                      height: '44px',
-                      borderRadius: '50px',
-                      border: '2px solid #2563eb',
-                      color: '#2563eb',
-                    }}
-                  >
-                    <BookOutlined /> 前端开发
-                  </Button>
-                </Link>
-                <Link href="/blog" style={{ display: 'block', width: '100%' }}>
-                  <Button
-                    block
-                    style={{
-                      height: '44px',
-                      borderRadius: '50px',
-                      border: '2px solid #2563eb',
-                      color: '#2563eb',
-                    }}
-                  >
-                    <BookOutlined /> React
-                  </Button>
-                </Link>
-                <Link href="/blog" style={{ display: 'block', width: '100%' }}>
-                  <Button
-                    block
-                    style={{
-                      height: '44px',
-                      borderRadius: '50px',
-                      border: '2px solid #2563eb',
-                      color: '#2563eb',
-                    }}
-                  >
-                    <BookOutlined /> Next.js
-                  </Button>
-                </Link>
+                <div>
+                  <Link href="/blog?category=tech" style={{ display: 'block', width: '100%' }}>
+                    <Button
+                      block
+                      style={{
+                        height: '44px',
+                        borderRadius: '50px',
+                        border: '2px solid #1890ff',
+                        color: '#1890ff',
+                        background: '#e6f7ff',
+                      }}
+                    >
+                      <CodeOutlined /> 技术博客
+                    </Button>
+                  </Link>
+                  <div style={{
+                    fontSize: '12px',
+                    color: 'var(--foreground)',
+                    opacity: 0.6,
+                    marginTop: '8px',
+                    paddingLeft: '4px',
+                  }}>
+                    探索最新技术文章、开发技巧和行业趋势
+                  </div>
+                </div>
+                <div>
+                  <Link href="/blog?category=life" style={{ display: 'block', width: '100%' }}>
+                    <Button
+                      block
+                      style={{
+                        height: '44px',
+                        borderRadius: '50px',
+                        border: '2px solid #52c41a',
+                        color: '#52c41a',
+                        background: '#f6ffed',
+                      }}
+                    >
+                      <HeartOutlined /> 生活记录
+                    </Button>
+                  </Link>
+                  <div style={{
+                    fontSize: '12px',
+                    color: 'var(--foreground)',
+                    opacity: 0.6,
+                    marginTop: '8px',
+                    paddingLeft: '4px',
+                  }}>
+                    提高自己的社会化技能或记录自己的生活感想
+                  </div>
+                </div>
               </Space>
             </Card>
 

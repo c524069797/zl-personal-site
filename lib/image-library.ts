@@ -7,6 +7,8 @@ export interface ImageMapping {
   keywords: string[]
   imageUrl: string
   description: string
+  isIcon?: boolean // 是否为图标（需要特殊处理）
+  backgroundColor?: string // 图标背景色
 }
 
 /**
@@ -14,11 +16,13 @@ export interface ImageMapping {
  * 根据关键词匹配对应的图片
  */
 export const imageLibrary: ImageMapping[] = [
-  // React 相关
+  // React 相关 - 使用React图标
   {
     keywords: ['react', 'reactjs', 'react.js', 'react hooks', 'react组件', 'react总结', 'react 总结'],
-    imageUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop&auto=format',
+    imageUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
     description: 'React 技术栈',
+    isIcon: true,
+    backgroundColor: '#61dafb',
   },
   {
     keywords: ['redux', 'zustand', 'mobx', '状态管理'],
@@ -26,11 +30,13 @@ export const imageLibrary: ImageMapping[] = [
     description: '状态管理',
   },
 
-  // Vue 相关
+  // Vue 相关 - 使用Vue图标
   {
-    keywords: ['vue', 'vuejs', 'vue.js', 'vue3', 'vue2', '组合式api'],
-    imageUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&auto=format',
+    keywords: ['vue', 'vuejs', 'vue.js', 'vue3', 'vue2', '组合式api', 'vue项目', 'vue开发', 'vue踩坑'],
+    imageUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
     description: 'Vue.js 框架',
+    isIcon: true,
+    backgroundColor: '#4fc08d',
   },
 
   // 构建工具
@@ -169,6 +175,20 @@ export const imageLibrary: ImageMapping[] = [
     imageUrl: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=400&fit=crop&auto=format',
     description: '博客文章',
   },
+
+  // 表达和沟通相关 - 开会交流图片
+  {
+    keywords: ['表达', '表达能力', '沟通', '沟通框架', '沟通技巧', '会议', '交流', '团队协作', '协作', '说话', '演讲', '汇报', '沟通', '表达'],
+    imageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=400&fit=crop&auto=format',
+    description: '会议交流',
+  },
+
+  // 个人成长和习惯
+  {
+    keywords: ['习惯', '提升', '成长', '自我管理', '效率', '行动', '改变', '日常', '门槛', '法则'],
+    imageUrl: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=400&fit=crop&auto=format',
+    description: '个人成长',
+  },
 ]
 
 /**
@@ -198,9 +218,9 @@ function extractKeywordsFromText(text: string): string[] {
  * 在白名单中查找匹配的图片
  * @param title 文章标题
  * @param summary 文章摘要（可选）
- * @returns 匹配的图片URL，如果没有匹配则返回null
+ * @returns 匹配的图片映射对象，如果没有匹配则返回null
  */
-export function findImageInLibrary(title: string, summary?: string): string | null {
+export function findImageInLibrary(title: string, summary?: string): ImageMapping | null {
   const searchText = summary ? `${title} ${summary}` : title
   const lowerSearchText = searchText.toLowerCase()
   const keywords = extractKeywordsFromText(searchText)
@@ -211,7 +231,7 @@ export function findImageInLibrary(title: string, summary?: string): string | nu
       const lowerKeyword = keyword.toLowerCase()
       // 检查标题或摘要中是否包含关键词
       if (lowerSearchText.includes(lowerKeyword)) {
-        return mapping.imageUrl
+        return mapping
       }
     }
   }
@@ -223,7 +243,7 @@ export function findImageInLibrary(title: string, summary?: string): string | nu
         const lowerK = k.toLowerCase()
         return keyword.includes(lowerK) || lowerK.includes(keyword)
       })) {
-        return mapping.imageUrl
+        return mapping
       }
     }
   }

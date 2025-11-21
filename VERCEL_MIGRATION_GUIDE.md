@@ -157,3 +157,4 @@ A:
 
 3. **部署后立即运行迁移**：在 Vercel Dashboard 的部署日志中运行 `npx prisma migrate deploy`
 
+

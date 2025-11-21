@@ -5,7 +5,7 @@
  * 2. 如果没有匹配，使用自动生成
  */
 
-import { findImageInLibrary } from './image-library'
+import { findImageInLibrary, ImageMapping } from './image-library'
 
 /**
  * 从标题中提取关键词（简化版，可以后续用AI优化）
@@ -69,18 +69,31 @@ export function getImageUrl(title: string, width: number = 800, height: number =
 }
 
 /**
- * 生成文章封面图片URL
+ * 生成文章封面图片信息
  * 优先从白名单库中匹配，如果没有匹配则使用自动生成
  */
-export function getPostCoverImage(title: string, summary?: string): string {
+export function getPostCoverImageInfo(title: string, summary?: string): { imageUrl: string; isIcon?: boolean; backgroundColor?: string } {
   // 1. 优先从白名单库中查找匹配的图片
   const libraryImage = findImageInLibrary(title, summary)
   if (libraryImage) {
-    return libraryImage
+    return {
+      imageUrl: libraryImage.imageUrl,
+      isIcon: libraryImage.isIcon,
+      backgroundColor: libraryImage.backgroundColor,
+    }
   }
 
   // 2. 如果没有匹配，使用自动生成的图片
   const searchText = summary ? `${title} ${summary.substring(0, 20)}` : title
-  return getImageUrl(searchText, 800, 400)
+  return {
+    imageUrl: getImageUrl(searchText, 800, 400),
+  }
+}
+
+/**
+ * 生成文章封面图片URL（向后兼容）
+ */
+export function getPostCoverImage(title: string, summary?: string): string {
+  return getPostCoverImageInfo(title, summary).imageUrl
 }
 

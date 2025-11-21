@@ -39,3 +39,4 @@ WHERE table_name = 'comments'
 AND column_name IN ('aiAutoReply', 'aiChecked', 'aiCheckedAt', 'aiSpamScore', 'aiToxicScore')
 ORDER BY table_name, column_name;
 
+

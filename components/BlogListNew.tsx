@@ -54,14 +54,15 @@ export default function BlogListNew() {
     const page = parseInt(searchParams.get('page') || '1')
     const tag = searchParams.get('tag') || null
     const search = searchParams.get('search') || ''
+    const category = searchParams.get('category') || null
 
     setCurrentPage(page)
     setSelectedTag(tag)
     setSearchKeyword(search)
-    fetchData(page, tag, search)
+    fetchData(page, tag, search, category)
   }, [searchParams])
 
-  const fetchData = async (page: number, tag: string | null, search: string) => {
+  const fetchData = async (page: number, tag: string | null, search: string, category: string | null) => {
     setLoading(true)
     try {
       const params = new URLSearchParams()
@@ -69,6 +70,7 @@ export default function BlogListNew() {
       params.append('limit', pageSize.toString())
       if (tag) params.append('tag', tag)
       if (search) params.append('search', search)
+      if (category) params.append('category', category)
 
       const [postsRes, tagsRes, hotRes] = await Promise.all([
         fetch(`/api/posts?${params.toString()}`),
@@ -102,6 +104,8 @@ export default function BlogListNew() {
     const params = new URLSearchParams()
     if (value) params.append('search', value)
     if (selectedTag) params.append('tag', selectedTag)
+    const category = searchParams.get('category')
+    if (category) params.append('category', category)
     params.append('page', '1')
     router.push(`/blog?${params.toString()}`)
   }
@@ -110,6 +114,8 @@ export default function BlogListNew() {
     const params = new URLSearchParams()
     params.append('tag', tagSlug)
     if (searchKeyword) params.append('search', searchKeyword)
+    const category = searchParams.get('category')
+    if (category) params.append('category', category)
     params.append('page', '1')
     router.push(`/blog?${params.toString()}`)
   }
@@ -118,6 +124,8 @@ export default function BlogListNew() {
     const params = new URLSearchParams()
     if (selectedTag) params.append('tag', selectedTag)
     if (searchKeyword) params.append('search', searchKeyword)
+    const category = searchParams.get('category')
+    if (category) params.append('category', category)
     params.append('page', page.toString())
     router.push(`/blog?${params.toString()}`)
   }
@@ -138,7 +146,12 @@ export default function BlogListNew() {
             marginBottom: '8px',
             color: 'var(--foreground)',
           }}>
-            {t('blog.title')}
+            {(() => {
+              const category = searchParams.get('category')
+              if (category === 'tech') return '技术博客'
+              if (category === 'life') return '生活记录'
+              return t('blog.title')
+            })()}
           </Title>
           <Paragraph style={{
             fontSize: '16px',
@@ -146,7 +159,12 @@ export default function BlogListNew() {
             opacity: 0.7,
             maxWidth: '800px',
           }}>
-            {t('blog.description')}
+            {(() => {
+              const category = searchParams.get('category')
+              if (category === 'tech') return '探索最新技术文章、开发技巧和行业趋势，提升您的开发技能'
+              if (category === 'life') return '提高自己的社会化技能或记录自己的生活感想'
+              return t('blog.description')
+            })()}
           </Paragraph>
         </div>
       </div>
@@ -197,9 +215,9 @@ export default function BlogListNew() {
                         {formatDate(post.date)}
                       </Text>
                     </div>
-                    <Link 
+                    <Link
                       href={`/blog/${post.slug}`}
-                      style={{ 
+                      style={{
                         display: 'block',
                         transition: 'all 0.2s',
                       }}
@@ -414,9 +432,9 @@ export default function BlogListNew() {
                       />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <Link 
+                      <Link
                         href={`/blog/${post.slug}`}
-                        style={{ 
+                        style={{
                           display: 'block',
                           transition: 'all 0.2s',
                         }}

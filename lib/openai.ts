@@ -141,7 +141,7 @@ ${content.substring(0, 3000)}${content.length > 3000 ? '...' : ''}
 
     // 提取并清理响应内容
     let responseContent = response.choices[0].message.content || '{}'
-    
+
     // 移除可能的markdown代码块标记
     responseContent = responseContent.trim()
     // 移除开头的 ```json 或 ``` 标记
@@ -149,7 +149,7 @@ ${content.substring(0, 3000)}${content.length > 3000 ? '...' : ''}
     // 移除结尾的 ``` 标记
     responseContent = responseContent.replace(/\s*```$/i, '')
     responseContent = responseContent.trim()
-    
+
     // 尝试解析JSON
     let result
     try {
@@ -169,7 +169,7 @@ ${content.substring(0, 3000)}${content.length > 3000 ? '...' : ''}
         throw new Error(`生成摘要失败: JSON解析错误 - ${parseError.message}`)
       }
     }
-    
+
     return {
       summary: result.summary || '',
       keywords: result.keywords || [],
@@ -242,7 +242,7 @@ export async function moderateComment(
 
     // 提取并清理响应内容
     let responseContent = response.choices[0].message.content || '{}'
-    
+
     // 移除可能的markdown代码块标记
     responseContent = responseContent.trim()
     // 移除开头的 ```json 或 ``` 标记
@@ -250,7 +250,7 @@ export async function moderateComment(
     // 移除结尾的 ``` 标记
     responseContent = responseContent.replace(/\s*```$/i, '')
     responseContent = responseContent.trim()
-    
+
     // 尝试解析JSON
     let result
     try {

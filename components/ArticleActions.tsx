@@ -13,9 +13,9 @@ export default function ArticleActions() {
   const handleShare = async (e: React.MouseEvent) => {
     e.preventDefault()
     setClicked('share')
-    
+
     const url = `${window.location.origin}${pathname}`
-    
+
     try {
       await navigator.clipboard.writeText(url)
       setShared(true)
@@ -59,7 +59,7 @@ export default function ArticleActions() {
       borderTop: '1px solid var(--border)',
       borderBottom: '1px solid var(--border)',
     }}>
-      <div 
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -86,7 +86,7 @@ export default function ArticleActions() {
         <span style={{ fontSize: '14px' }}>点赞</span>
       </div>
 
-      <div 
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -113,7 +113,7 @@ export default function ArticleActions() {
         <span style={{ fontSize: '14px' }}>收藏</span>
       </div>
 
-      <div 
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',

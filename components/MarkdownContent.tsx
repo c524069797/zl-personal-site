@@ -158,8 +158,8 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
           whiteSpace: 'pre',
         }}
       >
-        <code 
-          className={`${className} code-block-${language}`} 
+        <code
+          className={`${className} code-block-${language}`}
           {...props}
         >
           {children || code}
@@ -257,7 +257,7 @@ const markdownComponents = {
   code: ({ inline, className, children, ...props }: any) => {
     const match = /language-(\w+)/.exec(className || "");
     const language = match ? match[1] : '';
-    
+
     // 提取纯文本用于复制功能
     // react-markdown 的 children 在代码块中通常是字符串
     let codeText = '';
@@ -281,17 +281,17 @@ const markdownComponents = {
     } else {
       codeText = String(children);
     }
-    
+
     // 移除末尾的换行符
     codeText = codeText.replace(/\n$/, '');
 
     return !inline && match ? (
-      <CodeBlock 
-        code={codeText} 
-        language={language} 
-        className={className} 
+      <CodeBlock
+        code={codeText}
+        language={language}
+        className={className}
         children={children}
-        {...props} 
+        {...props}
       />
     ) : (
       <code

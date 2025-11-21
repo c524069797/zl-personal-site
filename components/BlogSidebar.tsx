@@ -120,8 +120,8 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
               href="https://github.com/c524069797"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ 
-                color: 'var(--text-secondary)', 
+              style={{
+                color: 'var(--text-secondary)',
                 fontSize: '20px',
                 transition: 'all 0.2s',
                 display: 'inline-block',
@@ -148,8 +148,8 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
             </a>
             <a
               href={`mailto:${author.email || ''}`}
-              style={{ 
-                color: 'var(--text-secondary)', 
+              style={{
+                color: 'var(--text-secondary)',
                 fontSize: '20px',
                 transition: 'all 0.2s',
                 display: 'inline-block',
@@ -213,7 +213,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                   />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <Link 
+                  <Link
                     href={`/blog/${post.slug}`}
                     style={{
                       display: 'block',

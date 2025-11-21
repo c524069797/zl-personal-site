@@ -68,9 +68,9 @@ export default function PostTabs() {
           renderItem={(post) => (
             <List.Item style={{ padding: '16px 0', borderBottom: '1px solid var(--border)' }}>
               <div style={{ width: '100%' }}>
-                <Link 
+                <Link
                   href={`/blog/${post.slug}`}
-                  style={{ 
+                  style={{
                     display: 'block',
                     transition: 'all 0.2s',
                   }}
@@ -175,9 +175,9 @@ export default function PostTabs() {
                   />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <Link 
+                  <Link
                     href={`/blog/${post.slug}`}
-                    style={{ 
+                    style={{
                       display: 'block',
                       transition: 'all 0.2s',
                     }}

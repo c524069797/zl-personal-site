@@ -4,7 +4,7 @@ export function handleLinkClick(e: React.MouseEvent<HTMLAnchorElement>) {
   target.style.transition = 'all 0.2s'
   target.style.opacity = '0.7'
   target.style.transform = 'scale(0.98)'
-  
+
   setTimeout(() => {
     target.style.opacity = '1'
     target.style.transform = 'scale(1)'

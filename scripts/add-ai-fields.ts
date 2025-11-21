@@ -8,7 +8,7 @@ async function addAIFields() {
 
     // 添加 posts 表的 AI 字段
     await prisma.$executeRawUnsafe(`
-      ALTER TABLE "posts" 
+      ALTER TABLE "posts"
       ADD COLUMN IF NOT EXISTS "aiKeywords" TEXT,
       ADD COLUMN IF NOT EXISTS "aiSummary" TEXT,
       ADD COLUMN IF NOT EXISTS "aiSummaryAt" TIMESTAMP(3),
@@ -18,7 +18,7 @@ async function addAIFields() {
 
     // 添加 comments 表的 AI 字段
     await prisma.$executeRawUnsafe(`
-      ALTER TABLE "comments" 
+      ALTER TABLE "comments"
       ADD COLUMN IF NOT EXISTS "aiAutoReply" TEXT,
       ADD COLUMN IF NOT EXISTS "aiChecked" BOOLEAN NOT NULL DEFAULT false,
       ADD COLUMN IF NOT EXISTS "aiCheckedAt" TIMESTAMP(3),

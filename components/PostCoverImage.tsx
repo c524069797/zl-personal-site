@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { BookOutlined } from '@ant-design/icons'
-import { getPostCoverImage } from '@/lib/image-utils'
+import { getPostCoverImageInfo } from '@/lib/image-utils'
 
 interface PostCoverImageProps {
   title: string
@@ -21,8 +21,40 @@ export default function PostCoverImage({
 }: PostCoverImageProps) {
   const [imageError, setImageError] = useState(false)
 
-  // 生成图片URL
-  const imageUrl = getPostCoverImage(title, summary)
+  // 生成图片信息
+  const imageInfo = getPostCoverImageInfo(title, summary)
+  const { imageUrl, isIcon, backgroundColor } = imageInfo
+
+  // 如果是图标，使用特殊样式显示
+  if (isIcon) {
+    return (
+      <div
+        style={{
+          height: `${height}px`,
+          background: backgroundColor || '#4fc08d',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+        }}
+      >
+        <img
+          src={imageUrl}
+          alt={title}
+          style={{
+            width: '60%',
+            height: '60%',
+            objectFit: 'contain',
+            filter: 'brightness(0) invert(1)', // 将图标变为白色
+          }}
+          onError={() => {
+            setImageError(true)
+          }}
+          loading="lazy"
+        />
+      </div>
+    )
+  }
 
   if (imageError) {
     return (

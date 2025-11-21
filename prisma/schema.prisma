@@ -36,6 +36,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   published Boolean  @default(false)
+  category  String?  @default("tech") // 分类：tech(技术博客) 或 life(生活记录)
 
   // AI相关字段
   aiSummary      String?   @db.Text // AI生成的摘要
@@ -53,6 +54,7 @@ model Post {
   @@index([date])
   @@index([published])
   @@index([vectorized])
+  @@index([category])
   @@map("posts")
 }
 

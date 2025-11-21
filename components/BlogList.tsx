@@ -64,9 +64,9 @@ export default function BlogList({ posts }: BlogListProps) {
                   border: '1px solid var(--border)',
                 }}
               >
-                <Link 
+                <Link
                   href={`/blog/${post.slug}`}
-                  style={{ 
+                  style={{
                     display: 'block',
                     transition: 'all 0.2s',
                   }}

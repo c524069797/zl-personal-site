@@ -20,7 +20,7 @@ async function migrateCategoryField() {
   try {
     // 添加category列（如果不存在）
     await prisma.$executeRawUnsafe(`
-      ALTER TABLE posts 
+      ALTER TABLE posts
       ADD COLUMN IF NOT EXISTS category VARCHAR(255) DEFAULT 'tech';
     `)
 
@@ -31,7 +31,7 @@ async function migrateCategoryField() {
 
     // 核心技术关键词（React、Next.js、Vue等，这些必须分类为技术博客）
     const coreTechKeywords = [
-      'vue', 'vuejs', 'vue.js', 'vue2', 'vue3', 
+      'vue', 'vuejs', 'vue.js', 'vue2', 'vue3',
       'react', 'reactjs', 'react.js',
       'nextjs', 'next.js', 'next',
     ]
@@ -61,19 +61,19 @@ async function migrateCategoryField() {
     let updatedCount = 0
     for (const post of posts) {
       const searchText = `${post.title} ${post.summary || ''}`.toLowerCase()
-      
+
       // 优先检查核心技术关键词（React、Next.js、Vue等）
-      const hasCoreTechKeyword = coreTechKeywords.some(keyword => 
+      const hasCoreTechKeyword = coreTechKeywords.some(keyword =>
         searchText.includes(keyword.toLowerCase())
       )
-      
+
       // 检查其他技术关键词
-      const hasOtherTechKeyword = otherTechKeywords.some(keyword => 
+      const hasOtherTechKeyword = otherTechKeywords.some(keyword =>
         searchText.includes(keyword.toLowerCase())
       )
-      
+
       // 检查生活关键词
-      const hasLifeKeyword = lifeKeywords.some(keyword => 
+      const hasLifeKeyword = lifeKeywords.some(keyword =>
         searchText.includes(keyword.toLowerCase())
       )
 

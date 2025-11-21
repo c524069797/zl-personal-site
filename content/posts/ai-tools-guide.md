@@ -68,33 +68,53 @@ Nano Banana 是由 Google 开发的 AI 图像生成与编辑工具，能够根�
 
 ## AI CLI 工具
 
-### Codex
+### Codex / GitHub Copilot
 
-Codex 是 OpenAI 开发的代码生成工具，基于 GPT 模型，专门针对编程任务优化。
+Codex 是 OpenAI 开发的代码生成工具，基于 GPT 模型，专门针对编程任务优化。GitHub Copilot 是基于 Codex 的 IDE 插件，是目前最流行的 AI 代码助手。
 
 #### 安装和使用
 
-```bash
-# 安装 Codex CLI
-npm install -g @openai/codex-cli
+**GitHub Copilot（推荐）**：
+1. 在 VS Code、Cursor、JetBrains IDE 等编辑器中安装 GitHub Copilot 扩展
+2. 登录 GitHub 账号并订阅 Copilot（个人版 $10/月）
+3. 在代码中输入注释或函数名，Copilot 会自动生成代码
+4. 按 `Tab` 接受建议，按 `Esc` 拒绝
 
-# 使用 Codex 生成代码
-codex generate "创建一个 React 组件，显示用户列表"
+**使用示例**：
+```javascript
+// 注释：创建一个 React 组件，显示用户列表
+// Copilot 会自动生成完整的组件代码
+```
+
+**Codex API**：
+```bash
+# 使用 OpenAI API 调用 Codex
+curl https://api.openai.com/v1/completions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "code-davinci-002",
+    "prompt": "创建一个 React 组件，显示用户列表",
+    "max_tokens": 200
+  }'
 ```
 
 #### 特点
 
-- **代码生成能力强**：专门针对编程任务训练
-- **支持多种语言**：Python、JavaScript、TypeScript、Go 等
-- **上下文理解**：能够理解代码上下文
-- **集成 IDE**：可以集成到 VS Code、Cursor 等编辑器
+- **代码生成能力强**：专门针对编程任务训练，理解代码上下文
+- **支持多种语言**：Python、JavaScript、TypeScript、Go、Rust、C++ 等
+- **上下文理解**：能够理解整个文件甚至项目的上下文
+- **IDE 集成**：无缝集成到编辑器中，实时代码补全
+- **多行代码生成**：可以生成完整的函数、类甚至文件
 
 #### 适用场景
 
-- 快速生成代码模板
+- 快速生成代码模板和样板代码
 - 代码补全和重构
 - 代码解释和文档生成
 - 单元测试生成
+- 代码翻译（不同编程语言之间）
+- 代码优化和性能改进
 
 ### Claude
 

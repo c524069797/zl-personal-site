@@ -6,19 +6,73 @@ import rehypeHighlight from "rehype-highlight";
 import { useState } from "react";
 import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
 
+// 递归提取 React 元素中的文本内容
+function extractTextFromChildren(children: any): string {
+  if (typeof children === 'string') {
+    return children;
+  }
+  if (Array.isArray(children)) {
+    return children.map(extractTextFromChildren).join('');
+  }
+  if (typeof children === 'object' && children !== null) {
+    if (children.props && children.props.children) {
+      return extractTextFromChildren(children.props.children);
+    }
+  }
+  return '';
+}
+
 // 代码块组件（CSDN风格）
-function CodeBlock({ code, language, className, ...props }: any) {
+function CodeBlock({ code, language, className, children, ...props }: any) {
   const [copied, setCopied] = useState(false);
 
+  // 从 DOM 中提取纯文本用于复制
+  const getCodeText = () => {
+    if (typeof code === 'string') {
+      return code;
+    }
+    // 如果 code 不是字符串，尝试从 children 中提取
+    if (typeof children === 'string') {
+      return children;
+    }
+    // 降级方案：从 DOM 中提取
+    return '';
+  };
+
   const handleCopy = async () => {
+    const codeText = getCodeText();
+    if (!codeText) {
+      // 如果无法获取文本，尝试从 DOM 中提取
+      const codeElement = document.querySelector(`.code-block-${language}`);
+      if (codeElement) {
+        const text = codeElement.textContent || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+          // 降级方案
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
+      }
+      return;
+    }
+
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(codeText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       // 降级方案
       const textArea = document.createElement('textarea');
-      textArea.value = code;
+      textArea.value = codeText;
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand('copy');
@@ -101,10 +155,14 @@ function CodeBlock({ code, language, className, ...props }: any) {
           lineHeight: '1.6',
           overflow: 'auto',
           fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+          whiteSpace: 'pre',
         }}
       >
-        <code className={className} {...props}>
-          {code}
+        <code 
+          className={`${className} code-block-${language}`} 
+          {...props}
+        >
+          {children || code}
         </code>
       </pre>
     </div>
@@ -199,10 +257,42 @@ const markdownComponents = {
   code: ({ inline, className, children, ...props }: any) => {
     const match = /language-(\w+)/.exec(className || "");
     const language = match ? match[1] : '';
-    const codeString = String(children).replace(/\n$/, '');
     
+    // 提取纯文本用于复制功能
+    // react-markdown 的 children 在代码块中通常是字符串
+    let codeText = '';
+    if (typeof children === 'string') {
+      codeText = children;
+    } else if (Array.isArray(children)) {
+      codeText = children
+        .map((child: any) => {
+          if (typeof child === 'string') {
+            return child;
+          }
+          // 如果是 React 元素，尝试递归提取文本
+          if (typeof child === 'object' && child !== null) {
+            if (child.props && child.props.children) {
+              return extractTextFromChildren(child.props.children);
+            }
+          }
+          return '';
+        })
+        .join('');
+    } else {
+      codeText = String(children);
+    }
+    
+    // 移除末尾的换行符
+    codeText = codeText.replace(/\n$/, '');
+
     return !inline && match ? (
-      <CodeBlock code={codeString} language={language} className={className} {...props} />
+      <CodeBlock 
+        code={codeText} 
+        language={language} 
+        className={className} 
+        children={children}
+        {...props} 
+      />
     ) : (
       <code
         style={{

@@ -3,6 +3,113 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import { useState } from "react";
+import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
+
+// 代码块组件（CSDN风格）
+function CodeBlock({ code, language, className, ...props }: any) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // 降级方案
+      const textArea = document.createElement('textarea');
+      textArea.value = code;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        margin: '1.5rem 0',
+        borderRadius: '4px',
+        overflow: 'hidden',
+        border: '1px solid #e8e8e8',
+        background: '#fafafa',
+      }}
+    >
+      {/* 代码块头部 */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '8px 12px',
+          background: '#f5f5f5',
+          borderBottom: '1px solid #e8e8e8',
+          fontSize: '12px',
+          color: '#666',
+        }}
+      >
+        <span style={{ fontWeight: 500 }}>{language || 'code'}</span>
+        <button
+          onClick={handleCopy}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            padding: '4px 8px',
+            border: 'none',
+            background: 'transparent',
+            cursor: 'pointer',
+            color: '#666',
+            fontSize: '12px',
+            borderRadius: '3px',
+            transition: 'all 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#e8e8e8';
+            e.currentTarget.style.color = '#333';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = '#666';
+          }}
+        >
+          {copied ? (
+            <>
+              <CheckOutlined style={{ fontSize: '12px' }} />
+              <span>已复制</span>
+            </>
+          ) : (
+            <>
+              <CopyOutlined style={{ fontSize: '12px' }} />
+              <span>复制</span>
+            </>
+          )}
+        </button>
+      </div>
+      {/* 代码内容 */}
+      <pre
+        style={{
+          margin: 0,
+          padding: '16px',
+          background: '#fafafa',
+          color: '#333',
+          fontSize: '14px',
+          lineHeight: '1.6',
+          overflow: 'auto',
+          fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+        }}
+      >
+        <code className={className} {...props}>
+          {code}
+        </code>
+      </pre>
+    </div>
+  );
+}
 
 const markdownComponents = {
   h1: ({ children }: any) => (
@@ -91,27 +198,20 @@ const markdownComponents = {
   ),
   code: ({ inline, className, children, ...props }: any) => {
     const match = /language-(\w+)/.exec(className || "");
+    const language = match ? match[1] : '';
+    const codeString = String(children).replace(/\n$/, '');
+    
     return !inline && match ? (
-      <pre style={{
-        background: '#2d2d2d',
-        color: '#f8f8f2',
-        padding: '1rem',
-        borderRadius: '4px',
-        margin: '1.5rem 0',
-        overflow: 'auto',
-      }}>
-        <code className={className} {...props}>
-          {children}
-        </code>
-      </pre>
+      <CodeBlock code={codeString} language={language} className={className} {...props} />
     ) : (
       <code
         style={{
-          background: 'var(--background-light)',
+          background: '#f5f5f5',
           padding: '0.125rem 0.375rem',
-          borderRadius: '4px',
+          borderRadius: '3px',
           fontSize: '0.875rem',
-          color: 'var(--foreground)',
+          color: '#e83e8c',
+          fontFamily: 'Consolas, Monaco, "Courier New", monospace',
         }}
         {...props}
       >
@@ -155,6 +255,34 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
         __html: `
           .markdown-link:hover {
             text-decoration: underline;
+          }
+          /* CSDN风格代码高亮样式 */
+          .hljs {
+            background: #fafafa !important;
+            color: #333 !important;
+          }
+          .hljs-keyword {
+            color: #0000ff !important;
+            font-weight: bold;
+          }
+          .hljs-string {
+            color: #008000 !important;
+          }
+          .hljs-comment {
+            color: #808080 !important;
+            font-style: italic;
+          }
+          .hljs-number {
+            color: #ff0000 !important;
+          }
+          .hljs-function {
+            color: #795e26 !important;
+          }
+          .hljs-variable {
+            color: #001080 !important;
+          }
+          .hljs-title {
+            color: #267f99 !important;
           }
         `
       }} />

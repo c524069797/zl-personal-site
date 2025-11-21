@@ -213,7 +213,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                     gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
                   />
                 </div>
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <Link href={`/blog/${post.slug}`}>
                     <Text
                       strong
@@ -222,8 +222,15 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                         marginBottom: '4px',
                         color: 'var(--foreground)',
                         cursor: 'pointer',
+                        wordBreak: 'break-word',
+                        wordWrap: 'break-word',
+                        overflowWrap: 'break-word',
+                        lineHeight: '1.5',
                       }}
-                      ellipsis={{ tooltip: post.title }}
+                      ellipsis={{ 
+                        tooltip: post.title,
+                        rows: 2 
+                      }}
                     >
                       {post.title}
                     </Text>

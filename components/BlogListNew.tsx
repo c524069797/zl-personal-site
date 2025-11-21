@@ -35,18 +35,28 @@ interface Tag {
   count: number
 }
 
+interface Category {
+  id: string
+  name: string
+  slug: string
+  count: number
+  color: string
+}
+
 export default function BlogListNew() {
   const { t } = useTranslation()
   const router = useRouter()
   const searchParams = useSearchParams()
   const [posts, setPosts] = useState<Post[]>([])
   const [tags, setTags] = useState<Tag[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [hotPosts, setHotPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [searchKeyword, setSearchKeyword] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const pageSize = 10
 
@@ -58,6 +68,7 @@ export default function BlogListNew() {
 
     setCurrentPage(page)
     setSelectedTag(tag)
+    setSelectedCategory(category)
     setSearchKeyword(search)
     fetchData(page, tag, search, category)
   }, [searchParams])
@@ -72,9 +83,10 @@ export default function BlogListNew() {
       if (search) params.append('search', search)
       if (category) params.append('category', category)
 
-      const [postsRes, tagsRes, hotRes] = await Promise.all([
+      const [postsRes, tagsRes, categoriesRes, hotRes] = await Promise.all([
         fetch(`/api/posts?${params.toString()}`),
         fetch('/api/tags'),
+        fetch('/api/categories'),
         fetch('/api/posts/hot?limit=4'),
       ])
 
@@ -89,11 +101,16 @@ export default function BlogListNew() {
         setTags(tagsData.tags || [])
       }
 
+      if (categoriesRes.ok) {
+        const categoriesData = await categoriesRes.json()
+        setCategories(categoriesData.categories || [])
+      }
+
       if (hotRes.ok) {
         const hotData = await hotRes.json()
         setHotPosts(hotData.posts || [])
       }
-    } catch (error) {
+    } catch {
       // 错误已静默处理
     } finally {
       setLoading(false)
@@ -335,33 +352,53 @@ export default function BlogListNew() {
                   </Space>
                 }
                 style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                loading={loading}
               >
                 <div style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {tags.slice(0, 6).map((tag) => (
-                    <div
-                      key={tag.id}
-                      style={{
-                        padding: '10px 0',
-                        borderBottom: '1px solid var(--border)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => handleTagClick(tag.slug)}
-                    >
-                      <Text
+                  {categories.length > 0 ? (
+                    categories.map((category) => (
+                      <div
+                        key={category.id}
                         style={{
-                          color: selectedTag === tag.slug ? '#1890ff' : 'var(--foreground)',
-                          opacity: selectedTag === tag.slug ? 1 : 0.7,
+                          padding: '10px 0',
+                          borderBottom: '1px solid var(--border)',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                        }}
+                        onClick={() => {
+                          const params = new URLSearchParams()
+                          params.append('category', category.slug)
+                          if (selectedTag) params.append('tag', selectedTag)
+                          if (searchKeyword) params.append('search', searchKeyword)
+                          params.append('page', '1')
+                          router.push(`/blog?${params.toString()}`)
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--background-light)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent'
                         }}
                       >
-                        {tag.name}
-                      </Text>
-                      <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.5 }}>
-                        {tag.count}
-                      </Text>
-                    </div>
-                  ))}
+                        <Text
+                          style={{
+                            color: selectedCategory === category.slug ? category.color : 'var(--foreground)',
+                            opacity: selectedCategory === category.slug ? 1 : 0.7,
+                            fontWeight: selectedCategory === category.slug ? 500 : 400,
+                          }}
+                        >
+                          {category.name}
+                        </Text>
+                        <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.5 }}>
+                          {category.count}
+                        </Text>
+                      </div>
+                    ))
+                  ) : (
+                    <Empty description="暂无分类" style={{ padding: '20px 0' }} />
+                  )}
                 </div>
               </Card>
 
@@ -374,27 +411,45 @@ export default function BlogListNew() {
                   </Space>
                 }
                 style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                loading={loading}
               >
-                <Space wrap size="small">
-                  {tags.map((tag) => (
-                    <Tag
-                      key={tag.id}
-                      style={{
-                        fontSize: '12px',
-                        padding: '3px 10px',
-                        background: 'var(--background)',
-                        borderRadius: '4px',
-                        color: 'var(--foreground)',
-                        border: '1px solid var(--border)',
-                        cursor: 'pointer',
-                        marginBottom: '8px',
-                      }}
-                      onClick={() => handleTagClick(tag.slug)}
-                    >
-                      {tag.name}
-                    </Tag>
-                  ))}
-                </Space>
+                {tags.length > 0 ? (
+                  <Space wrap size="small">
+                    {tags.map((tag) => (
+                      <Tag
+                        key={tag.id}
+                        style={{
+                          fontSize: '12px',
+                          padding: '3px 10px',
+                          background: selectedTag === tag.slug ? '#1890ff' : 'var(--background)',
+                          borderRadius: '4px',
+                          color: selectedTag === tag.slug ? '#fff' : 'var(--foreground)',
+                          border: selectedTag === tag.slug ? '1px solid #1890ff' : '1px solid var(--border)',
+                          cursor: 'pointer',
+                          marginBottom: '8px',
+                          transition: 'all 0.2s',
+                        }}
+                        onClick={() => handleTagClick(tag.slug)}
+                        onMouseEnter={(e) => {
+                          if (selectedTag !== tag.slug) {
+                            e.currentTarget.style.background = 'var(--background-light)'
+                            e.currentTarget.style.borderColor = '#1890ff'
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (selectedTag !== tag.slug) {
+                            e.currentTarget.style.background = 'var(--background)'
+                            e.currentTarget.style.borderColor = 'var(--border)'
+                          }
+                        }}
+                      >
+                        {tag.name} ({tag.count})
+                      </Tag>
+                    ))}
+                  </Space>
+                ) : (
+                  <Empty description="暂无标签" style={{ padding: '20px 0' }} />
+                )}
               </Card>
 
               {/* Hot Posts */}

@@ -40,19 +40,29 @@ interface BlogSidebarProps {
   excludeSlug?: string
 }
 
+interface Category {
+  id: string
+  name: string
+  slug: string
+  count: number
+  color: string
+}
+
 export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
   const { t } = useTranslation()
   const [popularPosts, setPopularPosts] = useState<Post[]>([])
   const [tags, setTags] = useState<Tag[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchSidebarData = async () => {
       setLoading(true)
       try {
-        const [hotRes, tagsRes] = await Promise.all([
+        const [hotRes, tagsRes, categoriesRes] = await Promise.all([
           fetch('/api/posts/hot?limit=3'),
           fetch('/api/tags'),
+          fetch('/api/categories'),
         ])
 
         if (hotRes.ok) {
@@ -72,6 +82,11 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
             .sort((a: Tag, b: Tag) => b.count - a.count)
             .slice(0, 9)
           setTags(sortedTags)
+        }
+
+        if (categoriesRes.ok) {
+          const categoriesData = await categoriesRes.json()
+          setCategories(categoriesData.categories || [])
         }
       } catch {
         // 错误已静默处理
@@ -256,6 +271,61 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
         ) : (
                   <Empty description={t('blog.noRecommendedPosts')} />
         )}
+      </Card>
+
+      {/* 文章分类 */}
+      <Card
+        title={<Title level={4} style={{ margin: 0 }}>文章分类</Title>}
+        style={{ marginBottom: '24px', borderRadius: '8px' }}
+        loading={loading}
+      >
+        <div style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {categories.length > 0 ? (
+            categories.map((category) => (
+              <Link
+                key={category.id}
+                href={`/blog?category=${category.slug}`}
+                style={{
+                  display: 'block',
+                  padding: '10px 0',
+                  borderBottom: '1px solid var(--border)',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--background-light)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                }}
+                onClick={(e) => {
+                  const target = e.currentTarget
+                  target.style.transform = 'scale(0.98)'
+                  setTimeout(() => {
+                    target.style.transform = 'scale(1)'
+                  }, 200)
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text
+                    style={{
+                      color: category.color,
+                      opacity: 0.9,
+                      fontSize: '14px',
+                    }}
+                  >
+                    {category.name}
+                  </Text>
+                  <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.5 }}>
+                    {category.count}
+                  </Text>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <Empty description="暂无分类" style={{ padding: '20px 0' }} />
+          )}
+        </div>
       </Card>
 
       {/* 热门标签 */}

@@ -32,11 +32,13 @@ export async function GET() {
       timestamp: new Date().toISOString()
     })
   } catch (error: unknown) {
+    const errorObj = error instanceof Error ? error : new Error(String(error))
+    const errorWithCode = error as { code?: string }
     const databaseUrl = process.env.DATABASE_URL
     return NextResponse.json({
       success: false,
-      error: error.message,
-      errorCode: error.code,
+      error: errorObj.message,
+      errorCode: errorWithCode.code,
       hasDatabaseUrl: !!databaseUrl,
       databaseUrlPreview: databaseUrl
         ? databaseUrl.substring(0, 20) + '...'

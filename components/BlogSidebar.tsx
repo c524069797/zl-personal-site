@@ -373,7 +373,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                   e.currentTarget.style.color = 'var(--text-secondary)'
                 }}
               >
-                {tag.name}
+                {tag.name} ({tag.count})
               </Link>
             ))
           ) : (

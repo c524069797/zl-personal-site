@@ -60,7 +60,7 @@ ${summary ? `文章摘要：${summary.substring(0, 200)}` : ''}
       imageType,
       title,
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('AI analyze image error:', error)
     return NextResponse.json(
       {

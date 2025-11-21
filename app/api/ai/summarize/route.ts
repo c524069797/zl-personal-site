@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    const post = await Promise.race([postPromise, timeoutPromise]) as any
+    const post = await Promise.race([postPromise, timeoutPromise]) as Awaited<typeof postPromise> | null
 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
@@ -71,13 +71,13 @@ export async function POST(request: NextRequest) {
       summary,
       keywords,
     })
-  } catch (error: any) {
-    console.error('AI summarize error:', error)
+  } catch (error: unknown) {
+    const errorObj = error instanceof Error ? error : new Error(String(error))
+    console.error('AI summarize error:', errorObj)
     console.error('Error details:', {
-      message: error.message,
-      stack: error.stack,
-      name: error.name,
-      code: error.code,
+      message: errorObj.message,
+      stack: errorObj.stack,
+      name: errorObj.name,
     })
 
     // 处理超时错误

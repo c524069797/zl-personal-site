@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20')
     const search = searchParams.get('search')
 
-    const where: any = {}
+    const where: Record<string, unknown> = {}
 
     if (search) {
       where.OR = [
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
       page,
       totalPages: Math.ceil(total / limit),
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '获取文章列表失败' },
       { status: 500 }
@@ -191,7 +191,7 @@ export async function POST(request: NextRequest) {
       },
       message: '文章创建成功',
     }, { status: 201 })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '创建文章失败' },
       { status: 500 }

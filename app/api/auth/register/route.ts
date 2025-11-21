@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       token,
       message: '注册成功',
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     // 返回更详细的错误信息用于调试
     return NextResponse.json(
       {

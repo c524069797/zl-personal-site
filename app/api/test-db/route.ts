@@ -14,7 +14,7 @@ export async function GET() {
     await prisma.$connect()
 
     // 执行简单查询
-    const result = await prisma.$queryRaw`SELECT 1 as test`
+    await prisma.$queryRaw`SELECT 1 as test`
 
     // 尝试查询表是否存在
     const tables = await prisma.$queryRaw`
@@ -31,7 +31,7 @@ export async function GET() {
       tables: Array.isArray(tables) ? tables.length : 0,
       timestamp: new Date().toISOString()
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     const databaseUrl = process.env.DATABASE_URL
     return NextResponse.json({
       success: false,

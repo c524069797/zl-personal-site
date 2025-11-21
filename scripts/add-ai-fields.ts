@@ -39,7 +39,7 @@ async function addAIFields() {
     console.log('✓ posts_vectorized_idx 索引已创建')
 
     console.log('✅ 所有 AI 字段和索引已成功添加！')
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ 添加字段时出错:', error.message)
     throw error
   } finally {

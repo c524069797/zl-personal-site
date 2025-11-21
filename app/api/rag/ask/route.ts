@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     // 搜索相似的文章块
     const searchResultsPromise = searchVectors(queryVector, 5, 0.7)
-    const searchResults = await Promise.race([searchResultsPromise, timeoutPromise]) as any[]
+    const searchResults = await Promise.race([searchResultsPromise, timeoutPromise]) as Array<Record<string, unknown>>
 
     if (searchResults.length === 0) {
       return NextResponse.json({
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
     const result = await Promise.race([askQuestionPromise, timeoutPromise]) as { answer: string; sources: Array<{ title: string; slug: string }> }
 
     return NextResponse.json(result)
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('RAG ask error:', error)
 
     // 处理超时错误

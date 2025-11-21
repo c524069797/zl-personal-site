@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search')
     const category = searchParams.get('category') // tech 或 life
 
-    const where: any = {
+    const where: Record<string, unknown> = {
       published: true,
     }
 
@@ -109,7 +109,7 @@ export async function GET(request: NextRequest) {
       page,
       totalPages: Math.ceil(total / limit),
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error fetching posts:', error)
     console.error('Error details:', {
       message: error.message,

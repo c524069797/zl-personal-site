@@ -5,10 +5,7 @@ async function testRegister() {
   try {
     await prisma.$connect()
 
-    const userCount = await prisma.user.count()
-
     const testPassword = 'czl990515'
-    const hashed = hashPassword(testPassword)
 
     const testEmail = 'test@example.com'
     const existingUser = await prisma.user.findUnique({
@@ -30,7 +27,7 @@ async function testRegister() {
         where: { id: user.id },
       })
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ 测试失败:', error.message)
     console.error('详细错误:', error)
   } finally {

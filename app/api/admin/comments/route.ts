@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
 
-    const where: any = {}
+    const where: { approved?: boolean } = {}
     if (approved !== null) {
       where.approved = approved === 'true'
     }
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
       page,
       totalPages: Math.ceil(total / limit),
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '获取评论失败' },
       { status: 500 }

@@ -35,7 +35,7 @@ export async function GET(
     })
 
     return NextResponse.json({ comments })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '获取评论失败' },
       { status: 500 }
@@ -122,7 +122,7 @@ export async function POST(
       },
       message: '评论已提交，等待审核',
     }, { status: 201 })
-  } catch (error: any) {
+  } catch (error: unknown) {
 
     // 检查是否是数据库连接错误
     if (error?.code === 'P1001' || error?.message?.includes('Can\'t reach database')) {

@@ -120,23 +120,24 @@ class DeploymentServer {
       const { name, arguments: args } = request.params;
 
       try {
+        const argsObj = args as Record<string, unknown> | undefined;
         switch (name) {
           case 'run_lint':
             return await this.runLint();
           case 'git_push':
             return await this.gitPush(
-              args?.branch || 'main',
-              args?.commitMessage
+              (argsObj?.branch as string) || 'main',
+              argsObj?.commitMessage as string | undefined
             );
           case 'deploy_vercel':
-            return await this.deployVercel(args?.environment || 'production');
+            return await this.deployVercel((argsObj?.environment as string) || 'production');
           case 'run_migration':
-            return await this.runMigration(args?.migrationUrl);
+            return await this.runMigration(argsObj?.migrationUrl as string | undefined);
           case 'auto_deploy':
             return await this.autoDeploy(
-              args?.branch || 'main',
-              args?.runMigration || false,
-              args?.commitMessage
+              (argsObj?.branch as string) || 'main',
+              (argsObj?.runMigration as boolean) || false,
+              argsObj?.commitMessage as string | undefined
             );
           default:
             throw new Error(`未知工具: ${name}`);
@@ -259,7 +260,7 @@ class DeploymentServer {
 
   private async runMigration(migrationUrl?: string): Promise<{ content: Array<{ type: string; text: string }> }> {
     const url = migrationUrl || process.env.MIGRATION_URL || 'https://www.clczl.asia/api/admin/migrate-category-field';
-    
+
     try {
       const response = await fetch(url, {
         method: 'POST',

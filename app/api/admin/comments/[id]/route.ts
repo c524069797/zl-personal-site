@@ -42,8 +42,9 @@ export async function PATCH(
       comment,
       message: approved ? '评论已通过审核' : '评论已拒绝',
     })
-  } catch (error: any) {
-    if (error.code === 'P2025') {
+  } catch (error: unknown) {
+    const prismaError = error as { code?: string };
+    if (prismaError.code === 'P2025') {
       return NextResponse.json(
         { error: '评论不存在' },
         { status: 404 }
@@ -76,8 +77,9 @@ export async function DELETE(
     return NextResponse.json({
       message: '评论已删除',
     })
-  } catch (error: any) {
-    if (error.code === 'P2025') {
+  } catch (error: unknown) {
+    const prismaError = error as { code?: string };
+    if (prismaError.code === 'P2025') {
       return NextResponse.json(
         { error: '评论不存在' },
         { status: 404 }

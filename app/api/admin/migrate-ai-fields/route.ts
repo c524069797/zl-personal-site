@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 /**
@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
  * 使用方法：在 Vercel 部署后，访问 https://your-domain.com/api/admin/migrate-ai-fields
  * 或者在本地运行：curl http://localhost:3000/api/admin/migrate-ai-fields
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     console.log('开始添加 AI 相关字段到数据库...')
 
@@ -37,8 +37,9 @@ export async function GET(request: NextRequest) {
         CREATE INDEX IF NOT EXISTS "comments_aiChecked_idx" ON "comments"("aiChecked");
       `)
       console.log('✓ comments_aiChecked_idx 索引已创建')
-    } catch (error: any) {
-      if (!error.message.includes('already exists')) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (!errorMessage.includes('already exists')) {
         throw error
       }
       console.log('⚠ comments_aiChecked_idx 索引已存在')
@@ -49,8 +50,9 @@ export async function GET(request: NextRequest) {
         CREATE INDEX IF NOT EXISTS "posts_vectorized_idx" ON "posts"("vectorized");
       `)
       console.log('✓ posts_vectorized_idx 索引已创建')
-    } catch (error: any) {
-      if (!error.message.includes('already exists')) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (!errorMessage.includes('already exists')) {
         throw error
       }
       console.log('⚠ posts_vectorized_idx 索引已存在')
@@ -65,13 +67,13 @@ export async function GET(request: NextRequest) {
         indexes: ['comments_aiChecked_idx', 'posts_vectorized_idx'],
       },
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ 添加字段时出错:', error)
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+        error: error instanceof Error ? error.message : String(error),
+        details: process.env.NODE_ENV === 'development' && error instanceof Error ? error.stack : undefined,
       },
       { status: 500 }
     )

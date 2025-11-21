@@ -140,25 +140,25 @@ ${content.substring(0, 3000)}${content.length > 3000 ? '...' : ''}
     })
 
     // 提取并清理响应内容
-    let content = response.choices[0].message.content || '{}'
+    let responseContent = response.choices[0].message.content || '{}'
     
     // 移除可能的markdown代码块标记
-    content = content.trim()
+    responseContent = responseContent.trim()
     // 移除开头的 ```json 或 ``` 标记
-    content = content.replace(/^```(?:json)?\s*/i, '')
+    responseContent = responseContent.replace(/^```(?:json)?\s*/i, '')
     // 移除结尾的 ``` 标记
-    content = content.replace(/\s*```$/i, '')
-    content = content.trim()
+    responseContent = responseContent.replace(/\s*```$/i, '')
+    responseContent = responseContent.trim()
     
     // 尝试解析JSON
     let result
     try {
-      result = JSON.parse(content)
+      result = JSON.parse(responseContent)
     } catch (parseError: any) {
-      console.error('❌ JSON解析失败，原始内容:', content)
+      console.error('❌ JSON解析失败，原始内容:', responseContent)
       console.error('❌ 解析错误:', parseError)
       // 尝试提取JSON对象
-      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      const jsonMatch = responseContent.match(/\{[\s\S]*\}/)
       if (jsonMatch) {
         try {
           result = JSON.parse(jsonMatch[0])
@@ -241,25 +241,25 @@ export async function moderateComment(
     })
 
     // 提取并清理响应内容
-    let content = response.choices[0].message.content || '{}'
+    let responseContent = response.choices[0].message.content || '{}'
     
     // 移除可能的markdown代码块标记
-    content = content.trim()
+    responseContent = responseContent.trim()
     // 移除开头的 ```json 或 ``` 标记
-    content = content.replace(/^```(?:json)?\s*/i, '')
+    responseContent = responseContent.replace(/^```(?:json)?\s*/i, '')
     // 移除结尾的 ``` 标记
-    content = content.replace(/\s*```$/i, '')
-    content = content.trim()
+    responseContent = responseContent.replace(/\s*```$/i, '')
+    responseContent = responseContent.trim()
     
     // 尝试解析JSON
     let result
     try {
-      result = JSON.parse(content)
+      result = JSON.parse(responseContent)
     } catch (parseError: any) {
-      console.error('❌ JSON解析失败，原始内容:', content)
+      console.error('❌ JSON解析失败，原始内容:', responseContent)
       console.error('❌ 解析错误:', parseError)
       // 尝试提取JSON对象
-      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      const jsonMatch = responseContent.match(/\{[\s\S]*\}/)
       if (jsonMatch) {
         try {
           result = JSON.parse(jsonMatch[0])
@@ -336,25 +336,25 @@ ${contextText}
     })
 
     // 提取并清理响应内容
-    let content = response.choices[0].message.content || '{}'
-    
+    let responseContent = response.choices[0].message.content || '{}'
+
     // 移除可能的markdown代码块标记
-    content = content.trim()
+    responseContent = responseContent.trim()
     // 移除开头的 ```json 或 ``` 标记
-    content = content.replace(/^```(?:json)?\s*/i, '')
+    responseContent = responseContent.replace(/^```(?:json)?\s*/i, '')
     // 移除结尾的 ``` 标记
-    content = content.replace(/\s*```$/i, '')
-    content = content.trim()
-    
+    responseContent = responseContent.replace(/\s*```$/i, '')
+    responseContent = responseContent.trim()
+
     // 尝试解析JSON
     let result
     try {
-      result = JSON.parse(content)
+      result = JSON.parse(responseContent)
     } catch (parseError: any) {
-      console.error('❌ JSON解析失败，原始内容:', content)
+      console.error('❌ JSON解析失败，原始内容:', responseContent)
       console.error('❌ 解析错误:', parseError)
       // 尝试提取JSON对象
-      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      const jsonMatch = responseContent.match(/\{[\s\S]*\}/)
       if (jsonMatch) {
         try {
           result = JSON.parse(jsonMatch[0])

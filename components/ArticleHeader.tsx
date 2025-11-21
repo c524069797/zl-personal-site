@@ -87,11 +87,6 @@ export default function ArticleHeader({
           <ClockCircleOutlined />
           <span>{readingTime}分钟阅读</span>
         </Space>
-
-        <Space>
-          <EyeOutlined />
-          <span>2456</span>
-        </Space>
       </div>
 
       {tags && tags.length > 0 && (
@@ -112,7 +107,17 @@ export default function ArticleHeader({
                 borderRadius: '20px',
                 fontSize: '14px',
                 textDecoration: 'none',
-                transition: 'all 0.3s',
+                transition: 'all 0.2s',
+                display: 'inline-block',
+              }}
+              onClick={(e) => {
+                const target = e.currentTarget
+                target.style.transform = 'scale(0.95)'
+                target.style.opacity = '0.8'
+                setTimeout(() => {
+                  target.style.transform = 'scale(1)'
+                  target.style.opacity = '1'
+                }, 200)
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#1890ff'

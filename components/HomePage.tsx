@@ -202,7 +202,22 @@ export default function HomePage() {
                           <MessageOutlined style={{ marginLeft: '12px' }} />
                           <span>{post.commentCount} {t('common.comments')}</span>
                         </Space>
-                        <Link href={`/blog/${post.slug}`}>
+                        <Link 
+                          href={`/blog/${post.slug}`}
+                          style={{ 
+                            display: 'block',
+                            transition: 'all 0.2s',
+                          }}
+                          onClick={(e) => {
+                            const target = e.currentTarget
+                            target.style.opacity = '0.7'
+                            target.style.transform = 'scale(0.98)'
+                            setTimeout(() => {
+                              target.style.opacity = '1'
+                              target.style.transform = 'scale(1)'
+                            }, 200)
+                          }}
+                        >
                           <Title level={4} style={{
                             fontSize: '18px',
                             fontWeight: 600,
@@ -224,11 +239,25 @@ export default function HomePage() {
                         >
                           {post.summary}
                         </Paragraph>
-                        <Link href={`/blog/${post.slug}`} style={{
-                          color: '#2563eb',
-                          fontWeight: 500,
-                          textDecoration: 'none',
-                        }}>
+                        <Link 
+                          href={`/blog/${post.slug}`} 
+                          style={{
+                            color: '#2563eb',
+                            fontWeight: 500,
+                            textDecoration: 'none',
+                            transition: 'all 0.2s',
+                            display: 'inline-block',
+                          }}
+                          onClick={(e) => {
+                            const target = e.currentTarget
+                            target.style.opacity = '0.7'
+                            target.style.transform = 'scale(0.95)'
+                            setTimeout(() => {
+                              target.style.opacity = '1'
+                              target.style.transform = 'scale(1)'
+                            }, 200)
+                          }}
+                        >
                           {t('common.readMore')} <RightOutlined />
                         </Link>
                       </div>
@@ -311,7 +340,22 @@ export default function HomePage() {
                           <MessageOutlined style={{ marginLeft: '12px' }} />
                           <span>{post.commentCount} {t('common.comments')}</span>
                         </Space>
-                        <Link href={`/blog/${post.slug}`}>
+                        <Link 
+                          href={`/blog/${post.slug}`}
+                          style={{ 
+                            display: 'block',
+                            transition: 'all 0.2s',
+                          }}
+                          onClick={(e) => {
+                            const target = e.currentTarget
+                            target.style.opacity = '0.7'
+                            target.style.transform = 'scale(0.98)'
+                            setTimeout(() => {
+                              target.style.opacity = '1'
+                              target.style.transform = 'scale(1)'
+                            }, 200)
+                          }}
+                        >
                           <Title level={4} style={{
                             fontSize: '18px',
                             fontWeight: 600,
@@ -333,11 +377,25 @@ export default function HomePage() {
                         >
                           {post.summary}
                         </Paragraph>
-                        <Link href={`/blog/${post.slug}`} style={{
-                          color: '#2563eb',
-                          fontWeight: 500,
-                          textDecoration: 'none',
-                        }}>
+                        <Link 
+                          href={`/blog/${post.slug}`} 
+                          style={{
+                            color: '#2563eb',
+                            fontWeight: 500,
+                            textDecoration: 'none',
+                            transition: 'all 0.2s',
+                            display: 'inline-block',
+                          }}
+                          onClick={(e) => {
+                            const target = e.currentTarget
+                            target.style.opacity = '0.7'
+                            target.style.transform = 'scale(0.95)'
+                            setTimeout(() => {
+                              target.style.opacity = '1'
+                              target.style.transform = 'scale(1)'
+                            }, 200)
+                          }}
+                        >
                           {t('common.readMore')} <RightOutlined />
                         </Link>
                       </div>

@@ -114,64 +114,63 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
             前端开发工程师 | React专家 | 技术博主
           </Text>
 
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              marginBottom: '24px',
-              padding: '16px 0',
-              borderTop: '1px solid var(--border)',
-              borderBottom: '1px solid var(--border)',
-            }}
-          >
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '4px' }}>
-                128
-              </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{t('blog.posts')}</div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '4px' }}>
-                24K
-              </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{t('blog.followers')}</div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '4px' }}>
-                3.6K
-              </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{t('blog.favorites')}</div>
-            </div>
-          </div>
 
           <Space size="large" style={{ justifyContent: 'center' }}>
             <a
-              href="https://github.com"
+              href="https://github.com/c524069797"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: 'var(--text-secondary)', fontSize: '20px' }}
+              style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '20px',
+                transition: 'all 0.2s',
+                display: 'inline-block',
+              }}
+              onClick={(e) => {
+                const target = e.currentTarget
+                target.style.transform = 'scale(0.9)'
+                target.style.opacity = '0.7'
+                setTimeout(() => {
+                  target.style.transform = 'scale(1)'
+                  target.style.opacity = '1'
+                }, 200)
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#1890ff'
+                e.currentTarget.style.transform = 'scale(1.1)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-secondary)'
+                e.currentTarget.style.transform = 'scale(1)'
+              }}
             >
               <GithubOutlined />
             </a>
             <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: 'var(--text-secondary)', fontSize: '20px' }}
-            >
-              <TwitterOutlined />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: 'var(--text-secondary)', fontSize: '20px' }}
-            >
-              <LinkedinOutlined />
-            </a>
-            <a
               href={`mailto:${author.email || ''}`}
-              style={{ color: 'var(--text-secondary)', fontSize: '20px' }}
+              style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '20px',
+                transition: 'all 0.2s',
+                display: 'inline-block',
+              }}
+              onClick={(e) => {
+                const target = e.currentTarget
+                target.style.transform = 'scale(0.9)'
+                target.style.opacity = '0.7'
+                setTimeout(() => {
+                  target.style.transform = 'scale(1)'
+                  target.style.opacity = '1'
+                }, 200)
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#1890ff'
+                e.currentTarget.style.transform = 'scale(1.1)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-secondary)'
+                e.currentTarget.style.transform = 'scale(1)'
+              }}
             >
               <MailOutlined />
             </a>
@@ -214,7 +213,22 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                   />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <Link href={`/blog/${post.slug}`}>
+                  <Link 
+                    href={`/blog/${post.slug}`}
+                    style={{
+                      display: 'block',
+                      transition: 'all 0.2s',
+                    }}
+                    onClick={(e) => {
+                      const target = e.currentTarget
+                      target.style.opacity = '0.7'
+                      target.style.transform = 'scale(0.98)'
+                      setTimeout(() => {
+                        target.style.opacity = '1'
+                        target.style.transform = 'scale(1)'
+                      }, 200)
+                    }}
+                  >
                     <Text
                       strong
                       style={{
@@ -227,9 +241,9 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                         overflowWrap: 'break-word',
                         lineHeight: '1.5',
                       }}
-                      ellipsis={{ 
+                      ellipsis={{
                         tooltip: post.title,
-                        rows: 2 
+                        rows: 2
                       }}
                     >
                       {post.title}
@@ -272,8 +286,17 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
                   borderRadius: '20px',
                   fontSize: '14px',
                   textDecoration: 'none',
-                  transition: 'all 0.3s',
+                  transition: 'all 0.2s',
                   display: 'inline-block',
+                }}
+                onClick={(e) => {
+                  const target = e.currentTarget
+                  target.style.transform = 'scale(0.95)'
+                  target.style.opacity = '0.8'
+                  setTimeout(() => {
+                    target.style.transform = 'scale(1)'
+                    target.style.opacity = '1'
+                  }, 200)
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'var(--primary-color)'

@@ -68,7 +68,22 @@ export default function PostTabs() {
           renderItem={(post) => (
             <List.Item style={{ padding: '16px 0', borderBottom: '1px solid var(--border)' }}>
               <div style={{ width: '100%' }}>
-                <Link href={`/blog/${post.slug}`}>
+                <Link 
+                  href={`/blog/${post.slug}`}
+                  style={{ 
+                    display: 'block',
+                    transition: 'all 0.2s',
+                  }}
+                  onClick={(e) => {
+                    const target = e.currentTarget
+                    target.style.opacity = '0.7'
+                    target.style.transform = 'scale(0.98)'
+                    setTimeout(() => {
+                      target.style.opacity = '1'
+                      target.style.transform = 'scale(1)'
+                    }, 200)
+                  }}
+                >
                   <Title
                     level={4}
                     style={{
@@ -160,7 +175,22 @@ export default function PostTabs() {
                   />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <Link href={`/blog/${post.slug}`}>
+                  <Link 
+                    href={`/blog/${post.slug}`}
+                    style={{ 
+                      display: 'block',
+                      transition: 'all 0.2s',
+                    }}
+                    onClick={(e) => {
+                      const target = e.currentTarget
+                      target.style.opacity = '0.7'
+                      target.style.transform = 'scale(0.98)'
+                      setTimeout(() => {
+                        target.style.opacity = '1'
+                        target.style.transform = 'scale(1)'
+                      }, 200)
+                    }}
+                  >
                     <Title
                       level={4}
                       style={{

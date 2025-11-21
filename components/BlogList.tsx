@@ -64,7 +64,22 @@ export default function BlogList({ posts }: BlogListProps) {
                   border: '1px solid var(--border)',
                 }}
               >
-                <Link href={`/blog/${post.slug}`}>
+                <Link 
+                  href={`/blog/${post.slug}`}
+                  style={{ 
+                    display: 'block',
+                    transition: 'all 0.2s',
+                  }}
+                  onClick={(e) => {
+                    const target = e.currentTarget
+                    target.style.opacity = '0.7'
+                    target.style.transform = 'scale(0.98)'
+                    setTimeout(() => {
+                      target.style.opacity = '1'
+                      target.style.transform = 'scale(1)'
+                    }, 200)
+                  }}
+                >
                   <Title level={3} style={{
                     marginBottom: '12px',
                     color: 'var(--foreground)',

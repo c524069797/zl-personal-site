@@ -26,11 +26,8 @@ export const metadata: Metadata = {
   keywords: ["博客", "简历", "陈灼的网络日志"],
   authors: [{ name: "Your Name" }],
   icons: {
-    icon: [
-      { url: '/favicon.png', type: 'image/png' },
-      { url: '/favicon.ico', type: 'image/x-icon' },
-    ],
-    shortcut: '/favicon.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
     apple: '/favicon.png',
   },
   openGraph: {

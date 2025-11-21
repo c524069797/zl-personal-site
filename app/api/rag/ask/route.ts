@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       const payload = result.payload as { postId?: string; content?: string } | undefined
       const postId = payload?.postId
       if (!postId) continue
-      
+
       const post = posts.find((p) => p.id === postId)
 
       if (post && !contextMap.has(postId)) {

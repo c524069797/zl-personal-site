@@ -40,7 +40,8 @@ async function addAIFields() {
 
     console.log('✅ 所有 AI 字段和索引已成功添加！')
   } catch (error: unknown) {
-    console.error('❌ 添加字段时出错:', error.message)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error('❌ 添加字段时出错:', errorMessage)
     throw error
   } finally {
     await prisma.$disconnect()

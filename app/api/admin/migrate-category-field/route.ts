@@ -1,14 +1,22 @@
 /**
  * 在Vercel上执行category字段迁移的API路由
- * POST /api/admin/migrate-category-field
+ * GET/POST /api/admin/migrate-category-field
  */
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 export const maxDuration = 60
 export const dynamic = 'force-dynamic'
 
-export async function POST(request: NextRequest) {
+export async function GET() {
+  return await migrateCategoryField()
+}
+
+export async function POST() {
+  return await migrateCategoryField()
+}
+
+async function migrateCategoryField() {
   try {
     // 添加category列（如果不存在）
     await prisma.$executeRawUnsafe(`
@@ -96,16 +104,20 @@ export async function POST(request: NextRequest) {
       message: `成功添加category字段！共更新 ${updatedCount} 篇文章`,
       updatedCount,
     })
-  } catch (error: any) {
+  } catch (error) {
     console.error('迁移category字段失败:', error)
+    const errorMessage = error instanceof Error ? error.message : '迁移失败'
+    const errorStack = error instanceof Error ? error.stack : undefined
     return NextResponse.json(
       {
         success: false,
-        error: error.message || '迁移失败',
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+        error: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? errorStack : undefined,
       },
       { status: 500 }
     )
+  } finally {
+    await prisma.$disconnect()
   }
 }
 

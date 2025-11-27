@@ -1,8 +1,8 @@
-# 陈子龙 - 个人简历
+# 陈灼 - 个人简历
 
 ## 基本信息
 
-- **姓名**：陈子龙
+- **姓名**：陈灼
 - **手机**：15874442813
 - **邮箱**：chenzhuo995@gmail.com
 - **所在地**：广州
@@ -17,15 +17,11 @@
 
 ## 核心技能
 
-- **Web 基础**：HTML5 / CSS3 / JavaScript / TypeScript
-- **框架组件**：Vue / React / Next.js / Ant Design / ECharts
-- **数据库**：MySQL / PostgreSQL
-- **工程化**：Vite / Webpack / NPM / Monorepo / 代码规范与单元测试
-- **协作与质量**：RESTful API、异常与埋点规范、性能分析、自动化部署(CI/CD)
+Web 基础（HTML5 / CSS3 / JavaScript / TypeScript）、框架组件（Vue / React / Next.js / Ant Design / ECharts）、数据库（MySQL / PostgreSQL）、工程化（Vite / Webpack / NPM / Monorepo / 代码规范与单元测试）、协作与质量（RESTful API、异常与埋点规范、性能分析、自动化部署(CI/CD)）、微信小程序开发部署、uni-app开发与部署、AI工具的使用。
 
 ## 工作经历
 
-### 广州某计算机科技有限公司 ｜ 前端开发工程师 ｜ 2021.07 – 至今
+### 广州某软件公司 ｜ 前端开发工程师 ｜ 2021.07 – 至今
 
 #### 项目：主力软件——存储池 & 通用备份/恢复流程 & 许可证模块
 

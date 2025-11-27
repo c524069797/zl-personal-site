@@ -34,7 +34,7 @@ export async function GET() {
     console.error('Error fetching tags:', error)
     const errorMessage = error instanceof Error ? error.message : String(error)
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to fetch tags',
         details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       },

@@ -8,6 +8,9 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const { slug } = await params
 
     // 查找文章

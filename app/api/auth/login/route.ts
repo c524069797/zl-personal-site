@@ -4,6 +4,9 @@ import { verifyPassword, generateToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const body = await request.json()
     const { email, password } = body
 
@@ -54,7 +57,7 @@ export async function POST(request: NextRequest) {
       token,
       message: '登录成功',
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '登录失败，请稍后重试' },
       { status: 500 }

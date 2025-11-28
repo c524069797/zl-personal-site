@@ -5,6 +5,9 @@ import { requireAdmin } from '@/lib/middleware'
 // 获取所有评论（待审核和已审核）
 export async function GET(request: NextRequest) {
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const authResult = await requireAdmin(request)
     if (authResult.error) {
       return authResult.error

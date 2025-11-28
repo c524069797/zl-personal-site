@@ -57,6 +57,7 @@ export default function BlogListNew() {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [showAllTags, setShowAllTags] = useState(false)
 
   const pageSize = 10
 
@@ -419,7 +420,7 @@ export default function BlogListNew() {
               >
                 {tags.length > 0 ? (
                   <Space wrap size="small">
-                    {tags.map((tag) => (
+                    {(showAllTags ? tags : tags.slice(0, 15)).map((tag) => (
                       <Tag
                         key={tag.id}
                         style={{
@@ -450,6 +451,43 @@ export default function BlogListNew() {
                         {tag.name} ({tag.count})
                       </Tag>
                     ))}
+                    {tags.length > 15 && (
+                      <Tag
+                        style={{
+                          fontSize: '12px',
+                          padding: '3px 10px',
+                          background: showAllTags ? '#f0f0f0' : '#1890ff',
+                          borderRadius: '4px',
+                          color: showAllTags ? '#666' : '#fff',
+                          border: showAllTags ? '1px solid #d9d9d9' : '1px solid #1890ff',
+                          cursor: 'pointer',
+                          marginBottom: '8px',
+                          transition: 'all 0.2s',
+                          fontWeight: showAllTags ? 'normal' : '500',
+                        }}
+                        onClick={() => setShowAllTags(!showAllTags)}
+                        onMouseEnter={(e) => {
+                          if (showAllTags) {
+                            e.currentTarget.style.background = '#e6e6e6'
+                            e.currentTarget.style.borderColor = '#bfbfbf'
+                          } else {
+                            e.currentTarget.style.background = '#40a9ff'
+                            e.currentTarget.style.borderColor = '#40a9ff'
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (showAllTags) {
+                            e.currentTarget.style.background = '#f0f0f0'
+                            e.currentTarget.style.borderColor = '#d9d9d9'
+                          } else {
+                            e.currentTarget.style.background = '#1890ff'
+                            e.currentTarget.style.borderColor = '#1890ff'
+                          }
+                        }}
+                      >
+                        {showAllTags ? '收起' : '更多'}
+                      </Tag>
+                    )}
                   </Space>
                 ) : (
                   <Empty description="暂无标签" style={{ padding: '20px 0' }} />

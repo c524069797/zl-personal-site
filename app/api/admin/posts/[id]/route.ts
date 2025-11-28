@@ -59,7 +59,7 @@ export async function GET(
         author: post.author,
       },
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '获取文章失败' },
       { status: 500 }
@@ -79,6 +79,9 @@ export async function PUT(
   }
 
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const { id } = await params
     const body = await request.json()
     const { title, content, summary, slug, tags, published, date } = body
@@ -189,7 +192,7 @@ export async function PUT(
       },
       message: '文章更新成功',
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '更新文章失败' },
       { status: 500 }
@@ -209,6 +212,9 @@ export async function DELETE(
   }
 
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const { id } = await params
 
     // 检查文章是否存在
@@ -238,7 +244,7 @@ export async function DELETE(
     return NextResponse.json({
       message: '文章删除成功',
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: '删除文章失败' },
       { status: 500 }

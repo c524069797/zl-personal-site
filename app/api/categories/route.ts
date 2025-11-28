@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma'
 // 获取分类统计信息
 export async function GET() {
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const [techCount, lifeCount] = await Promise.all([
       // 技术博客：category为'tech'或null的文章
       prisma.post.count({

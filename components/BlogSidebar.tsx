@@ -54,6 +54,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
   const [tags, setTags] = useState<Tag[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
+  const [showAllTags, setShowAllTags] = useState(false)
 
   useEffect(() => {
     const fetchSidebarData = async () => {
@@ -341,41 +342,79 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
           }}
         >
           {tags.length > 0 ? (
-            tags.map((tag) => (
-              <Link
-                key={tag.id}
-                href={`/blog?tag=${tag.slug}`}
-                style={{
-                  background: 'var(--background-light)',
-                  color: 'var(--text-secondary)',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  fontSize: '14px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  display: 'inline-block',
-                }}
-                onClick={(e) => {
-                  const target = e.currentTarget
-                  target.style.transform = 'scale(0.95)'
-                  target.style.opacity = '0.8'
-                  setTimeout(() => {
-                    target.style.transform = 'scale(1)'
-                    target.style.opacity = '1'
-                  }, 200)
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--primary-color)'
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'var(--background-light)'
-                  e.currentTarget.style.color = 'var(--text-secondary)'
-                }}
-              >
-                {tag.name} ({tag.count})
-              </Link>
-            ))
+            <>
+              {(showAllTags ? tags : tags.slice(0, 15)).map((tag) => (
+                <Link
+                  key={tag.id}
+                  href={`/blog?tag=${tag.slug}`}
+                  style={{
+                    background: 'var(--background-light)',
+                    color: 'var(--text-secondary)',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    fontSize: '14px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    display: 'inline-block',
+                  }}
+                  onClick={(e) => {
+                    const target = e.currentTarget
+                    target.style.transform = 'scale(0.95)'
+                    target.style.opacity = '0.8'
+                    setTimeout(() => {
+                      target.style.transform = 'scale(1)'
+                      target.style.opacity = '1'
+                    }, 200)
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--primary-color)'
+                    e.currentTarget.style.color = '#fff'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'var(--background-light)'
+                    e.currentTarget.style.color = 'var(--text-secondary)'
+                  }}
+                >
+                  {tag.name} ({tag.count})
+                </Link>
+              ))}
+              {tags.length > 15 && (
+                <button
+                  onClick={() => setShowAllTags(!showAllTags)}
+                  style={{
+                    background: showAllTags ? '#f0f0f0' : '#1890ff',
+                    color: showAllTags ? '#666' : '#fff',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    fontSize: '14px',
+                    border: showAllTags ? '1px solid #d9d9d9' : '1px solid #1890ff',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    fontWeight: showAllTags ? 'normal' : '500',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (showAllTags) {
+                      e.currentTarget.style.background = '#e6e6e6'
+                      e.currentTarget.style.borderColor = '#bfbfbf'
+                    } else {
+                      e.currentTarget.style.background = '#40a9ff'
+                      e.currentTarget.style.borderColor = '#40a9ff'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (showAllTags) {
+                      e.currentTarget.style.background = '#f0f0f0'
+                      e.currentTarget.style.borderColor = '#d9d9d9'
+                    } else {
+                      e.currentTarget.style.background = '#1890ff'
+                      e.currentTarget.style.borderColor = '#1890ff'
+                    }
+                  }}
+                >
+                  {showAllTags ? '收起' : '更多'}
+                </button>
+              )}
+            </>
           ) : (
             <Empty description={t('blog.noTags')} />
           )}

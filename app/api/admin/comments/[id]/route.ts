@@ -63,6 +63,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // 确保数据库连接
+    await prisma.$connect()
+
     const authResult = await requireAdmin(request)
     if (authResult.error) {
       return authResult.error

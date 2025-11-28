@@ -417,6 +417,57 @@ a:active {
   transform: scale(0.98);
 }
 
+/* Hero Section 响应式样式 */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 40px 12px !important;
+  }
+  
+  .hero-title {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-description {
+    font-size: 16px !important;
+    padding: 0 4px !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+  
+  .hero-buttons .ant-space-item {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .hero-buttons a {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+  }
+  
+  .hero-buttons .ant-btn {
+    width: 100% !important;
+    padding: 0 16px !important;
+    font-size: 14px !important;
+    height: 44px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hero-section {
+    padding: 80px 24px !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: row !important;
+  }
+}
+
 @media print {
   @page {
     size: A4;

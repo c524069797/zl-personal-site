@@ -6,7 +6,6 @@ import { Card, Tag, Space, Typography, Button, Empty, Row, Col } from 'antd'
 import {
   CalendarOutlined,
   MessageOutlined,
-  EyeOutlined,
   FileTextOutlined,
   BookOutlined,
   RightOutlined,
@@ -14,7 +13,6 @@ import {
   GithubOutlined,
   LinkedinOutlined,
   TwitterOutlined,
-  DribbbleOutlined,
   CodeOutlined,
   HeartOutlined
 } from '@ant-design/icons'
@@ -62,7 +60,7 @@ export default function HomePage() {
         const hotData = await hotRes.json()
         setHotPosts(hotData.posts || [])
       }
-    } catch (error) {
+    } catch {
       // 错误已静默处理
     } finally {
       setLoading(false)
@@ -73,11 +71,27 @@ export default function HomePage() {
     <div style={{ width: '100%' }}>
       {/* Hero Section */}
       <div style={{
-        background: 'linear-gradient(120deg, var(--background), var(--border))',
-        padding: '80px 24px',
+        backgroundImage: 'url(/ai-front.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '60px 16px',
         textAlign: 'center',
         marginBottom: '60px',
-      }}>
+        position: 'relative',
+      }}
+      className="hero-section"
+      >
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(255, 255, 255, 0.85)',
+          zIndex: 0,
+        }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
         <Title level={1} style={{
           fontSize: '48px',
           fontWeight: 700,
@@ -86,7 +100,11 @@ export default function HomePage() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
-        }}>
+          padding: '0 8px',
+          wordBreak: 'break-word',
+        }}
+        className="hero-title"
+        >
           {t('home.hero.title')}
         </Title>
         <Paragraph style={{
@@ -95,42 +113,61 @@ export default function HomePage() {
           opacity: 0.8,
           maxWidth: '700px',
           margin: '0 auto 32px',
-        }}>
+          padding: '0 8px',
+          wordBreak: 'break-word',
+        }}
+        className="hero-description"
+        >
           {t('home.hero.description')}
         </Paragraph>
-        <Space size="large">
-          <Link href="/blog">
+        <Space 
+          size="large" 
+          style={{ 
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '16px',
+          }}
+          className="hero-buttons"
+        >
+          <Link href="/blog" style={{ width: '100%', maxWidth: '280px', minWidth: '200px' }}>
             <Button
               type="primary"
               size="large"
               icon={<BookOutlined />}
+              block
               style={{
                 height: '50px',
-                padding: '0 32px',
+                padding: '0 20px',
                 fontSize: '16px',
                 borderRadius: '50px',
+                whiteSpace: 'nowrap',
               }}
             >
               {t('common.browseBlog')}
             </Button>
           </Link>
-          <Link href="/resume">
+          <Link href="/resume" style={{ width: '100%', maxWidth: '280px', minWidth: '200px' }}>
             <Button
               size="large"
               icon={<FileTextOutlined />}
+              block
               style={{
                 height: '50px',
-                padding: '0 32px',
+                padding: '0 20px',
                 fontSize: '16px',
                 borderRadius: '50px',
                 border: '2px solid #2563eb',
                 color: '#2563eb',
+                whiteSpace: 'nowrap',
               }}
             >
               {t('common.viewResume')}
             </Button>
           </Link>
         </Space>
+        </div>
       </div>
 
       {/* Main Content */}

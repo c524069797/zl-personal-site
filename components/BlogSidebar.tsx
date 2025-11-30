@@ -112,19 +112,16 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
         >
           <Avatar
             size={80}
+            src="/my-profile.png"
             style={{
               marginBottom: '16px',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              fontSize: '32px',
             }}
-          >
-            {author.name?.charAt(0) || 'U'}
-          </Avatar>
+          />
           <Title level={4} style={{ marginBottom: '8px' }}>
-            {author.name || '未知用户'}
+            陈灼 (Jack Chen)
           </Title>
           <Text type="secondary" style={{ marginBottom: '24px', display: 'block' }}>
-            前端开发工程师 | React专家 | 技术博主
+            热爱学习的前端，全栈40% | 一名篮球爱好者
           </Text>
 
 
@@ -160,7 +157,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
               <GithubOutlined />
             </a>
             <a
-              href={`mailto:${author.email || ''}`}
+              href={`mailto:${author.email || 'chenzhuo995@gmail.com'}`}
               style={{
                 color: 'var(--text-secondary)',
                 fontSize: '20px',

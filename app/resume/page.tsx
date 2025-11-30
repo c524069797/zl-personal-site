@@ -2,9 +2,38 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { DownloadPDFButton } from "@/components/DownloadPDFButton";
 import { LinkTransition } from "@/lib/link-transition";
 
-export const metadata = {
+import type { Metadata } from "next";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+
+export const metadata: Metadata = {
   title: "简历",
-  description: "陈灼的个人简历",
+  description: "陈灼的个人简历 - 近5年前端开发经验，专注企业级后台与备份/存储场景，擅长复杂流程建模、组件化沉淀和性能优化。",
+  keywords: [
+    "前端开发",
+    "Vue",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "全栈开发",
+    "软件工程师",
+    "简历",
+  ],
+  openGraph: {
+    title: "简历 | 陈灼",
+    description: "陈灼的个人简历 - 近5年前端开发经验，专注企业级后台与备份/存储场景。",
+    type: "profile",
+    url: `${siteUrl}/resume`,
+    siteName: "陈灼的网络日志",
+  },
+  twitter: {
+    card: "summary",
+    title: "简历 | 陈灼",
+    description: "陈灼的个人简历 - 近5年前端开发经验，专注企业级后台与备份/存储场景。",
+  },
+  alternates: {
+    canonical: `${siteUrl}/resume`,
+  },
 };
 
 export default function ResumePage() {

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { getAllPostSlugs, getPostWithAuthorBySlug } from "@/lib/posts";
-import { formatDate, formatDateISO } from "@/lib/utils";
+import { formatDateISO } from "@/lib/utils";
 import Navigation from "@/components/Navigation";
 import BlogSidebar from "@/components/BlogSidebar";
 import Footer from "@/components/Footer";
@@ -11,6 +10,7 @@ import ArticleActions from "@/components/ArticleActions";
 import MarkdownContent from "@/components/MarkdownContent";
 import AISummary from "@/components/AISummary";
 import AIChatBot from "@/components/AIChatBot";
+import { ArticleStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -22,6 +22,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await getPostWithAuthorBySlug(slug);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+  const siteName = "陈灼的网络日志";
 
   if (!post) {
     return {
@@ -29,15 +31,44 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
+  const postUrl = `${siteUrl}/blog/${slug}`;
+  const postImage = `${siteUrl}/favicon.png`; // 可以后续添加文章封面图
+  const authorName = post.author?.name || "陈灼";
+
   return {
     title: post.title,
-    description: post.summary,
+    description: post.summary || `${post.title} - ${siteName}`,
+    keywords: post.tags?.map((t) => t.name) || [],
+    authors: [{ name: authorName }],
     openGraph: {
       title: post.title,
-      description: post.summary,
+      description: post.summary || `${post.title} - ${siteName}`,
       type: "article",
+      url: postUrl,
+      siteName: siteName,
       publishedTime: formatDateISO(post.date),
+      modifiedTime: formatDateISO(post.date), // 如果有修改时间可以更新
+      authors: [authorName],
       tags: post.tags?.map((t) => t.name) || [],
+      images: [
+        {
+          url: postImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      locale: "zh_CN",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary || `${post.title} - ${siteName}`,
+      images: [postImage],
+      creator: authorName,
+    },
+    alternates: {
+      canonical: postUrl,
     },
   };
 }
@@ -53,6 +84,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // 计算阅读时间（假设每分钟200字）
   const readingTime = Math.ceil(post.content?.length / 200 || 0);
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -60,6 +93,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       flexDirection: 'column',
       background: 'var(--background)',
     }}>
+      {/* 结构化数据 */}
+      <ArticleStructuredData
+        post={{
+          title: post.title,
+          description: post.summary,
+          date: post.date,
+          author: post.author,
+          tags: post.tags,
+          slug: post.slug,
+        }}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "首页", url: siteUrl },
+          { name: "博客", url: `${siteUrl}/blog` },
+          { name: post.title, url: `${siteUrl}/blog/${post.slug}` },
+        ]}
+      />
+
       <Navigation
         breadcrumbItems={[
           {

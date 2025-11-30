@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Card, Tag, Space, Typography, Button, Empty, Row, Col } from 'antd'
 import {
   CalendarOutlined,
@@ -14,7 +15,8 @@ import {
   LinkedinOutlined,
   TwitterOutlined,
   CodeOutlined,
-  HeartOutlined
+  HeartOutlined,
+  MailOutlined
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
@@ -585,19 +587,24 @@ export default function HomePage() {
                 width: '100px',
                 height: '100px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 margin: '0 auto 24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '48px',
-                color: 'white',
+                overflow: 'hidden',
+                background: 'var(--background)',
+                position: 'relative',
               }}>
-                陈
+                <Image
+                  src="/my-profile.png"
+                  alt="陈灼"
+                  width={100}
+                  height={100}
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
               </div>
-              <Title level={4} style={{ marginBottom: '12px' }}>{t('home.aboutMe.name')}</Title>
+              <Title level={4} style={{ marginBottom: '12px' }}>陈灼 (Jack Chen)</Title>
               <Paragraph style={{ color: 'var(--foreground)', opacity: 0.8, marginBottom: '24px' }}>
-                {t('home.aboutMe.description')}
+                热爱学习的前端，全栈40% | 一名篮球爱好者
               </Paragraph>
               <Space size="middle">
                 <Button
@@ -615,6 +622,29 @@ export default function HomePage() {
                   icon={<TwitterOutlined />}
                   style={{ fontSize: '20px' }}
                 />
+                <a
+                  href="mailto:chenzhuo995@gmail.com"
+                  style={{
+                    color: 'var(--foreground)',
+                    fontSize: '20px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '32px',
+                    height: '32px',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#1890ff'
+                    e.currentTarget.style.transform = 'scale(1.1)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--foreground)'
+                    e.currentTarget.style.transform = 'scale(1)'
+                  }}
+                >
+                  <MailOutlined />
+                </a>
               </Space>
             </Card>
           </Space>

@@ -1,6 +1,6 @@
 // 中文简体翻译文件
 
-export default {
+const zhCN = {
   site: {
     name: '陈灼的网络日志',
     description: '陈灼的网络日志',
@@ -37,8 +37,8 @@ export default {
     },
     categories: '博客分类',
     aboutMe: {
-      name: '陈灼',
-      description: '前端开发工程师 | 拥有5年行业经验，专注于创建直观美观的数字体验。',
+      name: '陈灼 (Jack Chen)',
+      description: '热爱学习的前端，全栈40% | 一名篮球爱好者',
     },
   },
   blog: {
@@ -173,4 +173,6 @@ export default {
     },
   },
 }
+
+export default zhCN
 

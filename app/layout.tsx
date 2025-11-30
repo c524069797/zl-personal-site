@@ -6,6 +6,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider, App } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { LoadingBar } from "@/components/LoadingBar";
+import { WebSiteStructuredData } from "@/components/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,14 +18,46 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+const siteName = "陈灼的网络日志";
+const siteDescription = "个人技术博客，分享编程经验、技术思考和开发实践。专注于前端开发、后端架构、AI应用等领域。";
+const authorName = "陈灼";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "陈灼的网络日志",
-    template: "%s | 陈灼的网络日志",
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
-  description: "陈灼的网络日志",
-  keywords: ["博客", "简历", "陈灼的网络日志"],
-  authors: [{ name: "Your Name" }],
+  description: siteDescription,
+  keywords: [
+    "技术博客",
+    "编程",
+    "前端开发",
+    "后端开发",
+    "全栈开发",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "AI应用",
+    "软件开发",
+    "编程教程",
+    "技术分享",
+  ],
+  authors: [{ name: authorName }],
+  creator: authorName,
+  publisher: authorName,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
@@ -33,7 +66,36 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    siteName: "陈灼的网络日志",
+    url: siteUrl,
+    siteName: siteName,
+    title: siteName,
+    description: siteDescription,
+    images: [
+      {
+        url: `${siteUrl}/favicon.png`,
+        width: 1200,
+        height: 630,
+        alt: siteName,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+    images: [`${siteUrl}/favicon.png`],
+  },
+  alternates: {
+    canonical: siteUrl,
+    types: {
+      "application/rss+xml": `${siteUrl}/feed.xml`,
+    },
+  },
+  verification: {
+    // 如果需要验证，可以添加
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+    // bing: "your-bing-verification-code",
   },
 };
 
@@ -47,6 +109,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <WebSiteStructuredData
+          siteName={siteName}
+          siteUrl={siteUrl}
+          description={siteDescription}
+        />
         <AntdRegistry>
           <ConfigProvider
             locale={zhCN}

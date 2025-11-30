@@ -99,7 +99,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           title: post.title,
           description: post.summary,
           date: post.date,
-          author: post.author,
+          author: post.author ? {
+            name: post.author.name || "陈灼",
+            email: post.author.email,
+          } : undefined,
           tags: post.tags,
           slug: post.slug,
         }}

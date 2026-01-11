@@ -8,6 +8,7 @@ const zhCN = {
   nav: {
     home: '首页',
     blog: '博客',
+    aiChat: 'AI助手',
     resume: '简历',
     admin: '管理',
   },

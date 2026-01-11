@@ -1,6 +1,6 @@
 // English translation file
 
-export default {
+const translations = {
   site: {
     name: "Chen Zhuo's Network Log",
     description: "Chen Zhuo's Network Log",
@@ -8,6 +8,7 @@ export default {
   nav: {
     home: 'Home',
     blog: 'Blog',
+    aiChat: 'AI Chat',
     resume: 'Resume',
     admin: 'Admin',
   },
@@ -174,3 +175,4 @@ export default {
   },
 }
 
+export default translations

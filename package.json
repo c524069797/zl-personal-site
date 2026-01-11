@@ -17,7 +17,9 @@
     "db:add-ai-fields": "tsx scripts/add-ai-fields.ts",
     "ai:vectorize": "tsx scripts/vectorize-posts.ts",
     "migrate:posts": "tsx scripts/migrate-posts.ts",
-    "migrate:posts-force": "tsx scripts/migrate-posts-force.ts"
+    "migrate:posts-force": "tsx scripts/migrate-posts-force.ts",
+    "publish:post": "tsx scripts/auto-publish-post.ts",
+    "publish:post-auto": "tsx scripts/auto-publish-post.ts --auto-publish"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",

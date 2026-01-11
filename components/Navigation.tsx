@@ -1,7 +1,7 @@
 'use client'
 
 import { Layout, Space } from 'antd'
-import { BookOutlined, FileTextOutlined, SettingOutlined } from '@ant-design/icons'
+import { BookOutlined, FileTextOutlined, SettingOutlined, RobotOutlined } from '@ant-design/icons'
 import { ThemeToggle } from './ThemeToggle'
 import BreadcrumbNav from './BreadcrumbNav'
 import { LinkTransition } from '@/lib/link-transition'
@@ -67,6 +67,16 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
           }}>
             <BookOutlined />
             <span>{t('nav.blog')}</span>
+          </LinkTransition>
+          <LinkTransition href="/ai-chat" style={{
+            color: 'var(--foreground)',
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}>
+            <RobotOutlined />
+            <span>{t('nav.aiChat')}</span>
           </LinkTransition>
           <LinkTransition href="/resume" style={{
             color: 'var(--foreground)',

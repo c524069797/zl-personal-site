@@ -1,6 +1,6 @@
 // Archivo de traducción al español
 
-export default {
+const translations = {
   site: {
     name: 'Registro de Red de Chen Zhuo',
     description: 'Registro de Red de Chen Zhuo',
@@ -8,6 +8,7 @@ export default {
   nav: {
     home: 'Inicio',
     blog: 'Blog',
+    aiChat: 'Chat IA',
     resume: 'Currículum',
     admin: 'Administración',
   },
@@ -174,3 +175,4 @@ export default {
   },
 }
 
+export default translations

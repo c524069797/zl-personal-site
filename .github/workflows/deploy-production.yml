@@ -1,14 +1,13 @@
-name: 自动化部署
+name: 生产环境部署
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   workflow_dispatch:
 
 jobs:
-  lint-and-deploy:
+  deploy:
+    name: 部署到生产环境
     runs-on: ubuntu-latest
     
     steps:
@@ -24,7 +23,7 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
-      - name: 运行 Lint 检查
+      - name: 运行 ESLint
         run: npm run lint
         continue-on-error: false
 
@@ -43,8 +42,9 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
-      - name: 部署到 Vercel
+      - name: 部署到 Vercel 生产环境
         uses: amondnet/vercel-action@v25
+        id: vercel-deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
@@ -78,17 +78,52 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: 发送通知
+      - name: 健康检查
+        if: success()
+        run: |
+          echo "执行健康检查..."
+          sleep 5
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://www.clczl.asia || echo "000")
+          if [ "$response" != "200" ]; then
+            echo "⚠️ 健康检查失败，HTTP 状态码: $response"
+            exit 1
+          else
+            echo "✅ 健康检查通过"
+          fi
+        continue-on-error: true
+
+      - name: 发送 Slack 通知
         if: always()
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           text: |
-            部署状态: ${{ job.status }}
-            分支: ${{ github.ref }}
-            提交: ${{ github.sha }}
+            🚀 生产环境部署 ${{ job.status == 'success' && '成功' || '失败' }}
+            
+            📦 分支: ${{ github.ref }}
+            📝 提交: ${{ github.sha }}
+            👤 提交者: ${{ github.actor }}
+            🔗 部署链接: ${{ steps.vercel-deploy.outputs.preview-url || 'N/A' }}
+            
+            ${{ job.status == 'success' && '✅ 部署已完成，网站已更新' || '❌ 部署失败，请检查日志' }}
           webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        continue-on-error: true
+
+      - name: 发送钉钉通知（可选）
+        if: always() && secrets.DINGTALK_WEBHOOK_URL != ''
+        run: |
+          STATUS="${{ job.status == 'success' && '成功' || '失败' }}"
+          EMOJI="${{ job.status == 'success' && '✅' || '❌' }}"
+          curl -X POST "${{ secrets.DINGTALK_WEBHOOK_URL }}" \
+            -H 'Content-Type: application/json' \
+            -d "{
+              \"msgtype\": \"markdown\",
+              \"markdown\": {
+                \"title\": \"生产环境部署通知\",
+                \"text\": \"## ${EMOJI} 生产环境部署${STATUS}\n\n**分支:** ${{ github.ref }}\n\n**提交:** \`${{ github.sha }}\`\n\n**提交者:** ${{ github.actor }}\n\n**时间:** $(date '+%Y-%m-%d %H:%M:%S')\n\n**状态:** ${STATUS}\"
+              }
+            }"
         continue-on-error: true
 

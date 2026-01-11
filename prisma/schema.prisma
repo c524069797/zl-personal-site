@@ -109,3 +109,16 @@ model Comment {
   @@index([aiChecked])
   @@map("comments")
 }
+
+// AI设置表
+model AISetting {
+  id        String   @id @default(cuid())
+  baseUrl   String   // 中转URL
+  apiKey    String   // API Key（加密存储）
+  name      String   // 配置名称
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_settings")
+}

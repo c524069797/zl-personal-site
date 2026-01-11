@@ -1,6 +1,6 @@
 // 中文繁體翻譯文件
 
-export default {
+const translations = {
   site: {
     name: '陳灼的網絡日誌',
     description: '陳灼的網絡日誌',
@@ -8,6 +8,7 @@ export default {
   nav: {
     home: '首頁',
     blog: '部落格',
+    aiChat: 'AI助手',
     resume: '履歷',
     admin: '管理',
   },
@@ -174,3 +175,4 @@ export default {
   },
 }
 
+export default translations

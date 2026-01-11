@@ -1,0 +1,75 @@
+# Cursor 工作流规则 - 个人博客项目
+
+## 文章发布工作流
+
+当你创建或修改 `content/posts/` 目录下的 Markdown 文件后，使用以下命令自动发布：
+
+### 自动发布新文章
+
+1. **发布单个新文章**：
+   ```bash
+   npx tsx scripts/auto-publish-post.ts content/posts/your-article.md
+   ```
+
+2. **发布 content/posts 目录下的所有新文章**：
+   ```bash
+   npx tsx scripts/auto-publish-post.ts
+   ```
+
+3. **自动发布（忽略 draft 标记）**：
+   ```bash
+   npx tsx scripts/auto-publish-post.ts --auto-publish
+   ```
+
+### 文章 Frontmatter 格式要求
+
+所有文章必须包含以下 frontmatter：
+
+```yaml
+---
+title: "文章标题"           # 必需
+date: "2025-01-20"          # 必需，格式：YYYY-MM-DD
+summary: "文章摘要"         # 可选，但推荐填写
+tags: ["标签1", "标签2"]    # 可选
+category: "tech"            # 可选：tech（技术博客）或 life（生活记录），不指定则自动分类
+draft: false                # 可选，false=已发布，true=草稿
+---
+```
+
+### 工作流步骤
+
+1. **创建文章文件**：在 `content/posts/` 目录下创建 `.md` 文件
+2. **填写 frontmatter**：确保包含必需的字段（title, date）
+3. **运行发布脚本**：执行 `npx tsx scripts/auto-publish-post.ts`
+4. **验证发布**：检查控制台输出，确认文章已成功发布
+
+### 自动化提示
+
+当用户提到以下情况时，自动执行发布流程：
+- "新增了文章"
+- "添加了新文章"
+- "发布了文章"
+- "文章已创建"
+- "需要发布文章"
+
+自动执行命令：`npx tsx scripts/auto-publish-post.ts`
+
+### 分类规则
+
+- **技术博客 (tech)**：包含 React、Next.js、Vue、MCP、n8n、JavaScript、TypeScript、前端、后端、开发、编程等关键词
+- **生活记录 (life)**：包含表达、沟通、习惯、成长、自我管理、效率、行动、改变、日常、生活等关键词
+
+如果不指定 `category`，系统会根据标题和摘要自动分类。
+
+### 注意事项
+
+- 文章 slug 基于文件名生成（去除扩展名）
+- 如果文章已存在（相同 slug），默认会跳过
+- 使用 `--force` 参数可以强制更新已存在的文章
+- 标签会自动创建，无需预先创建
+- 默认作者为 admin@example.com
+
+
+
+
+

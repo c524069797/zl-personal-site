@@ -7,6 +7,8 @@ import BreadcrumbNav from './BreadcrumbNav'
 import { LinkTransition } from '@/lib/link-transition'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isAdmin } from '@/lib/client-auth'
+import { useState } from 'react'
 
 const { Header } = Layout
 
@@ -19,6 +21,8 @@ interface NavigationProps {
 
 export default function Navigation({ breadcrumbItems }: NavigationProps) {
   const { t } = useTranslation()
+  const isDev = typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
+  const [showResume] = useState(() => isDev ? isAdmin() : true)
 
   return (
     <Header style={{
@@ -78,16 +82,18 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
             <RobotOutlined />
             <span>{t('nav.aiChat')}</span>
           </LinkTransition>
-          <LinkTransition href="/resume" style={{
-            color: 'var(--foreground)',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-          }}>
-            <FileTextOutlined />
-            <span>{t('nav.resume')}</span>
-          </LinkTransition>
+          {showResume && (
+            <LinkTransition href="/resume" style={{
+              color: 'var(--foreground)',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}>
+              <FileTextOutlined />
+              <span>{t('nav.resume')}</span>
+            </LinkTransition>
+          )}
           <LinkTransition href="/admin" style={{
             color: 'var(--foreground)',
             textDecoration: 'none',

@@ -12,7 +12,6 @@ import {
   RightOutlined,
   DownloadOutlined,
   GithubOutlined,
-  LinkedinOutlined,
   TwitterOutlined,
   CodeOutlined,
   HeartOutlined,
@@ -71,6 +70,91 @@ export default function HomePage() {
 
   return (
     <div style={{ width: '100%' }}>
+      {/* About Me Section - Moved to Top */}
+      <Card
+        style={{ borderRadius: '12px', textAlign: 'center', marginBottom: '60px' }}
+        styles={{ body: { padding: '32px 24px' } }}
+      >
+        <div style={{
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          margin: '0 auto 24px',
+          overflow: 'hidden',
+          background: 'var(--background)',
+          position: 'relative',
+        }}>
+          <Image
+            src="/my-profile.png"
+            alt="陈灼"
+            width={100}
+            height={100}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+        <Title level={4} style={{ marginBottom: '12px' }}>陈灼 (Jack Chen)</Title>
+        <Paragraph style={{ color: 'var(--foreground)', opacity: 0.8, marginBottom: '24px' }}>
+          热爱学习的前端，全栈40% | 一名篮球爱好者
+        </Paragraph>
+        <Space size="middle">
+          <a
+            href="https://github.com/c524069797"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--foreground)',
+              fontSize: '20px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#1890ff'
+              e.currentTarget.style.transform = 'scale(1.1)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--foreground)'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+          >
+            <GithubOutlined />
+          </a>
+          <Button
+            type="text"
+            icon={<TwitterOutlined />}
+            style={{ fontSize: '20px' }}
+          />
+          <a
+            href="mailto:chenzhuo995@gmail.com"
+            style={{
+              color: 'var(--foreground)',
+              fontSize: '20px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#1890ff'
+              e.currentTarget.style.transform = 'scale(1.1)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--foreground)'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+          >
+            <MailOutlined />
+          </a>
+        </Space>
+      </Card>
+
       {/* Hero Section */}
       <div style={{
         backgroundImage: 'url(/ai-front.png)',
@@ -578,75 +662,7 @@ export default function HomePage() {
               </Space>
             </Card>
 
-            {/* About Me */}
-            <Card
-              style={{ borderRadius: '12px', textAlign: 'center' }}
-              styles={{ body: { padding: '32px 24px' } }}
-            >
-              <div style={{
-                width: '100px',
-                height: '100px',
-                borderRadius: '50%',
-                margin: '0 auto 24px',
-                overflow: 'hidden',
-                background: 'var(--background)',
-                position: 'relative',
-              }}>
-                <Image
-                  src="/my-profile.png"
-                  alt="陈灼"
-                  width={100}
-                  height={100}
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-              <Title level={4} style={{ marginBottom: '12px' }}>陈灼 (Jack Chen)</Title>
-              <Paragraph style={{ color: 'var(--foreground)', opacity: 0.8, marginBottom: '24px' }}>
-                热爱学习的前端，全栈40% | 一名篮球爱好者
-              </Paragraph>
-              <Space size="middle">
-                <Button
-                  type="text"
-                  icon={<GithubOutlined />}
-                  style={{ fontSize: '20px' }}
-                />
-                <Button
-                  type="text"
-                  icon={<LinkedinOutlined />}
-                  style={{ fontSize: '20px' }}
-                />
-                <Button
-                  type="text"
-                  icon={<TwitterOutlined />}
-                  style={{ fontSize: '20px' }}
-                />
-                <a
-                  href="mailto:chenzhuo995@gmail.com"
-                  style={{
-                    color: 'var(--foreground)',
-                    fontSize: '20px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '32px',
-                    height: '32px',
-                    transition: 'all 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#1890ff'
-                    e.currentTarget.style.transform = 'scale(1.1)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--foreground)'
-                    e.currentTarget.style.transform = 'scale(1)'
-                  }}
-                >
-                  <MailOutlined />
-                </a>
-              </Space>
-            </Card>
+
           </Space>
         </Col>
       </Row>

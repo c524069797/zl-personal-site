@@ -18,7 +18,7 @@
   --success-color: #52c41a;
   --danger-color: #ff4d4f;
   --border-radius: 4px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .dark {
@@ -32,7 +32,7 @@
   --success-color: #52c41a;
   --danger-color: #ff4d4f;
   --border-radius: 4px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.2);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -422,34 +422,34 @@ a:active {
   .hero-section {
     padding: 40px 12px !important;
   }
-  
+
   .hero-title {
     font-size: 32px !important;
     line-height: 1.2 !important;
   }
-  
+
   .hero-description {
     font-size: 16px !important;
     padding: 0 4px !important;
   }
-  
+
   .hero-buttons {
     flex-direction: column !important;
     width: 100% !important;
     gap: 12px !important;
   }
-  
+
   .hero-buttons .ant-space-item {
     width: 100% !important;
     max-width: 100% !important;
   }
-  
+
   .hero-buttons a {
     width: 100% !important;
     max-width: 100% !important;
     min-width: auto !important;
   }
-  
+
   .hero-buttons .ant-btn {
     width: 100% !important;
     padding: 0 16px !important;
@@ -462,7 +462,7 @@ a:active {
   .hero-section {
     padding: 80px 24px !important;
   }
-  
+
   .hero-buttons {
     flex-direction: row !important;
   }
@@ -471,75 +471,157 @@ a:active {
 @media print {
   @page {
     size: A4;
-    margin: 1cm;
+    margin: 15mm 10mm;
   }
 
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    color-adjust: exact !important;
   }
 
+  html,
   body {
     background: white !important;
     color: black !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
   }
 
-  .print\:hidden {
+  /* 隐藏不需要打印的元素 */
+  nav,
+  button,
+  .theme-toggle,
+  [class*="print:hidden"] {
     display: none !important;
   }
 
-  .resume-content {
+  /* 简历容器样式 */
+  .resume-paper {
     max-width: 100% !important;
+    width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
-  }
-
-  .resume-content section {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin-bottom: 1.5rem !important;
-  }
-
-  .resume-content h2 {
-    page-break-after: avoid;
-    break-after: avoid;
-    margin-top: 1.5rem !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  .resume-content h3 {
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-
-  .resume-content ul,
-  .resume-content ol {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  .resume-content li {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  a {
+    box-shadow: none !important;
+    background: white !important;
     color: black !important;
+  }
+
+  /* 防止内容被分页打断 */
+  .resume-paper section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 12pt !important;
+  }
+
+  .resume-paper header {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .resume-paper h1,
+  .resume-paper h2,
+  .resume-paper h3,
+  .resume-paper h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: black !important;
+  }
+
+  .resume-paper h2 {
+    margin-top: 12pt !important;
+    margin-bottom: 6pt !important;
+  }
+
+  .resume-paper h3,
+  .resume-paper h4 {
+    margin-top: 8pt !important;
+    margin-bottom: 4pt !important;
+  }
+
+  /* 列表项不被分页打断 */
+  .resume-paper ul,
+  .resume-paper ol {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .resume-paper li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    color: black !important;
+  }
+
+  /* 项目块不被分页打断 */
+  .resume-paper > div > div {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 链接样式 */
+  .resume-paper a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+
+  .resume-paper a[href^="mailto:"],
+  .resume-paper a[href^="http"] {
     text-decoration: underline !important;
   }
 
-  /* 确保所有文本在打印时可见 */
-  h1, h2, h3, h4, h5, h6,
-  p, li, span, div, strong {
+  /* 确保所有文本在打印时为黑色 */
+  .resume-paper h1,
+  .resume-paper h2,
+  .resume-paper h3,
+  .resume-paper h4,
+  .resume-paper h5,
+  .resume-paper h6,
+  .resume-paper p,
+  .resume-paper li,
+  .resume-paper span,
+  .resume-paper div,
+  .resume-paper strong {
     color: black !important;
   }
 
-  /* 移除暗黑模式样式 */
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
-  .dark p, .dark li, .dark span, .dark div, .dark strong {
+  /* 移除所有暗黑模式样式 */
+  .dark .resume-paper,
+  .dark .resume-paper * {
+    background: white !important;
     color: black !important;
   }
+
+  /* 边框和背景色 */
+  .resume-paper .bg-gray-50,
+  .resume-paper .bg-gray-100 {
+    background: #f5f5f5 !important;
+  }
+
+  .resume-paper .border-gray-300,
+  .resume-paper .border-gray-800 {
+    border-color: #333 !important;
+  }
+
+  /* 字体大小优化 */
+  .resume-paper .text-xs {
+    font-size: 9pt !important;
+  }
+
+  .resume-paper .text-sm {
+    font-size: 10pt !important;
+  }
+
+  .resume-paper .text-lg {
+    font-size: 12pt !important;
+  }
+
+  .resume-paper .text-xl {
+    font-size: 14pt !important;
+  }
+
+  .resume-paper .text-4xl {
+    font-size: 24pt !important;
+  }
 }
+

@@ -24,6 +24,7 @@ const translations = {
     browseBlog: '瀏覽部落格',
     viewResume: '查看履歷',
     downloadResume: '下載履歷PDF',
+    minRead: '分閱讀',
   },
   home: {
     hero: {

@@ -20,28 +20,29 @@ export const translations = {
 
 // 获取翻译函数
 export function getTranslation(locale: Locale = defaultLocale) {
-  const t = (key: string): string => {
+  const t = (key: string, defaultValue?: string): string => {
     const keys = key.split('.')
-    let value: any = translations[locale]
+    let value: unknown = translations[locale]
 
     for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k]
+      if (value && typeof value === 'object' && k in (value as Record<string, unknown>)) {
+        value = (value as Record<string, unknown>)[k]
       } else {
         // 如果找不到翻译，尝试使用默认语言
         value = translations[defaultLocale]
         for (const k2 of keys) {
-          if (value && typeof value === 'object' && k2 in value) {
-            value = value[k2]
+          if (value && typeof value === 'object' && k2 in (value as Record<string, unknown>)) {
+            value = (value as Record<string, unknown>)[k2]
           } else {
-            return key
+             // 如果默认语言也找不到，返回提供的默认值或键名
+            return defaultValue || key
           }
         }
         break
       }
     }
 
-    return typeof value === 'string' ? value : key
+    return typeof value === 'string' ? value : (defaultValue || key)
   }
 
   return t
@@ -53,7 +54,7 @@ export function getLocaleFromBrowser(): Locale {
     return defaultLocale
   }
 
-  const browserLang = navigator.language || (navigator as any).userLanguage
+  const browserLang = navigator.language || (navigator as unknown as { userLanguage: string }).userLanguage
 
   if (browserLang.startsWith('zh')) {
     if (browserLang.includes('TW') || browserLang.includes('HK') || browserLang.includes('MO')) {

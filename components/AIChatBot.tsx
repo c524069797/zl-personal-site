@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { FloatButton, Drawer, Input, Button, Space, Typography, Spin, Card } from 'antd'
-import { MessageOutlined, SendOutlined, CloseOutlined } from '@ant-design/icons'
+import { FloatButton, Drawer, Input, Button, Space, Typography, Spin, Card, Tag } from 'antd'
+import { MessageOutlined, SendOutlined } from '@ant-design/icons'
 import { useTranslation } from '@/hooks/useTranslation'
 
 const { TextArea } = Input
-const { Text, Paragraph } = Typography
+const { Text, Paragraph, Title } = Typography
 
 interface Message {
   role: 'user' | 'assistant'
@@ -46,7 +46,6 @@ export default function AIChatBot() {
         },
         body: JSON.stringify({
           question: userMessage.content,
-          provider: 'deepseek' // 明确使用 DeepSeek 模型
         }),
       })
 
@@ -66,7 +65,7 @@ export default function AIChatBot() {
         }
         setMessages((prev) => [...prev, errorMessage])
       }
-    } catch (error) {
+    } catch {
       const errorMessage: Message = {
         role: 'assistant',
         content: t('ai.chat.networkError'),
@@ -129,15 +128,24 @@ export default function AIChatBot() {
         >
           {messages.length === 0 && (
             <Card>
-              <Paragraph type="secondary" style={{ margin: 0 }}>
-                {t('ai.chat.welcome')}
-                <br />
+              <Title level={5} style={{ marginTop: 0, fontSize: '14px', marginBottom: '8px' }}>{t('ai.chat.welcome')}</Title>
+              <Paragraph type="secondary" style={{ fontSize: '12px', marginBottom: '8px' }}>
                 {t('ai.chat.examples')}
-                <br />
-                • {t('ai.chat.example1')}
-                <br />
-                • {t('ai.chat.example2')}
               </Paragraph>
+              <Space direction="vertical" style={{ width: '100%' }}>
+                <Tag 
+                  style={{ cursor: 'pointer', padding: '4px 8px', width: '100%', textAlign: 'center' }} 
+                  onClick={() => { setInput(t('ai.chat.example1')); if(!input) handleSend(); /* Optional: auto send or just fill */ setInput(t('ai.chat.example1')) }}
+                >
+                  {t('ai.chat.example1')}
+                </Tag>
+                <Tag 
+                  style={{ cursor: 'pointer', padding: '4px 8px', width: '100%', textAlign: 'center' }} 
+                  onClick={() => setInput(t('ai.chat.example2'))}
+                >
+                  {t('ai.chat.example2')}
+                </Tag>
+              </Space>
             </Card>
           )}
 

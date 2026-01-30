@@ -5,9 +5,9 @@ import { Avatar, Space, Typography, Tag } from 'antd'
 import {
   CalendarOutlined,
   ClockCircleOutlined,
-  EyeOutlined,
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const { Title } = Typography
 
@@ -32,6 +32,8 @@ export default function ArticleHeader({
   author,
   readingTime,
 }: ArticleHeaderProps) {
+  const { t } = useTranslation()
+
   return (
     <div style={{ marginBottom: '32px' }}>
       {tags && tags.length > 0 && (
@@ -61,22 +63,21 @@ export default function ArticleHeader({
         flexWrap: 'wrap',
         gap: '16px',
       }}>
-        {author && (
-          <>
-            <Avatar
-              size={40}
-              style={{
-                marginRight: '12px',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              }}
-            >
-              {author.name?.charAt(0) || 'U'}
-            </Avatar>
-            <span style={{ fontWeight: 500, marginRight: '24px' }}>
-              {author.name || '未知作者'}
-            </span>
-          </>
-        )}
+        {/* Author info is always displayed, falling back to 陈灼 if no author provided or name is missing */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar
+            size={40}
+            style={{
+              marginRight: '12px',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            }}
+          >
+            {(author?.name || '陈').charAt(0)}
+          </Avatar>
+          <span style={{ fontWeight: 500 }}>
+            {author?.name || '陈灼'}
+          </span>
+        </div>
 
         <Space>
           <CalendarOutlined />
@@ -85,7 +86,7 @@ export default function ArticleHeader({
 
         <Space>
           <ClockCircleOutlined />
-          <span>{readingTime}分钟阅读</span>
+          <span>{readingTime} {t('common.minRead', '分钟阅读')}</span>
         </Space>
       </div>
 

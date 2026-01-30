@@ -40,6 +40,7 @@
     "jspdf": "^3.0.3",
     "next": "16.0.10",
     "next-intl": "^4.5.3",
+    "next-nprogress-bar": "^2.4.7",
     "next-themes": "^0.4.6",
     "openai": "^6.9.0",
     "puppeteer": "^24.34.0",

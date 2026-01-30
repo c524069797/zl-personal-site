@@ -53,6 +53,7 @@ export async function GET(request: NextRequest) {
         slug: pt.tag.slug,
       })),
       commentCount: post._count.comments,
+      readingTime: Math.ceil((post.content?.length || 0) / 200),
     }))
 
     return NextResponse.json({

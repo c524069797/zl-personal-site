@@ -24,6 +24,7 @@ const translations = {
     browseBlog: 'Explorar Blog',
     viewResume: 'Ver Currículum',
     downloadResume: 'Descargar Currículum PDF',
+    minRead: 'min de lectura',
   },
   home: {
     hero: {

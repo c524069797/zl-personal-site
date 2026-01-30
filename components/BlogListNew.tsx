@@ -9,7 +9,8 @@ import {
   SearchOutlined,
   FolderOutlined,
   TagsOutlined,
-  FireOutlined
+  FireOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
@@ -26,6 +27,7 @@ interface Post {
   summary: string
   tags: Array<{ name: string; slug: string }>
   commentCount: number
+  readingTime?: number
 }
 
 interface Tag {
@@ -235,6 +237,13 @@ export default function BlogListNew() {
                       )}
                       <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
                         {formatDate(post.date)}
+                        {post.readingTime ? (
+                          <>
+                            <span style={{ margin: '0 8px' }}>·</span>
+                            <ClockCircleOutlined style={{ marginRight: '4px' }} />
+                            {post.readingTime} {t('common.minRead', '分钟阅读')}
+                          </>
+                        ) : null}
                       </Text>
                     </div>
                     <Link

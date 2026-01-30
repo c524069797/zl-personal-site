@@ -4,8 +4,7 @@ import { prisma } from '@/lib/prisma'
 // 获取最新文章（按发布时间排序）
 export async function GET(request: NextRequest) {
   try {
-    // 确保数据库连接
-    await prisma.$connect()
+
 
     const searchParams = request.nextUrl.searchParams
     const limit = parseInt(searchParams.get('limit') || '10')
@@ -47,6 +46,7 @@ export async function GET(request: NextRequest) {
         slug: pt.tag.slug,
       })),
       commentCount: post._count.comments,
+      readingTime: Math.ceil((post.content?.length || 0) / 200),
     }))
 
     return NextResponse.json({

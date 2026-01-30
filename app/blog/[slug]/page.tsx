@@ -11,6 +11,7 @@ import MarkdownContent from "@/components/MarkdownContent";
 import AISummary from "@/components/AISummary";
 import AIChatBot from "@/components/AIChatBot";
 import { ArticleStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -175,6 +176,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       {/* AI聊天机器人 */}
       <AIChatBot />
+      
+      {/* 返回顶部按钮 */}
+      <ScrollToTop />
     </div>
   );
 }

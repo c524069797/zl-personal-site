@@ -10,12 +10,12 @@ import {
   FileTextOutlined,
   BookOutlined,
   RightOutlined,
-  DownloadOutlined,
   GithubOutlined,
   TwitterOutlined,
   CodeOutlined,
   HeartOutlined,
-  MailOutlined
+  MailOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
@@ -32,6 +32,7 @@ interface Post {
   summary: string
   tags: Array<{ name: string; slug: string }>
   commentCount: number
+  readingTime?: number
 }
 
 export default function HomePage() {
@@ -70,113 +71,23 @@ export default function HomePage() {
 
   return (
     <div style={{ width: '100%' }}>
-      {/* About Me Section - Moved to Top */}
-      <Card
-        style={{ borderRadius: '12px', textAlign: 'center', marginBottom: '60px' }}
-        styles={{ body: { padding: '32px 24px' } }}
-      >
-        <div style={{
-          width: '100px',
-          height: '100px',
-          borderRadius: '50%',
-          margin: '0 auto 24px',
-          overflow: 'hidden',
-          background: 'var(--background)',
+      {/* Hero Section with Animated Background */}
+      <div 
+        className="hero-section hero-animated-bg"
+        style={{
+          padding: '60px 16px',
+          textAlign: 'center',
+          marginBottom: '60px',
           position: 'relative',
-        }}>
-          <Image
-            src="/my-profile.png"
-            alt="陈灼"
-            width={100}
-            height={100}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        </div>
-        <Title level={4} style={{ marginBottom: '12px' }}>陈灼 (Jack Chen)</Title>
-        <Paragraph style={{ color: 'var(--foreground)', opacity: 0.8, marginBottom: '24px' }}>
-          热爱学习的前端，全栈40% | 一名篮球爱好者
-        </Paragraph>
-        <Space size="middle">
-          <a
-            href="https://github.com/c524069797"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: 'var(--foreground)',
-              fontSize: '20px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '32px',
-              height: '32px',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#1890ff'
-              e.currentTarget.style.transform = 'scale(1.1)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = 'var(--foreground)'
-              e.currentTarget.style.transform = 'scale(1)'
-            }}
-          >
-            <GithubOutlined />
-          </a>
-          <Button
-            type="text"
-            icon={<TwitterOutlined />}
-            style={{ fontSize: '20px' }}
-          />
-          <a
-            href="mailto:chenzhuo995@gmail.com"
-            style={{
-              color: 'var(--foreground)',
-              fontSize: '20px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '32px',
-              height: '32px',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#1890ff'
-              e.currentTarget.style.transform = 'scale(1.1)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = 'var(--foreground)'
-              e.currentTarget.style.transform = 'scale(1)'
-            }}
-          >
-            <MailOutlined />
-          </a>
-        </Space>
-      </Card>
-
-      {/* Hero Section */}
-      <div style={{
-        backgroundImage: 'url(/ai-front.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        padding: '60px 16px',
-        textAlign: 'center',
-        marginBottom: '60px',
-        position: 'relative',
-      }}
-      className="hero-section"
+          overflow: 'hidden',
+          borderRadius: '16px',
+        }}
       >
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(255, 255, 255, 0.85)',
-          zIndex: 0,
-        }} />
+        {/* Animated background layers */}
+        <div className="hero-bg-layer hero-bg-gradient" />
+        <div className="hero-bg-layer hero-bg-particles" />
+        <div className="hero-bg-layer hero-bg-grid" />
+        <div className="hero-bg-layer hero-bg-overlay" />
         <div style={{ position: 'relative', zIndex: 1 }}>
         <Title level={1} style={{
           fontSize: '48px',
@@ -268,7 +179,7 @@ export default function HomePage() {
               alignItems: 'center',
               marginBottom: '24px',
             }}>
-              <Title level={3} style={{
+              <Title level={3} className="section-title" style={{
                 fontSize: '28px',
                 fontWeight: 600,
                 margin: 0,
@@ -276,7 +187,7 @@ export default function HomePage() {
                 paddingBottom: '16px',
               }}>
                 {t('home.latestPosts')}
-                <div style={{
+                <div className="section-title-decoration" style={{
                   position: 'absolute',
                   bottom: 0,
                   left: 0,
@@ -336,6 +247,12 @@ export default function HomePage() {
                             </Tag>
                             <CalendarOutlined />
                             <span>{formatDate(post.date)}</span>
+                            {post.readingTime ? (
+                              <>
+                                <ClockCircleOutlined style={{ marginLeft: '12px' }} />
+                                <span>{post.readingTime} {t('common.minRead', '分钟阅读')}</span>
+                              </>
+                            ) : null}
                             <MessageOutlined style={{ marginLeft: '12px' }} />
                             <span>{post.commentCount} {t('common.comments')}</span>
                           </Space>
@@ -419,7 +336,7 @@ export default function HomePage() {
               alignItems: 'center',
               marginBottom: '24px',
             }}>
-              <Title level={3} style={{
+              <Title level={3} className="section-title" style={{
                 fontSize: '28px',
                 fontWeight: 600,
                 margin: 0,
@@ -427,7 +344,7 @@ export default function HomePage() {
                 paddingBottom: '16px',
               }}>
                 {t('home.hotPosts')}
-                <div style={{
+                <div className="section-title-decoration" style={{
                   position: 'absolute',
                   bottom: 0,
                   left: 0,
@@ -566,39 +483,130 @@ export default function HomePage() {
         {/* Sidebar */}
         <Col xs={24} lg={8}>
           <Space direction="vertical" size="large" style={{ width: '100%' }}>
-            {/* Resume Card */}
+            {/* About Me Card */}
             <Card
-              style={{
-                background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
-                borderRadius: '12px',
-                border: 'none',
-                color: 'white',
-                textAlign: 'center',
-              }}
-              styles={{ body: { padding: '40px 24px' } }}
+              style={{ borderRadius: '12px', textAlign: 'center' }}
+              styles={{ body: { padding: '32px 24px' } }}
             >
-              <FileTextOutlined style={{ fontSize: '48px', marginBottom: '24px', color: 'white' }} />
-              <Title level={4} style={{ color: 'white', marginBottom: '12px' }}>
-                {t('home.resumeCard.title')}
-              </Title>
-              <Paragraph style={{ color: 'white', opacity: 0.9, marginBottom: '24px' }}>
-                {t('home.resumeCard.description')}
+              <div style={{
+                width: '120px',
+                height: '120px',
+                borderRadius: '50%',
+                margin: '0 auto 24px',
+                overflow: 'hidden',
+                background: 'var(--background)',
+                border: '3px solid #2563eb',
+              }}>
+                <Image
+                  src="/my-profile.png"
+                  alt="陈灼"
+                  width={120}
+                  height={120}
+                  style={{
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
+              </div>
+              <Title level={4} style={{ marginBottom: '8px' }}>陈灼 (Jack Chen)</Title>
+              <Paragraph style={{ color: 'var(--foreground)', opacity: 0.7, marginBottom: '16px', fontSize: '14px' }}>
+                热爱学习的前端，全栈40% | 一名篮球爱好者
               </Paragraph>
+              <Space size="middle" style={{ marginBottom: '20px' }}>
+                <a
+                  href="https://github.com/c524069797"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: 'var(--foreground)',
+                    fontSize: '22px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    background: 'var(--background-light)',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.color = '#1890ff'
+                    e.currentTarget.style.transform = 'scale(1.1)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = 'var(--foreground)'
+                    e.currentTarget.style.transform = 'scale(1)'
+                  }}
+                >
+                  <GithubOutlined />
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: 'var(--foreground)',
+                    fontSize: '22px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    background: 'var(--background-light)',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.color = '#1890ff'
+                    e.currentTarget.style.transform = 'scale(1.1)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = 'var(--foreground)'
+                    e.currentTarget.style.transform = 'scale(1)'
+                  }}
+                >
+                  <TwitterOutlined />
+                </a>
+                <a
+                  href="mailto:chenzhuo995@gmail.com"
+                  style={{
+                    color: 'var(--foreground)',
+                    fontSize: '22px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    background: 'var(--background-light)',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.color = '#1890ff'
+                    e.currentTarget.style.transform = 'scale(1.1)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = 'var(--foreground)'
+                    e.currentTarget.style.transform = 'scale(1)'
+                  }}
+                >
+                  <MailOutlined />
+                </a>
+              </Space>
               <Link href="/resume">
                 <Button
                   type="primary"
                   size="large"
-                  icon={<DownloadOutlined />}
+                  icon={<FileTextOutlined />}
+                  block
                   style={{
-                    background: 'white',
-                    color: '#2563eb',
-                    border: 'none',
                     height: '44px',
                     borderRadius: '50px',
                     fontWeight: 600,
                   }}
                 >
-                  {t('common.downloadResume')}
+                  {t('common.viewResume')}
                 </Button>
               </Link>
             </Card>

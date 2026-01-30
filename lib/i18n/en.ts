@@ -24,6 +24,7 @@ const translations = {
     browseBlog: 'Browse Blog',
     viewResume: 'View Resume',
     downloadResume: 'Download Resume PDF',
+    minRead: 'min read',
   },
   home: {
     hero: {

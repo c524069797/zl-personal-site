@@ -24,6 +24,7 @@ const zhCN = {
     browseBlog: '浏览博客',
     viewResume: '查看简历',
     downloadResume: '下载简历PDF',
+    minRead: '分钟阅读',
   },
   home: {
     hero: {

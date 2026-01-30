@@ -103,6 +103,7 @@ export async function GET(request: NextRequest) {
         slug: pt.tag.slug,
       })),
       content: post.content,
+      readingTime: Math.ceil((post.content?.length || 0) / 200),
       author: post.author,
     }))
 

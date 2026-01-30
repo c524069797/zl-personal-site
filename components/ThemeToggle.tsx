@@ -2,55 +2,40 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Button } from "antd";
+import { MoonOutlined, SunOutlined, DesktopOutlined } from "@ant-design/icons";
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Avoid synchronous setState warning
+    const timer = setTimeout(() => setMounted(true), 0)
+    return () => clearTimeout(timer)
   }, []);
 
   if (!mounted) {
     return (
-      <div className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:border-white dark:bg-gray-800 dark:text-white">
-        💻
-      </div>
+      <Button icon={<DesktopOutlined />} type="text" />
     );
   }
 
   const handleToggle = () => {
-    const currentTheme = theme || "system";
-
-    if (currentTheme === "light") {
-      setTheme("dark");
-    } else if (currentTheme === "dark") {
-      setTheme("system");
+    if (resolvedTheme === 'dark') {
+      setTheme('light')
     } else {
-      setTheme("light");
+      setTheme('dark')
     }
-  };
-
-  const getIcon = () => {
-    const currentTheme = theme || "system";
-    if (currentTheme === "system") {
-      return "💻";
-    }
-    if (resolvedTheme === "dark") {
-      return "🌙";
-    }
-    return "☀️";
   };
 
   return (
-    <button
+    <Button
+      type="text"
+      icon={resolvedTheme === 'dark' ? <MoonOutlined /> : <SunOutlined />}
       onClick={handleToggle}
-      className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-white dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-      aria-label="切换主题"
-      type="button"
-    >
-      {getIcon()}
-    </button>
+      title={resolvedTheme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+    />
   );
 }
 

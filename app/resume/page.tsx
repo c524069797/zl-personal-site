@@ -67,7 +67,7 @@ export default function ResumePage() {
           style={{ maxWidth: '210mm', minHeight: '297mm' }}
         >
           {/* Header Section */}
-          <header className="border-b-2 border-gray-800 pb-6 mb-6 flex justify-between items-start">
+          <header className="pb-6 mb-6 flex justify-between items-start">
             <div>
               <h1 className="text-4xl font-bold tracking-tight mb-2 uppercase">陈灼</h1>
               <p className="text-lg font-medium text-gray-600">高级前端开发工程师 (Senior Frontend Engineer)</p>
@@ -96,10 +96,10 @@ export default function ResumePage() {
               个人总结
             </h2>
             <p className="text-sm leading-relaxed text-gray-800 text-justify">
-              拥有4.5年前端开发经验，核心精通 <strong>Vue 2/Vue 3</strong> 生态，具备深厚的组件化架构设计与性能优化能力。
+              拥有4.5年前端开发经验，核心精通 <strong>Vue 2/Vue 3</strong> 与 <strong>React</strong> 生态，具备深厚的组件化架构设计与性能优化能力。
               在企业级备份软件与OA系统中，主导过从复杂业务逻辑到通用组件库的沉淀，成功将页面交互TTI降低30%。
-              具备全栈思维，熟悉 <strong>React/Next.js</strong> 及 <strong>PostgreSQL</strong> 数据库集成，善于利用工程化手段（CI/CD、自动化脚本）解决团队痛点，
-              推动研发效率提升。
+              熟练使用 <strong>uni-app</strong> 进行跨端开发，具备微信小程序全流程部署经验。
+              具备全栈能力，掌握 <strong>Python/Flask</strong> 后端开发及 <strong>PostgreSQL</strong> 数据库设计，善于利用工程化手段（CI/CD、自动化脚本）解决团队痛点。
             </p>
           </section>
 
@@ -113,16 +113,20 @@ export default function ResumePage() {
               <div className="col-span-4 md:col-span-3">
                 <span className="font-semibold">Vue 2 / Vue 3 (Composition API):</span> 深入理解响应式原理，熟练掌握 Vuex/Pinia 状态管理。
                 <br />
+                <span className="font-semibold">React:</span> 熟练使用 Hooks (useEffect, useMemo) 及 Next.js 框架进行 SSR 开发。
+                <br />
                 <span className="font-semibold">TypeScript:</span> 熟练使用泛型与类型推断，保障大型项目代码健壮性。
                 <br />
                 HTML5 / CSS3 / JavaScript (ES6+)
               </div>
 
-              <div className="col-span-4 md:col-span-1 font-bold text-gray-700">React & 全栈</div>
+              <div className="col-span-4 md:col-span-1 font-bold text-gray-700">后端 & 全栈</div>
               <div className="col-span-4 md:col-span-3">
-                <span className="font-semibold">React:</span> 熟练使用 Hooks (useEffect, useMemo) 及 Next.js 框架进行 SSR 开发。
+                <span className="font-semibold">Python / Flask:</span> 基于 Blueprint 模块化架构开发企业级后台，熟练运用装饰器模式实现审计日志自动记录。
                 <br />
-                <span className="font-semibold">Backend & DB:</span> 熟悉 Node.js，具备 PostgreSQL / MySQL 表结构设计与 SQL 查询优化能力 (JOIN, Indexing)。
+                <span className="font-semibold">Node.js:</span> 熟悉 Express/Koa 后端开发，具备 RESTful API 设计能力。
+                <br />
+                <span className="font-semibold">数据库:</span> PostgreSQL JSONB/数组类型、psycopg2 连接池、SQL 查询优化 (JOIN, Indexing)。
               </div>
 
               <div className="col-span-4 md:col-span-1 font-bold text-gray-700">工程化 & 工具</div>
@@ -153,78 +157,52 @@ export default function ResumePage() {
                 <h4 className="font-semibold text-gray-800 mb-1">
                   项目：主力企业级备份软件 (Vue 3, TypeScript, 自研组件库)
                 </h4>
-                <p className="text-xs text-gray-500 mb-2">负责存储策略配置、资源监控 Dashboard 及许可证管理系统的全生命周期开发。</p>
-                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
-                  <li>
-                    <strong>重构许可证签发流程</strong>：设计并开发全新的许可证管理模块，通过优化前端状态机逻辑与 API 交互，将签发耗时从 <strong>3-5分钟降低至10秒级</strong>，错误退单率降低至 <strong>20%以下</strong>。
-                  </li>
-                  <li>
-                    <strong>性能优化</strong>：深入剖析海量数据渲染瓶颈，引入虚拟滚动与 Web Worker 并行计算机制，将万级日志列表的渲染帧率稳定在 60FPS，彻底解决主线程阻塞导致的交互卡顿。
-                  </li>
-                  <li>
-                    <strong>通用组件沉淀</strong>：抽象&quot;备份/恢复向导&quot;通用组件，支持文件、数据库、虚拟机等多种资源类型，减少了约 <strong>1-2小时/人天</strong> 的重复开发工时。
-                  </li>
-                </ul>
-              </div>
-
-              {/* Project 1.5 - DBackup Framework */}
-              <div className="mb-4">
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  项目：DBackup 企业级数据灾备管理系统 (UI 核心框架)
-                </h4>
-                <p className="text-xs text-gray-500 mb-2">负责公司核心产品 DBackup 的前端组件库与中后台基础框架的架构升级与维护，支撑多条业务线的高效开发。</p>
+                <p className="text-xs text-gray-500 mb-2">负责存储策略配置、资源监控 Dashboard、许可证管理系统的全生命周期开发，以及核心组件库与中后台基础框架的架构升级与维护。</p>
                 <div className="mb-2">
                   <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vue 3</span>
                   <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vite</span>
                   <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Bootstrap 5 (Sass)</span>
                   <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vitest</span>
                 </div>
-                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800 mb-3">
+                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
                   <li>
-                    <strong>构建体系重构 (Webpack to Vite)</strong>：设计基于 Node.js 的动态主题编译插件，复写 SCSS 变量注入逻辑，实现多主题原子级自动化构建，<strong>构建速度提升 300%</strong>。
+                    <strong>备份恢复界面设计</strong>：负责核心备份/恢复功能的前端架构设计与开发，基于 Vue 3 Composition API 实现复杂表单状态管理，支持文件、数据库、虚拟机等多种资源类型的配置向导。
                   </li>
                   <li>
-                    <strong>组件库架构设计</strong>：采用源码级集成 Bootstrap 5 策略，建立语义化的 Design Token 系统，彻底解耦了 UI 框架与业务样式，确保了视觉规范的一致性。
+                    <strong>许可证与存储池模块</strong>：设计并开发许可证管理模块，优化前端状态机逻辑与 API 交互，将签发耗时从 <strong>3-5分钟降低至10秒级</strong>；开发存储池管理模块，实现存储资源的可视化配置与容量监控，支持多种存储后端（本地磁盘、NFS、S3）的统一接入。
                   </li>
                   <li>
-                    <strong>复杂业务组件封装</strong>：开发 SmartUnitInput 等高阶表单组件，内置策略模式处理 B 至 YB 级容量单位的自动换算与精度修正，解决大数值场景下的溢出与精度丢失问题。
+                    <strong>性能优化</strong>：深入剖析海量数据渲染瓶颈，引入虚拟滚动与 Web Worker 并行计算机制，将万级日志列表的渲染帧率稳定在 60FPS，彻底解决主线程阻塞导致的交互卡顿。
                   </li>
                   <li>
-                    <strong>工程化规范建设</strong>：升级 ESLint 9 (Flat Config) 体系，落地 Vitest 单元测试（覆盖率 80%+），制定了严格的 Code Review 标准，大幅降低了线上 UI 回归缺陷。
+                    <strong>通用组件库建设</strong>：主导自研 UI 组件库架构设计，采用源码级集成 Bootstrap 5 策略，建立语义化的 Design Token 系统。封装 SmartUnitInput、WizardWrap 等 <strong>20+ 高阶业务组件</strong>，支撑多条业务线高效开发，减少约 <strong>1-2小时/人天</strong> 的重复开发工时。
+                  </li>
+                  <li>
+                    <strong>工程化与 CI/CD 建设</strong>：升级 ESLint 9 (Flat Config) 体系，落地 Vitest 单元测试（覆盖率 80%+）；搭建 GitLab CI/CD 流水线，实现代码质量检查、自动化构建与多环境部署，制定严格的 Code Review 标准。
                   </li>
                 </ul>
-                
-                {/* Core Component Highlights */}
-                <div className="bg-gray-50 p-3 rounded-md border border-gray-100">
-                  <h5 className="text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">核心组件亮点 (Core Highlights)</h5>
-                  <div className="space-y-3">
-                    <div>
-                      <h6 className="text-sm font-semibold text-gray-800">亮点一：智能容量输入体系 (FormSpaceInput)</h6>
-                      <p className="text-xs text-gray-600 mt-1">
-                        针对灾备场景的大数据量需求，内置了 B 至 YB (9级) 的自动进位换算算法，解决了 JS 在处理 PB 级以上数值时的精度丢失问题；实现了&quot;显示单位&quot;与&quot;存储数值&quot;的分离（前端看是 1TiB，v-model 绑定值为 1099511627776），且支持输入 1024GB 自动跳变为 1TB 的智能交互，极大降低了用户心智负担。
-                      </p>
-                    </div>
-                    <div>
-                      <h6 className="text-sm font-semibold text-gray-800">亮点二：企业级分步向导容器 (WizardWrap)</h6>
-                      <p className="text-xs text-gray-600 mt-1">
-                        基于 Vue 3 的 Provide/Inject 模式设计了松耦合的向导系统，子组件 (WizardCard) 无需感知父容器存在，只需暴露 validator 钩子即可自动接入流程控制；独创了基于 Promise 的步骤拦截链机制，支持在点击&quot;下一步&quot;时动态执行接口校验（如重名检测），只有所有中间件 verify 通过后才允许通过，完美处理了复杂表单的事务一致性问题。
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* Project 1.2 */}
               <div className="mb-4">
                 <h4 className="font-semibold text-gray-800 mb-1">
-                  项目：企业内部综合管理系统 (Vue 3)
+                  项目：企业内部综合管理系统 (Vue 3, Python/Flask)
                 </h4>
+                <div className="mb-2">
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vue 3</span>
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Python</span>
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Flask</span>
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">PostgreSQL</span>
+                </div>
                 <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
+                  <li>
+                    <strong>全栈开发</strong>：基于 Flask Blueprint 架构开发 20+ 业务模块，采用装饰器模式实现审计日志自动记录；前端使用 Vue 3 构建响应式界面，实现许可证全生命周期管理。
+                  </li>
                   <li>
                     <strong>复杂业务建模</strong>：主导&quot;按套餐售卖&quot;功能的各端打通（内管、商务、供应链），设计高灵活度的权限配置方案，支持 <strong>50+ 种许可套餐</strong> 的动态组合。
                   </li>
                   <li>
-                    <strong>稳定性保障</strong>：维护现有 10+ 个子系统，在 <strong>500+ 并发用户</strong> 高峰期保持系统零宕机，通过优化长列表渲染（Virtual Scroll）解决合同列表卡顿问题。
+                    <strong>数据库设计</strong>：使用 PostgreSQL JSONB/数组类型优化灵活配置存储，设计 UUID 松耦合关联策略；基于 APScheduler 实现定时数据归档，保障大数据量下的查询性能。
                   </li>
                   <li>
                     <strong>流程数字化</strong>：将原本依赖人工Excel记录的供应链流程系统化，<strong>减少跨部门沟通工单 30%</strong>，通过自动化校验逻辑减少人工录入错误。
@@ -232,7 +210,28 @@ export default function ResumePage() {
                 </ul>
               </div>
 
-              {/* Project 1.3 */}
+              {/* Project 1.3 - Monitor Center */}
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-800 mb-1">
+                  项目：数据可视化监控大屏 (Vue 3, DataV)
+                </h4>
+                <div className="mb-2">
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vue 3</span>
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">grid-layout-plus</span>
+                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">DataV</span>
+                </div>
+                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
+                  <li>
+                    <strong>可视化布局编辑器</strong>：基于 grid-layout-plus 实现拖拽式布局系统，支持行列动态配置、模块自由拖拽与碰撞检测，设计 LayoutTracker 类追踪布局变化并计算最大空白区域实现智能模块插入。
+                  </li>
+                  <li>
+                    <strong>服务降级重试机制</strong>：实现心跳检测与优雅降级策略，当后端服务掉线时自动按指数退避（1s → 2s → 5s → 30s → 60s）重连，避免无效请求风暴，保障大屏 7x24 小时稳定运行。
+                  </li>
+                  <li>
+                    <strong>多主题动态切换</strong>：支持运行时主题切换（含毛玻璃效果），通过 CSS 变量注入与动态 link 标签实现无刷新换肤，配合用户配置持久化到后端。
+                  </li>
+                </ul>
+              </div>
               <div className="mb-2">
                 <h4 className="font-semibold text-gray-800 mb-1">
                   项目：研发效能提升工具 (JavaScript, Chrome Extension)

@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     // 确保数据库连接
     await prisma.$connect()
 
-    const { postId, force, provider = 'deepseek' } = await request.json()
+    const { postId, force } = await request.json()
 
     if (!postId) {
       return NextResponse.json({ error: 'Post ID is required' }, { status: 400 })
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 生成新摘要（添加超时控制）
-    const generateSummaryPromise = generateSummary(post.title, post.content, provider)
+    const generateSummaryPromise = generateSummary(post.title, post.content)
     const { summary, keywords } = await Promise.race([
       generateSummaryPromise,
       timeoutPromise,

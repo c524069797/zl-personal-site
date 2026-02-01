@@ -83,7 +83,7 @@ export async function POST(
     // AI审核评论（默认使用deepseek）
     let aiCheckResult
     try {
-      aiCheckResult = await moderateComment(content, 'deepseek')
+      aiCheckResult = await moderateComment(content)
     } catch (error) {
       console.error('AI moderation failed:', error)
       // AI审核失败不影响评论创建，继续使用默认审核流程

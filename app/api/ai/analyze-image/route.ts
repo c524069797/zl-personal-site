@@ -32,11 +32,7 @@ ${summary ? `文章摘要：${summary.substring(0, 200)}` : ''}
 
 请只返回类型名称（如：vue、meeting、code等），不要返回其他内容。`
 
-    const response = await askQuestion(
-      prompt,
-      [],
-      'deepseek'
-    )
+    const response = await askQuestion(prompt, [])
 
     // 提取图片类型
     let imageType = 'default'

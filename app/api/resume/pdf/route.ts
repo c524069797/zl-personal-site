@@ -1,22 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium-min';
 
 export async function GET(request: NextRequest) {
   let browser;
-  
+
   try {
     const protocol = request.headers.get('x-forwarded-proto') || 'http';
     const host = request.headers.get('host') || 'localhost:3000';
     const resumeUrl = `${protocol}://${host}/resume`;
+    
+    const isProd = process.env.NODE_ENV === 'production';
+    const exePath = isProd 
+      ? await chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v132.0.0/chromium-v132.0.0-pack.tar')
+      : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
     browser = await puppeteer.launch({
-      headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-      ],
+      args: isProd ? chromium.args : ['--no-sandbox', '--disable-setuid-sandbox'],
+      defaultViewport: {
+        width: 794,
+        height: 1123,
+        deviceScaleFactor: 2,
+      },
+      executablePath: exePath,
+      headless: isProd ? true : true,
     });
 
     const page = await browser.newPage();
@@ -63,7 +70,7 @@ export async function GET(request: NextRequest) {
     });
 
     await browser.close();
-
+    
     const filename = `陈灼-前端工程师-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
@@ -75,7 +82,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('[PDF] 生成失败:', error instanceof Error ? error.message : String(error));
-    
+
     if (browser) {
       try {
         await browser.close();

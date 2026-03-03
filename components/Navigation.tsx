@@ -21,7 +21,6 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
   const { t } = useTranslation()
   const [drawerVisible, setDrawerVisible] = useState(false)
 
-  // Navigation items to avoid duplication
   const navItems = [
     { href: '/blog', icon: <BookOutlined />, label: t('nav.blog') },
     { href: '/ai-chat', icon: <RobotOutlined />, label: t('nav.aiChat') },
@@ -30,14 +29,12 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
   ]
 
   return (
-    <Header 
+    <Header
       className="nav-header"
       style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'var(--background)',
-        borderBottom: '1px solid var(--border)',
         padding: '0 24px',
         height: '64px',
         position: 'sticky',
@@ -50,7 +47,6 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
           href="/"
           className="nav-logo"
           style={{
-            color: 'var(--foreground)',
             fontSize: '20px',
             fontWeight: 'bold',
             textDecoration: 'none',
@@ -71,7 +67,6 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
         <Space size="middle" className="nav-menu">
           {navItems.map(item => (
             <LinkTransition key={item.href} href={item.href} className="nav-link" style={{
-              color: 'var(--foreground)',
               textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
@@ -89,9 +84,9 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
       {/* Mobile Menu Button */}
       <div className="md:hidden flex items-center gap-4">
         <ThemeToggle />
-        <Button 
-          type="text" 
-          icon={<MenuOutlined style={{ fontSize: '20px' }} />} 
+        <Button
+          type="text"
+          icon={<MenuOutlined style={{ fontSize: '20px' }} />}
           onClick={() => setDrawerVisible(true)}
         />
       </div>
@@ -107,12 +102,14 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
       >
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {navItems.map(item => (
-            <LinkTransition 
-              key={item.href} 
-              href={item.href} 
-              className="px-6 py-4 border-b border-gray-100 flex items-center gap-3 text-lg"
+            <LinkTransition
+              key={item.href}
+              href={item.href}
+              className="nav-link px-6 py-4 flex items-center gap-3 text-lg"
               onClick={() => setDrawerVisible(false)}
-              style={{ color: 'var(--foreground)' }}
+              style={{
+                borderBottom: '1px solid var(--border)',
+              }}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -126,4 +123,3 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
     </Header>
   )
 }
-

@@ -16,7 +16,7 @@ import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
 import { useTranslation } from '@/hooks/useTranslation'
 
-const { Title, Paragraph, Text } = Typography
+const { Title, Text } = Typography
 const { Search } = Input
 
 interface Post {
@@ -101,7 +101,6 @@ export default function BlogListNew() {
 
       if (tagsRes.ok) {
         const tagsData = await tagsRes.json()
-        // 只显示有文章数的标签，并按数量排序
         const sortedTags = (tagsData.tags || [])
           .filter((tag: Tag) => tag.count > 0)
           .sort((a: Tag, b: Tag) => b.count - a.count)
@@ -118,7 +117,7 @@ export default function BlogListNew() {
         setHotPosts(hotData.posts || [])
       }
     } catch {
-      // 错误已静默处理
+      // errors silently handled
     } finally {
       setLoading(false)
     }
@@ -154,42 +153,66 @@ export default function BlogListNew() {
     router.push(`/blog?${params.toString()}`)
   }
 
+  const getHeaderTitle = () => {
+    const category = searchParams.get('category')
+    if (category === 'tech') return '技术博客'
+    if (category === 'life') return '生活记录'
+    return t('blog.title')
+  }
+
+  const getHeaderDescription = () => {
+    const category = searchParams.get('category')
+    if (category === 'tech') return '探索最新技术文章、开发技巧和行业趋势，提升您的开发技能'
+    if (category === 'life') return '提高自己的社会化技能或记录自己的生活感想'
+    return t('blog.description')
+  }
+
   return (
     <div style={{ width: '100%' }}>
-      {/* Page Header */}
+      {/* Page Header - Dark Futuristic Banner */}
       <div style={{
-        background: 'linear-gradient(120deg, #e0f7ff, #f0f9ff)',
-        padding: '40px 0 30px',
+        position: 'relative',
+        padding: '48px 0 36px',
         marginBottom: '32px',
         borderBottom: '1px solid var(--border)',
+        overflow: 'hidden',
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-          <Title level={1} style={{
-            fontSize: '28px',
+        {/* Subtle grid overlay for dark mode */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+          pointerEvents: 'none',
+        }} />
+        {/* Subtle indigo glow */}
+        <div style={{
+          position: 'absolute',
+          top: '-50%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '600px',
+          height: '400px',
+          background: 'radial-gradient(ellipse, rgba(99, 102, 241, 0.08) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', position: 'relative' }}>
+          <h1 className="blog-header-title" style={{
+            fontSize: '32px',
             fontWeight: 700,
             marginBottom: '8px',
-            color: 'var(--foreground)',
           }}>
-            {(() => {
-              const category = searchParams.get('category')
-              if (category === 'tech') return '技术博客'
-              if (category === 'life') return '生活记录'
-              return t('blog.title')
-            })()}
-          </Title>
-          <Paragraph style={{
+            {getHeaderTitle()}
+          </h1>
+          <p style={{
             fontSize: '16px',
             color: 'var(--foreground)',
-            opacity: 0.7,
+            opacity: 0.6,
             maxWidth: '800px',
+            margin: 0,
           }}>
-            {(() => {
-              const category = searchParams.get('category')
-              if (category === 'tech') return '探索最新技术文章、开发技巧和行业趋势，提升您的开发技能'
-              if (category === 'life') return '提高自己的社会化技能或记录自己的生活感想'
-              return t('blog.description')
-            })()}
-          </Paragraph>
+            {getHeaderDescription()}
+          </p>
         </div>
       </div>
 
@@ -200,21 +223,33 @@ export default function BlogListNew() {
           <Col xs={24} lg={16}>
             {loading ? (
               [1, 2, 3].map((i) => (
-                <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '6px' }} />
+                <div
+                  key={i}
+                  className="dark-skeleton"
+                  style={{
+                    marginBottom: '24px',
+                    height: '220px',
+                    borderRadius: '16px',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid var(--border)',
+                  }}
+                />
               ))
             ) : posts.length > 0 ? (
               <>
                 {posts.map((post) => (
-                  <Card
+                  <div
                     key={post.id}
+                    className="blog-post-card"
                     style={{
                       marginBottom: '24px',
-                      borderRadius: '6px',
-                      border: 'none',
-                      boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
-                      transition: 'all 0.3s',
+                      borderRadius: '16px',
+                      border: '1px solid var(--border)',
+                      background: 'var(--background-light)',
+                      padding: '24px',
+                      transition: 'all 0.3s ease',
+                      cursor: 'default',
                     }}
-                    styles={{ body: { padding: '24px' } }}
                   >
                     <div style={{
                       display: 'flex',
@@ -223,19 +258,16 @@ export default function BlogListNew() {
                       marginBottom: '16px',
                     }}>
                       {post.tags && post.tags.length > 0 && (
-                        <Tag
-                          color="blue"
-                          style={{
-                            fontSize: '12px',
-                            padding: '4px 10px',
-                            borderRadius: '20px',
-                            fontWeight: 500,
-                          }}
-                        >
+                        <span className="blog-tag-badge" style={{
+                          fontSize: '12px',
+                          padding: '4px 12px',
+                          borderRadius: '20px',
+                          fontWeight: 500,
+                        }}>
                           {post.tags[0].name}
-                        </Tag>
+                        </span>
                       )}
-                      <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
+                      <span style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.5 }}>
                         {formatDate(post.date)}
                         {post.readingTime ? (
                           <>
@@ -244,7 +276,7 @@ export default function BlogListNew() {
                             {post.readingTime} {t('common.minRead', '分钟阅读')}
                           </>
                         ) : null}
-                      </Text>
+                      </span>
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
@@ -262,7 +294,7 @@ export default function BlogListNew() {
                         }, 200)
                       }}
                     >
-                      <Title level={3} style={{
+                      <h3 style={{
                         fontSize: '20px',
                         fontWeight: 600,
                         marginBottom: '12px',
@@ -270,20 +302,23 @@ export default function BlogListNew() {
                         cursor: 'pointer',
                       }}>
                         {post.title}
-                      </Title>
+                      </h3>
                     </Link>
-                    <Paragraph
-                      ellipsis={{ rows: 2 }}
+                    <p
                       style={{
                         color: 'var(--foreground)',
-                        opacity: 0.7,
+                        opacity: 0.6,
                         marginBottom: '20px',
                         fontSize: '15px',
                         lineHeight: 1.7,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
                       }}
                     >
                       {post.summary}
-                    </Paragraph>
+                    </p>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
@@ -298,10 +333,7 @@ export default function BlogListNew() {
                             style={{
                               fontSize: '12px',
                               padding: '3px 10px',
-                              background: 'var(--background)',
                               borderRadius: '4px',
-                              color: 'var(--foreground)',
-                              border: '1px solid var(--border)',
                               cursor: 'pointer',
                             }}
                             onClick={() => handleTagClick(tag.slug)}
@@ -310,14 +342,14 @@ export default function BlogListNew() {
                           </Tag>
                         ))}
                       </Space>
-                      <Space size="large" style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
+                      <Space size="large" style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.4 }}>
                         <Space size="small">
                           <MessageOutlined />
                           <span>{post.commentCount || 0}</span>
                         </Space>
                       </Space>
                     </div>
-                  </Card>
+                  </div>
                 ))}
 
                 {/* Pagination */}
@@ -346,7 +378,7 @@ export default function BlogListNew() {
           <Col xs={24} lg={8}>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
               {/* Search */}
-              <Card style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}>
+              <Card style={{ borderRadius: '16px' }}>
                 <Search
                   placeholder={t('blog.search')}
                   allowClear
@@ -365,7 +397,7 @@ export default function BlogListNew() {
                     <span>{t('blog.categories')}</span>
                   </Space>
                 }
-                style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                style={{ borderRadius: '16px' }}
                 loading={loading}
               >
                 <div style={{ listStyle: 'none', padding: 0, margin: 0 }}>
@@ -390,7 +422,7 @@ export default function BlogListNew() {
                           router.push(`/blog?${params.toString()}`)
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'var(--background-light)'
+                          e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.05)'
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.backgroundColor = 'transparent'
@@ -398,14 +430,14 @@ export default function BlogListNew() {
                       >
                         <Text
                           style={{
-                            color: selectedCategory === category.slug ? category.color : 'var(--foreground)',
+                            color: selectedCategory === category.slug ? '#818cf8' : 'var(--foreground)',
                             opacity: selectedCategory === category.slug ? 1 : 0.7,
                             fontWeight: selectedCategory === category.slug ? 500 : 400,
                           }}
                         >
                           {category.name}
                         </Text>
-                        <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.5 }}>
+                        <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.4 }}>
                           {category.count}
                         </Text>
                       </div>
@@ -424,7 +456,7 @@ export default function BlogListNew() {
                     <span>{t('blog.hotTags')}</span>
                   </Space>
                 }
-                style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                style={{ borderRadius: '16px' }}
                 loading={loading}
               >
                 {tags.length > 0 ? (
@@ -435,27 +467,15 @@ export default function BlogListNew() {
                         style={{
                           fontSize: '12px',
                           padding: '3px 10px',
-                          background: selectedTag === tag.slug ? '#1890ff' : 'var(--background)',
+                          background: selectedTag === tag.slug ? 'rgba(99, 102, 241, 0.8)' : undefined,
                           borderRadius: '4px',
-                          color: selectedTag === tag.slug ? '#fff' : 'var(--foreground)',
-                          border: selectedTag === tag.slug ? '1px solid #1890ff' : '1px solid var(--border)',
+                          color: selectedTag === tag.slug ? '#fff' : undefined,
+                          border: selectedTag === tag.slug ? '1px solid #6366f1' : undefined,
                           cursor: 'pointer',
                           marginBottom: '8px',
                           transition: 'all 0.2s',
                         }}
                         onClick={() => handleTagClick(tag.slug)}
-                        onMouseEnter={(e) => {
-                          if (selectedTag !== tag.slug) {
-                            e.currentTarget.style.background = 'var(--background-light)'
-                            e.currentTarget.style.borderColor = '#1890ff'
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (selectedTag !== tag.slug) {
-                            e.currentTarget.style.background = 'var(--background)'
-                            e.currentTarget.style.borderColor = 'var(--border)'
-                          }
-                        }}
                       >
                         {tag.name} ({tag.count})
                       </Tag>
@@ -465,34 +485,16 @@ export default function BlogListNew() {
                         style={{
                           fontSize: '12px',
                           padding: '3px 10px',
-                          background: showAllTags ? '#f0f0f0' : '#1890ff',
+                          background: showAllTags ? 'rgba(255,255,255,0.05)' : 'rgba(99, 102, 241, 0.8)',
                           borderRadius: '4px',
-                          color: showAllTags ? '#666' : '#fff',
-                          border: showAllTags ? '1px solid #d9d9d9' : '1px solid #1890ff',
+                          color: showAllTags ? 'rgba(255,255,255,0.6)' : '#fff',
+                          border: showAllTags ? '1px solid var(--border)' : '1px solid #6366f1',
                           cursor: 'pointer',
                           marginBottom: '8px',
                           transition: 'all 0.2s',
                           fontWeight: showAllTags ? 'normal' : '500',
                         }}
                         onClick={() => setShowAllTags(!showAllTags)}
-                        onMouseEnter={(e) => {
-                          if (showAllTags) {
-                            e.currentTarget.style.background = '#e6e6e6'
-                            e.currentTarget.style.borderColor = '#bfbfbf'
-                          } else {
-                            e.currentTarget.style.background = '#40a9ff'
-                            e.currentTarget.style.borderColor = '#40a9ff'
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (showAllTags) {
-                            e.currentTarget.style.background = '#f0f0f0'
-                            e.currentTarget.style.borderColor = '#d9d9d9'
-                          } else {
-                            e.currentTarget.style.background = '#1890ff'
-                            e.currentTarget.style.borderColor = '#1890ff'
-                          }
-                        }}
                       >
                         {showAllTags ? '收起' : '更多'}
                       </Tag>
@@ -511,7 +513,7 @@ export default function BlogListNew() {
                     <span>{t('home.hotPosts')}</span>
                   </Space>
                 }
-                style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                style={{ borderRadius: '16px' }}
               >
                 {hotPosts.map((post) => (
                   <div
@@ -526,7 +528,7 @@ export default function BlogListNew() {
                     <div style={{
                       width: '80px',
                       height: '60px',
-                      borderRadius: '4px',
+                      borderRadius: '8px',
                       overflow: 'hidden',
                       flexShrink: 0,
                     }}>
@@ -534,7 +536,7 @@ export default function BlogListNew() {
                         title={post.title}
                         summary={post.summary}
                         height={60}
-                        gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                        gradient="linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)"
                       />
                     </div>
                     <div style={{ flex: 1 }}>
@@ -564,7 +566,7 @@ export default function BlogListNew() {
                           {post.title}
                         </Title>
                       </Link>
-                      <Space size="small" style={{ fontSize: '12px', color: 'var(--foreground)', opacity: 0.5 }}>
+                      <Space size="small" style={{ fontSize: '12px', color: 'var(--foreground)', opacity: 0.4 }}>
                         <MessageOutlined />
                         <span>{post.commentCount || 0}</span>
                       </Space>
@@ -579,4 +581,3 @@ export default function BlogListNew() {
     </div>
   )
 }
-

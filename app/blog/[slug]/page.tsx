@@ -88,11 +88,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
 
   return (
-    <div style={{
+    <div className="blog-page-layout" style={{
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
-      background: 'var(--background)',
     }}>
       {/* 结构化数据 */}
       <ArticleStructuredData

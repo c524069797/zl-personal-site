@@ -22,24 +22,24 @@
 }
 
 .dark {
-  --background: #111827;
+  --background: #050816;
   --foreground: #f9fafb;
-  --border: #374151;
-  --primary-color: #1890ff;
+  --border: rgba(255, 255, 255, 0.1);
+  --primary-color: #6366f1;
   --text-color: #f9fafb;
-  --text-secondary: #9ca3af;
-  --background-light: #1f2937;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --background-light: rgba(255, 255, 255, 0.03);
   --success-color: #52c41a;
   --danger-color: #ff4d4f;
   --border-radius: 4px;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: #111827;
+    --background: #050816;
     --foreground: #f9fafb;
-    --border: #374151;
+    --border: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -63,8 +63,10 @@ body {
 
 /* Ant Design 暗黑模式支持 */
 .dark .ant-layout-header {
-  background: var(--background) !important;
-  border-bottom-color: var(--border) !important;
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .dark .ant-layout-content {
@@ -81,13 +83,16 @@ body {
 }
 
 .dark .ant-card {
-  background: var(--background) !important;
-  border-color: var(--border) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 .dark .ant-card-head {
-  background: var(--background) !important;
-  border-bottom-color: var(--border) !important;
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 .dark .ant-card-head-title {
@@ -95,7 +100,7 @@ body {
 }
 
 .dark .ant-card-body {
-  background: var(--background) !important;
+  background: transparent !important;
   color: var(--foreground) !important;
 }
 
@@ -115,9 +120,16 @@ body {
 }
 
 .dark .ant-tag {
-  background: #1f2937 !important;
-  border-color: var(--border) !important;
-  color: var(--foreground) !important;
+  background: rgba(99, 102, 241, 0.1) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dark .ant-tag:hover {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.3) !important;
 }
 
 /* Ant Design Tabs 样式 */
@@ -217,23 +229,48 @@ body {
 }
 
 .dark .ant-btn-primary {
-  background: #1890ff !important;
-  border-color: #1890ff !important;
+  background: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+.dark .ant-btn-primary:hover {
+  background: #818cf8 !important;
+  border-color: #818cf8 !important;
 }
 
 /* Ant Design Input 样式 */
 .dark .ant-input {
-  background: var(--background) !important;
-  border-color: var(--border) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
   color: var(--foreground) !important;
 }
 
+.dark .ant-input:focus,
+.dark .ant-input-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+}
+
+.dark .ant-input::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
 .dark .ant-input-search {
-  background: var(--background) !important;
+  background: transparent !important;
 }
 
 .dark .ant-input-search .ant-input {
-  background: var(--background) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .ant-input-search .ant-btn {
+  background: rgba(99, 102, 241, 0.8) !important;
+  border-color: rgba(99, 102, 241, 0.8) !important;
+}
+
+.dark .ant-input-search .ant-btn:hover {
+  background: #6366f1 !important;
+  border-color: #6366f1 !important;
 }
 
 /* Ant Design Modal 样式 */
@@ -268,9 +305,9 @@ body {
 }
 
 .dark .ant-table-thead > tr > th {
-  background: #111827 !important;
+  background: rgba(255, 255, 255, 0.03) !important;
   color: #f9fafb !important;
-  border-bottom-color: #374151 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* 确保表格容器背景正确 */
@@ -297,9 +334,9 @@ body {
 }
 
 .dark .ant-table-tbody > tr > td {
-  background: #111827 !important;
+  background: transparent !important;
   color: #f9fafb !important;
-  border-bottom-color: #374151 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
 }
 
 .ant-table-tbody > tr:hover > td {
@@ -963,4 +1000,369 @@ a:active {
 
 .markdown-content a:hover {
   text-decoration: underline;
+}
+
+/* ========================================
+   Futuristic Homepage Animations
+   ======================================== */
+
+/* Rotating conic gradient for glow borders */
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes glowSpin {
+  from {
+    --glow-angle: 0deg;
+  }
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+/* Slow pulse for avatar ring */
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s ease-in-out infinite;
+}
+
+/* ========================================
+   Dark Futuristic Theme - Navigation
+   ======================================== */
+
+.nav-header {
+  background: var(--background) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.nav-logo {
+  color: var(--foreground);
+}
+
+.nav-link {
+  color: var(--foreground);
+  transition: color 0.3s ease;
+}
+
+.dark .nav-header {
+  background: transparent !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Also override the Ant Layout Header when nav-header is present */
+.dark .nav-header.ant-layout-header {
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.dark .nav-logo {
+  background: linear-gradient(135deg, #ffffff, #c7d2fe) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.dark .nav-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: color 0.3s ease !important;
+}
+
+.dark .nav-link:hover {
+  color: #818cf8 !important;
+}
+
+/* ========================================
+   Dark Futuristic Theme - Pagination
+   ======================================== */
+
+.dark .ant-pagination .ant-pagination-item {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .ant-pagination .ant-pagination-item a {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .ant-pagination .ant-pagination-item-active {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-color: #6366f1 !important;
+}
+
+.dark .ant-pagination .ant-pagination-item-active a {
+  color: #818cf8 !important;
+}
+
+.dark .ant-pagination .ant-pagination-prev .ant-pagination-item-link,
+.dark .ant-pagination .ant-pagination-next .ant-pagination-item-link {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .ant-pagination .ant-pagination-options .ant-select-selector {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .ant-pagination .ant-pagination-total-text {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .ant-pagination .ant-pagination-options-quick-jumper {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .ant-pagination .ant-pagination-options-quick-jumper input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ========================================
+   Dark Futuristic Theme - Drawer
+   ======================================== */
+
+.dark .ant-drawer .ant-drawer-content {
+  background: rgba(5, 8, 22, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.dark .ant-drawer .ant-drawer-header {
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .ant-drawer .ant-drawer-title {
+  color: #ffffff !important;
+}
+
+.dark .ant-drawer .ant-drawer-close {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ========================================
+   Dark Futuristic Theme - Blog Page Layout
+   ======================================== */
+
+.blog-page-layout {
+  background: var(--background);
+}
+
+.blog-header-title {
+  color: var(--foreground);
+}
+
+.dark .blog-header-title {
+  background: linear-gradient(135deg, #ffffff, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .blog-page-layout {
+  background: linear-gradient(180deg, #050816 0%, #0a0f2c 50%, #050816 100%) !important;
+}
+
+/* Blog post card hover */
+.blog-post-card:hover {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dark .blog-post-card:hover {
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+/* Blog tag badge */
+.blog-tag-badge {
+  background: rgba(24, 144, 255, 0.1);
+  color: #1890ff;
+  border: 1px solid rgba(24, 144, 255, 0.3);
+}
+
+.dark .blog-tag-badge {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.dark .blog-page-layout .ant-layout,
+.dark .blog-page-layout .ant-layout-content {
+  background: transparent !important;
+}
+
+/* ========================================
+   Dark Futuristic Theme - Skeleton Loading
+   ======================================== */
+
+@keyframes darkPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.dark-skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: darkPulse 2s ease-in-out infinite;
+  border-radius: 16px;
+}
+
+/* ========================================
+   Neon Pulse Animation
+   ======================================== */
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+  }
+}
+
+/* ========================================
+   Footer Styles (light + dark)
+   ======================================== */
+
+.site-footer {
+  background: #f8fafc;
+  color: #334155;
+  padding: 48px 5% 32px;
+  margin-top: 64px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.dark .site-footer {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.footer-section-title {
+  color: #1e293b;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.dark .footer-section-title {
+  color: #ffffff;
+}
+
+.footer-underline {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--primary-color);
+  border-radius: 1px;
+}
+
+.dark .footer-underline {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.footer-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.dark .footer-brand {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-text {
+  color: #64748b;
+}
+
+.dark .footer-text {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-link {
+  color: #64748b !important;
+  text-decoration: none !important;
+  transition: color 0.3s !important;
+  display: block;
+}
+
+.footer-link:hover {
+  color: var(--primary-color) !important;
+}
+
+.dark .footer-link {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .footer-link:hover {
+  color: #818cf8 !important;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 32px auto 0;
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.dark .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-brand-inline {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.dark .footer-brand-inline {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

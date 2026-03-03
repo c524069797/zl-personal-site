@@ -1,20 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Typography } from 'antd'
-
-const { Title, Text } = Typography
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: '#001529',
-        color: 'rgba(255,255,255,0.85)',
-        padding: '48px 5% 32px',
-        marginTop: '64px',
-      }}
-    >
+    <footer className="site-footer">
       <div
         style={{
           display: 'flex',
@@ -25,359 +15,84 @@ export default function Footer() {
         }}
       >
         <div style={{ flex: 1, minWidth: '200px' }}>
-          <Title
-            level={4}
-            style={{
-              color: '#fff',
-              marginBottom: '24px',
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
-            技术博客
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-8px',
-                left: 0,
-                width: '40px',
-                height: '2px',
-                background: '#1890ff',
-              }}
-            />
-          </Title>
-          <Text style={{ color: 'rgba(255,255,255,0.65)' }}>
+          <div className="footer-section-title">
+            <span className="footer-brand">技术博客</span>
+            <div className="footer-underline" />
+          </div>
+          <p className="footer-text" style={{ marginTop: '24px', lineHeight: 1.6 }}>
             分享前沿技术文章，助力开发者成长
-          </Text>
+          </p>
         </div>
 
         <div style={{ flex: 1, minWidth: '200px' }}>
-          <Title
-            level={4}
-            style={{
-              color: '#fff',
-              marginBottom: '24px',
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
+          <div className="footer-section-title">
             快速链接
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-8px',
-                left: 0,
-                width: '40px',
-                height: '2px',
-                background: '#1890ff',
-              }}
-            />
-          </Title>
-          <ul
-            style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                首页
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                前端技术
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                后端开发
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                移动开发
-              </Link>
-            </li>
+            <div className="footer-underline" />
+          </div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: '24px 0 0 0' }}>
+            {[
+              { href: '/', label: '首页' },
+              { href: '/blog?category=tech', label: '前端技术' },
+              { href: '/blog?category=life', label: '生活记录' },
+              { href: '/blog', label: '全部博客' },
+            ].map(item => (
+              <li key={item.href} style={{ marginBottom: '8px' }}>
+                <Link href={item.href} className="footer-link">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div style={{ flex: 1, minWidth: '200px' }}>
-          <Title
-            level={4}
-            style={{
-              color: '#fff',
-              marginBottom: '24px',
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
+          <div className="footer-section-title">
             资源推荐
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-8px',
-                left: 0,
-                width: '40px',
-                height: '2px',
-                background: '#1890ff',
-              }}
-            />
-          </Title>
-          <ul
-            style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                官方文档
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                开源项目
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                学习路径
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                社区论坛
-              </Link>
-            </li>
+            <div className="footer-underline" />
+          </div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: '24px 0 0 0' }}>
+            {[
+              { href: '/blog', label: '官方文档' },
+              { href: '/blog', label: '开源项目' },
+              { href: '/blog', label: '学习路径' },
+              { href: '/ai-chat', label: 'AI 助手' },
+            ].map((item, i) => (
+              <li key={i} style={{ marginBottom: '8px' }}>
+                <Link href={item.href} className="footer-link">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div style={{ flex: 1, minWidth: '200px' }}>
-          <Title
-            level={4}
-            style={{
-              color: '#fff',
-              marginBottom: '24px',
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
+          <div className="footer-section-title">
             联系我们
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-8px',
-                left: 0,
-                width: '40px',
-                height: '2px',
-                background: '#1890ff',
-              }}
-            />
-          </Title>
-          <ul
-            style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                关于我们
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                加入我们
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                商务合作
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link
-                href="/blog"
-                style={{
-                  color: 'rgba(255,255,255,0.65)',
-                  textDecoration: 'none',
-                  transition: 'color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-                }}
-              >
-                反馈建议
-              </Link>
-            </li>
+            <div className="footer-underline" />
+          </div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: '24px 0 0 0' }}>
+            {[
+              { href: '/resume', label: '关于我' },
+              { href: 'https://github.com/c524069797', label: 'GitHub' },
+              { href: 'mailto:chenzhuo995@gmail.com', label: '邮件联系' },
+              { href: '/blog', label: '反馈建议' },
+            ].map((item, i) => (
+              <li key={i} style={{ marginBottom: '8px' }}>
+                <Link href={item.href} className="footer-link">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '32px auto 0',
-          textAlign: 'center',
-          paddingTop: '24px',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          color: 'rgba(255,255,255,0.45)',
-          fontSize: '14px',
-        }}
-      >
-        © {new Date().getFullYear()} 技术博客 | 版权所有
+      <div className="footer-bottom">
+        © {new Date().getFullYear()}{' '}
+        <span className="footer-brand-inline">技术博客</span>
+        {' '}| 版权所有
       </div>
     </footer>
   )
 }
-

@@ -166,13 +166,13 @@ export default function ResumePage() {
                 </div>
                 <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
                   <li>
-                    <strong>备份恢复界面设计</strong>：负责核心备份/恢复功能的前端架构设计与开发，基于 Vue 3 Composition API 实现复杂表单状态管理，支持文件、数据库、虚拟机等多种资源类型的配置向导。
+                    <strong>向导流程微服务化架构</strong>：设计 4 步通用向导框架（资源选择 → 备份源 → 目标位置 → 调度策略），采用 <strong>工厂模式</strong> 实现 50+ 资源类型动态注入（MySQL、Oracle、VMware、Kubernetes 等），基于 <strong>Context + Proxy 响应式追踪</strong> 实现跨步骤状态共享；支持链式验证与自定义校验规则，减少重复代码 1-2 小时/人天。
                   </li>
                   <li>
                     <strong>许可证与存储池模块</strong>：设计并开发许可证管理模块，优化前端状态机逻辑与 API 交互，将签发耗时从 <strong>3-5分钟降低至10秒级</strong>；开发存储池管理模块，实现存储资源的可视化配置与容量监控，支持多种存储后端（本地磁盘、NFS、S3）的统一接入。
                   </li>
                   <li>
-                    <strong>性能优化</strong>：深入剖析海量数据渲染瓶颈，引入虚拟滚动与 Web Worker 并行计算机制，将万级日志列表的渲染帧率稳定在 60FPS，彻底解决主线程阻塞导致的交互卡顿。
+                    <strong>日志系统性能优化</strong>：针对万级日志列表渲染瓶颈，实现三层动态加载方案：①<strong>虚拟滚动</strong>（FixedSizeList）只渲染可见区域，内存占用从 5MB 降至 200KB；②<strong>WebSocket + 消息队列缓冲</strong>实现秒级日志流式推送，批量防抖更新避免频繁重排；③<strong>增量 Diff 更新</strong>而非全量重绘。最终实现万级日志秒级响应，稳定在 60FPS，完全解决主线程阻塞问题。
                   </li>
                   <li>
                     <strong>通用组件库建设</strong>：主导自研 UI 组件库架构设计，采用源码级集成 Bootstrap 5 策略，建立语义化的 Design Token 系统。封装 SmartUnitInput、WizardWrap 等 <strong>20+ 高阶业务组件</strong>，支撑多条业务线高效开发，减少约 <strong>1-2小时/人天</strong> 的重复开发工时。

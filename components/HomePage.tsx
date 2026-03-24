@@ -71,42 +71,68 @@ export default function HomePage() {
     const categoryInfo = categorizeBlog(post.title, post.summary)
 
     return (
-      <Card
-        key={post.id}
-        style={{
-          marginBottom: '24px',
-          borderRadius: '12px',
-          border: 'none',
-          boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
-          transition: 'all 0.3s',
-        }}
-        styles={{ body: { padding: '24px' } }}
-      >
-        <div className="post-card-row">
-          <div className="post-card-thumb">
-            <PostCoverImage
-              title={post.title}
-              summary={post.summary}
-              height={180}
-              gradient={gradient}
-            />
+      <Col key={post.id} xs={24} md={12} xl={8} style={{ display: 'flex' }}>
+        <Card
+          style={{
+            width: '100%',
+            height: '100%',
+            borderRadius: '16px',
+            border: '1px solid var(--border)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
+            overflow: 'hidden',
+          }}
+          styles={{
+            body: {
+              padding: 0,
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            },
+          }}
+        >
+          <div style={{ padding: '24px 24px 0' }}>
+            <div style={{ borderRadius: '14px', overflow: 'hidden' }}>
+              <PostCoverImage
+                title={post.title}
+                summary={post.summary}
+                height={180}
+                gradient={gradient}
+              />
+            </div>
           </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <Space style={{ marginBottom: '12px', fontSize: '12px', color: 'var(--foreground)', opacity: 0.6 }} wrap>
+          <div
+            style={{
+              padding: '16px 24px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              flex: 1,
+              minHeight: 0,
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '12px',
+                marginBottom: '16px',
+                flexWrap: 'wrap',
+              }}
+            >
               <Tag color={categoryInfo.color} style={{ margin: 0 }}>
                 {categoryInfo.label}
               </Tag>
-              <CalendarOutlined />
-              <span>{formatDate(post.date)}</span>
-              <MessageOutlined style={{ marginLeft: '12px' }} />
-              <span>{post.commentCount} {t('common.comments')}</span>
-            </Space>
+              <Space size="small" style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
+                <CalendarOutlined />
+                <span>{formatDate(post.date)}</span>
+              </Space>
+            </div>
             <Link
               href={`/blog/${post.slug}`}
               style={{
                 display: 'block',
                 transition: 'all 0.2s',
-                marginBottom: '8px',
+                marginBottom: '12px',
               }}
               onClick={(e) => {
                 const target = e.currentTarget
@@ -118,55 +144,90 @@ export default function HomePage() {
                 }, 200)
               }}
             >
-              <Title level={4} style={{
-                fontSize: '18px',
-                fontWeight: 600,
-                marginBottom: '8px',
-                color: 'var(--foreground)',
-                cursor: 'pointer',
-              }}>
+              <Title
+                level={4}
+                style={{
+                  fontSize: 'clamp(20px, 2.2vw, 24px)',
+                  fontWeight: 700,
+                  margin: 0,
+                  color: 'var(--foreground)',
+                  cursor: 'pointer',
+                  lineHeight: 1.35,
+                }}
+              >
                 {post.title}
               </Title>
             </Link>
             <Paragraph
-              ellipsis={{ rows: 2 }}
+              ellipsis={{ rows: 3 }}
               style={{
                 color: 'var(--foreground)',
-                opacity: 0.7,
-                marginBottom: '12px',
-                fontSize: '14px',
-                lineHeight: 1.6,
+                opacity: 0.72,
+                marginBottom: '20px',
+                fontSize: '15px',
+                lineHeight: 1.8,
+                flex: 1,
               }}
             >
               {post.summary}
             </Paragraph>
-            <Link
-              href={`/blog/${post.slug}`}
+            <div
               style={{
-                color: '#2563eb',
-                fontWeight: 500,
-                textDecoration: 'none',
-                transition: 'all 0.2s',
-                display: 'inline-block',
-                fontSize: '14px',
-              }}
-              onClick={(e) => {
-                const target = e.currentTarget
-                target.style.opacity = '0.7'
-                target.style.transform = 'scale(0.95)'
-                setTimeout(() => {
-                  target.style.opacity = '1'
-                  target.style.transform = 'scale(1)'
-                }, 200)
+                marginTop: 'auto',
+                paddingTop: '16px',
+                borderTop: '1px solid var(--border)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '12px',
+                flexWrap: 'wrap',
               }}
             >
-              {t('common.readMore')} <RightOutlined />
-            </Link>
+              <Link
+                href={`/blog/${post.slug}`}
+                style={{
+                  color: '#2563eb',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '14px',
+                }}
+                onClick={(e) => {
+                  const target = e.currentTarget
+                  target.style.opacity = '0.7'
+                  target.style.transform = 'scale(0.95)'
+                  setTimeout(() => {
+                    target.style.opacity = '1'
+                    target.style.transform = 'scale(1)'
+                  }, 200)
+                }}
+              >
+                {t('common.readMore')}
+                <RightOutlined />
+              </Link>
+              <Space size="small" style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
+                <MessageOutlined />
+                <span>{post.commentCount} {t('common.comments')}</span>
+              </Space>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </Col>
     )
   }
+
+  const renderLoadingCards = () => (
+    <Row gutter={[24, 24]}>
+      {[1, 2, 3].map((item) => (
+        <Col key={item} xs={24} md={12} xl={8} style={{ display: 'flex' }}>
+          <Card loading style={{ width: '100%', borderRadius: '16px' }} />
+        </Col>
+      ))}
+    </Row>
+  )
 
   return (
     <div style={{ width: '100%' }}>
@@ -255,17 +316,13 @@ export default function HomePage() {
                   {t('common.viewAll')} <RightOutlined />
                 </Link>
               </div>
-              <div>
-                {loading ? (
-                  [1, 2, 3].map(i => (
-                    <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '12px' }} />
-                  ))
-                ) : latestPosts.length ? (
-                  latestPosts.map(post => renderPostCard(post, 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'))
-                ) : (
-                  <Empty description={t('common.noPosts')} />
-                )}
-              </div>
+              {loading ? renderLoadingCards() : latestPosts.length ? (
+                <Row gutter={[24, 24]}>
+                  {latestPosts.map(post => renderPostCard(post, 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'))}
+                </Row>
+              ) : (
+                <Empty description={t('common.noPosts')} />
+              )}
             </section>
 
             <section>
@@ -292,17 +349,13 @@ export default function HomePage() {
                   {t('common.viewAll')} <RightOutlined />
                 </Link>
               </div>
-              <div>
-                {loading ? (
-                  [1, 2, 3].map(i => (
-                    <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '12px' }} />
-                  ))
-                ) : hotPosts.length ? (
-                  hotPosts.map(post => renderPostCard(post, 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'))
-                ) : (
-                  <Empty description={t('common.noPosts')} />
-                )}
-              </div>
+              {loading ? renderLoadingCards() : hotPosts.length ? (
+                <Row gutter={[24, 24]}>
+                  {hotPosts.map(post => renderPostCard(post, 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'))}
+                </Row>
+              ) : (
+                <Empty description={t('common.noPosts')} />
+              )}
             </section>
           </Col>
 

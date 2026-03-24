@@ -243,6 +243,12 @@ export default function BlogListNew() {
                         marginBottom: '12px',
                         color: 'var(--foreground)',
                         cursor: 'pointer',
+                        lineHeight: 1.4,
+                        minHeight: 'calc(1.4em * 2)',
+                        display: '-webkit-box',
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 2,
+                        overflow: 'hidden',
                       }}>
                         {post.title}
                       </Title>
@@ -260,8 +266,8 @@ export default function BlogListNew() {
                       {post.summary}
                     </Paragraph>
                     <div className="post-card-footer" style={{ paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
-                      <Space wrap size="small">
-                        {post.tags?.map(tag => (
+                      <Space wrap size="small" style={{ flex: 1, minWidth: 0 }}>
+                        {post.tags?.slice(0, 4).map(tag => (
                           <Tag
                             key={tag.slug}
                             style={{
@@ -272,14 +278,30 @@ export default function BlogListNew() {
                               color: 'var(--foreground)',
                               border: '1px solid var(--border)',
                               cursor: 'pointer',
+                              marginInlineEnd: 0,
                             }}
                             onClick={() => handleTagClick(tag.slug)}
                           >
                             {tag.name}
                           </Tag>
                         ))}
+                        {post.tags?.length > 4 ? (
+                          <Tag
+                            style={{
+                              fontSize: '12px',
+                              padding: '3px 10px',
+                              background: 'var(--background-light)',
+                              borderRadius: '4px',
+                              color: 'var(--foreground)',
+                              border: '1px solid var(--border)',
+                              marginInlineEnd: 0,
+                            }}
+                          >
+                            +{post.tags.length - 4}
+                          </Tag>
+                        ) : null}
                       </Space>
-                      <Space size="large" style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
+                      <Space size="large" style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6, flexShrink: 0 }}>
                         <Space size="small">
                           <MessageOutlined />
                           <span>{post.commentCount || 0}</span>

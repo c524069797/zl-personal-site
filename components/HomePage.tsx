@@ -153,6 +153,11 @@ export default function HomePage() {
                   color: 'var(--foreground)',
                   cursor: 'pointer',
                   lineHeight: 1.35,
+                  minHeight: 'calc(1.35em * 2)',
+                  display: '-webkit-box',
+                  WebkitBoxOrient: 'vertical',
+                  WebkitLineClamp: 2,
+                  overflow: 'hidden',
                 }}
               >
                 {post.title}

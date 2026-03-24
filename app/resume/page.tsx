@@ -33,12 +33,12 @@ export default function ResumePage() {
             <div>
               <h1 className="text-4xl font-bold text-gray-900 dark:text-white">陈灼</h1>
               <p className="mt-3 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300">
-                近 5 年前端经验，专注企业级后台与备份/存储场景，擅长复杂业务流程设计、组件沉淀、体验优化与效率提升。
+                近 5 年前端经验，专注企业级后台与备份/存储场景，擅长复杂业务流程设计、组件沉淀、体验优化与效率提升，并持续探索 AI Agent、Prompt 与 Harness 工程在业务中的落地。
               </p>
             </div>
             <div className="grid gap-2 text-sm text-gray-600 dark:text-gray-300">
               <span>方向：前端开发 / 企业应用</span>
-              <span>技术栈：Vue / React / Next.js / TypeScript</span>
+              <span>技术栈：Vue / React / Next.js / TypeScript / Java Spring</span>
               <span>邮箱：chenzhuo995@gmail.com</span>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default function ResumePage() {
           <section className={sectionClassName}>
             <h2 className={headingClassName}>个人概述</h2>
             <p className="leading-8 text-black">
-              近 5 年前端经验，专注企业级后台与备份/存储场景。擅长复杂流程建模、组件化沉淀，界面性能优化与业务结合，推动效率与业务指标双提升。
+              近 5 年前端经验，专注企业级后台与备份/存储场景。擅长复杂流程建模、组件化沉淀与界面性能优化，具备一定 Java Spring 架构协作经验，并持续探索 AI Design、Prompt / Harness 工程与 Agent 在业务中的落地。
             </p>
           </section>
 
@@ -83,9 +83,10 @@ export default function ResumePage() {
               <li>数据库：MySQL / PostgreSQL</li>
               <li>工程化：Vite / Webpack / NPM / Monorepo / 代码规范与单元测试</li>
               <li>协作与质量：RESTful API、异常与埋点规范、性能分析、自动化部署(CI/CD)</li>
+              <li>全栈协作：了解 Java Spring 架构，可配合后端完成接口设计、联调与链路排查</li>
               <li>微信小程序开发部署</li>
               <li>uni-app 开发与部署</li>
-              <li>AI 工具的使用</li>
+              <li>AI 工程与协作：了解 AI Design、Prompt / Harness 工程、Claude Cowork 等协作式开发方式，可结合业务场景落地 Agent 与效率工具</li>
             </ul>
           </section>
 
@@ -113,6 +114,7 @@ export default function ResumePage() {
                 <ul className="ml-6 list-disc space-y-2 leading-7">
                   <li>负责许可证、合同/维保、出货/归档等模块前端架构与开发；对接商务与供应链系统（单点登录/统一权限/流程状态与日志），实施“按套餐售卖”的功能分层与配置化。</li>
                   <li><strong>许可证模块（项目负责人/前端开发，后台设计）</strong>：主导信息架构、交互与实现，覆盖许可证生成、导入校验、续期/升级、套餐/功能映射、TOTP 设备绑定与异常处理，合同/出货系统；打通内管/商务/供应链流程，支持按套餐售卖。</li>
+                  <li><strong>客服 Agent（许可证问题诊断）</strong>：基于许可证业务场景设计并落地问题归因型客服 Agent MVP，聚焦“系统报错诊断 / 审批原因解释 / 申请去向追踪”三类高频问题；抽象 explain-approval、trace-request、diagnose-error 三类后端聚合能力，串联 approval、log、request_*、audit_logs 与日志线索，并补齐前端最小入口、RBAC 权限与测试。</li>
                   <li><strong>结果</strong>：签发耗时从钉钉审批化为系统化，从天级的审批流程与人工记录转为小时级别的系统记录；减少了供应链档案人员的 50%-60% 工作量，错误/退单率减少百分之五十以上，作为前线支持的系统；覆盖【3 条产品线 / 50+ 种许可套餐】；上线后支撑【2000+ 笔合同 / 500+ 客户】</li>
                   <li><strong>结果</strong>：合同→出货平均周期【↓50%】；跨部门沟通工单【↓30%】；套餐化上线后销售额【↑30%】</li>
                 </ul>

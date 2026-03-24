@@ -172,6 +172,7 @@ export default function HomePage() {
                 fontSize: '15px',
                 lineHeight: 1.8,
                 flex: 1,
+                minHeight: 'calc(1.8em * 3)',
               }}
             >
               {post.summary}

@@ -1,6 +1,6 @@
 // Archivo de traducción al español
 
-export default {
+const es = {
   site: {
     name: 'Registro de Red de Chen Zhuo',
     description: 'Registro de Red de Chen Zhuo',
@@ -173,4 +173,6 @@ export default {
     },
   },
 }
+
+export default es
 

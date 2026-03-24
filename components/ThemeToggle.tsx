@@ -1,46 +1,51 @@
-"use client";
+'use client'
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const timer = window.setTimeout(() => {
+      setMounted(true)
+    }, 0)
+
+    return () => window.clearTimeout(timer)
+  }, [])
 
   if (!mounted) {
     return (
       <div className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:border-white dark:bg-gray-800 dark:text-white">
         💻
       </div>
-    );
+    )
   }
 
   const handleToggle = () => {
-    const currentTheme = theme || "system";
+    const currentTheme = theme || 'system'
 
-    if (currentTheme === "light") {
-      setTheme("dark");
-    } else if (currentTheme === "dark") {
-      setTheme("system");
+    if (currentTheme === 'light') {
+      setTheme('dark')
+    } else if (currentTheme === 'dark') {
+      setTheme('system')
     } else {
-      setTheme("light");
+      setTheme('light')
     }
-  };
+  }
 
   const getIcon = () => {
-    const currentTheme = theme || "system";
-    if (currentTheme === "system") {
-      return "💻";
+    const currentTheme = theme || 'system'
+
+    if (currentTheme === 'system') {
+      return '💻'
     }
-    if (resolvedTheme === "dark") {
-      return "🌙";
+    if (resolvedTheme === 'dark') {
+      return '🌙'
     }
-    return "☀️";
-  };
+    return '☀️'
+  }
 
   return (
     <button
@@ -51,6 +56,6 @@ export function ThemeToggle() {
     >
       {getIcon()}
     </button>
-  );
+  )
 }
 

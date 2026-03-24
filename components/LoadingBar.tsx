@@ -8,15 +8,22 @@ export function LoadingBar() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true)
-    const timer = setTimeout(() => {
+    const startTimer = window.setTimeout(() => {
+      setIsLoading(true)
+    }, 0)
+    const endTimer = window.setTimeout(() => {
       setIsLoading(false)
     }, 300)
 
-    return () => clearTimeout(timer)
+    return () => {
+      window.clearTimeout(startTimer)
+      window.clearTimeout(endTimer)
+    }
   }, [pathname])
 
-  if (!isLoading) return null
+  if (!isLoading) {
+    return null
+  }
 
   return (
     <div

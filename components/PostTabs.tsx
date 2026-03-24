@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Tabs, List, Card, Tag, Space, Typography, Empty } from 'antd'
+import { Tabs, List, Tag, Space, Typography, Empty } from 'antd'
 import { CalendarOutlined, MessageOutlined, FireOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
@@ -45,7 +45,7 @@ export default function PostTabs() {
         const hotData = await hotRes.json()
         setHotPosts(hotData.posts || [])
       }
-    } catch (error) {
+    } catch {
       // 错误已静默处理
     } finally {
       setLoading(false)

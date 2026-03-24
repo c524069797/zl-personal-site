@@ -5,7 +5,6 @@ import { Avatar, Space, Typography, Tag } from 'antd'
 import {
   CalendarOutlined,
   ClockCircleOutlined,
-  EyeOutlined,
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 

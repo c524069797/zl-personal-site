@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       keywords,
       title,
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to generate image URL' },
       { status: 500 }

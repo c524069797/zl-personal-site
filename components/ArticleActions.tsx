@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { HeartOutlined, BookOutlined, ShareAltOutlined, CheckOutlined } from '@ant-design/icons'
 import { message } from 'antd'
@@ -24,7 +24,7 @@ export default function ArticleActions() {
         setShared(false)
         setClicked(null)
       }, 2000)
-    } catch (err) {
+    } catch {
       // 降级方案
       const textArea = document.createElement('textarea')
       textArea.value = url

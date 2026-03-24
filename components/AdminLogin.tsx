@@ -54,7 +54,7 @@ export default function AdminLogin({ open, onClose }: AdminLoginProps) {
 
       // 跳转到管理员界面
       router.push('/admin')
-    } catch (err) {
+    } catch {
       message.error('登录失败，请稍后重试')
       setLoading(false)
     }

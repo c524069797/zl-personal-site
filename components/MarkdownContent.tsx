@@ -1,86 +1,92 @@
 'use client'
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
-import { useState } from "react";
-import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
+import { isValidElement, type HTMLAttributes, type ReactNode } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeHighlight from 'rehype-highlight'
+import { useState } from 'react'
+import { CopyOutlined, CheckOutlined } from '@ant-design/icons'
 
-// 递归提取 React 元素中的文本内容
-function extractTextFromChildren(children: any): string {
-  if (typeof children === 'string') {
-    return children;
-  }
-  if (Array.isArray(children)) {
-    return children.map(extractTextFromChildren).join('');
-  }
-  if (typeof children === 'object' && children !== null) {
-    if (children.props && children.props.children) {
-      return extractTextFromChildren(children.props.children);
-    }
-  }
-  return '';
+type MarkdownNodeProps = {
+  children?: ReactNode
 }
 
-// 代码块组件（CSDN风格）
-function CodeBlock({ code, language, className, children, ...props }: any) {
-  const [copied, setCopied] = useState(false);
+type MarkdownLinkProps = MarkdownNodeProps & {
+  href?: string
+}
 
-  // 从 DOM 中提取纯文本用于复制
+type MarkdownCodeProps = HTMLAttributes<HTMLElement> & {
+  inline?: boolean
+  className?: string
+  children?: ReactNode
+}
+
+type MarkdownImageProps = {
+  src?: string | Blob
+  alt?: string
+}
+
+interface CodeBlockProps extends HTMLAttributes<HTMLElement> {
+  code: string
+  language: string
+  className?: string
+  children?: ReactNode
+}
+
+function extractTextFromChildren(children: ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children)
+  }
+  if (Array.isArray(children)) {
+    return children.map(extractTextFromChildren).join('')
+  }
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return extractTextFromChildren(children.props.children)
+  }
+  return ''
+}
+
+function CodeBlock({ code, language, className, children, ...props }: CodeBlockProps) {
+  const [copied, setCopied] = useState(false)
+
   const getCodeText = () => {
-    if (typeof code === 'string') {
-      return code;
+    if (code) {
+      return code
     }
-    // 如果 code 不是字符串，尝试从 children 中提取
-    if (typeof children === 'string') {
-      return children;
+    return extractTextFromChildren(children)
+  }
+
+  const copyText = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      const textArea = document.createElement('textarea')
+      textArea.value = text
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     }
-    // 降级方案：从 DOM 中提取
-    return '';
-  };
+  }
 
   const handleCopy = async () => {
-    const codeText = getCodeText();
-    if (!codeText) {
-      // 如果无法获取文本，尝试从 DOM 中提取
-      const codeElement = document.querySelector(`.code-block-${language}`);
-      if (codeElement) {
-        const text = codeElement.textContent || '';
-        try {
-          await navigator.clipboard.writeText(text);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        } catch (err) {
-          // 降级方案
-          const textArea = document.createElement('textarea');
-          textArea.value = text;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        }
-      }
-      return;
+    const codeText = getCodeText()
+
+    if (codeText) {
+      await copyText(codeText)
+      return
     }
 
-    try {
-      await navigator.clipboard.writeText(codeText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      // 降级方案
-      const textArea = document.createElement('textarea');
-      textArea.value = codeText;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+    const codeElement = document.querySelector(`.code-block-${language}`)
+
+    if (codeElement?.textContent) {
+      await copyText(codeElement.textContent)
     }
-  };
+  }
 
   return (
     <div
@@ -93,7 +99,6 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
         background: '#fafafa',
       }}
     >
-      {/* 代码块头部 */}
       <div
         style={{
           display: 'flex',
@@ -108,7 +113,7 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
       >
         <span style={{ fontWeight: 500 }}>{language || 'code'}</span>
         <button
-          onClick={handleCopy}
+          onClick={() => void handleCopy()}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -122,13 +127,13 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
             borderRadius: '3px',
             transition: 'all 0.2s',
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#e8e8e8';
-            e.currentTarget.style.color = '#333';
+          onMouseEnter={e => {
+            e.currentTarget.style.background = '#e8e8e8'
+            e.currentTarget.style.color = '#333'
           }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent';
-            e.currentTarget.style.color = '#666';
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent'
+            e.currentTarget.style.color = '#666'
           }}
         >
           {copied ? (
@@ -144,7 +149,6 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
           )}
         </button>
       </div>
-      {/* 代码内容 */}
       <pre
         style={{
           margin: 0,
@@ -158,19 +162,16 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
           whiteSpace: 'pre',
         }}
       >
-        <code
-          className={`${className} code-block-${language}`}
-          {...props}
-        >
+        <code className={`${className || ''} code-block-${language}`} {...props}>
           {children || code}
         </code>
       </pre>
     </div>
-  );
+  )
 }
 
 const markdownComponents = {
-  h1: ({ children }: any) => (
+  h1: ({ children }: MarkdownNodeProps) => (
     <h1 style={{
       fontSize: '1.875rem',
       fontWeight: 'bold',
@@ -182,7 +183,7 @@ const markdownComponents = {
       {children}
     </h1>
   ),
-  h2: ({ children }: any) => (
+  h2: ({ children }: MarkdownNodeProps) => (
     <h2 style={{
       fontSize: '1.5rem',
       fontWeight: '600',
@@ -194,7 +195,7 @@ const markdownComponents = {
       {children}
     </h2>
   ),
-  h3: ({ children }: any) => (
+  h3: ({ children }: MarkdownNodeProps) => (
     <h3 style={{
       fontSize: '1.25rem',
       fontWeight: '600',
@@ -204,7 +205,7 @@ const markdownComponents = {
       {children}
     </h3>
   ),
-  p: ({ children }: any) => (
+  p: ({ children }: MarkdownNodeProps) => (
     <p style={{
       marginBottom: '1.5rem',
       lineHeight: '1.6',
@@ -213,7 +214,7 @@ const markdownComponents = {
       {children}
     </p>
   ),
-  a: ({ href, children }: any) => (
+  a: ({ href, children }: MarkdownLinkProps) => (
     <a
       href={href}
       style={{
@@ -228,7 +229,7 @@ const markdownComponents = {
       {children}
     </a>
   ),
-  ul: ({ children }: any) => (
+  ul: ({ children }: MarkdownNodeProps) => (
     <ul style={{
       marginBottom: '1.5rem',
       paddingLeft: '1.5rem',
@@ -237,7 +238,7 @@ const markdownComponents = {
       {children}
     </ul>
   ),
-  ol: ({ children }: any) => (
+  ol: ({ children }: MarkdownNodeProps) => (
     <ol style={{
       marginBottom: '1.5rem',
       paddingLeft: '1.5rem',
@@ -246,7 +247,7 @@ const markdownComponents = {
       {children}
     </ol>
   ),
-  li: ({ children }: any) => (
+  li: ({ children }: MarkdownNodeProps) => (
     <li style={{
       marginBottom: '0.5rem',
       color: 'var(--foreground)',
@@ -254,46 +255,30 @@ const markdownComponents = {
       {children}
     </li>
   ),
-  code: ({ inline, className, children, ...props }: any) => {
-    const match = /language-(\w+)/.exec(className || "");
-    const language = match ? match[1] : '';
+  code: ({ inline, className, children, ...props }: MarkdownCodeProps) => {
+    const match = /language-(\w+)/.exec(className || '')
+    const language = match ? match[1] : ''
+    let codeText = ''
 
-    // 提取纯文本用于复制功能
-    // react-markdown 的 children 在代码块中通常是字符串
-    let codeText = '';
     if (typeof children === 'string') {
-      codeText = children;
-    } else if (Array.isArray(children)) {
       codeText = children
-        .map((child: any) => {
-          if (typeof child === 'string') {
-            return child;
-          }
-          // 如果是 React 元素，尝试递归提取文本
-          if (typeof child === 'object' && child !== null) {
-            if (child.props && child.props.children) {
-              return extractTextFromChildren(child.props.children);
-            }
-          }
-          return '';
-        })
-        .join('');
+    } else if (Array.isArray(children)) {
+      codeText = children.map(extractTextFromChildren).join('')
     } else {
-      codeText = String(children);
+      codeText = extractTextFromChildren(children)
     }
 
-    // 移除末尾的换行符
-    codeText = codeText.replace(/\n$/, '');
+    codeText = codeText.replace(/\n$/, '')
 
-    return !inline && match ? (
-      <CodeBlock
-        code={codeText}
-        language={language}
-        className={className}
-        children={children}
-        {...props}
-      />
-    ) : (
+    if (!inline && match) {
+      return (
+        <CodeBlock code={codeText} language={language} className={className} {...props}>
+          {children}
+        </CodeBlock>
+      )
+    }
+
+    return (
       <code
         style={{
           background: '#f5f5f5',
@@ -307,9 +292,9 @@ const markdownComponents = {
       >
         {children}
       </code>
-    );
+    )
   },
-  blockquote: ({ children }: any) => (
+  blockquote: ({ children }: MarkdownNodeProps) => (
     <blockquote style={{
       borderLeft: '3px solid #1890ff',
       padding: '1rem 1.5rem',
@@ -321,9 +306,10 @@ const markdownComponents = {
       {children}
     </blockquote>
   ),
-  img: ({ src, alt }: any) => (
+  img: ({ src, alt }: MarkdownImageProps) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={src}
+      src={typeof src === 'string' ? src : ''}
       alt={alt}
       style={{
         maxWidth: '100%',
@@ -332,10 +318,10 @@ const markdownComponents = {
       }}
     />
   ),
-};
+}
 
 interface MarkdownContentProps {
-  content: string;
+  content: string
 }
 
 export default function MarkdownContent({ content }: MarkdownContentProps) {
@@ -346,7 +332,6 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
           .markdown-link:hover {
             text-decoration: underline;
           }
-          /* CSDN风格代码高亮样式 */
           .hljs {
             background: #fafafa !important;
             color: #333 !important;
@@ -384,6 +369,5 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
         {content}
       </ReactMarkdown>
     </div>
-  );
+  )
 }
-

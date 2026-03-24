@@ -43,7 +43,7 @@ async function getAllPostsFromDB(): Promise<Post[]> {
       draft: !post.published,
       content: post.content,
     }));
-  } catch (error) {
+  } catch {
     // 如果数据库连接失败，回退到文件系统
     return [];
   }
@@ -130,7 +130,7 @@ async function getPostBySlugFromDB(slug: string): Promise<Post | null> {
       draft: !post.published,
       content: post.content,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -214,7 +214,7 @@ export async function getPostWithAuthorBySlug(slug: string) {
       content: post.content,
       author: post.author,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -244,8 +244,7 @@ export async function getAllPostSlugs(): Promise<string[]> {
     return fileNames
       .filter((name) => name.endsWith(".md") || name.endsWith(".mdx"))
       .map((fileName) => fileName.replace(/\.(md|mdx)$/, ""));
-  } catch (error) {
-
+  } catch {
     // 回退到文件系统
     if (!fs.existsSync(postsDirectory)) {
       return [];

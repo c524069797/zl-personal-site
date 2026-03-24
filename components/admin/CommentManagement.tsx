@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Table, Button, Tag, Space, message, Popconfirm, Card, Tabs, Input } from 'antd'
 import { CheckOutlined, CloseOutlined, DeleteOutlined, ReloadOutlined } from '@ant-design/icons'
 import { getAuthHeaders } from '@/lib/client-auth'
@@ -33,7 +33,7 @@ export default function CommentManagement() {
   const [activeTab, setActiveTab] = useState('pending')
   const [searchText, setSearchText] = useState('')
 
-  const fetchComments = async (approved?: boolean) => {
+  const fetchComments = useCallback(async (approved?: boolean) => {
     setLoading(true)
     try {
       const params = new URLSearchParams()
@@ -50,17 +50,16 @@ export default function CommentManagement() {
 
       const data = await response.json()
       setComments(data.comments || [])
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.fetchCommentsFailed'))
     } finally {
       setLoading(false)
     }
-  }
+  }, [t])
 
   useEffect(() => {
-    const approved = activeTab === 'approved'
-    fetchComments(approved)
-  }, [activeTab])
+    fetchComments(activeTab === 'approved')
+  }, [activeTab, fetchComments])
 
   const handleApprove = async (id: string) => {
     try {
@@ -76,7 +75,7 @@ export default function CommentManagement() {
 
       message.success(t('admin.messages.commentApproved'))
       fetchComments(activeTab === 'approved')
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.approveFailed'))
     }
   }
@@ -95,7 +94,7 @@ export default function CommentManagement() {
 
       message.success(t('admin.messages.commentRejected'))
       fetchComments(activeTab === 'approved')
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.operationFailed'))
     }
   }
@@ -113,7 +112,7 @@ export default function CommentManagement() {
 
       message.success(t('admin.messages.commentDeleted'))
       fetchComments(activeTab === 'approved')
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.deleteFailed'))
     }
   }
@@ -241,7 +240,7 @@ export default function CommentManagement() {
         <TabPane tab={t('admin.pendingReview')} key="pending">
           <Table
             columns={columns}
-            dataSource={filteredComments.filter((c) => !c.approved)}
+            dataSource={filteredComments.filter((comment) => !comment.approved)}
             rowKey="id"
             loading={loading}
             pagination={{
@@ -254,7 +253,7 @@ export default function CommentManagement() {
         <TabPane tab={t('admin.approved')} key="approved">
           <Table
             columns={columns}
-            dataSource={filteredComments.filter((c) => c.approved)}
+            dataSource={filteredComments.filter((comment) => comment.approved)}
             rowKey="id"
             loading={loading}
             pagination={{
@@ -268,4 +267,3 @@ export default function CommentManagement() {
     </Card>
   )
 }
-

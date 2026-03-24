@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState } from 'react'
 import { BookOutlined } from '@ant-design/icons'
 import { getPostCoverImageInfo } from '@/lib/image-utils'
@@ -20,13 +21,9 @@ export default function PostCoverImage({
   fallbackIcon,
 }: PostCoverImageProps) {
   const [imageError, setImageError] = useState(false)
+  const { imageUrl, isIcon, backgroundColor } = getPostCoverImageInfo(title, summary)
 
-  // 生成图片信息
-  const imageInfo = getPostCoverImageInfo(title, summary)
-  const { imageUrl, isIcon, backgroundColor } = imageInfo
-
-  // 如果是图标，使用特殊样式显示
-  if (isIcon) {
+  if (isIcon && !imageError) {
     return (
       <div
         style={{
@@ -36,21 +33,24 @@ export default function PostCoverImage({
           alignItems: 'center',
           justifyContent: 'center',
           padding: '20px',
+          position: 'relative',
         }}
       >
-        <img
+        <Image
           src={imageUrl}
           alt={title}
+          width={Math.round(height * 0.6)}
+          height={Math.round(height * 0.6)}
+          unoptimized
           style={{
             width: '60%',
             height: '60%',
             objectFit: 'contain',
-            filter: 'brightness(0) invert(1)', // 将图标变为白色
+            filter: 'brightness(0) invert(1)',
           }}
           onError={() => {
             setImageError(true)
           }}
-          loading="lazy"
         />
       </div>
     )
@@ -83,20 +83,18 @@ export default function PostCoverImage({
         background: '#f0f0f0',
       }}
     >
-      <img
+      <Image
         src={imageUrl}
         alt={title}
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
         style={{
-          width: '100%',
-          height: '100%',
           objectFit: 'cover',
         }}
         onError={() => {
           setImageError(true)
         }}
-        loading="lazy"
       />
     </div>
   )
 }
-

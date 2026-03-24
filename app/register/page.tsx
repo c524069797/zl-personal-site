@@ -54,7 +54,7 @@ export default function RegisterPage() {
 
       // 跳转到个人中心
       router.push('/profile')
-    } catch (err) {
+    } catch {
       setError('注册失败，请稍后重试')
       setLoading(false)
     }

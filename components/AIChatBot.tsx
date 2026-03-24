@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { FloatButton, Drawer, Input, Button, Space, Typography, Spin, Card } from 'antd'
-import { MessageOutlined, SendOutlined, CloseOutlined } from '@ant-design/icons'
+import { MessageOutlined, SendOutlined } from '@ant-design/icons'
 import { useTranslation } from '@/hooks/useTranslation'
 
 const { TextArea } = Input
@@ -66,7 +66,7 @@ export default function AIChatBot() {
         }
         setMessages((prev) => [...prev, errorMessage])
       }
-    } catch (error) {
+    } catch {
       const errorMessage: Message = {
         role: 'assistant',
         content: t('ai.chat.networkError'),

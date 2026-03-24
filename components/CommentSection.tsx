@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Form, Input, Button, Avatar, Space, Typography, App } from 'antd'
+import { useCallback, useEffect, useState } from 'react'
+import { Form, Input, Button, Avatar, Typography, App } from 'antd'
 import { UserOutlined, SendOutlined, HeartOutlined } from '@ant-design/icons'
 
 const { TextArea } = Input
@@ -20,33 +20,50 @@ interface CommentSectionProps {
   postSlug: string
 }
 
+interface CommentListResponse {
+  comments?: CommentItem[]
+}
+
+interface CommentSubmitResponse {
+  message?: string
+  error?: string
+}
+
+interface CommentFormValues {
+  author: string
+  email?: string
+  website?: string
+  content: string
+}
+
 export default function CommentSection({ postSlug }: CommentSectionProps) {
   const { message } = App.useApp()
   const [comments, setComments] = useState<CommentItem[]>([])
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<CommentFormValues>()
 
-  useEffect(() => {
-    fetchComments()
-  }, [postSlug])
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     setLoading(true)
     try {
       const response = await fetch(`/api/posts/${postSlug}/comments`)
+
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json() as CommentListResponse
         setComments(data.comments || [])
       }
-    } catch (error) {
+    } catch {
       // 错误已静默处理
     } finally {
       setLoading(false)
     }
-  }
+  }, [postSlug])
 
-  const handleSubmit = async (values: any) => {
+  useEffect(() => {
+    void fetchComments()
+  }, [fetchComments])
+
+  const handleSubmit = async (values: CommentFormValues) => {
     setSubmitting(true)
     try {
       const response = await fetch(`/api/posts/${postSlug}/comments`, {
@@ -62,17 +79,16 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
         }),
       })
 
-      const data = await response.json()
+      const data = await response.json() as CommentSubmitResponse
 
       if (response.ok) {
         message.success(data.message || '评论已提交，等待审核')
         form.resetFields()
-        // 刷新评论列表
-        fetchComments()
+        void fetchComments()
       } else {
         message.error(data.error || '评论提交失败')
       }
-    } catch (error) {
+    } catch {
       message.error('评论提交失败，请稍后重试')
     } finally {
       setSubmitting(false)
@@ -85,15 +101,16 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
     const diff = now.getTime() - date.getTime()
     const days = Math.floor(diff / (1000 * 60 * 60 * 24))
 
-    if (days === 0) {
-      return '今天 ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
-    } else if (days === 1) {
-      return '昨天 ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
-    } else if (days < 7) {
-      return `${days}天前`
-    } else {
-      return date.toLocaleDateString('zh-CN')
+    if (!days) {
+      return `今天 ${date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}`
     }
+    if (days === 1) {
+      return `昨天 ${date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}`
+    }
+    if (days < 7) {
+      return `${days}天前`
+    }
+    return date.toLocaleDateString('zh-CN')
   }
 
   return (
@@ -110,7 +127,6 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
         评论 ({comments.length})
       </Title>
 
-      {/* 评论表单 */}
       <div
         style={{
           background: 'var(--background-light)',
@@ -141,9 +157,7 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
             <Input placeholder="邮箱（可选）" />
           </Form.Item>
 
-          <Form.Item
-            name="website"
-          >
+          <Form.Item name="website">
             <Input placeholder="网站（可选）" />
           </Form.Item>
 
@@ -176,14 +190,13 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
         </Form>
       </div>
 
-      {/* 评论列表 */}
       <div>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '40px' }}>
             <Text type="secondary">加载中...</Text>
           </div>
-        ) : comments.length > 0 ? (
-          comments.map((item) => (
+        ) : comments.length ? (
+          comments.map(item => (
             <div
               key={item.id}
               style={{
@@ -238,10 +251,10 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
                       textDecoration: 'none',
                       transition: 'color 0.3s',
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={e => {
                       e.currentTarget.style.color = 'var(--primary-color)'
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={e => {
                       e.currentTarget.style.color = 'var(--text-secondary)'
                     }}
                   >
@@ -256,10 +269,10 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
                       textDecoration: 'none',
                       transition: 'color 0.3s',
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={e => {
                       e.currentTarget.style.color = 'var(--primary-color)'
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={e => {
                       e.currentTarget.style.color = 'var(--text-secondary)'
                     }}
                   >
@@ -278,4 +291,3 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
     </div>
   )
 }
-

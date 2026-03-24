@@ -4,9 +4,6 @@ import { verifyPassword, generateToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
     const body = await request.json()
     const { email, password } = body
 

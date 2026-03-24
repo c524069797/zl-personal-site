@@ -79,9 +79,6 @@ export async function PUT(
   }
 
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
     const { id } = await params
     const body = await request.json()
     const { title, content, summary, slug, tags, published, date } = body
@@ -212,9 +209,6 @@ export async function DELETE(
   }
 
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
     const { id } = await params
 
     // 检查文章是否存在

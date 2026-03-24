@@ -9,7 +9,7 @@ import {
   SearchOutlined,
   FolderOutlined,
   TagsOutlined,
-  FireOutlined
+  FireOutlined,
 } from '@ant-design/icons'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
@@ -28,7 +28,7 @@ interface Post {
   commentCount: number
 }
 
-interface Tag {
+interface TagItem {
   id: string
   name: string
   slug: string
@@ -48,7 +48,7 @@ export default function BlogListNew() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [posts, setPosts] = useState<Post[]>([])
-  const [tags, setTags] = useState<Tag[]>([])
+  const [tags, setTags] = useState<TagItem[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [hotPosts, setHotPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
@@ -57,7 +57,6 @@ export default function BlogListNew() {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [showAllTags, setShowAllTags] = useState(false)
 
   const pageSize = 10
 
@@ -99,10 +98,9 @@ export default function BlogListNew() {
 
       if (tagsRes.ok) {
         const tagsData = await tagsRes.json()
-        // 只显示有文章数的标签，并按数量排序
         const sortedTags = (tagsData.tags || [])
-          .filter((tag: Tag) => tag.count > 0)
-          .sort((a: Tag, b: Tag) => b.count - a.count)
+          .filter((tagItem: TagItem) => tagItem.count > 0)
+          .sort((a: TagItem, b: TagItem) => b.count - a.count)
         setTags(sortedTags)
       }
 
@@ -154,14 +152,8 @@ export default function BlogListNew() {
 
   return (
     <div style={{ width: '100%' }}>
-      {/* Page Header */}
-      <div style={{
-        background: 'linear-gradient(120deg, #e0f7ff, #f0f9ff)',
-        padding: '40px 0 30px',
-        marginBottom: '32px',
-        borderBottom: '1px solid var(--border)',
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ background: 'linear-gradient(120deg, #e0f7ff, #f0f9ff)', borderBottom: '1px solid var(--border)' }}>
+        <div className="page-container" style={{ paddingTop: '40px', paddingBottom: '30px' }}>
           <Title level={1} style={{
             fontSize: '28px',
             fontWeight: 700,
@@ -180,6 +172,7 @@ export default function BlogListNew() {
             color: 'var(--foreground)',
             opacity: 0.7,
             maxWidth: '800px',
+            marginBottom: 0,
           }}>
             {(() => {
               const category = searchParams.get('category')
@@ -191,36 +184,29 @@ export default function BlogListNew() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 40px' }}>
+      <div className="page-container" style={{ paddingTop: '32px', paddingBottom: '40px' }}>
         <Row gutter={[24, 24]}>
-          {/* Blog List */}
           <Col xs={24} lg={16}>
             {loading ? (
-              [1, 2, 3].map((i) => (
-                <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '6px' }} />
+              [1, 2, 3].map(i => (
+                <Card key={i} loading style={{ marginBottom: '24px', borderRadius: '12px' }} />
               ))
-            ) : posts.length > 0 ? (
+            ) : posts.length ? (
               <>
-                {posts.map((post) => (
+                {posts.map(post => (
                   <Card
                     key={post.id}
                     style={{
                       marginBottom: '24px',
-                      borderRadius: '6px',
+                      borderRadius: '12px',
                       border: 'none',
                       boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
                       transition: 'all 0.3s',
                     }}
                     styles={{ body: { padding: '24px' } }}
                   >
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '16px',
-                    }}>
-                      {post.tags && post.tags.length > 0 && (
+                    <div className="post-meta-row" style={{ marginBottom: '16px' }}>
+                      {post.tags?.length ? (
                         <Tag
                           color="blue"
                           style={{
@@ -228,21 +214,19 @@ export default function BlogListNew() {
                             padding: '4px 10px',
                             borderRadius: '20px',
                             fontWeight: 500,
+                            margin: 0,
                           }}
                         >
                           {post.tags[0].name}
                         </Tag>
-                      )}
+                      ) : <span />}
                       <Text style={{ fontSize: '13px', color: 'var(--foreground)', opacity: 0.6 }}>
                         {formatDate(post.date)}
                       </Text>
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      style={{
-                        display: 'block',
-                        transition: 'all 0.2s',
-                      }}
+                      style={{ display: 'block', transition: 'all 0.2s' }}
                       onClick={(e) => {
                         const target = e.currentTarget
                         target.style.opacity = '0.7'
@@ -275,15 +259,9 @@ export default function BlogListNew() {
                     >
                       {post.summary}
                     </Paragraph>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      paddingTop: '16px',
-                      borderTop: '1px solid var(--border)',
-                    }}>
+                    <div className="post-card-footer" style={{ paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
                       <Space wrap size="small">
-                        {post.tags && post.tags.map((tag) => (
+                        {post.tags?.map(tag => (
                           <Tag
                             key={tag.slug}
                             style={{
@@ -311,7 +289,6 @@ export default function BlogListNew() {
                   </Card>
                 ))}
 
-                {/* Pagination */}
                 {total > pageSize && (
                   <div style={{ display: 'flex', justifyContent: 'center', marginTop: '32px' }}>
                     <Pagination
@@ -321,7 +298,7 @@ export default function BlogListNew() {
                       onChange={handlePageChange}
                       showSizeChanger={false}
                       showQuickJumper
-                      showTotal={(total) => `共 ${total} 条`}
+                      showTotal={itemTotal => `共 ${itemTotal} 条`}
                     />
                   </div>
                 )}
@@ -333,11 +310,9 @@ export default function BlogListNew() {
             )}
           </Col>
 
-          {/* Sidebar */}
           <Col xs={24} lg={8}>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              {/* Search */}
-              <Card style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}>
+              <Card style={{ borderRadius: '12px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}>
                 <Search
                   placeholder={t('blog.search')}
                   allowClear
@@ -348,20 +323,14 @@ export default function BlogListNew() {
                 />
               </Card>
 
-              {/* Categories */}
               <Card
-                title={
-                  <Space>
-                    <FolderOutlined />
-                    <span>{t('blog.categories')}</span>
-                  </Space>
-                }
-                style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                title={<Space><FolderOutlined /><span>{t('blog.categories')}</span></Space>}
+                style={{ borderRadius: '12px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
                 loading={loading}
               >
-                <div style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {categories.length > 0 ? (
-                    categories.map((category) => (
+                <div style={{ padding: 0, margin: 0 }}>
+                  {categories.length ? (
+                    categories.map(category => (
                       <div
                         key={category.id}
                         style={{
@@ -380,10 +349,10 @@ export default function BlogListNew() {
                           params.append('page', '1')
                           router.push(`/blog?${params.toString()}`)
                         }}
-                        onMouseEnter={(e) => {
+                        onMouseEnter={e => {
                           e.currentTarget.style.backgroundColor = 'var(--background-light)'
                         }}
-                        onMouseLeave={(e) => {
+                        onMouseLeave={e => {
                           e.currentTarget.style.backgroundColor = 'transparent'
                         }}
                       >
@@ -407,20 +376,14 @@ export default function BlogListNew() {
                 </div>
               </Card>
 
-              {/* Tag Cloud */}
               <Card
-                title={
-                  <Space>
-                    <TagsOutlined />
-                    <span>{t('blog.hotTags')}</span>
-                  </Space>
-                }
-                style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                title={<Space><TagsOutlined /><span>{t('blog.hotTags')}</span></Space>}
+                style={{ borderRadius: '12px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
                 loading={loading}
               >
-                {tags.length > 0 ? (
+                {tags.length ? (
                   <Space wrap size="small">
-                    {(showAllTags ? tags : tags.slice(0, 15)).map((tag) => (
+                    {tags.map(tag => (
                       <Tag
                         key={tag.id}
                         style={{
@@ -435,13 +398,13 @@ export default function BlogListNew() {
                           transition: 'all 0.2s',
                         }}
                         onClick={() => handleTagClick(tag.slug)}
-                        onMouseEnter={(e) => {
+                        onMouseEnter={e => {
                           if (selectedTag !== tag.slug) {
                             e.currentTarget.style.background = 'var(--background-light)'
                             e.currentTarget.style.borderColor = '#1890ff'
                           }
                         }}
-                        onMouseLeave={(e) => {
+                        onMouseLeave={e => {
                           if (selectedTag !== tag.slug) {
                             e.currentTarget.style.background = 'var(--background)'
                             e.currentTarget.style.borderColor = 'var(--border)'
@@ -451,60 +414,17 @@ export default function BlogListNew() {
                         {tag.name} ({tag.count})
                       </Tag>
                     ))}
-                    {tags.length > 15 && (
-                      <Tag
-                        style={{
-                          fontSize: '12px',
-                          padding: '3px 10px',
-                          background: showAllTags ? '#f0f0f0' : '#1890ff',
-                          borderRadius: '4px',
-                          color: showAllTags ? '#666' : '#fff',
-                          border: showAllTags ? '1px solid #d9d9d9' : '1px solid #1890ff',
-                          cursor: 'pointer',
-                          marginBottom: '8px',
-                          transition: 'all 0.2s',
-                          fontWeight: showAllTags ? 'normal' : '500',
-                        }}
-                        onClick={() => setShowAllTags(!showAllTags)}
-                        onMouseEnter={(e) => {
-                          if (showAllTags) {
-                            e.currentTarget.style.background = '#e6e6e6'
-                            e.currentTarget.style.borderColor = '#bfbfbf'
-                          } else {
-                            e.currentTarget.style.background = '#40a9ff'
-                            e.currentTarget.style.borderColor = '#40a9ff'
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (showAllTags) {
-                            e.currentTarget.style.background = '#f0f0f0'
-                            e.currentTarget.style.borderColor = '#d9d9d9'
-                          } else {
-                            e.currentTarget.style.background = '#1890ff'
-                            e.currentTarget.style.borderColor = '#1890ff'
-                          }
-                        }}
-                      >
-                        {showAllTags ? '收起' : '更多'}
-                      </Tag>
-                    )}
                   </Space>
                 ) : (
                   <Empty description="暂无标签" style={{ padding: '20px 0' }} />
                 )}
               </Card>
 
-              {/* Hot Posts */}
               <Card
-                title={
-                  <Space>
-                    <FireOutlined />
-                    <span>{t('home.hotPosts')}</span>
-                  </Space>
-                }
-                style={{ borderRadius: '6px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
+                title={<Space><FireOutlined /><span>{t('home.hotPosts')}</span></Space>}
+                style={{ borderRadius: '12px', border: 'none', boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)' }}
               >
-                {hotPosts.map((post) => (
+                {hotPosts.map(post => (
                   <div
                     key={post.id}
                     style={{
@@ -514,13 +434,7 @@ export default function BlogListNew() {
                       borderBottom: '1px solid var(--border)',
                     }}
                   >
-                    <div style={{
-                      width: '80px',
-                      height: '60px',
-                      borderRadius: '4px',
-                      overflow: 'hidden',
-                      flexShrink: 0,
-                    }}>
+                    <div style={{ width: '80px', height: '60px', borderRadius: '4px', overflow: 'hidden', flexShrink: 0 }}>
                       <PostCoverImage
                         title={post.title}
                         summary={post.summary}
@@ -528,13 +442,10 @@ export default function BlogListNew() {
                         gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
                       />
                     </div>
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <Link
                         href={`/blog/${post.slug}`}
-                        style={{
-                          display: 'block',
-                          transition: 'all 0.2s',
-                        }}
+                        style={{ display: 'block', transition: 'all 0.2s' }}
                         onClick={(e) => {
                           const target = e.currentTarget
                           target.style.opacity = '0.7'
@@ -570,4 +481,3 @@ export default function BlogListNew() {
     </div>
   )
 }
-

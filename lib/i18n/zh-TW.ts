@@ -1,6 +1,6 @@
 // 中文繁體翻譯文件
 
-export default {
+const zhTW = {
   site: {
     name: '陳灼的網絡日誌',
     description: '陳灼的網絡日誌',
@@ -173,4 +173,6 @@ export default {
     },
   },
 }
+
+export default zhTW
 

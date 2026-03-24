@@ -10,23 +10,29 @@ export const qdrantClient = new QdrantClient({
   apiKey: qdrantApiKey,
 })
 
-// 集合名称
 export const COLLECTION_NAME = 'blog_posts'
-
-// 向量维度（text-embedding-3-large 是 3072 维）
 export const VECTOR_SIZE = 3072
 
-// 初始化集合
+const getErrorMessage = (error: unknown) => {
+  if (typeof error === 'object' && error && 'message' in error && typeof error.message === 'string') {
+    return error.message
+  }
+  return ''
+}
+
+const getErrorCode = (error: unknown) => {
+  if (typeof error === 'object' && error && 'code' in error && typeof error.code === 'string') {
+    return error.code
+  }
+  return ''
+}
+
 export async function initCollection() {
   try {
-    // 检查集合是否存在
     const collections = await qdrantClient.getCollections()
-    const collectionExists = collections.collections.some(
-      (c) => c.name === COLLECTION_NAME
-    )
+    const collectionExists = collections.collections.some(collection => collection.name === COLLECTION_NAME)
 
     if (!collectionExists) {
-      // 创建集合
       await qdrantClient.createCollection(COLLECTION_NAME, {
         vectors: {
           size: VECTOR_SIZE,
@@ -43,7 +49,6 @@ export async function initCollection() {
   }
 }
 
-// 添加向量到集合
 export async function upsertVector(
   id: number | string,
   vector: number[],
@@ -60,9 +65,9 @@ export async function upsertVector(
       wait: true,
       points: [
         {
-          id: id,
-          vector: vector,
-          payload: payload,
+          id,
+          vector,
+          payload,
         },
       ],
     })
@@ -72,27 +77,26 @@ export async function upsertVector(
   }
 }
 
-// 搜索相似向量
 export async function searchVectors(
   queryVector: number[],
   limit: number = 5,
   scoreThreshold: number = 0.7
 ) {
   try {
-    const results = await qdrantClient.search(COLLECTION_NAME, {
+    return await qdrantClient.search(COLLECTION_NAME, {
       vector: queryVector,
-      limit: limit,
+      limit,
       score_threshold: scoreThreshold,
       with_payload: true,
-      timeout: 10, // 10秒超时
+      timeout: 10,
     })
-
-    return results
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ Failed to search vectors:', error)
 
-    // 提供更友好的错误信息
-    if (error.message?.includes('ECONNREFUSED') || error.code === 'ECONNREFUSED') {
+    const errorMessage = getErrorMessage(error)
+    const errorCode = getErrorCode(error)
+
+    if (errorMessage.includes('ECONNREFUSED') || errorCode === 'ECONNREFUSED') {
       throw new Error('Qdrant服务连接失败，请确保Qdrant服务正在运行（docker run -p 6333:6333 qdrant/qdrant）')
     }
 
@@ -100,7 +104,6 @@ export async function searchVectors(
   }
 }
 
-// 删除文章的所有向量
 export async function deletePostVectors(postId: string) {
   try {
     await qdrantClient.delete(COLLECTION_NAME, {
@@ -121,4 +124,3 @@ export async function deletePostVectors(postId: string) {
     throw error
   }
 }
-

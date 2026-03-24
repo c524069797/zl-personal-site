@@ -5,7 +5,7 @@
  * 2. 如果没有匹配，使用自动生成
  */
 
-import { findImageInLibrary, ImageMapping } from './image-library'
+import { findImageInLibrary } from './image-library'
 
 /**
  * 从标题中提取关键词（简化版，可以后续用AI优化）

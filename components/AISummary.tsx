@@ -10,12 +10,18 @@ const { Option } = Select
 
 type AIProvider = 'chatgpt' | 'deepseek'
 
-interface AISummaryProps {
-  postId: string
-  postSlug: string
+interface AISummaryResponse {
+  summary?: string | null
+  keywords?: string[]
+  error?: string
+  details?: string
 }
 
-export default function AISummary({ postId, postSlug }: AISummaryProps) {
+interface AISummaryProps {
+  postId: string
+}
+
+export default function AISummary({ postId }: AISummaryProps) {
   const { t } = useTranslation()
   const [summary, setSummary] = useState<string | null>(null)
   const [keywords, setKeywords] = useState<string[]>([])
@@ -27,7 +33,7 @@ export default function AISummary({ postId, postSlug }: AISummaryProps) {
   const fetchSummary = async (forceRegenerate = false) => {
     setLoading(true)
     try {
-      const response = await fetch(`/api/ai/summarize`, {
+      const response = await fetch('/api/ai/summarize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,17 +45,17 @@ export default function AISummary({ postId, postSlug }: AISummaryProps) {
         }),
       })
 
-      const data = await response.json()
+      const data = await response.json() as AISummaryResponse
 
       if (response.ok) {
-        setSummary(data.summary)
+        setSummary(data.summary || null)
         setKeywords(data.keywords || [])
         setHasGenerated(true)
       } else {
         console.error('Failed to fetch summary:', data.error, data.details)
         alert(data.error || '生成摘要失败，请稍后重试')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch summary:', error)
       alert('网络错误，请稍后重试')
     } finally {
@@ -60,23 +66,21 @@ export default function AISummary({ postId, postSlug }: AISummaryProps) {
 
   const handleGenerate = () => {
     setGenerating(true)
-    fetchSummary(false)
+    void fetchSummary(false)
   }
 
   const handleRegenerate = () => {
     setGenerating(true)
-    fetchSummary(true)
+    void fetchSummary(true)
   }
 
   const handleProviderChange = (value: AIProvider) => {
     setProvider(value)
-    // 切换提供商时清空之前的摘要
     setSummary(null)
     setKeywords([])
     setHasGenerated(false)
   }
 
-  // 如果还没有生成过摘要，显示生成按钮
   if (!hasGenerated && !loading) {
     return (
       <Card
@@ -145,43 +149,41 @@ export default function AISummary({ postId, postSlug }: AISummaryProps) {
   }
 
   return (
-      <Card
-        title={
-          <Space>
-            <RobotOutlined />
-            <span>{t('ai.summary.title')}</span>
+    <Card
+      title={
+        <Space>
+          <RobotOutlined />
+          <span>{t('ai.summary.title')}</span>
+        </Space>
+      }
+      extra={
+        <Button
+          type="text"
+          size="small"
+          icon={<ReloadOutlined />}
+          onClick={handleRegenerate}
+          loading={generating}
+        >
+          {t('ai.summary.regenerate')}
+        </Button>
+      }
+      style={{ marginBottom: '24px' }}
+    >
+      <Paragraph style={{ marginBottom: '16px', lineHeight: 1.8 }}>
+        {summary}
+      </Paragraph>
+      {keywords.length > 0 && (
+        <div>
+          <Text type="secondary" style={{ fontSize: '12px', marginRight: '8px' }}>
+            {t('ai.summary.keywords')}
+          </Text>
+          <Space wrap size="small">
+            {keywords.map((keyword, index) => (
+              <Tag key={index}>{keyword}</Tag>
+            ))}
           </Space>
-        }
-        extra={
-          <Button
-            type="text"
-            size="small"
-            icon={<ReloadOutlined />}
-            onClick={handleRegenerate}
-            loading={generating}
-          >
-            {t('ai.summary.regenerate')}
-          </Button>
-        }
-        style={{ marginBottom: '24px' }}
-      >
-        <Paragraph style={{ marginBottom: '16px', lineHeight: 1.8 }}>
-          {summary}
-        </Paragraph>
-
-        {keywords.length > 0 && (
-          <div>
-            <Text type="secondary" style={{ fontSize: '12px', marginRight: '8px' }}>
-              {t('ai.summary.keywords')}
-            </Text>
-            <Space wrap size="small">
-              {keywords.map((keyword, index) => (
-                <Tag key={index}>{keyword}</Tag>
-              ))}
-            </Space>
-          </div>
-        )}
-      </Card>
+        </div>
+      )}
+    </Card>
   )
 }
-

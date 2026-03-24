@@ -1,6 +1,6 @@
 // 中文简体翻译文件
 
-export default {
+const zhCN = {
   site: {
     name: '陈灼的网络日志',
     description: '陈灼的网络日志',
@@ -173,4 +173,6 @@ export default {
     },
   },
 }
+
+export default zhCN
 

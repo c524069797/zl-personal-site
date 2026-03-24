@@ -50,7 +50,7 @@ export default function LoginPage() {
 
       // 跳转到管理员界面
       router.push('/admin')
-    } catch (err) {
+    } catch {
       setError('登录失败，请稍后重试')
       setLoading(false)
     }

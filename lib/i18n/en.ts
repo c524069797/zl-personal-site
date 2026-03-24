@@ -1,6 +1,6 @@
 // English translation file
 
-export default {
+const en = {
   site: {
     name: "Chen Zhuo's Network Log",
     description: "Chen Zhuo's Network Log",
@@ -173,4 +173,6 @@ export default {
     },
   },
 }
+
+export default en
 

@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Table, Button, Tag, Space, message, Popconfirm, Card, Input, Modal, Form, Input as AntInput, DatePicker, Switch, ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
 import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined, EyeOutlined } from '@ant-design/icons'
 import { getAuthHeaders } from '@/lib/client-auth'
 import type { ColumnsType } from 'antd/es/table'
 import Link from 'next/link'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -38,6 +38,40 @@ interface Post {
   }
 }
 
+interface PostListResponse {
+  posts?: Post[]
+}
+
+interface PostDetailResponse {
+  post: Post
+}
+
+interface PostFormValues {
+  title: string
+  content: string
+  summary?: string
+  slug: string
+  tags?: string
+  published: boolean
+  date?: Dayjs
+}
+
+interface ApiErrorLike {
+  message?: string
+  errorFields?: unknown
+}
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (typeof error === 'object' && error && 'message' in error && typeof error.message === 'string') {
+    return error.message
+  }
+  return fallback
+}
+
+const hasErrorFields = (error: unknown): error is ApiErrorLike => {
+  return typeof error === 'object' && !!error && 'errorFields' in error
+}
+
 export default function PostManagement() {
   const { t } = useTranslation()
   const [posts, setPosts] = useState<Post[]>([])
@@ -45,12 +79,13 @@ export default function PostManagement() {
   const [searchText, setSearchText] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<PostFormValues>()
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams()
+
       if (searchText) {
         params.append('search', searchText)
       }
@@ -62,18 +97,18 @@ export default function PostManagement() {
         throw new Error(t('admin.messages.fetchPostsFailed'))
       }
 
-      const data = await response.json()
+      const data = await response.json() as PostListResponse
       setPosts(data.posts || [])
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.fetchPostsFailed'))
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchText, t])
 
   useEffect(() => {
-    fetchPosts()
-  }, [searchText])
+    void fetchPosts()
+  }, [fetchPosts])
 
   const handleCreate = () => {
     setEditingPost(null)
@@ -84,7 +119,6 @@ export default function PostManagement() {
   const handleEdit = async (post: Post) => {
     try {
       setLoading(true)
-      // 获取完整的文章数据
       const response = await fetch(`/api/admin/posts/${post.id}`, {
         headers: getAuthHeaders(),
       })
@@ -93,7 +127,7 @@ export default function PostManagement() {
         throw new Error(t('admin.messages.fetchPostDetailFailed'))
       }
 
-      const data = await response.json()
+      const data = await response.json() as PostDetailResponse
       const fullPost = data.post
 
       setEditingPost(fullPost)
@@ -102,12 +136,12 @@ export default function PostManagement() {
         content: fullPost.content,
         summary: fullPost.summary || '',
         slug: fullPost.slug,
-        tags: fullPost.tags.map((t: PostTag) => t.name).join(', '),
+        tags: fullPost.tags.map(tag => tag.name).join(', '),
         published: fullPost.published,
         date: fullPost.date ? dayjs(fullPost.date) : dayjs(),
       })
       setIsModalOpen(true)
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.fetchPostDetailFailed'))
     } finally {
       setLoading(false)
@@ -126,8 +160,8 @@ export default function PostManagement() {
       }
 
       message.success(t('admin.messages.postDeleted'))
-      fetchPosts()
-    } catch (error) {
+      void fetchPosts()
+    } catch {
       message.error(t('admin.messages.deleteFailed'))
     }
   }
@@ -136,7 +170,7 @@ export default function PostManagement() {
     try {
       const values = await form.validateFields()
       const tags = values.tags
-        ? values.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
+        ? values.tags.split(',').map(tag => tag.trim()).filter(Boolean)
         : []
 
       const payload = {
@@ -149,9 +183,7 @@ export default function PostManagement() {
         date: values.date ? values.date.toISOString() : new Date().toISOString(),
       }
 
-      const url = editingPost
-        ? `/api/admin/posts/${editingPost.id}`
-        : '/api/admin/posts'
+      const url = editingPost ? `/api/admin/posts/${editingPost.id}` : '/api/admin/posts'
       const method = editingPost ? 'PUT' : 'POST'
 
       const response = await fetch(url, {
@@ -168,12 +200,12 @@ export default function PostManagement() {
       setIsModalOpen(false)
       setEditingPost(null)
       form.resetFields()
-      fetchPosts()
-    } catch (error: any) {
-      if (error.errorFields) {
+      void fetchPosts()
+    } catch (error: unknown) {
+      if (hasErrorFields(error)) {
         return
       }
-      message.error(error.message || t('admin.messages.operationFailed'))
+      message.error(getErrorMessage(error, t('admin.messages.operationFailed')))
     }
   }
 
@@ -196,7 +228,7 @@ export default function PostManagement() {
       width: 200,
       render: (_, record) => (
         <Space wrap>
-          {record.tags.map((tag) => (
+          {record.tags.map(tag => (
             <Tag key={tag.id}>{tag.name}</Tag>
           ))}
         </Space>
@@ -270,7 +302,7 @@ export default function PostManagement() {
               allowClear
               style={{ width: 200 }}
               onSearch={setSearchText}
-              onChange={(e) => setSearchText(e.target.value)}
+              onChange={e => setSearchText(e.target.value)}
             />
             <Button
               type="primary"
@@ -279,10 +311,7 @@ export default function PostManagement() {
             >
               {t('admin.newPost')}
             </Button>
-            <Button
-              icon={<ReloadOutlined />}
-              onClick={fetchPosts}
-            >
+            <Button icon={<ReloadOutlined />} onClick={() => void fetchPosts()}>
               {t('admin.refresh')}
             </Button>
           </Space>
@@ -297,7 +326,7 @@ export default function PostManagement() {
           pagination={{
             pageSize: 10,
             showSizeChanger: true,
-            showTotal: (total) => `${t('admin.pagination.total')} ${total} ${t('admin.pagination.items')}`,
+            showTotal: total => `${t('admin.pagination.total')} ${total} ${t('admin.pagination.items')}`,
           }}
         />
       </Card>
@@ -328,62 +357,52 @@ export default function PostManagement() {
               date: dayjs(),
             }}
           >
-          <Form.Item
-            name="title"
-            label={t('admin.form.title')}
-            rules={[{ required: true, message: t('admin.form.titleRequired') }]}
-          >
-            <AntInput placeholder={t('admin.form.titlePlaceholder')} />
-          </Form.Item>
+            <Form.Item
+              name="title"
+              label={t('admin.form.title')}
+              rules={[{ required: true, message: t('admin.form.titleRequired') }]}
+            >
+              <AntInput placeholder={t('admin.form.titlePlaceholder')} />
+            </Form.Item>
 
-          <Form.Item
-            name="slug"
-            label={t('admin.form.urlSlug')}
-            rules={[{ required: true, message: t('admin.form.slugRequired') }]}
-          >
-            <AntInput placeholder={t('admin.form.slugPlaceholder')} />
-          </Form.Item>
+            <Form.Item
+              name="slug"
+              label={t('admin.form.urlSlug')}
+              rules={[{ required: true, message: t('admin.form.slugRequired') }]}
+            >
+              <AntInput placeholder={t('admin.form.slugPlaceholder')} />
+            </Form.Item>
 
-          <Form.Item
-            name="summary"
-            label={t('admin.form.summary')}
-          >
-            <TextArea rows={3} placeholder={t('admin.form.summaryPlaceholder')} />
-          </Form.Item>
+            <Form.Item name="summary" label={t('admin.form.summary')}>
+              <TextArea rows={3} placeholder={t('admin.form.summaryPlaceholder')} />
+            </Form.Item>
 
-          <Form.Item
-            name="content"
-            label={t('admin.form.content')}
-            rules={[{ required: true, message: t('admin.form.contentRequired') }]}
-          >
-            <TextArea rows={15} placeholder={t('admin.form.contentPlaceholder')} />
-          </Form.Item>
+            <Form.Item
+              name="content"
+              label={t('admin.form.content')}
+              rules={[{ required: true, message: t('admin.form.contentRequired') }]}
+            >
+              <TextArea rows={15} placeholder={t('admin.form.contentPlaceholder')} />
+            </Form.Item>
 
-          <Form.Item
-            name="tags"
-            label={t('admin.form.tags')}
-          >
-            <AntInput placeholder={t('admin.form.tagsPlaceholder')} />
-          </Form.Item>
+            <Form.Item name="tags" label={t('admin.form.tags')}>
+              <AntInput placeholder={t('admin.form.tagsPlaceholder')} />
+            </Form.Item>
 
-          <Form.Item
-            name="date"
-            label={t('admin.form.publishDate')}
-          >
-            <DatePicker style={{ width: '100%' }} />
-          </Form.Item>
+            <Form.Item name="date" label={t('admin.form.publishDate')}>
+              <DatePicker style={{ width: '100%' }} />
+            </Form.Item>
 
-          <Form.Item
-            name="published"
-            label={t('admin.form.publishStatus')}
-            valuePropName="checked"
-          >
-            <Switch checkedChildren={t('admin.status.published')} unCheckedChildren={t('admin.status.draft')} />
-          </Form.Item>
-        </Form>
+            <Form.Item
+              name="published"
+              label={t('admin.form.publishStatus')}
+              valuePropName="checked"
+            >
+              <Switch checkedChildren={t('admin.status.published')} unCheckedChildren={t('admin.status.draft')} />
+            </Form.Item>
+          </Form>
         </ConfigProvider>
       </Modal>
     </>
   )
 }
-

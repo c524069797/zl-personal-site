@@ -10,9 +10,6 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
     const { postId, force, provider = 'deepseek' } = await request.json()
 
     if (!postId) {

@@ -3,7 +3,7 @@ import { prisma } from '../lib/prisma'
 async function createDefaultUser() {
   try {
     // 创建默认管理员用户
-    const user = await prisma.user.upsert({
+    await prisma.user.upsert({
       where: { email: 'admin@example.com' },
       update: {},
       create: {

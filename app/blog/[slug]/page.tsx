@@ -1,32 +1,32 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { getAllPostSlugs, getPostWithAuthorBySlug } from "@/lib/posts";
-import { formatDate, formatDateISO } from "@/lib/utils";
-import Navigation from "@/components/Navigation";
-import BlogSidebar from "@/components/BlogSidebar";
-import Footer from "@/components/Footer";
-import CommentSection from "@/components/CommentSection";
-import ArticleHeader from "@/components/ArticleHeader";
-import ArticleActions from "@/components/ArticleActions";
-import MarkdownContent from "@/components/MarkdownContent";
-import AISummary from "@/components/AISummary";
-import AIChatBot from "@/components/AIChatBot";
+import { notFound } from 'next/navigation'
+import { getAllPostSlugs, getPostWithAuthorBySlug } from '@/lib/posts'
+import { formatDateISO } from '@/lib/utils'
+import Navigation from '@/components/Navigation'
+import BlogSidebar from '@/components/BlogSidebar'
+import Footer from '@/components/Footer'
+import CommentSection from '@/components/CommentSection'
+import ArticleHeader from '@/components/ArticleHeader'
+import ArticleActions from '@/components/ArticleActions'
+import MarkdownContent from '@/components/MarkdownContent'
+import AISummary from '@/components/AISummary'
+import AIChatBot from '@/components/AIChatBot'
 
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
-  return slugs.map((slug) => ({
+  const slugs = await getAllPostSlugs()
+
+  return slugs.map(slug => ({
     slug,
-  }));
+  }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await getPostWithAuthorBySlug(slug);
+  const { slug } = await params
+  const post = await getPostWithAuthorBySlug(slug)
 
   if (!post) {
     return {
-      title: "文章未找到",
-    };
+      title: '文章未找到',
+    }
   }
 
   return {
@@ -35,23 +35,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: post.title,
       description: post.summary,
-      type: "article",
+      type: 'article',
       publishedTime: formatDateISO(post.date),
-      tags: post.tags?.map((t) => t.name) || [],
+      tags: post.tags?.map(tag => tag.name) || [],
     },
-  };
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await getPostWithAuthorBySlug(slug);
+  const { slug } = await params
+  const post = await getPostWithAuthorBySlug(slug)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
-  // 计算阅读时间（假设每分钟200字）
-  const readingTime = Math.ceil(post.content?.length / 200 || 0);
+  const readingTime = Math.ceil(post.content?.length / 200 || 0)
 
   return (
     <div style={{
@@ -67,23 +66,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           },
         ]}
       />
-
-      {/* 主体内容区域 */}
-      <div style={{
-        display: 'flex',
-        padding: '32px 5%',
-        flex: 1,
-        gap: '32px',
-        maxWidth: '1600px',
-        margin: '0 auto',
-        width: '100%',
-        flexDirection: 'column',
-      }}
-      className="blog-detail-container"
+      <div
+        style={{
+          display: 'flex',
+          padding: '32px 5%',
+          flex: 1,
+          gap: '32px',
+          maxWidth: '1600px',
+          margin: '0 auto',
+          width: '100%',
+          flexDirection: 'column',
+        }}
+        className="blog-detail-container"
       >
-        {/* 文章主体部分 */}
         <div style={{ flex: 1 }}>
-          {/* 文章头部 */}
           <ArticleHeader
             title={post.title}
             date={post.date}
@@ -91,35 +87,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             author={post.author}
             readingTime={readingTime}
           />
-
-
-          {/* 文章内容 */}
-          <div style={{
-            marginBottom: '48px',
-            color: 'var(--foreground)',
-          }}>
+          <div
+            style={{
+              marginBottom: '48px',
+              color: 'var(--foreground)',
+            }}
+          >
             <MarkdownContent content={post.content} />
           </div>
-
-          {/* 文章操作区 */}
           <ArticleActions />
-
-          {/* 评论区 */}
           <CommentSection postSlug={slug} />
         </div>
-
-        {/* 侧边栏 */}
         <aside style={{ width: '100%', flexShrink: 0 }} className="blog-sidebar">
-          <AISummary postId={post.id} postSlug={slug} />
+          <AISummary postId={post.id} />
           <BlogSidebar author={post.author} excludeSlug={slug} />
         </aside>
       </div>
-
-      {/* 页脚 */}
       <Footer />
-
-      {/* AI聊天机器人 */}
       <AIChatBot />
     </div>
-  );
+  )
 }

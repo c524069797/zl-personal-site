@@ -1,21 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Select } from 'antd'
 import { GlobalOutlined } from '@ant-design/icons'
-import { getCurrentLocale, saveLocaleToStorage, getTranslation, type Locale } from '@/lib/i18n'
+import { getCurrentLocale, saveLocaleToStorage, type Locale } from '@/lib/i18n'
 
 export function LanguageSwitcher() {
-  const [locale, setLocale] = useState<Locale>('zh-CN')
-
-  useEffect(() => {
-    setLocale(getCurrentLocale())
-  }, [])
+  const [locale, setLocale] = useState<Locale>(() => getCurrentLocale())
 
   const handleChange = (value: Locale) => {
     setLocale(value)
     saveLocaleToStorage(value)
-    // 触发语言变更事件，让所有使用useTranslation的组件重新渲染
     window.dispatchEvent(new CustomEvent('locale-change', { detail: value }))
   }
 

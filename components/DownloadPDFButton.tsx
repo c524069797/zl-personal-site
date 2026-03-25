@@ -23,7 +23,7 @@ export function DownloadPDFButton() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `陈灼-前端工程师-简历-${new Date().getFullYear()}.pdf`;
+      a.download = `陈子龙-前端工程师-简历-${new Date().getFullYear()}.pdf`;
       document.body.appendChild(a);
       a.click();
 

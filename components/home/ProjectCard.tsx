@@ -33,7 +33,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <motion.div
-      className="group relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-xl"
+      className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-xl"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
@@ -46,7 +46,7 @@ export default function ProjectCard({
         }}
       />
 
-      <div className="relative z-10 bg-[#0c0f1a]/90 rounded-2xl overflow-hidden">
+      <div className="relative z-10 flex h-full flex-col bg-[#0c0f1a]/90 rounded-2xl overflow-hidden">
         {/* Image section */}
         <div className="relative h-48 overflow-hidden">
           {/* Placeholder gradient background as image */}
@@ -72,23 +72,25 @@ export default function ProjectCard({
         </div>
 
         {/* Content */}
-        <div className="p-5">
-          <h3 className="text-white font-semibold text-lg mb-3">{title}</h3>
+        <div className="flex flex-1 flex-col p-5">
+          <h3 className="min-h-[3.5rem] text-white font-semibold text-lg mb-3">{title}</h3>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-2.5 py-0.5 text-xs rounded-full border border-white/10 text-white/60 bg-white/[0.04]"
-              >
-                {tag}
-              </span>
-            ))}
+          <div className="mb-4 min-h-[3.5rem]">
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-0.5 text-xs rounded-full border border-white/10 text-white/60 bg-white/[0.04]"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Links */}
-          <div className="flex gap-3">
+          <div className="mt-auto flex gap-3">
             {githubUrl && (
               <a
                 href={githubUrl}

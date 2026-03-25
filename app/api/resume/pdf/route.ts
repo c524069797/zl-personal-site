@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
 
     await browser.close();
     
-    const filename = `陈灼-前端工程师-简历-${new Date().getFullYear()}.pdf`;
+    const filename = `陈子龙-前端工程师-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
     return new NextResponse(Buffer.from(pdf), {

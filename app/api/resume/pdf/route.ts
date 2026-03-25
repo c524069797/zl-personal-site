@@ -1,22 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium-min';
+import { NextRequest, NextResponse } from "next/server";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium-min";
 
 export async function GET(request: NextRequest) {
   let browser;
 
   try {
-    const protocol = request.headers.get('x-forwarded-proto') || 'http';
-    const host = request.headers.get('host') || 'localhost:3000';
+    const protocol = request.headers.get("x-forwarded-proto") || "http";
+    const host = request.headers.get("host") || "localhost:3000";
     const resumeUrl = `${protocol}://${host}/resume`;
-    
-    const isProd = process.env.NODE_ENV === 'production';
-    const exePath = isProd 
-      ? await chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v132.0.0/chromium-v132.0.0-pack.tar')
-      : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+
+    const isProd = process.env.NODE_ENV === "production";
+    const exePath = isProd
+      ? await chromium.executablePath(
+          "https://github.com/Sparticuz/chromium/releases/download/v132.0.0/chromium-v132.0.0-pack.tar"
+        )
+      : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
     browser = await puppeteer.launch({
-      args: isProd ? chromium.args : ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: isProd
+        ? chromium.args
+        : ["--no-sandbox", "--disable-setuid-sandbox"],
       defaultViewport: {
         width: 794,
         height: 1123,
@@ -35,14 +39,14 @@ export async function GET(request: NextRequest) {
     });
 
     await page.goto(resumeUrl, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
       timeout: 30000,
     });
 
-    await page.waitForSelector('.resume-paper', { timeout: 10000 });
+    await page.waitForSelector(".resume-paper", { timeout: 10000 });
 
     await page.addStyleTag({
-      url: 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap'
+      url: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap",
     });
 
     await page.addStyleTag({
@@ -50,51 +54,54 @@ export async function GET(request: NextRequest) {
         * {
           font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
         }
-      `
+      `,
     });
 
-    await page.evaluateHandle('document.fonts.ready');
+    await page.evaluateHandle("document.fonts.ready");
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const pdf = await page.pdf({
-      format: 'A4',
+      format: "A4",
       printBackground: true,
       margin: {
-        top: '15mm',
-        right: '10mm',
-        bottom: '15mm',
-        left: '10mm',
+        top: "15mm",
+        right: "10mm",
+        bottom: "15mm",
+        left: "10mm",
       },
       preferCSSPageSize: false,
     });
 
     await browser.close();
-    
-    const filename = `陈灼-前端工程师-简历-${new Date().getFullYear()}.pdf`;
+
+    const filename = `陈子龙-前端开发工程师-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
     return new NextResponse(Buffer.from(pdf), {
       headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename*=UTF-8''${encodedFilename}`,
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename*=UTF-8''${encodedFilename}`,
       },
     });
   } catch (error) {
-    console.error('[PDF] 生成失败:', error instanceof Error ? error.message : String(error));
+    console.error(
+      "[PDF] 生成失败:",
+      error instanceof Error ? error.message : String(error)
+    );
 
     if (browser) {
       try {
         await browser.close();
       } catch (closeError) {
-        console.error('[PDF] 关闭浏览器失败:', closeError);
+        console.error("[PDF] 关闭浏览器失败:", closeError);
       }
     }
 
     return NextResponse.json(
-      { 
-        error: '生成 PDF 失败，请稍后重试',
-        details: error instanceof Error ? error.message : String(error)
+      {
+        error: "生成 PDF 失败，请稍后重试",
+        details: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }
     );

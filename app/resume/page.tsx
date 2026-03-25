@@ -7,31 +7,45 @@ import type { Metadata } from "next";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
 
 export const metadata: Metadata = {
-  title: "简历 | 陈灼 - 高级前端工程师",
-  description: "陈灼(Zhuo Chen) - 4.5年前端开发经验，精通Vue 2/3与TypeScript，擅长企业级SaaS后台与复杂数据流管理。具备全栈视野 (Node.js/PostgreSQL)。",
+  title: "个人简历 | 前端开发工程师",
+  description:
+    "前端开发工程师简历，聚焦企业级中后台、复杂业务流程与 AI 全栈开发协作。",
   keywords: [
     "前端开发",
     "Vue.js",
     "Vue 3",
     "React",
     "TypeScript",
-    "PostgreSQL",
-    "SaaS",
-    "性能优化",
-    "高级前端工程师",
+    "企业级中后台",
+    "AI 全栈",
+    "软件设计师",
+    "CET-6",
     "简历",
   ],
   openGraph: {
-    title: "简历 | 陈灼 - 高级前端工程师",
-    description: "4.5年前端经验 | Vue 2/3 专家 | 擅长复杂业务建模与性能优化",
+    title: "个人简历 | 前端开发工程师",
+    description: "前端开发工程师简历 | 企业级后台 | 复杂业务建模 | AI 全栈开发",
     type: "profile",
     url: `${siteUrl}/resume`,
-    siteName: "陈灼的个人主页",
+    siteName: "个人简历",
   },
   twitter: {
     card: "summary",
-    title: "简历 | 陈灼",
-    description: "高级前端工程师简历 - Vue/React/TS",
+    title: "个人简历 | 前端开发工程师",
+    description: "前端开发工程师简历 - Vue/React/TS/AI 全栈开发",
+  },
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-snippet": -1,
+      "max-image-preview": "none",
+      "max-video-preview": -1,
+    },
   },
   alternates: {
     canonical: `${siteUrl}/resume`,
@@ -44,12 +58,11 @@ export default function ResumePage() {
       <div className="absolute top-4 right-4 print:hidden">
         <ThemeToggle />
       </div>
-
       <div className="mx-auto max-w-4xl px-4 py-16 print:max-w-full print:p-0 print:py-4">
         <div className="mb-8 print:hidden">
           <LinkTransition
             href="/"
-            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+            className="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
           >
             ← 返回首页
           </LinkTransition>
@@ -60,227 +73,343 @@ export default function ResumePage() {
             <DownloadPDFButton />
           </div>
         </div>
-
-        {/* 简历主体 - A4纸质感 */}
         <div
-          className="resume-paper bg-white text-gray-900 shadow-lg print:shadow-none p-8 md:p-12 print:p-0 mx-auto"
-          style={{ maxWidth: '210mm', minHeight: '297mm' }}
+          className="resume-paper mx-auto bg-white p-8 text-gray-900 shadow-lg print:p-0 print:shadow-none md:p-10"
+          style={{ maxWidth: "210mm", minHeight: "297mm" }}
         >
-          {/* Header Section */}
-          <header className="pb-6 mb-6 flex justify-between items-start">
-            <div>
-              <h1 className="text-4xl font-bold tracking-tight mb-2 uppercase">陈灼</h1>
-              <p className="text-lg font-medium text-gray-600">高级前端开发工程师 (Senior Frontend Engineer)</p>
-            </div>
-            <div className="text-right text-sm space-y-1">
-              <p>
-                <a href="mailto:chenzhuo995@gmail.com" className="hover:underline">chenzhuo995@gmail.com</a>
-                <span className="mx-2">|</span>
-                <span>4.5年经验</span>
-              </p>
-              <p>
-                <span>131-XXXX-XXXX</span>
-                <span className="mx-2">|</span>
-                <span>广州</span>
-              </p>
-              {/* 可选：添加GitHub或个人网站链接 */}
-              <p>
-                <a href="https://github.com/chenzhuo995" target="_blank" rel="noopener noreferrer" className="hover:underline">github.com/chenzhuo995</a>
-              </p>
+          <header className="mb-4 border-b border-gray-300 pb-4">
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <h1 className="mb-1 text-4xl font-bold tracking-tight">
+                  陈子龙
+                </h1>
+                <p className="text-lg font-medium text-gray-700">
+                  前端开发工程师（具备 AI 全栈开发经验）
+                </p>
+                <p className="mt-1 text-sm text-gray-600">
+                  本科｜近 5 年前端经验｜广州
+                </p>
+              </div>
+              <div className="space-y-1 text-right text-sm text-gray-700">
+                <p>
+                  <span>158-7444-2813</span>
+                  <span className="mx-2">|</span>
+                  <a
+                    href="mailto:chenzhuo995@gmail.com"
+                    className="hover:underline"
+                  >
+                    chenzhuo995@gmail.com
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href="https://github.com/c524069797"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    github.com/c524069797
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href="https://www.clczl.asia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    作品集：https://www.clczl.asia
+                  </a>
+                </p>
+              </div>
             </div>
           </header>
 
-          {/* Professional Summary */}
-          <section className="mb-6">
-            <h2 className="text-xl font-bold border-b border-gray-300 mb-3 pb-1 uppercase tracking-wide">
-              个人总结
+          <section className="mb-4">
+            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
+              教育经历 / 语言能力
             </h2>
-            <p className="text-sm leading-relaxed text-gray-800 text-justify">
-              拥有4.5年前端开发经验，核心精通 <strong>Vue 2/Vue 3</strong> 与 <strong>React</strong> 生态，具备深厚的组件化架构设计与性能优化能力。
-              在企业级备份软件与OA系统中，主导过从复杂业务逻辑到通用组件库的沉淀，成功将页面交互TTI降低30%。
-              熟练使用 <strong>uni-app</strong> 进行跨端开发，具备微信小程序全流程部署经验。
-              具备全栈能力，掌握 <strong>Python/Flask</strong> 后端开发及 <strong>PostgreSQL</strong> 数据库设计，善于利用工程化手段（CI/CD、自动化脚本）解决团队痛点。
-            </p>
-          </section>
-
-          {/* Skills Section */}
-          <section className="mb-6">
-            <h2 className="text-xl font-bold border-b border-gray-300 mb-3 pb-1 uppercase tracking-wide">
-              技术栈
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-              <div className="col-span-4 md:col-span-1 font-bold text-gray-700">前端核心 (Expert)</div>
-              <div className="col-span-4 md:col-span-3">
-                <span className="font-semibold">Vue 2 / Vue 3 (Composition API):</span> 深入理解响应式原理，熟练掌握 Vuex/Pinia 状态管理。
-                <br />
-                <span className="font-semibold">React:</span> 熟练使用 Hooks (useEffect, useMemo) 及 Next.js 框架进行 SSR 开发。
-                <br />
-                <span className="font-semibold">TypeScript:</span> 熟练使用泛型与类型推断，保障大型项目代码健壮性。
-                <br />
-                HTML5 / CSS3 / JavaScript (ES6+)
+            <div className="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
+              <div>
+                <div className="font-medium text-gray-800">
+                  吉首大学｜软件工程（本科）
+                </div>
+                <div className="text-gray-600">2017.09 – 2021.06</div>
               </div>
-
-              <div className="col-span-4 md:col-span-1 font-bold text-gray-700">后端 & 全栈</div>
-              <div className="col-span-4 md:col-span-3">
-                <span className="font-semibold">Python / Flask:</span> 基于 Blueprint 模块化架构开发企业级后台，熟练运用装饰器模式实现审计日志自动记录。
-                <br />
-                <span className="font-semibold">Node.js:</span> 熟悉 Express/Koa 后端开发，具备 RESTful API 设计能力。
-                <br />
-                <span className="font-semibold">数据库:</span> PostgreSQL JSONB/数组类型、psycopg2 连接池、SQL 查询优化 (JOIN, Indexing)。
-              </div>
-
-              <div className="col-span-4 md:col-span-1 font-bold text-gray-700">工程化 & 工具</div>
-              <div className="col-span-4 md:col-span-3">
-                Vite / Webpack 构建优化, CI/CD 自动化部署, Jest 单元测试, Git 工作流, 浏览器插件开发。
+              <div className="space-y-1 text-gray-800 md:text-right">
+                <div>
+                  <strong>英语：</strong>CET-6，英文技术文档与社区内容阅读通畅
+                </div>
+                <div>
+                  <strong>日语：</strong>
+                  具备听读能力，可阅读常见资料并理解基础交流内容
+                </div>
+                <div>
+                  <strong>证书：</strong>软件设计师（中级）
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Experience Section */}
-          <section className="mb-6">
-            <h2 className="text-xl font-bold border-b border-gray-300 mb-3 pb-1 uppercase tracking-wide">
+          <section className="mb-4">
+            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
+              专业技能
+            </h2>
+            <div className="space-y-2 text-[13px] leading-relaxed text-gray-800">
+              <div>
+                <span className="font-semibold text-gray-900">
+                  前端开发技术：
+                </span>
+                Vue 2 / Vue 3 / React / Next.js /
+                TypeScript，能够独立完成企业级中后台页面、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉
+                Ant Design、ECharts、DataV。
+              </div>
+              <div>
+                <span className="font-semibold text-gray-900">
+                  工程化与质量：
+                </span>
+                Vite / Webpack / Monorepo / ESLint / Vitest / GitLab
+                CI/CD，具备性能优化、模块拆分、代码规范建设、虚拟列表、WebSocket
+                实时链路与线上问题排查经验。
+              </div>
+              <div>
+                <span className="font-semibold text-gray-900">
+                  AI 应用与全栈协作：
+                </span>
+                具备 Next.js API / Node.js、Python / Flask 实践，能够结合
+                Mastra、OpenClaw、Agent
+                工作流完成问答、诊断、结构化输出与工具联动，具备 AI
+                全栈开发能力；了解 Java / Spring 与常见后台中间件用法，对
+                PostgreSQL / MySQL / Redis 等数据库与缓存有学习和了解。
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-4">
+            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
               工作经历
             </h2>
-
-            {/* Job 1 */}
-            <div className="mb-5">
-              <div className="flex justify-between items-baseline mb-1">
-                <h3 className="text-lg font-bold">广州某软件公司</h3>
-                <span className="text-sm font-medium text-gray-600">2021.07 – 至今</span>
+            <div>
+              <div className="mb-1 flex justify-between text-sm">
+                <h3 className="text-lg font-bold">
+                  广州鼎甲计算机科技有限公司
+                </h3>
+                <span className="font-medium text-gray-600">
+                  2021.07 – 至今
+                </span>
               </div>
-              <div className="text-md italic text-gray-700 mb-2">
-                前端开发工程师 | 核心业务组
+              <div className="mb-1 text-sm italic text-gray-700">
+                前端开发工程师｜核心业务组
               </div>
-
-              {/* Project 1.1 */}
-              <div className="mb-4">
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  项目：主力企业级备份软件 (Vue 3, TypeScript, 自研组件库)
-                </h4>
-                <p className="text-xs text-gray-500 mb-2">负责存储策略配置、资源监控 Dashboard、许可证管理系统的全生命周期开发，以及核心组件库与中后台基础框架的架构升级与维护。</p>
-                <div className="mb-2">
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vue 3</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vite</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Bootstrap 5 (Sass)</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vitest</span>
-                </div>
-                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
-                  <li>
-                    <strong>向导流程微服务化架构</strong>：设计 4 步通用向导框架（资源选择 → 备份源 → 目标位置 → 调度策略），采用 <strong>工厂模式</strong> 实现 50+ 资源类型动态注入（MySQL、Oracle、VMware、Kubernetes 等），基于 <strong>Context + Proxy 响应式追踪</strong> 实现跨步骤状态共享；支持链式验证与自定义校验规则，减少重复代码 1-2 小时/人天。
-                  </li>
-                  <li>
-                    <strong>许可证与存储池模块</strong>：设计并开发许可证管理模块，优化前端状态机逻辑与 API 交互，将签发耗时从 <strong>3-5分钟降低至10秒级</strong>；开发存储池管理模块，实现存储资源的可视化配置与容量监控，支持多种存储后端（本地磁盘、NFS、S3）的统一接入。
-                  </li>
-                  <li>
-                    <strong>日志系统性能优化</strong>：针对万级日志列表渲染瓶颈，实现三层动态加载方案：①<strong>虚拟滚动</strong>（FixedSizeList）只渲染可见区域，内存占用从 5MB 降至 200KB；②<strong>WebSocket + 消息队列缓冲</strong>实现秒级日志流式推送，批量防抖更新避免频繁重排；③<strong>增量 Diff 更新</strong>而非全量重绘。最终实现万级日志秒级响应，稳定在 60FPS，完全解决主线程阻塞问题。
-                  </li>
-                  <li>
-                    <strong>通用组件库建设</strong>：主导自研 UI 组件库架构设计，采用源码级集成 Bootstrap 5 策略，建立语义化的 Design Token 系统。封装 SmartUnitInput、WizardWrap 等 <strong>20+ 高阶业务组件</strong>，支撑多条业务线高效开发，减少约 <strong>1-2小时/人天</strong> 的重复开发工时。
-                  </li>
-                  <li>
-                    <strong>工程化与 CI/CD 建设</strong>：升级 ESLint 9 (Flat Config) 体系，落地 Vitest 单元测试（覆盖率 80%+）；搭建 GitLab CI/CD 流水线，实现代码质量检查、自动化构建与多环境部署，制定严格的 Code Review 标准。
-                  </li>
-                </ul>
-              </div>
-
-              {/* Project 1.2 */}
-              <div className="mb-4">
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  项目：企业内部综合管理系统 (Vue 3, Python/Flask)
-                </h4>
-                <div className="mb-2">
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vue 3</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Python</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Flask</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">PostgreSQL</span>
-                </div>
-                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
-                  <li>
-                    <strong>全栈开发</strong>：基于 Flask Blueprint 架构开发 20+ 业务模块，采用装饰器模式实现审计日志自动记录；前端使用 Vue 3 构建响应式界面，实现许可证全生命周期管理。
-                  </li>
-                  <li>
-                    <strong>复杂业务建模</strong>：主导&quot;按套餐售卖&quot;功能的各端打通（内管、商务、供应链），设计高灵活度的权限配置方案，支持 <strong>50+ 种许可套餐</strong> 的动态组合。
-                  </li>
-                  <li>
-                    <strong>数据库设计</strong>：使用 PostgreSQL JSONB/数组类型优化灵活配置存储，设计 UUID 松耦合关联策略；基于 APScheduler 实现定时数据归档，保障大数据量下的查询性能。
-                  </li>
-                  <li>
-                    <strong>流程数字化</strong>：将原本依赖人工Excel记录的供应链流程系统化，<strong>减少跨部门沟通工单 30%</strong>，通过自动化校验逻辑减少人工录入错误。
-                  </li>
-                </ul>
-              </div>
-
-              {/* Project 1.3 - Monitor Center */}
-              <div className="mb-4">
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  项目：数据可视化监控大屏 (Vue 3, DataV)
-                </h4>
-                <div className="mb-2">
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">Vue 3</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">grid-layout-plus</span>
-                  <span className="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-2">DataV</span>
-                </div>
-                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
-                  <li>
-                    <strong>可视化布局编辑器</strong>：基于 grid-layout-plus 实现拖拽式布局系统，支持行列动态配置、模块自由拖拽与碰撞检测，设计 LayoutTracker 类追踪布局变化并计算最大空白区域实现智能模块插入。
-                  </li>
-                  <li>
-                    <strong>服务降级重试机制</strong>：实现心跳检测与优雅降级策略，当后端服务掉线时自动按指数退避（1s → 2s → 5s → 30s → 60s）重连，避免无效请求风暴，保障大屏 7x24 小时稳定运行。
-                  </li>
-                  <li>
-                    <strong>多主题动态切换</strong>：支持运行时主题切换（含毛玻璃效果），通过 CSS 变量注入与动态 link 标签实现无刷新换肤，配合用户配置持久化到后端。
-                  </li>
-                </ul>
-              </div>
-              <div className="mb-2">
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  项目：研发效能提升工具 (JavaScript, Chrome Extension)
-                </h4>
-                <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
-                  <li>
-                    <strong>自动化脚本开发</strong>：开发 Chrome 扩展程序，集成 GitLab API 实现代码 Review 一键辅助与分支状态监控，团队内部每周节省 <strong>2-3 小时</strong> 人工检查时间。
-                  </li>
-                  <li>
-                    <strong>流程优化</strong>：实现内部系统自动登录与验证码识别功能，提升日常操作效率 40%。
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Social / Side Projects - Optional but shows passion */}
-          <section className="mb-6">
-            <h2 className="text-xl font-bold border-b border-gray-300 mb-3 pb-1 uppercase tracking-wide">
-              个人项目与技能拓展
-            </h2>
-            <div className="mb-3">
-              <h4 className="font-semibold text-gray-800 text-sm">
-                全栈博客平台 (Next.js 15, React 19, PostgreSQL, Prisma)
-              </h4>
-              <ul className="list-disc ml-5 space-y-1 text-sm text-gray-800">
+              <p className="mb-2 text-xs text-gray-500">
+                负责产品：企业级备份软件、许可证与内部综合管理系统、数据可视化监控大屏等核心业务模块，长期服务复杂流程型场景，支撑
+                50+ 资源类型接入与多条产品线业务协同。
+              </p>
+              <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
                 <li>
-                  独立开发基于 <strong>Next.js 15 (App Router)</strong> 的全栈应用，集成 <strong>PostgreSQL</strong> 数据库与 Prisma ORM。
+                  <strong>架构设计：</strong>为解决多资源类型备份 /
+                  恢复流程重复开发问题，设计通用向导框架，基于{" "}
+                  <strong>工厂模式 + Context + Proxy</strong> 支撑{" "}
+                  <strong>50+ 资源类型</strong>
+                  动态注入与跨步骤状态共享，减少同类功能重复实现。
                 </li>
                 <li>
-                  实现 AI 文章摘要功能（OpenAI API + RAG 向量检索），探索最新的 React Server Components (RSC) 架构与性能最佳实践。
+                  <strong>业务建模：</strong>
+                  主导许可证生成、导入校验、续期升级、套餐 /
+                  功能映射等前端设计与实现，推动审批、出货与归档流程由表格 /
+                  钉钉记录转向系统化闭环，支撑多条产品线与{" "}
+                  <strong>
+                    50+ 种许可套餐
+                  </strong>动态组合，将重复配置时间降低{" "}
+                  <strong>80% 以上</strong>。
+                </li>
+                <li>
+                  <strong>可视化与实时链路：</strong>基于{" "}
+                  <strong>grid-layout-plus</strong> 实现拖拽式大屏布局系统，支持{" "}
+                  <strong>12 × 12</strong>{" "}
+                  网格、碰撞检测、自动放置与布局持久化；结合{" "}
+                  <strong>WebSocket</strong>{" "}
+                  推送、缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行。
+                </li>
+                <li>
+                  <strong>性能与问题排查：</strong>围绕任务监控与日志展示引入{" "}
+                  <strong>增量更新</strong>、<strong>虚拟滚动</strong>{" "}
+                  与页面拆分，优化首屏与长列表体验，
+                  <strong>TTI 下降约 30%</strong>
+                  ；同时长期承担线上问题定位、状态链路追踪与复杂交互故障排查工作。
+                </li>
+                <li>
+                  <strong>AI 业务落地：</strong>补充{" "}
+                  <strong>scutech-licenser 客服 Agent</strong> MVP，串联
+                  approval、request、audit_logs
+                  等业务数据用于报错诊断、审批解释与进度追踪，体现从前端到 AI
+                  全栈协作的落地能力。
                 </li>
               </ul>
             </div>
           </section>
 
-          {/* Education */}
-          <section>
-            <h2 className="text-xl font-bold border-b border-gray-300 mb-3 pb-1 uppercase tracking-wide">
-              教育经历
+          <section className="mb-4">
+            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
+              项目经历
             </h2>
-            <div className="flex justify-between items-center text-sm">
+            <div className="space-y-4">
               <div>
-                <span className="font-bold text-lg">吉首大学</span>
-                <span className="mx-2">|</span>
-                <span>软件工程 (本科)</span>
+                <h4 className="mb-1 text-sm font-semibold text-gray-800">
+                  AI 投资助手（Next.js 16、React
+                  19、TypeScript、Mastra、PostgreSQL、OpenClaw）
+                </h4>
+                <p className="mb-1 text-xs text-gray-500">
+                  在线访问：
+                  <a
+                    href="https://aiold.clczl.asia/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    https://aiold.clczl.asia/
+                  </a>
+                </p>
+                <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
+                  <li>
+                    <strong>前端产品化：</strong>
+                    围绕“我的自选股”重构产品首页，拆分桌面端 dashboard
+                    与移动端卡片化布局，抽象 App Shell、BottomNav
+                    与断点适配方案，统一双端体验并降低后续迭代成本。
+                  </li>
+                  <li>
+                    <strong>AI 应用开发：</strong>基于{" "}
+                    <strong>Next.js + Mastra</strong> 实现投资顾问
+                    Agent，对接行情、技术指标、关键位、近 7
+                    日新闻等多源数据，形成“用户问题 → 工具调用 →
+                    结构化输出”的完整链路。
+                  </li>
+                  <li>
+                    <strong>工作流联动：</strong>接入公众号 / 大 V 内容分析与{" "}
+                    <strong>OpenClaw</strong>{" "}
+                    工作流，自动抓取、摘要与同步观点信息，为个股分析补充消息面参考，也体现了从前端到
+                    AI 后端编排的全栈落地能力。
+                  </li>
+                </ul>
               </div>
-              <span className="font-medium">2017.09 – 2021.06</span>
+
+              <div>
+                <h4 className="mb-1 text-sm font-semibold text-gray-800">
+                  个人网站 / 博客系统（Next.js 16、React 19、TypeScript、Ant
+                  Design、PostgreSQL、Prisma）
+                </h4>
+                <p className="mb-1 text-xs text-gray-500">
+                  在线访问：
+                  <a
+                    href="https://www.clczl.asia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    https://www.clczl.asia
+                  </a>
+                </p>
+                <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
+                  <li>
+                    <strong>完整产品搭建：</strong>
+                    独立实现博客、简历、评论、文章管理等能力，支持 Markdown
+                    内容渲染、暗黑模式、RSS、PDF
+                    导出与响应式页面，作为个人作品集长期对外展示。
+                  </li>
+                  <li>
+                    <strong>内容型前端能力：</strong>
+                    围绕内容展示与阅读体验完成信息架构、页面设计与组件抽象，并结合
+                    SSR / SEO 优化提升站点可访问性与展示效果。
+                  </li>
+                  <li>
+                    <strong>AI 增强：</strong>接入 AI
+                    文章摘要、关键词提取与站内问答能力，将内容产品与 AI
+                    功能结合，形成更完整的个人技术展示载体。
+                  </li>
+                </ul>
+              </div>
             </div>
+          </section>
+
+          <section className="mb-4">
+            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
+              其他个人作品
+            </h2>
+            <div className="space-y-1 text-[13px] text-gray-800">
+              <p>
+                更多项目可见作品集：
+                <a
+                  href="https://www.clczl.asia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  https://www.clczl.asia
+                </a>
+              </p>
+              <p>
+                1. <strong>SportOracle 体育预测平台</strong>：AI
+                驱动的体育预测产品，支持比赛分析与预测信息展示。 在线地址：
+                <a
+                  href="https://nba.clczl.asia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  https://nba.clczl.asia/
+                </a>
+              </p>
+              <p>
+                2. <strong>织趣社区</strong>
+                ：面向钩织爱好者的社区产品，包含产品库、教程资源与讨论区。
+                在线地址：
+                <a
+                  href="https://zhiqu.clczl.asia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  https://zhiqu.clczl.asia/
+                </a>
+              </p>
+              <p>
+                3. <strong>Sports Hub 浏览器插件</strong>：聚合
+                NBA、足球、电竞赛事信息的 Chrome Extension。 GitHub：
+                <a
+                  href="https://github.com/c524069797/sports-hub-extension"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  github.com/c524069797/sports-hub-extension
+                </a>
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
+              个人优势
+            </h2>
+            <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
+              <li>
+                <strong>前端主导能力明确：</strong>
+                长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。
+              </li>
+              <li>
+                <strong>具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python
+                / PostgreSQL 结合 Agent
+                与工作流完成产品原型、功能联调与上线落地。
+              </li>
+              <li>
+                <strong>有真实线上作品：</strong>已上线个人作品集、AI
+                投资助手、体育预测平台、垂直社区等多个可访问项目，具备独立开发与部署意识。
+              </li>
+              <li>
+                <strong>学习与专业基础扎实：</strong>
+                持有软件设计师（中级）认证，英语六级，具备日语听读能力，可直接阅读英文技术文档与部分日文资料。
+              </li>
+            </ul>
           </section>
         </div>
       </div>

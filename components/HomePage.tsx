@@ -614,46 +614,48 @@ export default function HomePage() {
             : hotPosts.map((post) => {
                 const categoryInfo = categorizeBlog(post.title, post.summary)
                 return (
-                  <motion.div key={post.id} variants={fadeInScale}>
-                    <GlowCard glowColor="rgba(249, 115, 22, 0.3)">
-                      <div className="h-28 sm:h-32 rounded-xl overflow-hidden mb-3 sm:mb-4">
-                        <PostCoverImage
-                          title={post.title}
-                          summary={post.summary}
-                          height={128}
-                          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                        />
-                      </div>
-                      {/* Meta */}
-                      <div className="flex items-center gap-2 mb-2 text-[10px] sm:text-xs text-white/40">
-                        <span
-                          className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] font-medium"
-                          style={{
-                            background: `${categoryInfo.color}20`,
-                            color: categoryInfo.color,
-                            border: `1px solid ${categoryInfo.color}40`,
-                          }}
+                  <motion.div key={post.id} variants={fadeInScale} className="h-full">
+                    <GlowCard glowColor="rgba(249, 115, 22, 0.3)" className="h-full">
+                      <div className="flex h-full flex-col">
+                        <div className="h-28 sm:h-32 rounded-xl overflow-hidden mb-3 sm:mb-4">
+                          <PostCoverImage
+                            title={post.title}
+                            summary={post.summary}
+                            height={128}
+                            gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                          />
+                        </div>
+                        {/* Meta */}
+                        <div className="flex items-center gap-2 mb-2 text-[10px] sm:text-xs text-white/40">
+                          <span
+                            className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] font-medium"
+                            style={{
+                              background: `${categoryInfo.color}20`,
+                              color: categoryInfo.color,
+                              border: `1px solid ${categoryInfo.color}40`,
+                            }}
+                          >
+                            {categoryInfo.label}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Calendar size={10} /> {formatDate(post.date)}
+                          </span>
+                        </div>
+                        <Link href={`/blog/${post.slug}`}>
+                          <h3 className="min-h-[3.5rem] text-white font-semibold text-sm sm:text-base mb-1.5 sm:mb-2 hover:text-indigo-300 transition-colors line-clamp-2">
+                            {post.title}
+                          </h3>
+                        </Link>
+                        <p className="min-h-[3rem] flex-1 text-white/40 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-2 sm:mb-3">
+                          {post.summary}
+                        </p>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="mt-auto inline-flex items-center gap-1 text-xs text-orange-400 hover:text-orange-300 transition-colors font-medium"
                         >
-                          {categoryInfo.label}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Calendar size={10} /> {formatDate(post.date)}
-                        </span>
+                          {t('common.readMore')} <ArrowRight size={12} />
+                        </Link>
                       </div>
-                      <Link href={`/blog/${post.slug}`}>
-                        <h3 className="text-white font-semibold text-sm sm:text-base mb-1.5 sm:mb-2 hover:text-indigo-300 transition-colors line-clamp-2">
-                          {post.title}
-                        </h3>
-                      </Link>
-                      <p className="text-white/40 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-2 sm:mb-3">
-                        {post.summary}
-                      </p>
-                      <Link
-                        href={`/blog/${post.slug}`}
-                        className="inline-flex items-center gap-1 text-xs text-orange-400 hover:text-orange-300 transition-colors font-medium"
-                      >
-                        {t('common.readMore')} <ArrowRight size={12} />
-                      </Link>
                     </GlowCard>
                   </motion.div>
                 )

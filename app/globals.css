@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -376,6 +378,24 @@ body {
 .dark a {
   color: #ffffff;
   border-color: #ffffff;
+}
+
+/* 简历纸张在暗黑模式下保持白纸黑字 */
+.dark .resume-paper h1,
+.dark .resume-paper h2,
+.dark .resume-paper h3,
+.dark .resume-paper h4,
+.dark .resume-paper h5,
+.dark .resume-paper h6,
+.dark .resume-paper a,
+.dark .resume-paper strong,
+.dark .resume-paper li {
+  color: #111827 !important;
+}
+
+.dark .resume-paper a[href^="mailto:"],
+.dark .resume-paper a[href^="http"] {
+  color: #2563eb !important;
 }
 
 /* 面包屑导航样式 */
@@ -1365,4 +1385,237 @@ a:active {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* 简历页两侧科技感动态装饰 */
+@keyframes tech-flow-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes tech-flow-up {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes tech-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes tech-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tech-grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+.resume-tech-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.resume-tech-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: tech-grid-move 20s linear infinite;
+}
+
+.dark .resume-tech-bg::before {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+}
+
+.tech-light-strip {
+  position: absolute;
+  width: 2px;
+  height: 150px;
+  border-radius: 1px;
+  filter: blur(1px);
+}
+
+.tech-light-strip-left {
+  left: 8%;
+  background: linear-gradient(180deg, transparent, #6366f1, #8b5cf6, transparent);
+  animation: tech-flow-down 8s ease-in-out infinite;
+}
+
+.tech-light-strip-left-2 {
+  left: 12%;
+  background: linear-gradient(180deg, transparent, #3b82f6, #06b6d4, transparent);
+  animation: tech-flow-down 10s ease-in-out infinite 2s;
+  height: 100px;
+}
+
+.tech-light-strip-right {
+  right: 8%;
+  background: linear-gradient(180deg, transparent, #06b6d4, #6366f1, transparent);
+  animation: tech-flow-up 9s ease-in-out infinite 1s;
+}
+
+.tech-light-strip-right-2 {
+  right: 12%;
+  background: linear-gradient(180deg, transparent, #8b5cf6, #ec4899, transparent);
+  animation: tech-flow-up 7s ease-in-out infinite 3s;
+  height: 120px;
+}
+
+.tech-corner-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #6366f1;
+  box-shadow: 0 0 8px 2px rgba(99, 102, 241, 0.4);
+  animation: tech-pulse 3s ease-in-out infinite;
+}
+
+.tech-corner-dot-tl {
+  top: 15%;
+  left: 6%;
+  animation-delay: 0s;
+}
+
+.tech-corner-dot-tr {
+  top: 20%;
+  right: 6%;
+  animation-delay: 0.7s;
+  background: #06b6d4;
+  box-shadow: 0 0 8px 2px rgba(6, 182, 212, 0.4);
+}
+
+.tech-corner-dot-bl {
+  bottom: 20%;
+  left: 10%;
+  animation-delay: 1.4s;
+  background: #8b5cf6;
+  box-shadow: 0 0 8px 2px rgba(139, 92, 246, 0.4);
+}
+
+.tech-corner-dot-br {
+  bottom: 15%;
+  right: 10%;
+  animation-delay: 2.1s;
+  background: #ec4899;
+  box-shadow: 0 0 8px 2px rgba(236, 72, 153, 0.4);
+}
+
+.tech-hex {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  transform: rotate(45deg);
+  animation: tech-rotate 20s linear infinite;
+}
+
+.dark .tech-hex {
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.tech-hex-1 {
+  top: 25%;
+  left: 5%;
+  animation-duration: 25s;
+}
+
+.tech-hex-2 {
+  top: 60%;
+  right: 5%;
+  animation-duration: 30s;
+  animation-direction: reverse;
+}
+
+.tech-hex-3 {
+  bottom: 30%;
+  left: 7%;
+  animation-duration: 22s;
+  animation-delay: 2s;
+}
+
+.tech-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+}
+
+.dark .tech-line {
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+}
+
+.tech-line-1 {
+  top: 35%;
+  left: 3%;
+  width: 80px;
+  animation: tech-pulse 4s ease-in-out infinite;
+}
+
+.tech-line-2 {
+  top: 55%;
+  right: 3%;
+  width: 60px;
+  animation: tech-pulse 5s ease-in-out infinite 1s;
+}
+
+.tech-line-3 {
+  bottom: 40%;
+  left: 4%;
+  width: 50px;
+  animation: tech-pulse 6s ease-in-out infinite 2s;
 }

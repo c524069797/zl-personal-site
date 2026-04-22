@@ -54,11 +54,29 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 print:bg-white">
-      <div className="absolute top-4 right-4 print:hidden">
+    <div className="relative min-h-screen bg-gray-50 dark:bg-gray-900 print:bg-white">
+      {/* 科技感动态背景装饰 */}
+      <div className="resume-tech-bg print:hidden">
+        <div className="tech-light-strip tech-light-strip-left" />
+        <div className="tech-light-strip tech-light-strip-left-2" />
+        <div className="tech-light-strip tech-light-strip-right" />
+        <div className="tech-light-strip tech-light-strip-right-2" />
+        <div className="tech-corner-dot tech-corner-dot-tl" />
+        <div className="tech-corner-dot tech-corner-dot-tr" />
+        <div className="tech-corner-dot tech-corner-dot-bl" />
+        <div className="tech-corner-dot tech-corner-dot-br" />
+        <div className="tech-hex tech-hex-1" />
+        <div className="tech-hex tech-hex-2" />
+        <div className="tech-hex tech-hex-3" />
+        <div className="tech-line tech-line-1" />
+        <div className="tech-line tech-line-2" />
+        <div className="tech-line tech-line-3" />
+      </div>
+
+      <div className="absolute top-4 right-4 z-10 print:hidden">
         <ThemeToggle />
       </div>
-      <div className="mx-auto max-w-4xl px-4 py-16 print:max-w-full print:p-0 print:py-4">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 py-16 print:max-w-full print:p-0 print:py-4">
         <div className="mb-8 print:hidden">
           <LinkTransition
             href="/"
@@ -176,11 +194,23 @@ export default function ResumePage() {
                 <span className="font-semibold text-gray-900">
                   AI 应用与全栈协作：
                 </span>
-                具备 Next.js API / Node.js、Python / Flask 实践，能够结合
-                Mastra、OpenClaw、Agent
+                具备 Next.js API / Node.js、Python / Flask / FastAPI 实践，能够结合{" "}
+                <strong>LangGraph</strong>、Mastra、OpenClaw、Agent
                 工作流完成问答、诊断、结构化输出与工具联动，具备 AI
-                全栈开发能力；了解 Java / Spring 与常见后台中间件用法，对
-                PostgreSQL / MySQL / Redis 等数据库与缓存有学习和了解。
+                全栈开发能力；熟悉 <strong>RAG 工程化</strong>（Chunking
+                / Embedding / Metadata 过滤 / Hybrid Search / Reranking /
+                Citation 溯源）与{" "}
+                <strong>Agent Harness Engineering</strong>（Runtime / Tool / Eval
+                / Observability / Guardrail 等工程脚手架设计）；了解 Java / Spring
+                与常见后台中间件用法，对 PostgreSQL / MySQL / Redis / sqlite-vec
+                等数据库与向量存储有学习和实践经验。
+              </div>
+              <div>
+                <span className="font-semibold text-gray-900">
+                  自动化测试：
+                </span>
+                参与公司自动化测试体系建设，熟练使用 Selenium、Robot
+                Framework 完成前端页面自动化与回归测试，编写可维护的测试用例与测试套件，提升核心模块交付稳定性与回归效率。
               </div>
             </div>
           </section>
@@ -211,7 +241,7 @@ export default function ResumePage() {
                   恢复流程重复开发问题，设计通用向导框架，基于{" "}
                   <strong>工厂模式 + Context + Proxy</strong> 支撑{" "}
                   <strong>50+ 资源类型</strong>
-                  动态注入与跨步骤状态共享，减少同类功能重复实现。
+                  动态注入与跨步骤状态共享，减少同类功能重复实现；深度参与备份策略（全量 / 增量 / 差异）、恢复点一致性校验、存储池与介质生命周期管理等核心流程的前端建模与交互设计，对数据保护链路有系统性认知。
                 </li>
                 <li>
                   <strong>业务建模：</strong>
@@ -239,11 +269,16 @@ export default function ResumePage() {
                   ；同时长期承担线上问题定位、状态链路追踪与复杂交互故障排查工作。
                 </li>
                 <li>
-                  <strong>AI 业务落地：</strong>补充{" "}
-                  <strong>scutech-licenser 客服 Agent</strong> MVP，串联
-                  approval、request、audit_logs
-                  等业务数据用于报错诊断、审批解释与进度追踪，体现从前端到 AI
-                  全栈协作的落地能力。
+                  <strong>AI 业务落地：</strong>主导{" "}
+                  <strong>scutech-licenser 客服 Agent</strong>{" "}
+                  从需求调研到上线运营的全流程，构建基于业务数据的 RAG
+                  诊断与问答能力，已接入客服团队日常使用；持续推进{" "}
+                  <strong>Agent Harness Engineering</strong>（Runtime 持久化、Tool
+                  结构化、RAG 检索质量、Eval 测试集、Observability Trace 等 9
+                  类工程脚手架）与知识库扩展（历史工单 / Wiki / SOP
+                  系统化批量入库至向量库）；同时补充{" "}
+                  <strong>AI 投资助手</strong>等个人项目，具备从前端到 AI
+                  后端编排与工程化的完整落地经验。
                 </li>
               </ul>
             </div>
@@ -278,17 +313,83 @@ export default function ResumePage() {
                     与断点适配方案，统一双端体验并降低后续迭代成本。
                   </li>
                   <li>
-                    <strong>AI 应用开发：</strong>基于{" "}
-                    <strong>Next.js + Mastra</strong> 实现投资顾问
-                    Agent，对接行情、技术指标、关键位、近 7
-                    日新闻等多源数据，形成“用户问题 → 工具调用 →
-                    结构化输出”的完整链路。
+                    <strong>多 Agent 架构：</strong>基于{" "}
+                    <strong>Next.js + Mastra</strong>{" "}
+                    搭建投资分析多 Agent 系统，拆分为行情查询 Agent、技术指标 Agent、新闻摘要
+                    Agent 与投资组合诊断 Agent，通过 Agent
+                    编排实现复杂问题的分步推理与结构化输出。
                   </li>
                   <li>
-                    <strong>工作流联动：</strong>接入公众号 / 大 V 内容分析与{" "}
+                    <strong>工具链与数据闭环：</strong>对接实时行情、K
+                    线形态、支撑压力位与近 7 日财经新闻等多源数据；接入{" "}
                     <strong>OpenClaw</strong>{" "}
-                    工作流，自动抓取、摘要与同步观点信息，为个股分析补充消息面参考，也体现了从前端到
-                    AI 后端编排的全栈落地能力。
+                    工作流自动抓取公众号/大 V 观点并生成摘要，为个股分析补充消息面参考，形成“数据采集
+                    → AI 分析 → 前端呈现”的完整闭环。
+                  </li>
+                  <li>
+                    <strong>工程与体验优化：</strong>使用 Server-Sent Events
+                    实现流式回答、支持推理过程可视化与答案高亮，提升交互体验；通过 PostgreSQL
+                    持久化用户对话与自选股数据，支撑长期记忆与个性化推荐。
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="mb-1 text-sm font-semibold text-gray-800">
+                  scutech-licenser 智能客服 Agent（Vue 3、Python、Flask、LLM
+                  API、RAG、PostgreSQL）
+                </h4>
+                <p className="mb-1 text-xs text-gray-500">
+                  企业内部产品｜已接入客服团队日常使用
+                </p>
+                <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
+                  <li>
+                    <strong>业务背景：</strong> licenses
+                    许可证系统业务逻辑复杂，客服团队每日需处理大量重复咨询（审批进度查询、报错诊断、套餐功能解释），人工响应慢、知识传递成本高。
+                  </li>
+                  <li>
+                    <strong>RAG 知识库构建：</strong>将产品文档、审批流程说明、历史工单处理方案及常见报错排查指南构建为结构化知识库，结合
+                    RAG 技术实现精准检索与上下文增强，确保回答的准确性与可溯源性。
+                  </li>
+                  <li>
+                    <strong>业务数据联动：</strong>打通 approval、request、audit_logs
+                    等核心业务数据，使 Agent 能够基于用户实际订单状态进行{" "}
+                    <strong>实时审批解释、报错智能诊断与进度追踪</strong>
+                    ，从“通用问答”升级为“业务感知型助手”。
+                  </li>
+                  <li>
+                    <strong>前端对话界面：</strong>设计并开发对话式交互页面，支持多轮对话、上下文记忆、引用来源高亮与{" "}
+                    <strong>一键转人工</strong>
+                    功能，降低客服使用门槛，确保复杂问题可平滑交接。
+                  </li>
+                  <li>
+                    <strong>落地效果：</strong>Agent{" "}
+                    <strong>已正式接入客服团队日常工作流</strong>
+                    ，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约{" "}
+                    <strong>30%</strong>
+                    ，显著降低人工客服压力并提升客户满意度。
+                  </li>
+                  <li>
+                    <strong>RAG 工程化升级：</strong>设计多粒度 Chunk 策略（Issue
+                    摘要 / Issue 讨论 / Wiki 整页 / Wiki 按标题拆分），富化
+                    metadata（项目 / tracker / 状态 / 责任人 /
+                    更新时间），支持元数据过滤、来源溯源与父子检索；将历史工单与内部
+                    Wiki 系统化批量入库至{" "}
+                    <strong>sqlite-vec（float[1536]）</strong>
+                    ，知识库规模从 <strong>8 条 seed</strong> 扩展至{" "}
+                    <strong>30+ 结构化 chunks</strong>
+                    ，为 Agent 真实业务场景召回提供高质量知识底座。
+                  </li>
+                  <li>
+                    <strong>Agent Harness Engineering：</strong>围绕 Runtime /
+                    Tool / RAG / Prompt / Guardrail / Observability / Eval /
+                    Cost / Deployment 共{" "}
+                    <strong>9 类工程脚手架</strong>盘点现状与升级路径，推进{" "}
+                    <strong>LangGraph Checkpointer</strong>、
+                    <strong>StructuredTool + ToolNode</strong>、距离阈值 /
+                    Hybrid Search / Reranker、RAGAS 评估测试集与 LangSmith Trace
+                    的落地，把{"「能跑」"}升级为
+                    {"「可观测、可评估、可回滚」"}。
                   </li>
                 </ul>
               </div>

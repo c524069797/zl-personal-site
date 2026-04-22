@@ -63,7 +63,7 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
       </div>
 
       {/* Desktop Menu */}
-      <div className="nav-links hidden md:flex" style={{ alignItems: 'center', gap: '16px' }}>
+      <div className="nav-links hidden md:flex" style={{ alignItems: 'center', gap: '16px', flexShrink: 0 }}>
         <Space size="middle" className="nav-menu">
           {navItems.map(item => (
             <LinkTransition key={item.href} href={item.href} className="nav-link" style={{

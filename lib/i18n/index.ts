@@ -3,11 +3,10 @@
 import zhCN from './zh-CN'
 import zhTW from './zh-TW'
 import en from './en'
-import es from './es'
 
-export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'es'
+export type Locale = 'zh-CN' | 'zh-TW' | 'en'
 
-export const locales: Locale[] = ['zh-CN', 'zh-TW', 'en', 'es']
+export const locales: Locale[] = ['zh-CN', 'zh-TW', 'en']
 
 export const defaultLocale: Locale = 'zh-CN'
 
@@ -15,7 +14,6 @@ export const translations = {
   'zh-CN': zhCN,
   'zh-TW': zhTW,
   'en': en,
-  'es': es,
 }
 
 // 获取翻译函数
@@ -61,10 +59,6 @@ export function getLocaleFromBrowser(): Locale {
       return 'zh-TW'
     }
     return 'zh-CN'
-  }
-
-  if (browserLang.startsWith('es')) {
-    return 'es'
   }
 
   if (browserLang.startsWith('en')) {

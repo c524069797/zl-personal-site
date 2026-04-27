@@ -1056,6 +1056,34 @@ a:active {
   animation: pulseSlow 3s ease-in-out infinite;
 }
 
+/* Shimmer sweep animation for card hover borders */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(0deg);
+  }
+}
+
+/* Tech scan line animation for cards */
+@keyframes scanLine {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
 /* ========================================
    Dark Futuristic Theme - Navigation
    ======================================== */

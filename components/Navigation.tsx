@@ -66,13 +66,13 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
       <div className="nav-links hidden md:flex" style={{ alignItems: 'center', gap: '16px', flexShrink: 0 }}>
         <Space size="middle" className="nav-menu">
           {navItems.map(item => (
-            <LinkTransition key={item.href} href={item.href} className="nav-link" style={{
+            <LinkTransition key={item.href} href={item.href} className="nav-link group" style={{
               textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
             }}>
-              {item.icon}
+              <span className="transition-transform duration-200 group-hover:scale-110">{item.icon}</span>
               <span className="nav-link-text">{item.label}</span>
             </LinkTransition>
           ))}

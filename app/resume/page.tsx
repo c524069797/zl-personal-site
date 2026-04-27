@@ -52,6 +52,23 @@ export const metadata: Metadata = {
   },
 };
 
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="resume-section-title group relative mb-4 mt-6 flex items-center gap-3 text-lg font-bold tracking-wide text-gray-900 dark:text-white">
+      <span className="inline-block h-6 w-1 rounded-full bg-gradient-to-b from-cyan-500 to-indigo-500" />
+      <span>{children}</span>
+    </h2>
+  );
+}
+
+function SkillTag({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center rounded-md bg-gradient-to-r from-cyan-50 to-blue-50 px-2.5 py-1 text-xs font-medium text-cyan-700 ring-1 ring-inset ring-cyan-600/20 dark:from-cyan-950/30 dark:to-blue-950/30 dark:text-cyan-300 dark:ring-cyan-400/20">
+      {children}
+    </span>
+  );
+}
+
 export default function ResumePage() {
   return (
     <div className="relative min-h-screen bg-gray-50 dark:bg-gray-900 print:bg-white">
@@ -92,423 +109,361 @@ export default function ResumePage() {
           </div>
         </div>
         <div
-          className="resume-paper mx-auto bg-white p-8 text-gray-900 shadow-lg print:p-0 print:shadow-none md:p-10"
+          className="resume-paper mx-auto rounded-xl bg-white p-8 text-gray-900 shadow-lg print:rounded-none print:p-0 print:shadow-none md:p-10 dark:bg-gray-800/50 dark:shadow-cyan-500/5"
           style={{ maxWidth: "210mm", minHeight: "297mm" }}
         >
-          <header className="mb-4 border-b border-gray-300 pb-4">
-            <div className="flex items-start justify-between gap-6">
+          {/* Header */}
+          <header className="mb-6 border-b border-gray-200 pb-6 dark:border-white/10">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h1 className="mb-1 text-4xl font-bold tracking-tight">
+                <h1 className="mb-1 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent dark:from-white dark:to-gray-400">
                   陈子龙
                 </h1>
-                <p className="text-lg font-medium text-gray-700">
+                <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
                   前端开发工程师（具备 AI 全栈开发经验）
                 </p>
-                <p className="mt-1 text-sm text-gray-600">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   本科｜近 5 年前端经验｜广州
                 </p>
               </div>
-              <div className="space-y-1 text-right text-sm text-gray-700">
-                <p>
+              <div className="space-y-1.5 text-sm text-gray-700 dark:text-gray-300 sm:text-right">
+                <p className="flex items-center gap-2 sm:justify-end">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 dark:bg-cyan-950/30 dark:text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </span>
                   <span>158-7444-2813</span>
-                  <span className="mx-2">|</span>
-                  <a
-                    href="mailto:chenzhuo995@gmail.com"
-                    className="hover:underline"
-                  >
+                </p>
+                <p className="flex items-center gap-2 sm:justify-end">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 dark:bg-cyan-950/30 dark:text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  </span>
+                  <a href="mailto:chenzhuo995@gmail.com" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                     chenzhuo995@gmail.com
                   </a>
                 </p>
-                <p>
-                  <a
-                    href="https://github.com/c524069797"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
+                <p className="flex items-center gap-2 sm:justify-end">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 dark:bg-cyan-950/30 dark:text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                  </span>
+                  <a href="https://github.com/c524069797" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                     github.com/c524069797
                   </a>
                 </p>
-                <p>
-                  <a
-                    href="https://www.clczl.asia"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    作品集：https://www.clczl.asia
+                <p className="flex items-center gap-2 sm:justify-end">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 dark:bg-cyan-950/30 dark:text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  </span>
+                  <a href="https://www.clczl.asia" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                    clczl.asia
                   </a>
                 </p>
               </div>
             </div>
           </header>
 
+          {/* Education */}
           <section className="mb-4">
-            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
-              教育经历 / 语言能力
-            </h2>
-            <div className="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
-              <div>
-                <div className="font-medium text-gray-800">
+            <SectionTitle>教育经历 / 语言能力</SectionTitle>
+            <div className="grid grid-cols-1 gap-3 text-sm md:grid-cols-2">
+              <div className="rounded-lg bg-gray-50/50 p-3 dark:bg-gray-800/80">
+                <div className="font-semibold text-gray-800 dark:text-gray-200">
                   吉首大学｜软件工程（本科）
                 </div>
-                <div className="text-gray-600">2017.09 – 2021.06</div>
+                <div className="text-gray-500 dark:text-gray-400">2017.09 – 2021.06</div>
               </div>
-              <div className="space-y-1 text-gray-800 md:text-right">
-                <div>
-                  <strong>英语：</strong>CET-6，英文技术文档与社区内容阅读通畅
+              <div className="space-y-1.5 text-gray-800 dark:text-gray-200 md:text-right">
+                <div className="flex flex-wrap items-center justify-end gap-2">
+                  <SkillTag>CET-6</SkillTag>
+                  <SkillTag>软件设计师（中级）</SkillTag>
                 </div>
-                <div>
-                  <strong>日语：</strong>
-                  具备听读能力，可阅读常见资料并理解基础交流内容
-                </div>
-                <div>
-                  <strong>证书：</strong>软件设计师（中级）
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  英文技术文档阅读通畅，具备日语听读能力
                 </div>
               </div>
             </div>
           </section>
 
+          {/* Skills */}
           <section className="mb-4">
-            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
-              专业技能
-            </h2>
-            <div className="space-y-2 text-[13px] leading-relaxed text-gray-800">
-              <div>
-                <span className="font-semibold text-gray-900">
-                  前端开发技术：
-                </span>
-                Vue 2 / Vue 3 / React / Next.js /
-                TypeScript，能够独立完成企业级中后台页面、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉
-                Ant Design、ECharts、DataV。
+            <SectionTitle>专业技能</SectionTitle>
+            <div className="space-y-3">
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-3 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-cyan-50 text-cyan-600 dark:bg-cyan-950/30 dark:text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  </span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">前端开发</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <SkillTag>Vue 2/3</SkillTag>
+                  <SkillTag>React</SkillTag>
+                  <SkillTag>Next.js</SkillTag>
+                  <SkillTag>TypeScript</SkillTag>
+                  <SkillTag>Ant Design</SkillTag>
+                  <SkillTag>ECharts</SkillTag>
+                  <SkillTag>Tailwind CSS</SkillTag>
+                </div>
               </div>
-              <div>
-                <span className="font-semibold text-gray-900">
-                  工程化与质量：
-                </span>
-                Vite / Webpack / Monorepo / ESLint / Vitest / GitLab
-                CI/CD，具备性能优化、模块拆分、代码规范建设、虚拟列表、WebSocket
-                实时链路与线上问题排查经验。
+
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-3 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-indigo-50 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  </span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">工程化与质量</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <SkillTag>Vite</SkillTag>
+                  <SkillTag>Webpack</SkillTag>
+                  <SkillTag>Monorepo</SkillTag>
+                  <SkillTag>ESLint</SkillTag>
+                  <SkillTag>Vitest</SkillTag>
+                  <SkillTag>GitLab CI/CD</SkillTag>
+                  <SkillTag>WebSocket</SkillTag>
+                </div>
               </div>
-              <div>
-                <span className="font-semibold text-gray-900">
-                  AI 应用与全栈协作：
-                </span>
-                具备 Next.js API / Node.js、Python / Flask / FastAPI 实践，能够结合{" "}
-                <strong>LangGraph</strong>、Mastra、OpenClaw、Agent
-                工作流完成问答、诊断、结构化输出与工具联动，具备 AI
-                全栈开发能力；熟悉 <strong>RAG 工程化</strong>（Chunking
-                / Embedding / Metadata 过滤 / Hybrid Search / Reranking /
-                Citation 溯源）与{" "}
-                <strong>Agent Harness Engineering</strong>（Runtime / Tool / Eval
-                / Observability / Guardrail 等工程脚手架设计）；了解 Java / Spring
-                与常见后台中间件用法，对 PostgreSQL / MySQL / Redis / sqlite-vec
-                等数据库与向量存储有学习和实践经验。
+
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-3 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-violet-50 text-violet-600 dark:bg-violet-950/30 dark:text-violet-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 8.5v.01"/><path d="M12 16v.01"/></svg>
+                  </span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">AI 应用与全栈协作</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <SkillTag>LangGraph</SkillTag>
+                  <SkillTag>Mastra</SkillTag>
+                  <SkillTag>RAG</SkillTag>
+                  <SkillTag>Node.js</SkillTag>
+                  <SkillTag>Python / FastAPI</SkillTag>
+                  <SkillTag>Java</SkillTag>
+                  <SkillTag>PostgreSQL</SkillTag>
+                  <SkillTag>Redis</SkillTag>
+                  <SkillTag>向量存储</SkillTag>
+                </div>
               </div>
-              <div>
-                <span className="font-semibold text-gray-900">
-                  自动化测试：
-                </span>
-                参与公司自动化测试体系建设，熟练使用 Selenium、Robot
-                Framework 完成前端页面自动化与回归测试，编写可维护的测试用例与测试套件，提升核心模块交付稳定性与回归效率。
+
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-3 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+                  </span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">自动化测试</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <SkillTag>Selenium</SkillTag>
+                  <SkillTag>Robot Framework</SkillTag>
+                  <SkillTag>回归测试</SkillTag>
+                </div>
               </div>
             </div>
           </section>
 
+          {/* Experience */}
           <section className="mb-4">
-            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
-              工作经历
-            </h2>
-            <div>
-              <div className="mb-1 flex justify-between text-sm">
-                <h3 className="text-lg font-bold">
-                  广州鼎甲计算机科技有限公司
-                </h3>
-                <span className="font-medium text-gray-600">
-                  2021.07 – 至今
-                </span>
+            <SectionTitle>工作经历</SectionTitle>
+            <div className="relative">
+              {/* 时间线 */}
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500 via-indigo-500 to-transparent dark:from-cyan-400 dark:via-indigo-400" />
+
+              <div className="ml-5 space-y-1">
+                <div className="relative">
+                  <div className="absolute -left-5 top-1.5 h-2.5 w-2.5 rounded-full bg-cyan-500 ring-2 ring-white dark:bg-cyan-400 dark:ring-gray-800" />
+                  <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                    <h3 className="text-base font-bold text-gray-900 dark:text-white">广州鼎甲计算机科技有限公司</h3>
+                    <span className="rounded-full bg-cyan-50 px-2.5 py-0.5 text-xs font-medium text-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-300">2021.07 – 至今</span>
+                  </div>
+                  <div className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">前端开发工程师｜核心业务组</div>
+                  <p className="mb-3 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                    负责企业级备份软件（迪备）、许可证与内部综合管理系统等核心业务模块前端，长期服务复杂流程型场景。
+                  </p>
+                  <ul className="ml-1 space-y-2 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+                    <li className="flex gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                      <span><strong className="text-gray-900 dark:text-white">业务建模：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                      <span><strong className="text-gray-900 dark:text-white">性能优化：</strong>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                      <span><strong className="text-gray-900 dark:text-white">AI 业务落地：</strong>主导 <strong>scutech-licenser 客服 Agent</strong> 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入客服团队日常使用；持续推进 <strong>Agent Harness Engineering</strong> 与知识库扩展。</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div className="mb-1 text-sm italic text-gray-700">
-                前端开发工程师｜核心业务组
-              </div>
-              <p className="mb-2 text-xs text-gray-500">
-                负责产品：企业级备份软件、许可证与内部综合管理系统、数据可视化监控大屏等核心业务模块，长期服务复杂流程型场景，支撑
-                50+ 资源类型接入与多条产品线业务协同。
-              </p>
-              <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
-                <li>
-                  <strong>架构设计：</strong>为解决多资源类型备份 /
-                  恢复流程重复开发问题，设计通用向导框架，基于{" "}
-                  <strong>工厂模式 + Context + Proxy</strong> 支撑{" "}
-                  <strong>50+ 资源类型</strong>
-                  动态注入与跨步骤状态共享，减少同类功能重复实现；深度参与备份策略（全量 / 增量 / 差异）、恢复点一致性校验、存储池与介质生命周期管理等核心流程的前端建模与交互设计，对数据保护链路有系统性认知。
-                </li>
-                <li>
-                  <strong>业务建模：</strong>
-                  主导许可证生成、导入校验、续期升级、套餐 /
-                  功能映射等前端设计与实现，推动审批、出货与归档流程由表格 /
-                  钉钉记录转向系统化闭环，支撑多条产品线与{" "}
-                  <strong>
-                    50+ 种许可套餐
-                  </strong>动态组合，将重复配置时间降低{" "}
-                  <strong>80% 以上</strong>。
-                </li>
-                <li>
-                  <strong>可视化与实时链路：</strong>基于{" "}
-                  <strong>grid-layout-plus</strong> 实现拖拽式大屏布局系统，支持{" "}
-                  <strong>12 × 12</strong>{" "}
-                  网格、碰撞检测、自动放置与布局持久化；结合{" "}
-                  <strong>WebSocket</strong>{" "}
-                  推送、缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行。
-                </li>
-                <li>
-                  <strong>性能与问题排查：</strong>围绕任务监控与日志展示引入{" "}
-                  <strong>增量更新</strong>、<strong>虚拟滚动</strong>{" "}
-                  与页面拆分，优化首屏与长列表体验，
-                  <strong>TTI 下降约 30%</strong>
-                  ；同时长期承担线上问题定位、状态链路追踪与复杂交互故障排查工作。
-                </li>
-                <li>
-                  <strong>AI 业务落地：</strong>主导{" "}
-                  <strong>scutech-licenser 客服 Agent</strong>{" "}
-                  从需求调研到上线运营的全流程，构建基于业务数据的 RAG
-                  诊断与问答能力，已接入客服团队日常使用；持续推进{" "}
-                  <strong>Agent Harness Engineering</strong>（Runtime 持久化、Tool
-                  结构化、RAG 检索质量、Eval 测试集、Observability Trace 等 9
-                  类工程脚手架）与知识库扩展（历史工单 / Wiki / SOP
-                  系统化批量入库至向量库）；同时补充{" "}
-                  <strong>AI 投资助手</strong>等个人项目，具备从前端到 AI
-                  后端编排与工程化的完整落地经验。
-                </li>
-              </ul>
             </div>
           </section>
 
+          {/* Projects */}
           <section className="mb-4">
-            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
-              项目经历
-            </h2>
+            <SectionTitle>项目经历</SectionTitle>
             <div className="space-y-4">
-              <div>
-                <h4 className="mb-1 text-sm font-semibold text-gray-800">
-                  AI 投资助手（Next.js 16、React
-                  19、TypeScript、Mastra、PostgreSQL、OpenClaw）
-                </h4>
-                <p className="mb-1 text-xs text-gray-500">
-                  在线访问：
-                  <a
-                    href="https://aiold.clczl.asia/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    https://aiold.clczl.asia/
-                  </a>
-                </p>
-                <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
-                  <li>
-                    <strong>前端产品化：</strong>
-                    围绕“我的自选股”重构产品首页，拆分桌面端 dashboard
-                    与移动端卡片化布局，抽象 App Shell、BottomNav
-                    与断点适配方案，统一双端体验并降低后续迭代成本。
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">迪备备份恢复系统</h4>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
+                </div>
+                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
+                <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span><strong>存储模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</span>
                   </li>
-                  <li>
-                    <strong>多 Agent 架构：</strong>基于{" "}
-                    <strong>Next.js + Mastra</strong>{" "}
-                    搭建投资分析多 Agent 系统，拆分为行情查询 Agent、技术指标 Agent、新闻摘要
-                    Agent 与投资组合诊断 Agent，通过 Agent
-                    编排实现复杂问题的分步推理与结构化输出。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，降低业务组件 60% 以上的心智负担；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。</span>
                   </li>
-                  <li>
-                    <strong>工具链与数据闭环：</strong>对接实时行情、K
-                    线形态、支撑压力位与近 7 日财经新闻等多源数据；接入{" "}
-                    <strong>OpenClaw</strong>{" "}
-                    工作流自动抓取公众号/大 V 观点并生成摘要，为个股分析补充消息面参考，形成“数据采集
-                    → AI 分析 → 前端呈现”的完整闭环。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span><strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑多条产品线与 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</span>
                   </li>
-                  <li>
-                    <strong>工程与体验优化：</strong>使用 Server-Sent Events
-                    实现流式回答、支持推理过程可视化与答案高亮，提升交互体验；通过 PostgreSQL
-                    持久化用户对话与自选股数据，支撑长期记忆与个性化推荐。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。</span>
                   </li>
                 </ul>
               </div>
 
-              <div>
-                <h4 className="mb-1 text-sm font-semibold text-gray-800">
-                  scutech-licenser 智能客服 Agent（Vue 3、Python、Flask、LLM
-                  API、RAG、PostgreSQL）
-                </h4>
-                <p className="mb-1 text-xs text-gray-500">
-                  企业内部产品｜已接入客服团队日常使用
-                </p>
-                <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
-                  <li>
-                    <strong>业务背景：</strong> licenses
-                    许可证系统业务逻辑复杂，客服团队每日需处理大量重复咨询（审批进度查询、报错诊断、套餐功能解释），人工响应慢、知识传递成本高。
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">scutech-licenser 智能客服 Agent</h4>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
+                </div>
+                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">企业内部产品｜已接入客服团队日常使用</p>
+                <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>将产品文档、审批流程说明、历史工单处理方案构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强。</span>
                   </li>
-                  <li>
-                    <strong>RAG 知识库构建：</strong>将产品文档、审批流程说明、历史工单处理方案及常见报错排查指南构建为结构化知识库，结合
-                    RAG 技术实现精准检索与上下文增强，确保回答的准确性与可溯源性。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>打通 approval、request、audit_logs 等核心业务数据，使 Agent 能够基于用户实际订单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</span>
                   </li>
-                  <li>
-                    <strong>业务数据联动：</strong>打通 approval、request、audit_logs
-                    等核心业务数据，使 Agent 能够基于用户实际订单状态进行{" "}
-                    <strong>实时审批解释、报错智能诊断与进度追踪</strong>
-                    ，从“通用问答”升级为“业务感知型助手”。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>Agent <strong>已正式接入客服团队日常工作流</strong>，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约 <strong>30%</strong>。</span>
                   </li>
-                  <li>
-                    <strong>前端对话界面：</strong>设计并开发对话式交互页面，支持多轮对话、上下文记忆、引用来源高亮与{" "}
-                    <strong>一键转人工</strong>
-                    功能，降低客服使用门槛，确保复杂问题可平滑交接。
-                  </li>
-                  <li>
-                    <strong>落地效果：</strong>Agent{" "}
-                    <strong>已正式接入客服团队日常工作流</strong>
-                    ，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约{" "}
-                    <strong>30%</strong>
-                    ，显著降低人工客服压力并提升客户满意度。
-                  </li>
-                  <li>
-                    <strong>RAG 工程化升级：</strong>设计多粒度 Chunk 策略（Issue
-                    摘要 / Issue 讨论 / Wiki 整页 / Wiki 按标题拆分），富化
-                    metadata（项目 / tracker / 状态 / 责任人 /
-                    更新时间），支持元数据过滤、来源溯源与父子检索；将历史工单与内部
-                    Wiki 系统化批量入库至{" "}
-                    <strong>sqlite-vec（float[1536]）</strong>
-                    ，知识库规模从 <strong>8 条 seed</strong> 扩展至{" "}
-                    <strong>30+ 结构化 chunks</strong>
-                    ，为 Agent 真实业务场景召回提供高质量知识底座。
-                  </li>
-                  <li>
-                    <strong>Agent Harness Engineering：</strong>围绕 Runtime /
-                    Tool / RAG / Prompt / Guardrail / Observability / Eval /
-                    Cost / Deployment 共{" "}
-                    <strong>9 类工程脚手架</strong>盘点现状与升级路径，推进{" "}
-                    <strong>LangGraph Checkpointer</strong>、
-                    <strong>StructuredTool + ToolNode</strong>、距离阈值 /
-                    Hybrid Search / Reranker、RAGAS 评估测试集与 LangSmith Trace
-                    的落地，把{"「能跑」"}升级为
-                    {"「可观测、可评估、可回滚」"}。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>围绕 Runtime / Tool / RAG / Prompt / Guardrail / Observability / Eval / Cost / Deployment 共 <strong>9 类工程脚手架</strong>推进落地。</span>
                   </li>
                 </ul>
               </div>
 
-              <div>
-                <h4 className="mb-1 text-sm font-semibold text-gray-800">
-                  个人网站 / 博客系统（Next.js 16、React 19、TypeScript、Ant
-                  Design、PostgreSQL、Prisma）
-                </h4>
-                <p className="mb-1 text-xs text-gray-500">
-                  在线访问：
-                  <a
-                    href="https://www.clczl.asia"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    https://www.clczl.asia
-                  </a>
-                </p>
-                <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
-                  <li>
-                    <strong>完整产品搭建：</strong>
-                    独立实现博客、简历、评论、文章管理等能力，支持 Markdown
-                    内容渲染、暗黑模式、RSS、PDF
-                    导出与响应式页面，作为个人作品集长期对外展示。
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">迪备数据可视化监控大屏</h4>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
+                </div>
+                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
+                <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>基于 <strong>grid-layout-plus</strong> 实现可编辑驾驶舱系统，支持模块自由增删、拖拽布局、行列配置、预览保存与主题背景切换，是产品化大屏平台而非一次性展示页。</span>
                   </li>
-                  <li>
-                    <strong>内容型前端能力：</strong>
-                    围绕内容展示与阅读体验完成信息架构、页面设计与组件抽象，并结合
-                    SSR / SEO 优化提升站点可访问性与展示效果。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>解决大屏整体缩放后拖拽坐标不准问题，通过 <strong>transform-scale</strong> 将外层缩放系统与布局引擎坐标系对齐，保证拖拽和 resize 在任意缩放比下精准落点。</span>
                   </li>
-                  <li>
-                    <strong>AI 增强：</strong>接入 AI
-                    文章摘要、关键词提取与站内问答能力，将内容产品与 AI
-                    功能结合，形成更完整的个人技术展示载体。
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>实现新增模块自动放置逻辑，通过 <strong>LayoutTracker</strong> 维护网格占用状态并计算最大空白可用区域，避免新增模块与已有模块冲突。</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>设计面向 <strong>7×24 运行</strong> 的心跳检测与优雅降级机制：先探测服务状态再刷新数据，异常时按 <strong>递增退避策略</strong>（0/1/2/5/10/30/60s）重试，避免请求风暴并支持降级展示。</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
+                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">AI 投资助手</h4>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
+                </div>
+                <a href="https://aiold.clczl.asia/" target="_blank" rel="noopener noreferrer" className="mb-2 inline-flex items-center gap-1 text-xs text-cyan-600 hover:underline dark:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  aiold.clczl.asia
+                </a>
+                <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局，抽象 App Shell、BottomNav 与断点适配方案。</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>基于 <strong>Next.js + Mastra</strong> 搭建投资分析多 Agent 系统，拆分为行情查询、技术指标、新闻摘要与投资组合诊断 Agent。</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 <strong>OpenClaw</strong> 工作流自动抓取公众号/大 V 观点并生成摘要。</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                    <span>使用 Server-Sent Events 实现流式回答、支持推理过程可视化与答案高亮；通过 PostgreSQL 持久化用户对话与自选股数据。</span>
                   </li>
                 </ul>
               </div>
             </div>
           </section>
 
+          {/* Other Works */}
           <section className="mb-4">
-            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
-              其他个人作品
-            </h2>
-            <div className="space-y-1 text-[13px] text-gray-800">
-              <p>
-                更多项目可见作品集：
-                <a
-                  href="https://www.clczl.asia"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
-                  https://www.clczl.asia
-                </a>
+            <SectionTitle>其他个人作品</SectionTitle>
+            <div className="space-y-2 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+              <p className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500 dark:bg-indigo-400" />
+                <span>
+                  <strong>SportOracle 体育预测平台</strong>：AI 驱动的体育预测产品。{" "}
+                  <a href="https://nba.clczl.asia/" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline dark:text-cyan-400">nba.clczl.asia</a>
+                </span>
               </p>
-              <p>
-                1. <strong>SportOracle 体育预测平台</strong>：AI
-                驱动的体育预测产品，支持比赛分析与预测信息展示。 在线地址：
-                <a
-                  href="https://nba.clczl.asia/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
-                  https://nba.clczl.asia/
-                </a>
+              <p className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500 dark:bg-indigo-400" />
+                <span>
+                  <strong>织趣社区</strong>：面向钩织爱好者的社区产品。{" "}
+                  <a href="https://zhiqu.clczl.asia/" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline dark:text-cyan-400">zhiqu.clczl.asia</a>
+                </span>
               </p>
-              <p>
-                2. <strong>织趣社区</strong>
-                ：面向钩织爱好者的社区产品，包含产品库、教程资源与讨论区。
-                在线地址：
-                <a
-                  href="https://zhiqu.clczl.asia/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
-                  https://zhiqu.clczl.asia/
-                </a>
-              </p>
-              <p>
-                3. <strong>Sports Hub 浏览器插件</strong>：聚合
-                NBA、足球、电竞赛事信息的 Chrome Extension。 GitHub：
-                <a
-                  href="https://github.com/c524069797/sports-hub-extension"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
-                  github.com/c524069797/sports-hub-extension
-                </a>
+              <p className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500 dark:bg-indigo-400" />
+                <span>
+                  <strong>Sports Hub 浏览器插件</strong>：聚合 NBA、足球、电竞赛事信息的 Chrome Extension。{" "}
+                  <a href="https://github.com/c524069797/sports-hub-extension" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline dark:text-cyan-400">GitHub</a>
+                </span>
               </p>
             </div>
           </section>
 
+          {/* Personal Advantages */}
           <section>
-            <h2 className="mb-2 border-b border-gray-300 pb-1 text-xl font-bold uppercase tracking-wide">
-              个人优势
-            </h2>
-            <ul className="ml-5 list-disc space-y-1 text-[13px] text-gray-800">
-              <li>
-                <strong>前端主导能力明确：</strong>
-                长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。
+            <SectionTitle>个人优势</SectionTitle>
+            <ul className="ml-1 space-y-2 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                <span><strong className="text-gray-900 dark:text-white">前端主导能力明确：</strong>长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。</span>
               </li>
-              <li>
-                <strong>具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python
-                / PostgreSQL 结合 Agent
-                与工作流完成产品原型、功能联调与上线落地。
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                <span><strong className="text-gray-900 dark:text-white">具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型、功能联调与上线落地。</span>
               </li>
-              <li>
-                <strong>有真实线上作品：</strong>已上线个人作品集、AI
-                投资助手、体育预测平台、垂直社区等多个可访问项目，具备独立开发与部署意识。
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                <span><strong className="text-gray-900 dark:text-white">有真实线上作品：</strong>已上线个人作品集、AI 投资助手、体育预测平台、垂直社区等多个可访问项目。</span>
               </li>
-              <li>
-                <strong>学习与专业基础扎实：</strong>
-                持有软件设计师（中级）认证，英语六级，具备日语听读能力，可直接阅读英文技术文档与部分日文资料。
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                <span><strong className="text-gray-900 dark:text-white">AI 信息敏感度高：</strong>善于获取 AI 前沿信息，是多个 AI 学习社区的长期用户，持续跟踪大模型、Agent、RAG 等领域的最新动态与实践。</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                <span><strong className="text-gray-900 dark:text-white">业务学习能力强：</strong>乐于学习业务和不同行业的精髓，能快速理解领域知识并转化为技术实现。</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                <span><strong className="text-gray-900 dark:text-white">学习与专业基础扎实：</strong>持有软件设计师（中级）认证，英语六级，具备日语听读能力。</span>
               </li>
             </ul>
           </section>

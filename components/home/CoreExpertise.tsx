@@ -3,12 +3,12 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
+  Sparkles,
+  Code2,
+  Layers,
   Server,
-  Database,
-  ShieldCheck,
-  ArchiveRestore,
-  BadgeCheck,
-  ScanEye,
+  BarChart3,
+  Bot,
 } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -35,7 +35,7 @@ export default function CoreExpertise() {
 
   const expertiseItems = [
     {
-      icon: Server,
+      icon: Sparkles,
       title: t('home.coreExpertise.item0Title'),
       subtitle: t('home.coreExpertise.item0Subtitle'),
       description: t('home.coreExpertise.item0Desc'),
@@ -46,7 +46,7 @@ export default function CoreExpertise() {
       shadowColor: 'shadow-cyan-500/15',
     },
     {
-      icon: Database,
+      icon: Code2,
       title: t('home.coreExpertise.item1Title'),
       subtitle: t('home.coreExpertise.item1Subtitle'),
       description: t('home.coreExpertise.item1Desc'),
@@ -57,7 +57,7 @@ export default function CoreExpertise() {
       shadowColor: 'shadow-blue-500/15',
     },
     {
-      icon: ShieldCheck,
+      icon: Layers,
       title: t('home.coreExpertise.item2Title'),
       subtitle: t('home.coreExpertise.item2Subtitle'),
       description: t('home.coreExpertise.item2Desc'),
@@ -68,7 +68,7 @@ export default function CoreExpertise() {
       shadowColor: 'shadow-indigo-500/15',
     },
     {
-      icon: ArchiveRestore,
+      icon: Server,
       title: t('home.coreExpertise.item3Title'),
       subtitle: t('home.coreExpertise.item3Subtitle'),
       description: t('home.coreExpertise.item3Desc'),
@@ -79,7 +79,7 @@ export default function CoreExpertise() {
       shadowColor: 'shadow-violet-500/15',
     },
     {
-      icon: BadgeCheck,
+      icon: BarChart3,
       title: t('home.coreExpertise.item4Title'),
       subtitle: t('home.coreExpertise.item4Subtitle'),
       description: t('home.coreExpertise.item4Desc'),
@@ -90,7 +90,7 @@ export default function CoreExpertise() {
       shadowColor: 'shadow-purple-500/15',
     },
     {
-      icon: ScanEye,
+      icon: Bot,
       title: t('home.coreExpertise.item5Title'),
       subtitle: t('home.coreExpertise.item5Subtitle'),
       description: t('home.coreExpertise.item5Desc'),

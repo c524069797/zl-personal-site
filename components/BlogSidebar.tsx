@@ -48,49 +48,73 @@ interface Category {
   color: string
 }
 
+// 模块级缓存：sidebar 静态数据全局只请求一次
+let cachedPopularPosts: Post[] | null = null
+let cachedTags: Tag[] | null = null
+let cachedCategories: Category[] | null = null
+let sidebarDataLoaded = false
+
 export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
   const { t } = useTranslation()
-  const [popularPosts, setPopularPosts] = useState<Post[]>([])
-  const [tags, setTags] = useState<Tag[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
-  const [loading, setLoading] = useState(true)
+  const [popularPosts, setPopularPosts] = useState<Post[]>(() => {
+    if (excludeSlug && cachedPopularPosts) {
+      return cachedPopularPosts.filter((p) => p.slug !== excludeSlug).slice(0, 3)
+    }
+    return cachedPopularPosts || []
+  })
+  const [tags, setTags] = useState<Tag[]>(cachedTags || [])
+  const [categories, setCategories] = useState<Category[]>(cachedCategories || [])
+  const [loading, setLoading] = useState(!sidebarDataLoaded)
   const [showAllTags, setShowAllTags] = useState(false)
 
   useEffect(() => {
+    if (sidebarDataLoaded) {
+      // 缓存已存在，只需根据 excludeSlug 过滤热门文章
+      if (cachedPopularPosts && excludeSlug) {
+        setPopularPosts(
+          cachedPopularPosts.filter((p) => p.slug !== excludeSlug).slice(0, 3)
+        )
+      }
+      return
+    }
+
     const fetchSidebarData = async () => {
-      setLoading(true)
       try {
         const [hotRes, tagsRes, categoriesRes] = await Promise.all([
-          fetch('/api/posts/hot?limit=3'),
+          fetch('/api/posts/hot?limit=5'),
           fetch('/api/tags'),
           fetch('/api/categories'),
         ])
 
         if (hotRes.ok) {
           const hotData = await hotRes.json()
-          // 排除当前文章
-          const filteredPosts = (hotData.posts || []).filter(
-            (post: Post) => post.slug !== excludeSlug
-          )
-          setPopularPosts(filteredPosts.slice(0, 3))
+          const allPosts = hotData.posts || []
+          cachedPopularPosts = allPosts
+          const filtered = excludeSlug
+            ? allPosts.filter((post: Post) => post.slug !== excludeSlug)
+            : allPosts
+          setPopularPosts(filtered.slice(0, 3))
         }
 
         if (tagsRes.ok) {
           const tagsData = await tagsRes.json()
-          // 显示所有有文章数的标签，并按数量排序
           const sortedTags = (tagsData.tags || [])
             .filter((tag: Tag) => tag.count > 0)
             .sort((a: Tag, b: Tag) => b.count - a.count)
+          cachedTags = sortedTags
           setTags(sortedTags)
         }
 
         if (categoriesRes.ok) {
           const categoriesData = await categoriesRes.json()
-          setCategories(categoriesData.categories || [])
+          const cats = categoriesData.categories || []
+          cachedCategories = cats
+          setCategories(cats)
         }
       } catch {
         // 错误已静默处理
       } finally {
+        sidebarDataLoaded = true
         setLoading(false)
       }
     }

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   try {
     const protocol = request.headers.get("x-forwarded-proto") || "http";
     const host = request.headers.get("host") || "localhost:3000";
-    const resumeUrl = `${protocol}://${host}/resume`;
+    const resumeUrl = `${protocol}://${host}/resume/print`;
 
     const isProd = process.env.NODE_ENV === "production";
     const exePath = isProd
@@ -42,8 +42,6 @@ export async function GET(request: NextRequest) {
       waitUntil: "networkidle0",
       timeout: 30000,
     });
-
-    await page.waitForSelector(".resume-paper", { timeout: 10000 });
 
     await page.addStyleTag({
       url: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap",

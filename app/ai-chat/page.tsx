@@ -70,7 +70,7 @@ export default function AIChatPage() {
 
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [settings, setSettings] = useState<AISetting[]>([])
-  const [selectedSetting, setSelectedSetting] = useState<string>('blog-qa')
+  const [selectedSetting, setSelectedSetting] = useState<string>('')
   const [models, setModels] = useState<string[]>([])
   const [selectedModel, setSelectedModel] = useState<string>('')
   const [form] = Form.useForm()
@@ -117,16 +117,18 @@ export default function AIChatPage() {
   }, [conversations])
 
   const fetchModels = useCallback(async () => {
-    if (!selectedSetting) return
     try {
-      const res = await fetch(`/api/ai-settings/models?settingId=${selectedSetting}`)
+      const query = selectedSetting ? `?settingId=${selectedSetting}` : ''
+      const res = await fetch(`/api/ai-settings/models${query}`)
       if (res.ok) {
         const data = await res.json()
         setModels(data.models || [])
-        if (data.models?.length > 0) setSelectedModel(data.models[0])
+        if (data.models?.length > 0 && !selectedModel) {
+          setSelectedModel(data.models[0])
+        }
       }
     } catch { /* ignore */ }
-  }, [selectedSetting])
+  }, [selectedSetting, selectedModel])
 
   useEffect(() => {
     fetchModels()

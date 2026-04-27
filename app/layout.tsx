@@ -6,6 +6,8 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider, App } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { LoadingBar } from "@/components/LoadingBar";
+import { PageTransition } from "@/components/PageTransition";
+import { GlobalLoadingMask } from "@/components/GlobalLoadingMask";
 import { WebSiteStructuredData } from "@/components/StructuredData";
 
 const geistSans = Geist({
@@ -128,7 +130,10 @@ export default function RootLayout({
             <App>
               <ThemeProvider>
                 <LoadingBar />
-                {children}
+                <GlobalLoadingMask />
+                <PageTransition>
+                  {children}
+                </PageTransition>
               </ThemeProvider>
             </App>
           </ConfigProvider>

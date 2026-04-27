@@ -9,9 +9,9 @@ import {
   Briefcase,
   GraduationCap,
   Target,
-  Shield,
-  Lock,
-  HardDrive,
+  Sparkles,
+  Lightbulb,
+  Zap,
   BarChart3,
   ArchiveRestore,
   BadgeCheck,
@@ -132,7 +132,7 @@ function TechCard({
   )
 }
 
-function DataProtectionCard({
+function AILearningCard({
   title,
   desc,
   skillsTitle,
@@ -149,7 +149,7 @@ function DataProtectionCard({
 
   const aiDetailSkills = skillLabels.map((label, i) => ({
     label,
-    level: [90, 88, 85, 85, 80, 78][i] || 80,
+    level: [92, 90, 88, 86, 84, 82][i] || 80,
   }))
 
   return (
@@ -184,7 +184,7 @@ function DataProtectionCard({
 
       <div className="relative z-10 p-6 sm:p-8">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white mb-4 shadow-lg shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-          <Lock size={20} />
+          <Sparkles size={20} />
         </div>
         <h3 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-white mb-3">
           {title}
@@ -204,7 +204,7 @@ function DataProtectionCard({
         >
           <div className="pt-4 border-t border-neutral-100 dark:border-white/10 space-y-3">
             <div className="flex items-center gap-2 mb-3">
-              <HardDrive size={14} className="text-cyan-500" />
+              <Zap size={14} className="text-cyan-500" />
               <span className="text-xs font-semibold text-cyan-500 tracking-wide uppercase">{skillsTitle}</span>
             </div>
             {aiDetailSkills.map((skill, i) => (
@@ -237,7 +237,7 @@ function DataProtectionCard({
           transition={{ duration: 0.2 }}
           className="flex items-center gap-1.5 mt-2"
         >
-          <Shield size={12} className="text-cyan-400" />
+          <Lightbulb size={12} className="text-cyan-400" />
           <span className="text-[11px] text-cyan-400">{hoverHint}</span>
         </motion.div>
       </div>
@@ -251,7 +251,7 @@ export default function VisionSection() {
   const skills = [
     {
       category: t('home.skills.cat0Name'),
-      icon: <Shield size={18} />,
+      icon: <Zap size={18} />,
       items: [t('home.skills.cat0Item0'), t('home.skills.cat0Item1'), t('home.skills.cat0Item2'), t('home.skills.cat0Item3')],
       color: 'from-cyan-500 to-blue-400',
       textColor: 'text-cyan-600',
@@ -273,7 +273,7 @@ export default function VisionSection() {
     },
     {
       category: t('home.skills.cat2Name'),
-      icon: <HardDrive size={18} />,
+      icon: <Server size={18} />,
       items: [t('home.skills.cat2Item0'), t('home.skills.cat2Item1'), t('home.skills.cat2Item2'), t('home.skills.cat2Item3')],
       color: 'from-indigo-500 to-violet-400',
       textColor: 'text-indigo-600',
@@ -306,7 +306,7 @@ export default function VisionSection() {
     },
     {
       category: t('home.skills.cat5Name'),
-      icon: <Server size={18} />,
+      icon: <Layers size={18} />,
       items: [t('home.skills.cat5Item0'), t('home.skills.cat5Item1'), t('home.skills.cat5Item2'), t('home.skills.cat5Item3')],
       color: 'from-sky-500 to-cyan-400',
       textColor: 'text-sky-600',
@@ -335,12 +335,12 @@ export default function VisionSection() {
   ]
 
   const visionSkillLabels = [
-    t('home.vision.dataSecuritySkill0'),
-    t('home.vision.dataSecuritySkill1'),
-    t('home.vision.dataSecuritySkill2'),
-    t('home.vision.dataSecuritySkill3'),
-    t('home.vision.dataSecuritySkill4'),
-    t('home.vision.dataSecuritySkill5'),
+    t('home.vision.aiLearningSkill0'),
+    t('home.vision.aiLearningSkill1'),
+    t('home.vision.aiLearningSkill2'),
+    t('home.vision.aiLearningSkill3'),
+    t('home.vision.aiLearningSkill4'),
+    t('home.vision.aiLearningSkill5'),
   ]
 
   return (
@@ -353,12 +353,12 @@ export default function VisionSection() {
           subtitle={t('home.vision.visionSubtitle')}
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          <DataProtectionCard
-            title={t('home.vision.dataProtectionTitle')}
-            desc={t('home.vision.dataProtectionDesc')}
-            skillsTitle={t('home.vision.dataSecuritySkillsTitle')}
+          <AILearningCard
+            title={t('home.vision.aiLearningTitle')}
+            desc={t('home.vision.aiLearningDesc')}
+            skillsTitle={t('home.vision.aiLearningSkillsTitle')}
             skillLabels={visionSkillLabels}
-            hoverHint={t('home.vision.dataProtectionHoverHint')}
+            hoverHint={t('home.vision.aiLearningHoverHint')}
           />
           <TechCard glowFrom="from-blue-500/8" glowTo="from-indigo-500/8">
             <div className="p-6 sm:p-8">
@@ -366,10 +366,10 @@ export default function VisionSection() {
                 <BarChart3 size={20} />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-white mb-3">
-                {t('home.vision.dataDrivenTitle')}
+                {t('home.vision.techDrivenTitle')}
               </h3>
               <p className="text-sm sm:text-base text-neutral-500 dark:text-white/50 leading-relaxed">
-                {t('home.vision.dataDrivenDesc')}
+                {t('home.vision.techDrivenDesc')}
               </p>
             </div>
           </TechCard>

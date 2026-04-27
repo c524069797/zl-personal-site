@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useState, useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Card, Tag, Space, Typography, Input, Row, Col, Pagination, Empty } from 'antd'
 import {
@@ -45,14 +45,20 @@ interface Category {
   color: string
 }
 
+// 模块级缓存：sidebar 数据（tags、categories、hotPosts）只请求一次
+// 即使组件重新挂载，也不会重复请求
+let cachedTags: Tag[] | null = null
+let cachedCategories: Category[] | null = null
+let cachedHotPosts: Post[] | null = null
+let sidebarCacheLoaded = false
+
 export default function BlogListNew() {
   const { t } = useTranslation()
-  const router = useRouter()
   const searchParams = useSearchParams()
   const [posts, setPosts] = useState<Post[]>([])
-  const [tags, setTags] = useState<Tag[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
-  const [hotPosts, setHotPosts] = useState<Post[]>([])
+  const [tags, setTags] = useState<Tag[]>(cachedTags || [])
+  const [categories, setCategories] = useState<Category[]>(cachedCategories || [])
+  const [hotPosts, setHotPosts] = useState<Post[]>(cachedHotPosts || [])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [total, setTotal] = useState(0)
@@ -63,7 +69,58 @@ export default function BlogListNew() {
 
   const pageSize = 10
 
+  // Static sidebar data: only fetch once globally
+  const [sidebarLoaded, setSidebarLoaded] = useState(sidebarCacheLoaded)
+
   useEffect(() => {
+    if (sidebarCacheLoaded) return
+
+    const fetchSidebarData = async () => {
+      try {
+        const [tagsRes, categoriesRes, hotRes] = await Promise.all([
+          fetch('/api/tags'),
+          fetch('/api/categories'),
+          fetch('/api/posts/hot?limit=4'),
+        ])
+
+        if (tagsRes.ok) {
+          const tagsData = await tagsRes.json()
+          const sortedTags = (tagsData.tags || [])
+            .filter((tag: Tag) => tag.count > 0)
+            .sort((a: Tag, b: Tag) => b.count - a.count)
+          cachedTags = sortedTags
+          setTags(sortedTags)
+        }
+
+        if (categoriesRes.ok) {
+          const categoriesData = await categoriesRes.json()
+          const cats = categoriesData.categories || []
+          cachedCategories = cats
+          setCategories(cats)
+        }
+
+        if (hotRes.ok) {
+          const hotData = await hotRes.json()
+          const hots = hotData.posts || []
+          cachedHotPosts = hots
+          setHotPosts(hots)
+        }
+      } catch {
+        // errors silently handled
+      } finally {
+        sidebarCacheLoaded = true
+        setSidebarLoaded(true)
+      }
+    }
+    fetchSidebarData()
+  }, [])
+
+  // Initial load from URL searchParams only once
+  const isInitialLoad = useRef(true)
+  useEffect(() => {
+    if (!isInitialLoad.current) return
+    isInitialLoad.current = false
+
     const page = parseInt(searchParams.get('page') || '1')
     const tag = searchParams.get('tag') || null
     const search = searchParams.get('search') || ''
@@ -73,10 +130,10 @@ export default function BlogListNew() {
     setSelectedTag(tag)
     setSelectedCategory(category)
     setSearchKeyword(search)
-    fetchData(page, tag, search, category)
+    fetchPosts(page, tag, search, category)
   }, [searchParams])
 
-  const fetchData = async (page: number, tag: string | null, search: string, category: string | null) => {
+  const fetchPosts = async (page: number, tag: string | null, search: string, category: string | null) => {
     setLoading(true)
     try {
       const params = new URLSearchParams()
@@ -86,35 +143,11 @@ export default function BlogListNew() {
       if (search) params.append('search', search)
       if (category) params.append('category', category)
 
-      const [postsRes, tagsRes, categoriesRes, hotRes] = await Promise.all([
-        fetch(`/api/posts?${params.toString()}`),
-        fetch('/api/tags'),
-        fetch('/api/categories'),
-        fetch('/api/posts/hot?limit=4'),
-      ])
-
-      if (postsRes.ok) {
-        const postsData = await postsRes.json()
-        setPosts(postsData.posts || [])
-        setTotal(postsData.total || 0)
-      }
-
-      if (tagsRes.ok) {
-        const tagsData = await tagsRes.json()
-        const sortedTags = (tagsData.tags || [])
-          .filter((tag: Tag) => tag.count > 0)
-          .sort((a: Tag, b: Tag) => b.count - a.count)
-        setTags(sortedTags)
-      }
-
-      if (categoriesRes.ok) {
-        const categoriesData = await categoriesRes.json()
-        setCategories(categoriesData.categories || [])
-      }
-
-      if (hotRes.ok) {
-        const hotData = await hotRes.json()
-        setHotPosts(hotData.posts || [])
+      const res = await fetch(`/api/posts?${params.toString()}`)
+      if (res.ok) {
+        const data = await res.json()
+        setPosts(data.posts || [])
+        setTotal(data.total || 0)
       }
     } catch {
       // errors silently handled
@@ -123,47 +156,59 @@ export default function BlogListNew() {
     }
   }
 
-  const handleSearch = (value: string) => {
+  // Update URL silently without triggering navigation
+  const updateUrl = (page: number, tag: string | null, search: string, category: string | null) => {
     const params = new URLSearchParams()
-    if (value) params.append('search', value)
-    if (selectedTag) params.append('tag', selectedTag)
-    const category = searchParams.get('category')
+    if (page > 1) params.append('page', page.toString())
+    if (tag) params.append('tag', tag)
+    if (search) params.append('search', search)
     if (category) params.append('category', category)
-    params.append('page', '1')
-    router.push(`/blog?${params.toString()}`)
+
+    const query = params.toString()
+    const url = query ? `/blog?${query}` : '/blog'
+    window.history.replaceState({}, '', url)
+  }
+
+  const handleSearch = (value: string) => {
+    const newPage = 1
+    setCurrentPage(newPage)
+    setSearchKeyword(value)
+    updateUrl(newPage, selectedTag, value, selectedCategory)
+    fetchPosts(newPage, selectedTag, value, selectedCategory)
   }
 
   const handleTagClick = (tagSlug: string) => {
-    const params = new URLSearchParams()
-    params.append('tag', tagSlug)
-    if (searchKeyword) params.append('search', searchKeyword)
-    const category = searchParams.get('category')
-    if (category) params.append('category', category)
-    params.append('page', '1')
-    router.push(`/blog?${params.toString()}`)
+    const newPage = 1
+    setCurrentPage(newPage)
+    setSelectedTag(tagSlug)
+    updateUrl(newPage, tagSlug, searchKeyword, null)
+    fetchPosts(newPage, tagSlug, searchKeyword, null)
+  }
+
+  const handleCategoryClick = (categorySlug: string) => {
+    const newPage = 1
+    setCurrentPage(newPage)
+    setSelectedCategory(categorySlug)
+    setSelectedTag(null)
+    updateUrl(newPage, null, searchKeyword, categorySlug)
+    fetchPosts(newPage, null, searchKeyword, categorySlug)
   }
 
   const handlePageChange = (page: number) => {
-    const params = new URLSearchParams()
-    if (selectedTag) params.append('tag', selectedTag)
-    if (searchKeyword) params.append('search', searchKeyword)
-    const category = searchParams.get('category')
-    if (category) params.append('category', category)
-    params.append('page', page.toString())
-    router.push(`/blog?${params.toString()}`)
+    setCurrentPage(page)
+    updateUrl(page, selectedTag, searchKeyword, selectedCategory)
+    fetchPosts(page, selectedTag, searchKeyword, selectedCategory)
   }
 
   const getHeaderTitle = () => {
-    const category = searchParams.get('category')
-    if (category === 'tech') return '技术博客'
-    if (category === 'life') return '生活记录'
+    if (selectedCategory === 'tech') return '技术博客'
+    if (selectedCategory === 'life') return '生活记录'
     return t('blog.title')
   }
 
   const getHeaderDescription = () => {
-    const category = searchParams.get('category')
-    if (category === 'tech') return '探索最新技术文章、开发技巧和行业趋势，提升您的开发技能'
-    if (category === 'life') return '提高自己的社会化技能或记录自己的生活感想'
+    if (selectedCategory === 'tech') return '探索最新技术文章、开发技巧和行业趋势，提升您的开发技能'
+    if (selectedCategory === 'life') return '提高自己的社会化技能或记录自己的生活感想'
     return t('blog.description')
   }
 
@@ -398,7 +443,7 @@ export default function BlogListNew() {
                   </Space>
                 }
                 style={{ borderRadius: '16px' }}
-                loading={loading}
+                loading={!sidebarLoaded}
               >
                 <div style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {categories.length > 0 ? (
@@ -413,14 +458,7 @@ export default function BlogListNew() {
                           cursor: 'pointer',
                           transition: 'all 0.2s',
                         }}
-                        onClick={() => {
-                          const params = new URLSearchParams()
-                          params.append('category', category.slug)
-                          if (selectedTag) params.append('tag', selectedTag)
-                          if (searchKeyword) params.append('search', searchKeyword)
-                          params.append('page', '1')
-                          router.push(`/blog?${params.toString()}`)
-                        }}
+                        onClick={() => handleCategoryClick(category.slug)}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.05)'
                         }}
@@ -457,7 +495,7 @@ export default function BlogListNew() {
                   </Space>
                 }
                 style={{ borderRadius: '16px' }}
-                loading={loading}
+                loading={!sidebarLoaded}
               >
                 {tags.length > 0 ? (
                   <Space wrap size="small">

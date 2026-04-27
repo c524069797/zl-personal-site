@@ -195,6 +195,23 @@ scripts/                → 脚本工具（发布文章、向量化等）
 
 ---
 
+## 数据库配置
+
+### 本地数据库
+```
+DATABASE_URL="postgresql://chenzilong@localhost:5432/personal_site?schema=public"
+```
+
+### 线上数据库（Vercel / Prisma Postgres）
+```
+DATABASE_URL="postgres://811dcd5dabee7ad65d0ace45ab056cf313151fd6c8259626f0b1b359e7cfd665:sk_Agp49op08-QvPsj5vMZxS@db.prisma.io:5432/postgres?sslmode=require"
+```
+
+发布到线上数据库的命令：
+```bash
+DATABASE_URL="postgres://811dcd5dabee7ad65d0ace45ab056cf313151fd6c8259626f0b1b359e7cfd665:sk_Agp49op08-QvPsj5vMZxS@db.prisma.io:5432/postgres?sslmode=require" npx tsx scripts/auto-publish-post.ts content/posts/xxx.md --auto-publish
+```
+
 ## 数据库 Schema（Prisma）
 
 文件：`prisma/schema.prisma`

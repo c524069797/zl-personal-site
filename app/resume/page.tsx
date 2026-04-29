@@ -410,7 +410,6 @@ export default function ResumePage() {
 
               <div className="ml-5 space-y-1">
                 <div className="relative">
-                  <div className={`absolute -left-5 top-1.5 h-2.5 w-2.5 rounded-full ${t.dot} ring-2 ring-white dark:ring-gray-800`} />
                   <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-base font-bold text-gray-900 dark:text-white">广州鼎甲计算机科技有限公司</h3>
                     <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${t.tagBg} ${t.tagText}`}>2021.07 – 至今</span>

@@ -23,11 +23,9 @@ function ResumeContent({ template }: { template: string }) {
   const isCard = template === "card";
   const isNavy = template === "navy";
 
-  // 模板级样式配置
-  const pageBg = isNavy ? "bg-white" : "bg-white";
+  const pageBg = "bg-white";
   const textMain = isNavy ? "text-gray-800" : "text-gray-900";
 
-  // Header 样式
   const headerWrapper = isNavy
     ? "bg-[#1e3a5f] text-white p-6 -mx-8 -mt-8 mb-5"
     : isCard
@@ -35,21 +33,14 @@ function ResumeContent({ template }: { template: string }) {
     : "mb-4 border-l-[6px] border-cyan-500 pl-4 py-2";
   const headerName = isNavy
     ? "text-3xl font-bold tracking-tight text-white"
-    : isCard
-    ? "text-2xl font-bold tracking-tight text-gray-900"
     : "text-2xl font-bold tracking-tight text-gray-900";
   const headerSub = isNavy
     ? "text-sm font-medium text-cyan-100 mt-1"
-    : isCard
-    ? "text-sm font-medium text-gray-600 mt-1"
     : "text-sm font-medium text-gray-600 mt-1";
   const headerMeta = isNavy
     ? "mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-cyan-100/80"
-    : isCard
-    ? "mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-gray-500"
     : "mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-gray-500";
 
-  // Section 标题样式
   const sectionTitle = isNavy
     ? "mb-2 border-b-2 border-indigo-100 pb-1 text-sm font-bold uppercase tracking-wider text-[#1e3a5f]"
     : isCard
@@ -60,14 +51,12 @@ function ResumeContent({ template }: { template: string }) {
     <span className="inline-block h-2 w-2 rounded-full bg-cyan-500" />
   ) : null;
 
-  // 经历项样式
   const expTitle = `text-sm font-bold ${textMain}`;
   const expDate = isNavy ? "text-xs text-indigo-400 font-medium" : "text-xs text-gray-400";
   const expRole = isNavy ? "text-xs italic text-indigo-500" : "text-xs italic text-gray-500";
-  const expDesc = isNavy ? "text-[11px] text-gray-500 mt-0.5" : "text-[11px] text-gray-500 mt-0.5";
-  const expList = isNavy
-    ? "mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-700"
-    : "mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800";
+  const expDesc = "text-[11px] text-gray-500 mt-0.5";
+  const expList = "mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800";
+  const techStack = isNavy ? "text-[10px] text-indigo-400 font-semibold" : "text-[10px] text-gray-400 font-semibold";
 
   return (
     <div className={`${pageBg} ${textMain}`}>
@@ -207,9 +196,9 @@ function ResumeContent({ template }: { template: string }) {
               负责企业级备份软件（迪备）、许可证与内部综合管理系统等核心业务模块前端，长期服务复杂流程型场景。
             </p>
             <ul className={expList}>
-              <li><strong>业务建模：</strong>主导许可证生成、导入校验、续期升级等前端设计，支撑 50+ 种许可套餐动态组合，重复配置时间降低 80% 以上。</li>
-              <li><strong>性能优化：</strong>引入增量更新、虚拟滚动与页面拆分，TTI 下降约 30%。</li>
-              <li><strong>AI 落地：</strong>主导 scutech-licenser 客服 Agent 全流程，构建 RAG 诊断与问答能力，已接入客服团队日常使用。</li>
+              <li><strong>业务建模：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
+              <li><strong>性能优化：</strong>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。</li>
+              <li><strong>AI 业务落地：</strong>主导 <strong>scutech-licenser 客服 Agent</strong> 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入客服团队日常使用；持续推进 <strong>Agent Harness Engineering</strong> 与知识库扩展。</li>
             </ul>
           </div>
         </section>
@@ -224,55 +213,56 @@ function ResumeContent({ template }: { template: string }) {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
-              <span className="text-[10px] text-gray-400">Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
+              <span className={techStack}>Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
             </div>
             <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
             <ul className={expList}>
-              <li><strong>存储模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计通用向导框架，基于工厂模式 + Context + Proxy 支撑 50+ 资源类型（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
+              <li><strong>存储模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
               <li>通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，降低业务组件 60% 以上的心智负担；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。</li>
-              <li><strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 50+ 种许可套餐动态组合，将重复配置时间降低 80% 以上。</li>
-              <li>围绕任务监控与日志展示引入增量更新、虚拟滚动与页面拆分，优化首屏与长列表体验，TTI 下降约 30%。</li>
+              <li><strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑多条产品线与 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
+              <li>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。</li>
             </ul>
           </div>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">scutech-licenser 智能客服 Agent</h4>
-              <span className="text-[10px] text-gray-400">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
+              <span className={techStack}>Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
             </div>
-            <p className="text-[10px] text-gray-400">企业内部产品 · 已接入客服团队日常使用</p>
+            <p className="text-[10px] text-gray-400">企业内部产品｜已接入客服团队日常使用</p>
             <ul className={expList}>
-              <li>将产品文档、审批流程说明、历史工单构建为结构化知识库，结合 RAG 实现精准检索。</li>
-              <li>打通 approval、request、audit_logs 等核心业务数据，Agent 基于用户实际订单状态进行实时审批解释与报错诊断。</li>
-              <li>已正式接入客服团队日常工作流，覆盖 80% 以上常见咨询场景，减少重复工单约 30%。</li>
+              <li>将产品文档、审批流程说明、历史工单处理方案构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强。</li>
+              <li>打通 approval、request、audit_logs 等核心业务数据，使 Agent 能够基于用户实际订单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</li>
+              <li>Agent <strong>已正式接入客服团队日常工作流</strong>，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约 <strong>30%</strong>。</li>
+              <li>围绕 Runtime / Tool / RAG / Prompt / Guardrail / Observability / Eval / Cost / Deployment 共 <strong>9 类工程脚手架</strong>推进落地。</li>
             </ul>
           </div>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备数据可视化监控大屏</h4>
-              <span className="text-[10px] text-gray-400">Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
+              <span className={techStack}>Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
             </div>
             <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
             <ul className={expList}>
-              <li>基于 grid-layout-plus 实现可编辑驾驶舱系统，支持模块自由增删、拖拽布局、行列配置、预览保存与主题背景切换。</li>
-              <li>解决大屏整体缩放后拖拽坐标不准问题，通过 transform-scale 将外层缩放系统与布局引擎坐标系对齐。</li>
-              <li>实现新增模块自动放置逻辑，通过 LayoutTracker 维护网格占用状态并计算最大空白可用区域。</li>
-              <li>设计面向 7×24 运行的心跳检测与优雅降级机制，异常时按递增退避策略（0/1/2/5/10/30/60s）重试，避免请求风暴。</li>
+              <li>基于 <strong>grid-layout-plus</strong> 实现可编辑驾驶舱系统，支持模块自由增删、拖拽布局、行列配置、预览保存与主题背景切换，是产品化大屏平台而非一次性展示页。</li>
+              <li>解决大屏整体缩放后拖拽坐标不准问题，通过 <strong>transform-scale</strong> 将外层缩放系统与布局引擎坐标系对齐，保证拖拽和 resize 在任意缩放比下精准落点。</li>
+              <li>实现新增模块自动放置逻辑，通过 <strong>LayoutTracker</strong> 维护网格占用状态并计算最大空白可用区域，避免新增模块与已有模块冲突。</li>
+              <li>设计面向 <strong>7×24 运行</strong> 的心跳检测与优雅降级机制：先探测服务状态再刷新数据，异常时按 <strong>递增退避策略</strong>（0/1/2/5/10/30/60s）重试，避免请求风暴并支持降级展示。</li>
             </ul>
           </div>
 
           <div>
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
-              <span className="text-[10px] text-gray-400">Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
+              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
             </div>
             <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
             <ul className={expList}>
-              <li>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局。</li>
-              <li>基于 Next.js + Mastra 搭建投资分析多 Agent 系统，拆分为行情查询、技术指标、新闻摘要与投资组合诊断 Agent。</li>
-              <li>对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据。</li>
-              <li>使用 SSE 实现流式回答，支持推理过程可视化与答案高亮；PostgreSQL 持久化用户数据。</li>
+              <li>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局，抽象 App Shell、BottomNav 与断点适配方案。</li>
+              <li>基于 <strong>Next.js + Mastra</strong> 搭建投资分析多 Agent 系统，拆分为行情查询、技术指标、新闻摘要与投资组合诊断 Agent。</li>
+              <li>对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 <strong>OpenClaw</strong> 工作流自动抓取公众号/大 V 观点并生成摘要。</li>
+              <li>使用 Server-Sent Events 实现流式回答，支持推理过程可视化与答案高亮；通过 PostgreSQL 持久化用户对话与自选股数据。</li>
             </ul>
           </div>
         </section>
@@ -300,9 +290,9 @@ function ResumeContent({ template }: { template: string }) {
               个人优势
             </h2>
             <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
-              <li><strong>前端主导能力明确：</strong>长期负责企业级中后台、复杂流程与可视化页面建设。</li>
-              <li><strong>具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 完成产品原型到上线落地。</li>
-              <li><strong>有真实线上作品：</strong>已上线个人作品集、AI 投资助手、体育预测平台、垂直社区等多个项目。</li>
+              <li><strong>前端主导能力明确：</strong>长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。</li>
+              <li><strong>具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型到上线落地。</li>
+              <li><strong>有真实线上作品：</strong>已上线个人作品集、AI 投资助手、体育预测平台、垂直社区等多个可访问项目。</li>
               <li><strong>AI 信息敏感度高：</strong>善于获取 AI 前沿信息，是多个 AI 学习社区的长期用户，持续跟踪大模型、Agent、RAG 等领域的最新动态与实践。</li>
               <li><strong>业务学习能力强：</strong>乐于学习业务和不同行业的精髓，能快速理解领域知识并转化为技术实现。</li>
               <li><strong>学习与专业基础扎实：</strong>持有软件设计师（中级）认证，英语六级，具备日语听读能力。</li>

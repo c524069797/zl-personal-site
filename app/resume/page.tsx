@@ -1,5 +1,5 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { DownloadPDFButton } from "@/components/DownloadPDFButton";
+import { ResumeTemplateSelector } from "@/components/ResumeTemplateSelector";
 import { LinkTransition } from "@/lib/link-transition";
 import {
   SiVuedotjs,
@@ -130,7 +130,7 @@ export default function ResumePage() {
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               个人简历
             </h1>
-            <DownloadPDFButton />
+            <ResumeTemplateSelector />
           </div>
         </div>
         <div

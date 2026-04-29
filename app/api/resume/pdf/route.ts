@@ -8,7 +8,8 @@ export async function GET(request: NextRequest) {
   try {
     const protocol = request.headers.get("x-forwarded-proto") || "http";
     const host = request.headers.get("host") || "localhost:3000";
-    const resumeUrl = `${protocol}://${host}/resume/print`;
+    const template = request.nextUrl.searchParams.get("template") || "tech";
+    const resumeUrl = `${protocol}://${host}/resume/print?template=${encodeURIComponent(template)}`;
 
     const isProd = process.env.NODE_ENV === "production";
     const exePath = isProd

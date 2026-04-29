@@ -1,21 +1,76 @@
 'use client'
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
-function SkillTag({ children }: { children: React.ReactNode }) {
+function SkillTag({ children, template }: { children: React.ReactNode; template: string }) {
+  const styles: Record<string, string> = {
+    tech: "rounded border border-cyan-200 bg-cyan-50 px-2 py-0.5 text-[11px] text-cyan-700",
+    card: "rounded-md border border-gray-200 bg-white px-2 py-0.5 text-[11px] text-gray-700 shadow-sm",
+    navy: "rounded border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-[11px] text-indigo-700",
+  };
   return (
-    <span className="inline-block rounded bg-gray-100 px-2 py-0.5 text-[11px] text-gray-700">
+    <span className={styles[template] || styles.tech}>
       {children}
     </span>
   );
 }
 
-export default function ResumePrintPage() {
+function ResumeContent({ template }: { template: string }) {
   const [showOtherWorks, setShowOtherWorks] = useState(true);
   const [showAdvantages, setShowAdvantages] = useState(true);
 
+  const isCard = template === "card";
+  const isNavy = template === "navy";
+
+  // 模板级样式配置
+  const pageBg = isNavy ? "bg-white" : "bg-white";
+  const textMain = isNavy ? "text-gray-800" : "text-gray-900";
+
+  // Header 样式
+  const headerWrapper = isNavy
+    ? "bg-[#1e3a5f] text-white p-6 -mx-8 -mt-8 mb-5"
+    : isCard
+    ? "mb-4 rounded-xl bg-gray-50 p-5 border border-gray-100"
+    : "mb-4 border-l-[6px] border-cyan-500 pl-4 py-2";
+  const headerName = isNavy
+    ? "text-3xl font-bold tracking-tight text-white"
+    : isCard
+    ? "text-2xl font-bold tracking-tight text-gray-900"
+    : "text-2xl font-bold tracking-tight text-gray-900";
+  const headerSub = isNavy
+    ? "text-sm font-medium text-cyan-100 mt-1"
+    : isCard
+    ? "text-sm font-medium text-gray-600 mt-1"
+    : "text-sm font-medium text-gray-600 mt-1";
+  const headerMeta = isNavy
+    ? "mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-cyan-100/80"
+    : isCard
+    ? "mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-gray-500"
+    : "mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-gray-500";
+
+  // Section 标题样式
+  const sectionTitle = isNavy
+    ? "mb-2 border-b-2 border-indigo-100 pb-1 text-sm font-bold uppercase tracking-wider text-[#1e3a5f]"
+    : isCard
+    ? "mb-2 flex items-center gap-2 text-sm font-bold text-gray-900"
+    : "mb-2 border-b border-cyan-200 pb-0.5 text-sm font-bold uppercase tracking-wider text-cyan-700";
+
+  const sectionDot = isCard ? (
+    <span className="inline-block h-2 w-2 rounded-full bg-cyan-500" />
+  ) : null;
+
+  // 经历项样式
+  const expTitle = `text-sm font-bold ${textMain}`;
+  const expDate = isNavy ? "text-xs text-indigo-400 font-medium" : "text-xs text-gray-400";
+  const expRole = isNavy ? "text-xs italic text-indigo-500" : "text-xs italic text-gray-500";
+  const expDesc = isNavy ? "text-[11px] text-gray-500 mt-0.5" : "text-[11px] text-gray-500 mt-0.5";
+  const expList = isNavy
+    ? "mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-700"
+    : "mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800";
+
   return (
-    <div className="bg-white text-gray-900">
+    <div className={`${pageBg} ${textMain}`}>
       {/* 工具栏：打印时隐藏 */}
       <div className="print:hidden">
         <div className="mx-auto flex max-w-4xl items-center justify-between border-b border-gray-200 bg-gray-50 px-6 py-3">
@@ -41,10 +96,7 @@ export default function ResumePrintPage() {
             </label>
           </div>
           <div className="flex items-center gap-3">
-            <a
-              href="/resume"
-              className="text-sm text-cyan-600 hover:underline"
-            >
+            <a href="/resume" className="text-sm text-cyan-600 hover:underline">
               ← 返回展示版
             </a>
             <button
@@ -55,17 +107,39 @@ export default function ResumePrintPage() {
             </button>
           </div>
         </div>
+
+        {/* 模板切换栏 */}
+        <div className="mx-auto max-w-4xl px-6 py-3 border-b border-gray-100 bg-white">
+          <span className="text-sm font-medium text-gray-700 mr-3">选择模板：</span>
+          {[
+            { key: "tech", label: "科技青" },
+            { key: "card", label: "卡片白" },
+            { key: "navy", label: "商务蓝" },
+          ].map((t) => (
+            <a
+              key={t.key}
+              href={`/resume/print?template=${t.key}`}
+              className={`inline-flex items-center rounded-full px-3 py-1 text-xs mr-2 transition-colors ${
+                template === t.key
+                  ? "bg-cyan-100 text-cyan-700 ring-1 ring-cyan-300"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              {t.label}
+            </a>
+          ))}
+        </div>
       </div>
 
       <div
-        className="mx-auto box-border bg-white p-8"
+        className="mx-auto box-border p-8"
         style={{ width: "210mm", minHeight: "297mm" }}
       >
         {/* Header */}
-        <header className="mb-4 border-b-2 border-gray-800 pb-3">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">陈子龙</h1>
-          <p className="text-sm font-medium text-gray-700">前端开发工程师（具备 AI 全栈开发经验）</p>
-          <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-gray-600">
+        <header className={headerWrapper}>
+          <h1 className={headerName}>陈子龙</h1>
+          <p className={headerSub}>前端开发工程师（具备 AI 全栈开发经验）</p>
+          <div className={headerMeta}>
             <span>158-7444-2813</span>
             <span>chenzhuo995@gmail.com</span>
             <span>github.com/c524069797</span>
@@ -75,33 +149,35 @@ export default function ResumePrintPage() {
 
         {/* Education */}
         <section className="mb-3">
-          <h2 className="mb-1.5 border-b border-gray-300 pb-0.5 text-sm font-bold uppercase tracking-wider text-gray-900">
+          <h2 className={sectionTitle}>
+            {sectionDot}
             教育经历 / 语言能力
           </h2>
           <div className="flex items-baseline justify-between text-xs">
             <span className="font-medium">吉首大学 · 软件工程（本科）</span>
-            <span className="text-gray-500">2017.09 – 2021.06</span>
+            <span className={isNavy ? "text-indigo-400" : "text-gray-400"}>2017.09 – 2021.06</span>
           </div>
-          <div className="mt-0.5 flex flex-wrap gap-1.5">
-            <SkillTag>CET-6</SkillTag>
-            <SkillTag>软件设计师（中级）</SkillTag>
+          <div className="mt-1 flex flex-wrap gap-1.5">
+            <SkillTag template={template}>CET-6</SkillTag>
+            <SkillTag template={template}>软件设计师（中级）</SkillTag>
           </div>
-          <p className="mt-0.5 text-[11px] text-gray-500">英文技术文档阅读通畅，具备日语听读能力</p>
+          <p className={expDesc}>英文技术文档阅读通畅，具备日语听读能力</p>
         </section>
 
         {/* Skills */}
         <section className="mb-3">
-          <h2 className="mb-1.5 border-b border-gray-300 pb-0.5 text-sm font-bold uppercase tracking-wider text-gray-900">
+          <h2 className={sectionTitle}>
+            {sectionDot}
             专业技能
           </h2>
           <div className="space-y-1 text-xs">
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">前端开发：</span>
-              <span className="text-gray-600">Vue 2/3, React, Next.js, TypeScript, Ant Design, ECharts, Tailwind CSS</span>
+              <span className="text-gray-600">Vue 2/3, React, Next.js, TypeScript, Ant Design, ECharts, Tailwind CSS, WebSocket</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">工程化：</span>
-              <span className="text-gray-600">Vite, Webpack, Monorepo, ESLint, Vitest, GitLab CI/CD, WebSocket</span>
+              <span className="text-gray-600">Vite, Webpack, Monorepo, ESLint, Vitest, GitLab CI/CD</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">AI 全栈：</span>
@@ -116,20 +192,21 @@ export default function ResumePrintPage() {
 
         {/* Experience */}
         <section className="mb-3">
-          <h2 className="mb-1.5 border-b border-gray-300 pb-0.5 text-sm font-bold uppercase tracking-wider text-gray-900">
+          <h2 className={sectionTitle}>
+            {sectionDot}
             工作经历
           </h2>
 
           <div className="mb-2">
             <div className="flex items-baseline justify-between">
-              <h3 className="text-sm font-bold text-gray-900">广州鼎甲计算机科技有限公司</h3>
-              <span className="text-xs text-gray-500">2021.07 – 至今</span>
+              <h3 className={expTitle}>广州鼎甲计算机科技有限公司</h3>
+              <span className={expDate}>2021.07 – 至今</span>
             </div>
-            <p className="text-xs italic text-gray-600">前端开发工程师 · 核心业务组</p>
-            <p className="mt-0.5 text-[11px] text-gray-500">
+            <p className={expRole}>前端开发工程师 · 核心业务组</p>
+            <p className={expDesc}>
               负责企业级备份软件（迪备）、许可证与内部综合管理系统等核心业务模块前端，长期服务复杂流程型场景。
             </p>
-            <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+            <ul className={expList}>
               <li><strong>业务建模：</strong>主导许可证生成、导入校验、续期升级等前端设计，支撑 50+ 种许可套餐动态组合，重复配置时间降低 80% 以上。</li>
               <li><strong>性能优化：</strong>引入增量更新、虚拟滚动与页面拆分，TTI 下降约 30%。</li>
               <li><strong>AI 落地：</strong>主导 scutech-licenser 客服 Agent 全流程，构建 RAG 诊断与问答能力，已接入客服团队日常使用。</li>
@@ -139,17 +216,18 @@ export default function ResumePrintPage() {
 
         {/* Projects */}
         <section className="mb-3">
-          <h2 className="mb-1.5 border-b border-gray-300 pb-0.5 text-sm font-bold uppercase tracking-wider text-gray-900">
+          <h2 className={sectionTitle}>
+            {sectionDot}
             项目经历
           </h2>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
-              <span className="text-[10px] text-gray-500">Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
+              <span className="text-[10px] text-gray-400">Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
             </div>
-            <p className="text-[10px] text-gray-500">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
-            <ul className="mt-0.5 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+            <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
+            <ul className={expList}>
               <li><strong>存储模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计通用向导框架，基于工厂模式 + Context + Proxy 支撑 50+ 资源类型（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
               <li>通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，降低业务组件 60% 以上的心智负担；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。</li>
               <li><strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 50+ 种许可套餐动态组合，将重复配置时间降低 80% 以上。</li>
@@ -160,10 +238,10 @@ export default function ResumePrintPage() {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">scutech-licenser 智能客服 Agent</h4>
-              <span className="text-[10px] text-gray-500">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
+              <span className="text-[10px] text-gray-400">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
             </div>
-            <p className="text-[10px] text-gray-500">企业内部产品 · 已接入客服团队日常使用</p>
-            <ul className="mt-0.5 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+            <p className="text-[10px] text-gray-400">企业内部产品 · 已接入客服团队日常使用</p>
+            <ul className={expList}>
               <li>将产品文档、审批流程说明、历史工单构建为结构化知识库，结合 RAG 实现精准检索。</li>
               <li>打通 approval、request、audit_logs 等核心业务数据，Agent 基于用户实际订单状态进行实时审批解释与报错诊断。</li>
               <li>已正式接入客服团队日常工作流，覆盖 80% 以上常见咨询场景，减少重复工单约 30%。</li>
@@ -173,10 +251,10 @@ export default function ResumePrintPage() {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备数据可视化监控大屏</h4>
-              <span className="text-[10px] text-gray-500">Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
+              <span className="text-[10px] text-gray-400">Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
             </div>
-            <p className="text-[10px] text-gray-500">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
-            <ul className="mt-0.5 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+            <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
+            <ul className={expList}>
               <li>基于 grid-layout-plus 实现可编辑驾驶舱系统，支持模块自由增删、拖拽布局、行列配置、预览保存与主题背景切换。</li>
               <li>解决大屏整体缩放后拖拽坐标不准问题，通过 transform-scale 将外层缩放系统与布局引擎坐标系对齐。</li>
               <li>实现新增模块自动放置逻辑，通过 LayoutTracker 维护网格占用状态并计算最大空白可用区域。</li>
@@ -187,10 +265,10 @@ export default function ResumePrintPage() {
           <div>
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
-              <span className="text-[10px] text-gray-500">Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
+              <span className="text-[10px] text-gray-400">Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
             </div>
-            <p className="text-[10px] text-gray-500">aiold.clczl.asia</p>
-            <ul className="mt-0.5 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+            <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
+            <ul className={expList}>
               <li>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局。</li>
               <li>基于 Next.js + Mastra 搭建投资分析多 Agent 系统，拆分为行情查询、技术指标、新闻摘要与投资组合诊断 Agent。</li>
               <li>对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据。</li>
@@ -202,7 +280,8 @@ export default function ResumePrintPage() {
         {/* Other Works */}
         {showOtherWorks && (
           <section className="mb-3">
-            <h2 className="mb-1.5 border-b border-gray-300 pb-0.5 text-sm font-bold uppercase tracking-wider text-gray-900">
+            <h2 className={sectionTitle}>
+              {sectionDot}
               其他个人作品
             </h2>
             <div className="space-y-0.5 text-[11px] leading-relaxed text-gray-800">
@@ -216,7 +295,8 @@ export default function ResumePrintPage() {
         {/* Personal Advantages */}
         {showAdvantages && (
           <section>
-            <h2 className="mb-1.5 border-b border-gray-300 pb-0.5 text-sm font-bold uppercase tracking-wider text-gray-900">
+            <h2 className={sectionTitle}>
+              {sectionDot}
               个人优势
             </h2>
             <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
@@ -231,5 +311,19 @@ export default function ResumePrintPage() {
         )}
       </div>
     </div>
+  );
+}
+
+function ResumePrintPageInner() {
+  const searchParams = useSearchParams();
+  const template = searchParams.get("template") || "tech";
+  return <ResumeContent template={template} />;
+}
+
+export default function ResumePrintPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-gray-500">加载中...</div>}>
+      <ResumePrintPageInner />
+    </Suspense>
   );
 }

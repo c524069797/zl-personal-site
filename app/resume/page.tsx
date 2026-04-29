@@ -1,6 +1,24 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { DownloadPDFButton } from "@/components/DownloadPDFButton";
 import { LinkTransition } from "@/lib/link-transition";
+import {
+  SiVuedotjs,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiAntdesign,
+  SiTailwindcss,
+  SiVite,
+  SiWebpack,
+  SiEslint,
+  SiVitest,
+  SiGitlab,
+  SiNodedotjs,
+  SiPython,
+  SiPostgresql,
+  SiRedis,
+  SiSelenium,
+} from "react-icons/si";
 
 import type { Metadata } from "next";
 
@@ -61,9 +79,16 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SkillTag({ children }: { children: React.ReactNode }) {
+function SkillTag({
+  children,
+  icon,
+}: {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+}) {
   return (
-    <span className="inline-flex items-center rounded-md bg-gradient-to-r from-cyan-50 to-blue-50 px-2.5 py-1 text-xs font-medium text-cyan-700 ring-1 ring-inset ring-cyan-600/20 dark:from-cyan-950/30 dark:to-blue-950/30 dark:text-cyan-300 dark:ring-cyan-400/20">
+    <span className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-cyan-50 to-blue-50 px-2.5 py-1 text-xs font-medium text-cyan-700 ring-1 ring-inset ring-cyan-600/20 dark:from-cyan-950/30 dark:to-blue-950/30 dark:text-cyan-300 dark:ring-cyan-400/20">
+      {icon}
       {children}
     </span>
   );
@@ -195,13 +220,14 @@ export default function ResumePage() {
                   <span className="text-sm font-semibold text-gray-900 dark:text-white">前端开发</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <SkillTag>Vue 2/3</SkillTag>
-                  <SkillTag>React</SkillTag>
-                  <SkillTag>Next.js</SkillTag>
-                  <SkillTag>TypeScript</SkillTag>
-                  <SkillTag>Ant Design</SkillTag>
+                  <SkillTag icon={<SiVuedotjs size={12} />}>Vue 2/3</SkillTag>
+                  <SkillTag icon={<SiReact size={12} />}>React</SkillTag>
+                  <SkillTag icon={<SiNextdotjs size={12} />}>Next.js</SkillTag>
+                  <SkillTag icon={<SiTypescript size={12} />}>TypeScript</SkillTag>
+                  <SkillTag icon={<SiAntdesign size={12} />}>Ant Design</SkillTag>
                   <SkillTag>ECharts</SkillTag>
-                  <SkillTag>Tailwind CSS</SkillTag>
+                  <SkillTag icon={<SiTailwindcss size={12} />}>Tailwind CSS</SkillTag>
+                  <SkillTag>WebSocket</SkillTag>
                 </div>
               </div>
 
@@ -213,13 +239,12 @@ export default function ResumePage() {
                   <span className="text-sm font-semibold text-gray-900 dark:text-white">工程化与质量</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <SkillTag>Vite</SkillTag>
-                  <SkillTag>Webpack</SkillTag>
+                  <SkillTag icon={<SiVite size={12} />}>Vite</SkillTag>
+                  <SkillTag icon={<SiWebpack size={12} />}>Webpack</SkillTag>
                   <SkillTag>Monorepo</SkillTag>
-                  <SkillTag>ESLint</SkillTag>
-                  <SkillTag>Vitest</SkillTag>
-                  <SkillTag>GitLab CI/CD</SkillTag>
-                  <SkillTag>WebSocket</SkillTag>
+                  <SkillTag icon={<SiEslint size={12} />}>ESLint</SkillTag>
+                  <SkillTag icon={<SiVitest size={12} />}>Vitest</SkillTag>
+                  <SkillTag icon={<SiGitlab size={12} />}>GitLab CI/CD</SkillTag>
                 </div>
               </div>
 
@@ -234,11 +259,11 @@ export default function ResumePage() {
                   <SkillTag>LangGraph</SkillTag>
                   <SkillTag>Mastra</SkillTag>
                   <SkillTag>RAG</SkillTag>
-                  <SkillTag>Node.js</SkillTag>
-                  <SkillTag>Python / FastAPI</SkillTag>
+                  <SkillTag icon={<SiNodedotjs size={12} />}>Node.js</SkillTag>
+                  <SkillTag icon={<SiPython size={12} />}>Python / FastAPI</SkillTag>
                   <SkillTag>Java</SkillTag>
-                  <SkillTag>PostgreSQL</SkillTag>
-                  <SkillTag>Redis</SkillTag>
+                  <SkillTag icon={<SiPostgresql size={12} />}>PostgreSQL</SkillTag>
+                  <SkillTag icon={<SiRedis size={12} />}>Redis</SkillTag>
                   <SkillTag>向量存储</SkillTag>
                 </div>
               </div>
@@ -251,7 +276,7 @@ export default function ResumePage() {
                   <span className="text-sm font-semibold text-gray-900 dark:text-white">自动化测试</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <SkillTag>Selenium</SkillTag>
+                  <SkillTag icon={<SiSelenium size={12} />}>Selenium</SkillTag>
                   <SkillTag>Robot Framework</SkillTag>
                   <SkillTag>回归测试</SkillTag>
                 </div>

@@ -97,7 +97,7 @@ export default function ResumePage() {
         <div className="mb-8 print:hidden">
           <LinkTransition
             href="/"
-            className="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           >
             ← 返回首页
           </LinkTransition>
@@ -122,7 +122,7 @@ export default function ResumePage() {
                 <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
                   前端开发工程师（具备 AI 全栈开发经验）
                 </p>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
                   本科｜近 5 年前端经验｜广州
                 </p>
               </div>
@@ -169,14 +169,14 @@ export default function ResumePage() {
                 <div className="font-semibold text-gray-800 dark:text-gray-200">
                   吉首大学｜软件工程（本科）
                 </div>
-                <div className="text-gray-500 dark:text-gray-400">2017.09 – 2021.06</div>
+                <div className="text-gray-500 dark:text-gray-300">2017.09 – 2021.06</div>
               </div>
               <div className="space-y-1.5 text-gray-800 dark:text-gray-200 md:text-right">
                 <div className="flex flex-wrap items-center justify-end gap-2">
                   <SkillTag>CET-6</SkillTag>
                   <SkillTag>软件设计师（中级）</SkillTag>
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-gray-500 dark:text-gray-300">
                   英文技术文档阅读通畅，具备日语听读能力
                 </div>
               </div>
@@ -273,8 +273,8 @@ export default function ResumePage() {
                     <h3 className="text-base font-bold text-gray-900 dark:text-white">广州鼎甲计算机科技有限公司</h3>
                     <span className="rounded-full bg-cyan-50 px-2.5 py-0.5 text-xs font-medium text-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-300">2021.07 – 至今</span>
                   </div>
-                  <div className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">前端开发工程师｜核心业务组</div>
-                  <p className="mb-3 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                  <div className="mb-2 text-sm italic text-gray-600 dark:text-gray-300">前端开发工程师｜核心业务组</div>
+                  <p className="mb-3 text-xs leading-relaxed text-gray-500 dark:text-gray-300">
                     负责企业级备份软件（迪备）、许可证与内部综合管理系统等核心业务模块前端，长期服务复杂流程型场景。
                   </p>
                   <ul className="ml-1 space-y-2 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
@@ -303,9 +303,9 @@ export default function ResumePage() {
               <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <h4 className="text-sm font-bold text-gray-900 dark:text-white">迪备备份恢复系统</h4>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-300">Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
                 </div>
-                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
+                <p className="mb-2 text-xs text-gray-500 dark:text-gray-300">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
                 <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
                   <li className="flex gap-2">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
@@ -329,9 +329,9 @@ export default function ResumePage() {
               <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <h4 className="text-sm font-bold text-gray-900 dark:text-white">scutech-licenser 智能客服 Agent</h4>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-300">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
                 </div>
-                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">企业内部产品｜已接入客服团队日常使用</p>
+                <p className="mb-2 text-xs text-gray-500 dark:text-gray-300">企业内部产品｜已接入客服团队日常使用</p>
                 <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
                   <li className="flex gap-2">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
@@ -355,9 +355,9 @@ export default function ResumePage() {
               <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <h4 className="text-sm font-bold text-gray-900 dark:text-white">迪备数据可视化监控大屏</h4>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-300">Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
                 </div>
-                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
+                <p className="mb-2 text-xs text-gray-500 dark:text-gray-300">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
                 <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
                   <li className="flex gap-2">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
@@ -381,7 +381,7 @@ export default function ResumePage() {
               <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <h4 className="text-sm font-bold text-gray-900 dark:text-white">AI 投资助手</h4>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-300">Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
                 </div>
                 <a href="https://aiold.clczl.asia/" target="_blank" rel="noopener noreferrer" className="mb-2 inline-flex items-center gap-1 text-xs text-cyan-600 hover:underline dark:text-cyan-400">
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>

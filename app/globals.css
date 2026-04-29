@@ -380,22 +380,14 @@ body {
   border-color: #ffffff;
 }
 
-/* 简历纸张在暗黑模式下保持白纸黑字 */
-.dark .resume-paper h1,
-.dark .resume-paper h2,
-.dark .resume-paper h3,
-.dark .resume-paper h4,
-.dark .resume-paper h5,
-.dark .resume-paper h6,
-.dark .resume-paper a,
-.dark .resume-paper strong,
-.dark .resume-paper li {
-  color: #111827 !important;
+/* 简历纸张在暗黑模式下使用高对比度浅色文字 */
+.dark .resume-paper {
+  color: #e5e7eb;
 }
 
 .dark .resume-paper a[href^="mailto:"],
 .dark .resume-paper a[href^="http"] {
-  color: #2563eb !important;
+  color: #60a5fa !important;
 }
 
 /* 面包屑导航样式 */

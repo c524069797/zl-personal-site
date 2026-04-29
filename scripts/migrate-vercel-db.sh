@@ -9,12 +9,15 @@ set -e
 
 if [ -z "$DATABASE_URL" ]; then
   echo "❌ 错误: 请设置 DATABASE_URL 环境变量"
-  echo "使用方法: DATABASE_URL=\"your-database-url\" ./scripts/migrate-vercel-db.sh"
+  echo "使用方法: DATABASE_URL="your-database-url" ./scripts/migrate-vercel-db.sh"
   exit 1
 fi
 
+# 隐藏密码显示
+DB_URL_PREVIEW=$(echo "$DATABASE_URL" | sed -E 's/:\/\/[^:]+:[^@]+@/:\/\/***:***@/')
+
 echo "🚀 开始迁移 Vercel 数据库..."
-echo "数据库: $DATABASE_URL"
+echo "数据库: $DB_URL_PREVIEW"
 
 # 检查是否有 psql 命令
 if ! command -v psql &> /dev/null; then
@@ -52,5 +55,3 @@ EOF
 fi
 
 echo "✅ 迁移完成！"
-
-

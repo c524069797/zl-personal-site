@@ -227,12 +227,12 @@ function ResumeContent({ template }: { template: string }) {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">内部管理系统智能客服 Agent</h4>
-              <span className={techStack}>Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
+              <span className={techStack}>React / Python / Flask / LLM API / RAG / PostgreSQL</span>
             </div>
             <p className="text-[10px] text-gray-400">企业内部产品｜已接入客服团队日常使用</p>
             <ul className={expList}>
               <li>将产品文档、审批流程说明、历史工单处理方案构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强。</li>
-              <li>打通 approval、request、audit_logs 等核心业务数据，使 Agent 能够基于用户实际订单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</li>
+              <li>打通申请，审批，审计 等核心业务数据，使 Agent 能够基于用户实际申请表单或者工单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</li>
               <li>Agent <strong>已正式接入客服团队日常工作流</strong>，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约 <strong>30%</strong>。</li>
               <li>围绕 Runtime / Tool / RAG / Prompt / Guardrail / Observability / Eval / Cost / Deployment 共 <strong>9 类工程脚手架</strong>推进落地。</li>
             </ul>

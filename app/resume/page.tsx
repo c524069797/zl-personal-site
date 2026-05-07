@@ -482,7 +482,7 @@ export default function ResumePage() {
               <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <h4 className="text-sm font-bold text-gray-900 dark:text-white">内部管理系统智能客服 Agent</h4>
-                  <span className="text-xs text-gray-500 dark:text-gray-300">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-300">React / Python / Flask / LLM API / RAG / PostgreSQL</span>
                 </div>
                 <p className="mb-2 text-xs text-gray-500 dark:text-gray-300">企业内部产品｜已接入客服团队日常使用</p>
                 <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
@@ -492,7 +492,7 @@ export default function ResumePage() {
                   </li>
                   <li className="flex gap-2">
                     <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
-                    <span>打通 approval、request、audit_logs 等核心业务数据，使 Agent 能够基于用户实际订单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</span>
+                    <span>打通 申请，审批，审计 等核心业务数据，使 Agent 能够基于用户实际申请表单或者工单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</span>
                   </li>
                   <li className="flex gap-2">
                     <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
@@ -543,7 +543,11 @@ export default function ResumePage() {
                 <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
                   <li className="flex gap-2">
                     <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
-                    <span>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局，抽象 App Shell、BottomNav 与断点适配方案。</span>
+                    <span><strong>组件化设计：</strong>基于 <strong>Frontend Design Skill</strong> 与 <strong>Stitch（Google）</strong> 设计规范，对产品首页进行系统化组件化拆分，抽象 App Shell、BottomNav、Dashboard、卡片化布局等通用组件体系，覆盖桌面端与移动端断点适配，形成可复用的设计资产。</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
+                    <span><strong>系统开发与文档：</strong>通过 <strong>OpenSpec</strong> 分析系统架构并驱动开发流程，同步输出系统文档、接口手册与开发规范，实现设计到代码到文档的一致性闭环。</span>
                   </li>
                   <li className="flex gap-2">
                     <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />

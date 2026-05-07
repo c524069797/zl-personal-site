@@ -217,7 +217,7 @@ function ResumeContent({ template }: { template: string }) {
             </div>
             <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
             <ul className={expList}>
-              <li><strong>存储模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
+              <li><strong>通用模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
               <li>通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，降低业务组件 60% 以上的心智负担；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。</li>
               <li><strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑多条产品线与 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
               <li>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。</li>
@@ -226,7 +226,7 @@ function ResumeContent({ template }: { template: string }) {
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">scutech-licenser 智能客服 Agent</h4>
+              <h4 className="text-xs font-bold text-gray-900">内部管理系统智能客服 Agent</h4>
               <span className={techStack}>Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
             </div>
             <p className="text-[10px] text-gray-400">企业内部产品｜已接入客服团队日常使用</p>

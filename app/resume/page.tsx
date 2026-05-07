@@ -421,6 +421,10 @@ export default function ResumePage() {
                   <ul className="ml-1 space-y-2 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
                     <li className="flex gap-2">
                       <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${t.dot}`} />
+                      <span><strong className="text-gray-900 dark:text-white">组件库建设：</strong>主导企业级 Vue 3 组件库（<code>@scutech/dbackup-admin</code>）设计与开发，涵盖 Components / Forms / Layout / Plugins 四大类 <strong>40+</strong> 组件，以 ES Module 发布并支撑迪备、许可证等多产品线复用。核心设计 <strong>WizardWrap 向导框架</strong>，支持步骤导航、验证与动态注入，成为 <strong>50+ 资源类型</strong> 备份恢复流程的统一骨架。</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${t.dot}`} />
                       <span><strong className="text-gray-900 dark:text-white">业务建模：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</span>
                     </li>
                     <li className="flex gap-2">
@@ -430,6 +434,10 @@ export default function ResumePage() {
                     <li className="flex gap-2">
                       <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${t.dot}`} />
                       <span><strong className="text-gray-900 dark:text-white">AI 业务落地：</strong>主导 <strong>scutech-licenser 客服 Agent</strong> 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入客服团队日常使用；持续推进 <strong>Agent Harness Engineering</strong> 与知识库扩展。</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${t.dot}`} />
+                      <span><strong className="text-gray-900 dark:text-white">AI 代码规范：</strong>在前端团队建立 AI 介入开发流程的标准规范，沉淀 <strong>Skill / OpenSpec 配置化</strong>标准（Prompt 与工程约束抽象为可复用 YAML），定义 AI 使用边界与工程化检查清单；引入 AI Code Review 预检查流程，MR 环节自动拦截低级错误，Review 效率提升 <strong>40%</strong>，设计稿落地时间从 2-3 天缩短到 <strong>4-6 小时</strong>。</span>
                     </li>
                   </ul>
                 </div>
@@ -450,7 +458,11 @@ export default function ResumePage() {
                 <ul className="ml-1 space-y-1.5 text-[13px] leading-relaxed text-gray-800 dark:text-gray-200">
                   <li className="flex gap-2">
                     <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
-                    <span><strong>存储模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</span>
+                    <span><strong>组件库建设：</strong>主导企业级 Vue 3 组件库 <code>@scutech/dbackup-admin</code> 设计与开发，涵盖 Components / Forms / Layout / Plugins 四大类 <strong>40+</strong> 组件，以 ES Module 方式发布。建立组件文档、示例与主题系统，覆盖公司多条产品线复用，减少重复开发成本。</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
+                    <span><strong>通用模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。核心 <strong>WizardWrap</strong> 组件支持步骤导航、验证、动态注入与隐藏，成为全平台备份恢复流程的统一骨架。</span>
                   </li>
                   <li className="flex gap-2">
                     <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${t.dot}`} />
@@ -469,7 +481,7 @@ export default function ResumePage() {
 
               <div className="rounded-lg border border-gray-100 bg-gray-50/30 p-4 dark:border-gray-700 dark:bg-gray-800/80">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">scutech-licenser 智能客服 Agent</h4>
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">内部管理系统智能客服 Agent</h4>
                   <span className="text-xs text-gray-500 dark:text-gray-300">Vue 3 / Python / Flask / LLM API / RAG / PostgreSQL</span>
                 </div>
                 <p className="mb-2 text-xs text-gray-500 dark:text-gray-300">企业内部产品｜已接入客服团队日常使用</p>
@@ -588,7 +600,7 @@ export default function ResumePage() {
               </li>
               <li className="flex gap-2">
                 <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${t.dot}`} />
-                <span><strong className="text-gray-900 dark:text-white">具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型、功能联调与上线落地。</span>
+                <span><strong className="text-gray-900 dark:text-white">具备 AI 全栈开发与流程建设能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型、功能联调与上线落地；同时在前端团队建立 AI 代码开发规范（Skill / OpenSpec 配置化、AI Code Review 预检查），将 AI 从个人工具升级为团队标准流程。</span>
               </li>
               <li className="flex gap-2">
                 <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${t.dot}`} />

@@ -48,7 +48,7 @@
 - **工具链与数据闭环**：对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 **OpenClaw** 工作流自动抓取公众号 / 大 V 观点并生成摘要，为个股分析补充消息面参考，形成"数据采集 → AI 分析 → 前端呈现"的完整闭环。
 - **工程与体验优化**：使用 Server-Sent Events 实现流式回答、支持推理过程可视化与答案高亮，提升交互体验；通过 PostgreSQL 持久化用户对话与自选股数据，支撑长期记忆与个性化推荐。
 
-### scutech-licenser 智能客服 Agent（Vue 3、Python、Flask、FastAPI、LangGraph、LLM API、RAG、sqlite-vec、PostgreSQL）
+### 内部管理系统智能客服 Agent（Vue 3、Python、Flask、FastAPI、LangGraph、LLM API、RAG、sqlite-vec、PostgreSQL）
 
 企业内部产品｜已接入客服团队日常使用
 

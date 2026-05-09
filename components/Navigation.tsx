@@ -8,16 +8,15 @@ import { LinkTransition } from '@/lib/link-transition'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useState } from 'react'
+import type { BreadcrumbItem } from '@/types'
 
 const { Header } = Layout
 
 interface NavigationProps {
-  breadcrumbItems?: Array<{
-    title: string
-    href?: string
-  }>
+  breadcrumbItems?: BreadcrumbItem[]
 }
-export default function Navigation({ breadcrumbItems }: NavigationProps) {
+
+const Navigation = ({ breadcrumbItems }: NavigationProps) => {
   const { t } = useTranslation()
   const [drawerVisible, setDrawerVisible] = useState(false)
 
@@ -29,49 +28,30 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
   ]
 
   return (
-    <Header
-      className="nav-header"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 24px',
-        height: '64px',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 1, minWidth: 0 }}>
+    <Header className="nav-header flex items-center justify-between !px-6 !h-16 sticky top-0 z-[1000]">
+      <div className="flex items-center gap-6 flex-1 min-w-0">
         <LinkTransition
           href="/"
-          className="nav-logo"
-          style={{
-            fontSize: '20px',
-            fontWeight: 'bold',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-          }}
+          className="nav-logo text-xl font-bold no-underline whitespace-nowrap"
         >
           {t('site.name')}
         </LinkTransition>
-        {breadcrumbItems && breadcrumbItems.length > 0 && (
-          <div className="nav-breadcrumb hidden md:block" style={{ flex: 1, minWidth: 0 }}>
+        {breadcrumbItems?.length ? (
+          <div className="nav-breadcrumb hidden md:block flex-1 min-w-0">
             <BreadcrumbNav items={breadcrumbItems} />
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Desktop Menu */}
-      <div className="nav-links hidden md:flex" style={{ alignItems: 'center', gap: '16px', flexShrink: 0 }}>
+      <div className="nav-links hidden md:flex items-center gap-4 shrink-0">
         <Space size="middle" className="nav-menu">
           {navItems.map(item => (
-            <LinkTransition key={item.href} href={item.href} className="nav-link group" style={{
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}>
+            <LinkTransition
+              key={item.href}
+              href={item.href}
+              className="nav-link group no-underline flex items-center gap-1.5"
+            >
               <span className="transition-transform duration-200 group-hover:scale-110">{item.icon}</span>
               <span className="nav-link-text">{item.label}</span>
             </LinkTransition>
@@ -86,7 +66,7 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
         <ThemeToggle />
         <Button
           type="text"
-          icon={<MenuOutlined style={{ fontSize: '20px' }} />}
+          icon={<MenuOutlined className="text-xl" />}
           onClick={() => setDrawerVisible(true)}
         />
       </div>
@@ -100,16 +80,14 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
         width={280}
         styles={{ body: { padding: 0 } }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="flex flex-col">
           {navItems.map(item => (
             <LinkTransition
               key={item.href}
               href={item.href}
               className="nav-link px-6 py-4 flex items-center gap-3 text-lg"
               onClick={() => setDrawerVisible(false)}
-              style={{
-                borderBottom: '1px solid var(--border)',
-              }}
+              style={{ borderBottom: '1px solid var(--border)' }}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -123,3 +101,5 @@ export default function Navigation({ breadcrumbItems }: NavigationProps) {
     </Header>
   )
 }
+
+export default Navigation

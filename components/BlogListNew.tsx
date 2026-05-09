@@ -47,6 +47,14 @@ interface Category {
 
 // 模块级缓存：sidebar 数据（tags、categories、hotPosts）只请求一次
 // 即使组件重新挂载，也不会重复请求
+/**
+ * 【React 进阶模式学习 1：模块级缓存 (Module-level Caching)】
+ * 为什么要把变量定义在组件外面？
+ * 答：如果在组件内部用 useState 定义，当组件卸载 (unmount) 时，状态就会丢失。
+ * 把它定义在文件作用域下，它就变成了“单例缓存”。
+ * 整个应用的生命周期内（不刷新页面的前提下），这个数据会一直驻留在内存中。
+ * 这对于侧边栏这种不需要频繁更新的数据来说，是非常有效的防抖和性能优化手段。
+ */
 let cachedTags: Tag[] | null = null
 let cachedCategories: Category[] | null = null
 let cachedHotPosts: Post[] | null = null
@@ -72,11 +80,18 @@ export default function BlogListNew() {
   // Static sidebar data: only fetch once globally
   const [sidebarLoaded, setSidebarLoaded] = useState(sidebarCacheLoaded)
 
+  /**
+   * 【React 进阶模式学习 2：副作用隔离与并发请求】
+   * 1. 隔离副作用：这里独立使用一个 useEffect 专门处理侧边栏数据，与主列表逻辑完全解耦。
+   * 2. 全局状态拦截：利用外部的 sidebarCacheLoaded 变量，确保跨路由跳转时也不会重复触发网络请求。
+   */
   useEffect(() => {
     if (sidebarCacheLoaded) return
 
     const fetchSidebarData = async () => {
       try {
+        // 【学习点：Promise.all 并发请求】
+        // 侧边栏有三个毫不相干的接口，使用 Promise.all 让它们并发请求，以最慢的那个接口时间为准，极大缩短等待时间。
         const [tagsRes, categoriesRes, hotRes] = await Promise.all([
           fetch('/api/tags'),
           fetch('/api/categories'),
@@ -115,6 +130,13 @@ export default function BlogListNew() {
     fetchSidebarData()
   }, [])
 
+  /**
+   * 【React 进阶模式学习 3：防重复渲染守卫 (useRef Guard)】
+   * 为什么要用 useRef？
+   * React 18 的 StrictMode 在开发环境下会自动挂载、卸载、再挂载组件，导致 useEffect 执行两次。
+   * 这里用 isInitialLoad 这个 ref 充当一个“一次性开关”，保证初始化参数的逻辑只执行一次。
+   * useRef 的核心特性：它的 .current 值改变时，【绝对不会】触发组件重渲染，非常适合保存“静默的标志位”。
+   */
   // Initial load from URL searchParams only once
   const isInitialLoad = useRef(true)
   useEffect(() => {
@@ -156,6 +178,13 @@ export default function BlogListNew() {
     }
   }
 
+  /**
+   * 【React 进阶模式学习 4：浅路由更新 (Shallow Routing / URL State Sync)】
+   * 这是一个非常高级的设计思想（Single Source of Truth）。
+   * 当用户点击下一页时，如果我们用 router.push()，可能会导致整个页面重新渲染甚至滚动条置顶。
+   * 使用 window.history.replaceState，我们只改变浏览器地址栏的 URL（方便用户复制分享当前状态），
+   * 但不触发真正的页面跳转，页面的数据和 UI 更新完全依靠 React 内部的 fetchPosts 驱动。
+   */
   // Update URL silently without triggering navigation
   const updateUrl = (page: number, tag: string | null, search: string, category: string | null) => {
     const params = new URLSearchParams()
@@ -270,15 +299,22 @@ export default function BlogListNew() {
               [1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="dark-skeleton"
+                  className="skeleton"
                   style={{
                     marginBottom: '24px',
-                    height: '220px',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
+                    padding: '24px',
                     border: '1px solid var(--border)',
                   }}
-                />
+                >
+                  <div className="skeleton-line" style={{ width: '80px', height: '22px', marginBottom: '16px' }} />
+                  <div className="skeleton-line" style={{ width: '70%', height: '24px', marginBottom: '12px' }} />
+                  <div className="skeleton-line" style={{ width: '100%', height: '14px', marginBottom: '8px' }} />
+                  <div className="skeleton-line" style={{ width: '85%', height: '14px', marginBottom: '16px' }} />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <div className="skeleton-line" style={{ width: '60px', height: '24px', borderRadius: '12px' }} />
+                    <div className="skeleton-line" style={{ width: '50px', height: '24px', borderRadius: '12px' }} />
+                  </div>
+                </div>
               ))
             ) : posts.length > 0 ? (
               <>

@@ -22,12 +22,27 @@ export const metadata: Metadata = {
   },
 };
 
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+
 export default function BlogLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="blog-page-layout" style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <Navigation />
+      <main style={{ flex: 1 }}>
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 

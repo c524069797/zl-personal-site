@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import {
+  getSiliconFlowApiKey,
+  isSiliconFlowFreeModel,
+  SILICONFLOW_BASE_URL,
+  SILICONFLOW_FREE_SETTING_ID,
+} from '@/lib/siliconflow'
 
 export async function POST(request: NextRequest) {
   const { settingId, model, messages } = await request.json()
@@ -8,9 +14,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
-  const setting = await prisma.aISetting.findUnique({ where: { id: settingId } })
+  const setting =
+    settingId === SILICONFLOW_FREE_SETTING_ID
+      ? {
+          baseUrl: SILICONFLOW_BASE_URL,
+          apiKey: getSiliconFlowApiKey(),
+        }
+      : await prisma.aISetting.findUnique({ where: { id: settingId } })
+
   if (!setting) {
     return NextResponse.json({ error: 'Setting not found' }, { status: 404 })
+  }
+
+  if (settingId === SILICONFLOW_FREE_SETTING_ID && !isSiliconFlowFreeModel(model)) {
+    return NextResponse.json({ error: '该内置配置只允许调用硅基流动免费模型' }, { status: 400 })
+  }
+
+  if (!setting.apiKey) {
+    return NextResponse.json({ error: 'SILICONFLOW_API_KEY is not configured' }, { status: 500 })
   }
 
   try {

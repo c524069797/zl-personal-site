@@ -36,15 +36,23 @@ pnpm db:migrate   # 数据库迁移
 
 ```
 app/                    → 页面和 API 路由（Next.js App Router）
-components/             → React 组件
+│   ├── error.tsx       → 全局错误边界（'use client'）
+│   ├── loading.tsx     → 全局加载态
+│   └── not-found.tsx   → 全局 404
+components/             → 共享组件
+components/ui/          → 基础 UI 组件（Button 等）
 components/home/        → 首页专用组件（粒子背景、卡片、按钮）
 components/admin/       → 后台管理组件
-lib/                    → 工具函数、服务端逻辑
+features/               → 功能模块（按业务划分）
+features/blog/          → 博客功能（components/hooks/types）
+features/auth/          → 认证功能（components/hooks/types）
+lib/                    → 第三方库封装（prisma, openai 等）
 lib/i18n/               → 多语言翻译文件
-hooks/                  → 自定义 React Hooks
+hooks/                  → 共享自定义 React Hooks
+types/                  → 全局类型定义
+utils/                  → 共享工具函数
 prisma/                 → 数据库 Schema 和迁移
 public/                 → 静态资源
-public/projects/        → 项目截图图片
 content/                → Markdown 内容（简历等）
 scripts/                → 脚本工具（发布文章、向量化等）
 ```

@@ -1,29 +1,40 @@
 'use client'
 
 import ReactMarkdown from "react-markdown";
+import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import { useState } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { isValidElement, useState } from "react";
 import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
 
+/**
+ * 【React 进阶模式学习 7：树状结构的递归遍历】
+ * React 的 children 可能是一个字符串，也可能是一个数组，甚至是一个极其嵌套的 React 元素对象树。
+ * 当我们需要从富文本组件中提取纯文本（例如为了实现“一键复制”功能）时，
+ * 就需要使用这种递归函数，一层层剥开对象的 props.children，直到拿到最底层的纯文本 string。
+ */
 // 递归提取 React 元素中的文本内容
-function extractTextFromChildren(children: any): string {
-  if (typeof children === 'string') {
-    return children;
+function extractTextFromChildren(children: ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children);
   }
   if (Array.isArray(children)) {
     return children.map(extractTextFromChildren).join('');
   }
-  if (typeof children === 'object' && children !== null) {
-    if (children.props && children.props.children) {
-      return extractTextFromChildren(children.props.children);
-    }
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return extractTextFromChildren(children.props.children);
   }
   return '';
 }
 
+type CodeBlockProps = ComponentPropsWithoutRef<"code"> & {
+  code: string;
+  language: string;
+};
+
 // 代码块组件（CSDN风格）
-function CodeBlock({ code, language, className, children, ...props }: any) {
+function CodeBlock({ code, language, className, children, ...props }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   // 从 DOM 中提取纯文本用于复制
@@ -50,7 +61,7 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
           await navigator.clipboard.writeText(text);
           setCopied(true);
           setTimeout(() => setCopied(false), 2000);
-        } catch (err) {
+        } catch {
           // 降级方案
           const textArea = document.createElement('textarea');
           textArea.value = text;
@@ -69,7 +80,7 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
       await navigator.clipboard.writeText(codeText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       // 降级方案
       const textArea = document.createElement('textarea');
       textArea.value = codeText;
@@ -169,8 +180,8 @@ function CodeBlock({ code, language, className, children, ...props }: any) {
   );
 }
 
-const markdownComponents = {
-  h1: ({ children }: any) => (
+const markdownComponents: Components = {
+  h1: ({ children }) => (
     <h1 style={{
       fontSize: '1.875rem',
       fontWeight: 'bold',
@@ -182,7 +193,7 @@ const markdownComponents = {
       {children}
     </h1>
   ),
-  h2: ({ children }: any) => (
+  h2: ({ children }) => (
     <h2 style={{
       fontSize: '1.5rem',
       fontWeight: '600',
@@ -194,7 +205,7 @@ const markdownComponents = {
       {children}
     </h2>
   ),
-  h3: ({ children }: any) => (
+  h3: ({ children }) => (
     <h3 style={{
       fontSize: '1.25rem',
       fontWeight: '600',
@@ -204,7 +215,7 @@ const markdownComponents = {
       {children}
     </h3>
   ),
-  p: ({ children }: any) => (
+  p: ({ children }) => (
     <p style={{
       marginBottom: '1.5rem',
       lineHeight: '1.6',
@@ -213,7 +224,7 @@ const markdownComponents = {
       {children}
     </p>
   ),
-  a: ({ href, children }: any) => (
+  a: ({ href, children }) => (
     <a
       href={href}
       style={{
@@ -228,7 +239,7 @@ const markdownComponents = {
       {children}
     </a>
   ),
-  ul: ({ children }: any) => (
+  ul: ({ children }) => (
     <ul style={{
       marginBottom: '1.5rem',
       paddingLeft: '1.5rem',
@@ -237,7 +248,7 @@ const markdownComponents = {
       {children}
     </ul>
   ),
-  ol: ({ children }: any) => (
+  ol: ({ children }) => (
     <ol style={{
       marginBottom: '1.5rem',
       paddingLeft: '1.5rem',
@@ -246,7 +257,7 @@ const markdownComponents = {
       {children}
     </ol>
   ),
-  li: ({ children }: any) => (
+  li: ({ children }) => (
     <li style={{
       marginBottom: '0.5rem',
       color: 'var(--foreground)',
@@ -254,45 +265,23 @@ const markdownComponents = {
       {children}
     </li>
   ),
-  code: ({ inline, className, children, ...props }: any) => {
+  code: ({ className, children, node, ...props }) => {
+    void node;
     const match = /language-(\w+)/.exec(className || "");
     const language = match ? match[1] : '';
 
-    // 提取纯文本用于复制功能
-    // react-markdown 的 children 在代码块中通常是字符串
-    let codeText = '';
-    if (typeof children === 'string') {
-      codeText = children;
-    } else if (Array.isArray(children)) {
-      codeText = children
-        .map((child: any) => {
-          if (typeof child === 'string') {
-            return child;
-          }
-          // 如果是 React 元素，尝试递归提取文本
-          if (typeof child === 'object' && child !== null) {
-            if (child.props && child.props.children) {
-              return extractTextFromChildren(child.props.children);
-            }
-          }
-          return '';
-        })
-        .join('');
-    } else {
-      codeText = String(children);
-    }
+    // 提取纯文本用于复制功能，并移除末尾的换行符
+    const codeText = extractTextFromChildren(children).replace(/\n$/, '');
 
-    // 移除末尾的换行符
-    codeText = codeText.replace(/\n$/, '');
-
-    return !inline && match ? (
+    return match ? (
       <CodeBlock
         code={codeText}
         language={language}
         className={className}
-        children={children}
         {...props}
-      />
+      >
+        {children}
+      </CodeBlock>
     ) : (
       <code
         style={{
@@ -309,7 +298,7 @@ const markdownComponents = {
       </code>
     );
   },
-  blockquote: ({ children }: any) => (
+  blockquote: ({ children }) => (
     <blockquote style={{
       borderLeft: '3px solid #1890ff',
       padding: '1rem 1.5rem',
@@ -321,7 +310,8 @@ const markdownComponents = {
       {children}
     </blockquote>
   ),
-  img: ({ src, alt }: any) => (
+  img: ({ src, alt }) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       alt={alt}
@@ -386,4 +376,3 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
     </div>
   );
 }
-

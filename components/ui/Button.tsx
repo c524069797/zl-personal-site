@@ -1,6 +1,6 @@
 import { Button as AntButton, type ButtonProps as AntButtonProps } from 'antd'
 
-interface ButtonProps extends AntButtonProps {
+interface ButtonProps extends Omit<AntButtonProps, 'variant'> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'link'
 }
 

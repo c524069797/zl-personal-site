@@ -126,8 +126,8 @@ function HeroCard({
       initial={initialMap[direction]}
       animate={{ opacity: 1, x: 0, y: 0 }}
       transition={{ duration: 0.8, delay }}
-      whileHover={{ y: -6, scale: 1.01 }}
-      className={`group relative rounded-2xl overflow-hidden cursor-default transition-all duration-500
+      whileHover={{ y: -8, scale: 1.04 }}
+      className={`group relative rounded-2xl overflow-hidden cursor-default transition-all duration-500 hover:z-20
         bg-white/70 dark:bg-white/[0.04]
         backdrop-blur-xl
         border border-neutral-200/60 dark:border-white/[0.08]
@@ -155,7 +155,7 @@ function HeroCard({
         <div className="absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-cyan-400/50 to-transparent" />
         <div className="absolute bottom-0 right-0 h-full w-[1px] bg-gradient-to-t from-cyan-400/50 to-transparent" />
       </div>
-      <div className="relative z-10 p-6 sm:p-8">
+      <div className="relative z-10 p-5 sm:p-7">
         {children}
       </div>
     </motion.div>
@@ -189,7 +189,7 @@ export default function HeroAnimated() {
   ]
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
       <FluidBackground />
       <DataFlowBackground />
 
@@ -201,7 +201,7 @@ export default function HeroAnimated() {
         <FloatingIcon key={item.label} {...item} />
       ))}
 
-      <div className="relative z-10 min-h-screen flex flex-col justify-center px-6 sm:px-12 lg:px-20">
+      <div className="relative z-10 min-h-[calc(100vh-4rem)] flex flex-col justify-center px-5 sm:px-10 lg:px-16 py-12">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           {/* Left: AI Development Card */}
           <div className="lg:col-span-4">
@@ -211,7 +211,7 @@ export default function HeroAnimated() {
                   <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-violet-500 font-medium">
                     {t('home.animatedHero.aiDevLabel')}
                   </span>
-                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-neutral-800 dark:text-white leading-tight">
+                  <h2 className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-white leading-tight">
                     {t('home.animatedHero.aiDevTitle')}
                   </h2>
                 </div>
@@ -237,14 +237,14 @@ export default function HeroAnimated() {
                   {t('home.animatedHero.frontendLabel')}
                 </span>
               </div>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.1] mb-4 sm:mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white leading-[1.08] mb-4 sm:mb-6">
                 <span>{t('home.animatedHero.frontendTitle1')}</span>
                 <br />
                 <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent">
                   {t('home.animatedHero.frontendTitle2')}
                 </span>
               </h1>
-              <p className="text-sm sm:text-base lg:text-lg text-neutral-500 dark:text-white/50 max-w-md mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed">
+              <p className="text-sm sm:text-base text-neutral-500 dark:text-white/50 max-w-md mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed">
                 {t('home.animatedHero.frontendDesc')}
               </p>
 

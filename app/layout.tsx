@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import "czl-personal-ui/styles.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
@@ -9,16 +9,6 @@ import { LoadingBar } from "@/components/LoadingBar";
 import { PageTransition } from "@/components/PageTransition";
 import { GlobalLoadingMask } from "@/components/GlobalLoadingMask";
 import { WebSiteStructuredData } from "@/components/StructuredData";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
 const siteName = "陈灼的网络日志";
@@ -61,9 +51,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.png',
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
   openGraph: {
     type: "website",
@@ -108,9 +98,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <WebSiteStructuredData
           siteName={siteName}
           siteUrl={siteUrl}

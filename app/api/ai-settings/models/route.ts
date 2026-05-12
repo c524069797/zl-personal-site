@@ -1,20 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { SILICONFLOW_FREE_MODELS, SILICONFLOW_FREE_SETTING_ID } from '@/lib/siliconflow'
 
 const DEFAULT_MODELS = [
-  'gpt-4o',
-  'gpt-4o-mini',
-  'gpt-4-turbo',
-  'gpt-3.5-turbo',
-  'claude-3-5-sonnet',
-  'claude-3-haiku',
-  'deepseek-chat',
-  'deepseek-reasoner',
+  ...SILICONFLOW_FREE_MODELS,
 ]
 
 // 获取可用模型列表
 export async function GET(request: NextRequest) {
   const settingId = request.nextUrl.searchParams.get('settingId')
+
+  if (settingId === SILICONFLOW_FREE_SETTING_ID) {
+    return NextResponse.json({ models: SILICONFLOW_FREE_MODELS })
+  }
 
   // 如果没有 settingId，直接返回默认模型列表
   if (!settingId) {

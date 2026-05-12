@@ -28,6 +28,7 @@ interface AISetting {
   id: string
   name: string
   baseUrl: string
+  builtin?: boolean
 }
 
 // 缓存配置
@@ -262,22 +263,16 @@ export default function AIChatPage() {
   return (
     <>
       <Navigation />
-      <Layout className="min-h-screen" style={{ background: 'var(--background)' }}>
-        <Sider width={260} style={{ background: 'var(--background)', borderRight: '1px solid var(--border)', padding: 16 }}>
-          <Button type="primary" icon={<PlusOutlined />} block onClick={createConversation} style={{ marginBottom: 16 }}>
+      <Layout className="ai-chat-page min-h-screen">
+        <Sider width={260} className="ai-chat-sidebar">
+          <Button type="primary" icon={<PlusOutlined />} block onClick={createConversation} className="ai-chat-new-button">
             新对话
           </Button>
           <List
             dataSource={conversations}
             renderItem={(conv) => (
               <List.Item
-                style={{
-                  cursor: 'pointer',
-                  background: conv.id === activeConvId ? 'var(--border)' : 'transparent',
-                  padding: '8px 12px',
-                  borderRadius: 6,
-                  marginBottom: 4,
-                }}
+                className={`ai-chat-conversation-item ${conv.id === activeConvId ? 'ai-chat-conversation-item--active' : ''}`}
                 onClick={() => setActiveConvId(conv.id)}
                 actions={[
                   <Popconfirm key="del" title="删除此对话？" onConfirm={() => deleteConversation(conv.id)}>
@@ -287,7 +282,7 @@ export default function AIChatPage() {
               >
                 <Space>
                   <MessageOutlined />
-                  <Text ellipsis style={{ maxWidth: 140 }}>{conv.title}</Text>
+                  <Text ellipsis className="ai-chat-conversation-title">{conv.title}</Text>
                 </Space>
               </List.Item>
             )}
@@ -295,32 +290,23 @@ export default function AIChatPage() {
 
         </Sider>
 
-        <Content style={{ padding: 24, display: 'flex', flexDirection: 'column', height: 'calc(100vh - 64px)' }}>
+        <Content className="ai-chat-content">
           {/* 缓存提示条 */}
-          <div style={{
-            background: 'linear-gradient(90deg, #2563eb15, #3b82f615)',
-            borderRadius: 8,
-            padding: '8px 16px',
-            marginBottom: 12,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            fontSize: 13,
-            color: 'var(--text-secondary)',
-          }}>
+          <div className="ai-chat-cache-tip">
             💡 对话记录仅缓存在浏览器中，5分钟后自动清除
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-            <RobotOutlined style={{ fontSize: 24 }} />
-            <Text strong style={{ fontSize: 18 }}>{t('ai.chat.title')}</Text>
+          <div className="ai-chat-header">
+            <RobotOutlined className="ai-chat-header-icon" />
+            <Text strong className="ai-chat-title">{t('ai.chat.title')}</Text>
             <Select
               value={selectedSetting}
               onChange={v => { setSelectedSetting(v); setModels([]); setSelectedModel('') }}
               options={[
-                { value: 'blog-qa', label: '📚 博客问答（内置）' },
+                { value: 'blog-qa', label: '博客问答（内置）' },
                 ...settings.map(s => ({ value: s.id, label: s.name }))
               ]}
-              style={{ width: 180, marginLeft: 'auto' }}
+              className="ai-chat-provider-select"
+              popupClassName="ai-chat-select-dropdown"
               placeholder="选择配置"
             />
             {selectedSetting !== 'blog-qa' && (
@@ -328,23 +314,24 @@ export default function AIChatPage() {
                 value={selectedModel}
                 onChange={setSelectedModel}
                 options={models.map(m => ({ value: m, label: m }))}
-                style={{ width: 180 }}
+                className="ai-chat-model-select"
+                popupClassName="ai-chat-select-dropdown"
                 placeholder="选择模型"
               />
             )}
           </div>
 
-          <Card style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, paddingBottom: 16 }}>
+          <Card className="ai-chat-panel">
+            <div className="ai-chat-message-list">
               {!activeConv ? (
-                <div style={{ textAlign: 'center', color: 'var(--foreground)', opacity: 0.5, marginTop: 100 }}>
+                <div className="ai-chat-empty">
                   点击左侧&ldquo;新对话&rdquo;开始聊天
                 </div>
               ) : activeConv.messages.length === 0 ? (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '40px' }}>
-                   <Title level={3} style={{ marginBottom: '24px' }}>{t('ai.chat.welcome')}</Title>
-                   <Paragraph type="secondary" style={{ marginBottom: '24px' }}>{t('ai.chat.examples')}</Paragraph>
-                   <Space wrap style={{ justifyContent: 'center' }}>
+                <div className="ai-chat-welcome">
+                   <Title level={3} className="ai-chat-welcome-title">{t('ai.chat.welcome')}</Title>
+                   <Paragraph type="secondary" className="ai-chat-welcome-desc">{t('ai.chat.examples')}</Paragraph>
+                   <Space wrap className="ai-chat-example-list">
                      {[t('ai.chat.example1'), t('ai.chat.example2')].map((example, i) => (
                        <Button 
                          key={i} 
@@ -362,28 +349,31 @@ export default function AIChatPage() {
                 </div>
               ) : (
                 activeConv.messages.map((msg, index) => (
-                  <div key={index} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
-                    <Card style={{ maxWidth: '80%', background: 'var(--background)', border: '1px solid var(--border)' }}>
+                  <div key={index} className={`ai-chat-message-row ai-chat-message-row--${msg.role}`}>
+                    <Card className="ai-chat-message-card">
                       {msg.role === 'assistant' ? (
                         <div className="markdown-content">
                           <ReactMarkdown>{msg.content}</ReactMarkdown>
                         </div>
                       ) : (
-                        <Paragraph style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{msg.content}</Paragraph>
+                        <Paragraph className="ai-chat-user-text">{msg.content}</Paragraph>
                       )}
                     </Card>
                   </div>
                 ))
               )}
               {loading && (
-                <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                  <Card><Spin size="small" /></Card>
+                <div className="ai-chat-message-row ai-chat-message-row--assistant">
+                  <Card className="ai-chat-loading-card">
+                    <Spin size="small" />
+                    <span>加载中...</span>
+                  </Card>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            <Space.Compact style={{ width: '100%' }}>
+            <Space.Compact className="ai-chat-composer">
               <TextArea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -391,7 +381,7 @@ export default function AIChatPage() {
                 placeholder={t('ai.chat.placeholder')}
                 autoSize={{ minRows: 1, maxRows: 4 }}
                 disabled={loading || !activeConvId}
-                style={{ flex: 1 }}
+                className="ai-chat-composer-input"
               />
               <Button type="primary" icon={<SendOutlined />} onClick={handleSend} loading={loading} disabled={!input.trim() || !activeConvId}>
                 {t('ai.chat.send')}

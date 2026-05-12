@@ -32,6 +32,7 @@
     "@sparticuz/chromium-min": "^143.0.4",
     "antd": "^5.28.1",
     "bcrypt": "^6.0.0",
+    "czl-personal-ui": "^0.1.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.19",
     "framer-motion": "^12.34.3",

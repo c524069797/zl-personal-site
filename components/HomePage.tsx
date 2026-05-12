@@ -113,6 +113,33 @@ const featuredProjects = [
   },
 ]
 
+const journeyItems = [
+  {
+    step: '01',
+    href: '#works',
+    title: '先看作品',
+    desc: '用已上线项目判断我能做什么',
+  },
+  {
+    step: '02',
+    href: '#posts',
+    title: '再看文章',
+    desc: '了解技术判断和持续输出',
+  },
+  {
+    step: '03',
+    href: '#ai-entry',
+    title: '直接提问',
+    desc: '让 AI 助手按你的问题检索内容',
+  },
+  {
+    step: '04',
+    href: '#background',
+    title: '最后看背景',
+    desc: '愿景、技能和经历放在补充信息里',
+  },
+]
+
 // ——————————————————————————————————————————————
 // Section wrapper with scroll-triggered reveal
 // ——————————————————————————————————————————————
@@ -139,6 +166,37 @@ function RevealSection({
     >
       {children}
     </motion.section>
+  )
+}
+
+function JourneyGuide() {
+  return (
+    <section className="home-journey-guide relative z-20 px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 mb-12 sm:mb-16">
+      <div className="mx-auto max-w-7xl rounded-2xl border border-neutral-200/70 bg-white/90 p-3 shadow-[0_18px_60px_-30px_rgba(15,23,42,0.45)] backdrop-blur dark:border-white/10 dark:bg-[#0b1020]/90">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {journeyItems.map((item) => (
+            <a
+              key={item.step}
+              href={item.href}
+              className="group flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-neutral-100 dark:hover:bg-white/[0.06]"
+            >
+              <span className="mt-0.5 font-mono text-xs font-semibold text-indigo-500 dark:text-cyan-300">
+                {item.step}
+              </span>
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold text-neutral-900 dark:text-white">
+                  {item.title}
+                </span>
+                <span className="mt-0.5 block text-xs leading-relaxed text-neutral-500 dark:text-white/45">
+                  {item.desc}
+                </span>
+              </span>
+              <ArrowRight size={14} className="ml-auto mt-0.5 shrink-0 text-neutral-300 transition-transform group-hover:translate-x-0.5 group-hover:text-indigo-500 dark:text-white/20 dark:group-hover:text-cyan-300" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -190,16 +248,7 @@ export default function HomePage() {
           HERO SECTION — switchable
           ========================================= */}
       {heroMode === 'animated' ? <HeroAnimated /> : <HeroSimple />}
-
-      {/* =========================================
-          CORE EXPERTISE - Storage / Protection / License
-          ========================================= */}
-      <CoreExpertise />
-
-      {/* =========================================
-          VISION / SKILLS / EXPERIENCE
-          ========================================= */}
-      <VisionSection />
+      <JourneyGuide />
 
       {/* =========================================
           FEATURED WORKS SECTION
@@ -246,7 +295,7 @@ export default function HomePage() {
       {/* =========================================
           BENTO GRID - POSTS + ABOUT
           ========================================= */}
-      <RevealSection className="mb-16 sm:mb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <RevealSection className="mb-16 sm:mb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="posts">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Latest Posts - spans 2 columns on lg */}
           <div className="lg:col-span-2 space-y-4 sm:space-y-6">
@@ -348,7 +397,7 @@ export default function HomePage() {
           {/* Sidebar column */}
           <div className="space-y-4 sm:space-y-6">
             {/* About Me Card */}
-            <motion.div variants={fadeInScale}>
+            <motion.div variants={fadeInScale} id="ai-entry">
               <GlowCard glowColor="rgba(139, 92, 246, 0.3)">
                 <div className="text-center">
                   <div className="relative w-20 sm:w-24 h-20 sm:h-24 mx-auto mb-3 sm:mb-4">
@@ -453,6 +502,11 @@ export default function HomePage() {
           </div>
         </div>
       </RevealSection>
+
+      <div id="background" className="home-background-sections">
+        <CoreExpertise />
+        <VisionSection />
+      </div>
 
       {/* =========================================
           HOT POSTS SECTION

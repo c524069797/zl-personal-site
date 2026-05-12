@@ -20,12 +20,24 @@ export default function AIChatBot() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  /**
+   * 【React 进阶模式学习 5：DOM 引用与自动滚动】
+   * useRef 不仅可以保存不可见变量，更常见的是用来获取真实 DOM 元素的引用。
+   * 这个 useEffect 监听 messages 数组的变化。每当收到新消息（数组长度改变时），
+   * 就会自动调用浏览器原生的 scrollIntoView API，让聊天框平滑滚动到最底部。
+   */
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
+  /**
+   * 【React 进阶模式学习 6：乐观更新 (Optimistic UI Update)】
+   * 在发起缓慢的网络请求前，直接把用户的消息加入到聊天列表中并清空输入框 (setMessages & setInput)。
+   * 让用户感觉应用“瞬间”响应了操作，提升交互体验。
+   * 同时设置 loading = true，锁定输入框，等待后端 AI 回复后再解除。
+   */
   const handleSend = async () => {
     if (!input.trim() || loading) return
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { SILICONFLOW_BASE_URL, SILICONFLOW_FREE_SETTING_ID } from '@/lib/siliconflow'
 
 // 获取设置列表
 export async function GET() {
@@ -7,7 +8,18 @@ export async function GET() {
     orderBy: { createdAt: 'desc' },
     select: { id: true, baseUrl: true, name: true, isActive: true, createdAt: true },
   })
-  return NextResponse.json(settings)
+
+  return NextResponse.json([
+    {
+      id: SILICONFLOW_FREE_SETTING_ID,
+      baseUrl: SILICONFLOW_BASE_URL,
+      name: '硅基流动免费模型',
+      isActive: true,
+      createdAt: new Date(0),
+      builtin: true,
+    },
+    ...settings,
+  ])
 }
 
 // 创建/更新设置

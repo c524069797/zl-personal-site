@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
   motion,
-  useInView,
 } from 'framer-motion'
 import {
   ArrowRight,
@@ -19,16 +18,12 @@ import {
   Code2,
   Heart,
   Bot,
-  Activity,
-  TrendingUp,
-  Palette,
 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
 import { useTranslation } from '@/hooks/useTranslation'
 import { categorizeBlog } from '@/lib/blog-category'
 import GlowCard from '@/components/home/GlowCard'
-import ProjectCard from '@/components/home/ProjectCard'
 import HeroAnimated from '@/components/home/HeroAnimated'
 import HeroSimple from '@/components/home/HeroSimple'
 import VisionSection from '@/components/home/VisionSection'
@@ -47,6 +42,7 @@ interface Post {
   tags: Array<{ name: string; slug: string }>
   commentCount: number
   readingTime?: number
+  coverImage?: string
 }
 
 // ——————————————————————————————————————————————
@@ -77,42 +73,6 @@ const fadeInScale = {
   },
 }
 
-// ——————————————————————————————————————————————
-// Featured projects data
-// ——————————————————————————————————————————————
-const featuredProjects = [
-  {
-    title: 'Sports Hub 浏览器插件',
-    description:
-      'NBA、足球、电竞赛事聚合浏览器扩展，实时追踪比分、赛程与数据统计，一键掌握全球热门赛事动态。',
-    image: "url('/projects/sports-hub.png') center/cover no-repeat",
-    tags: ['Chrome Extension', 'TypeScript', 'Sports API', '实时数据'],
-    githubUrl: 'https://github.com/c524069797/sports-hub-extension',
-    icon: <Activity size={20} />,
-    accentColor: '#0ea5e9',
-  },
-  {
-    title: 'SportOracle 体育预测平台',
-    description:
-      'AI 驱动的体育预测平台，GPT 分析每场比赛胜负与大小分，集成 Kelly 准则智能下注、Polymarket 预测市场交易。',
-    image: "url('/projects/nba-predict.png') center/cover no-repeat",
-    tags: ['Next.js', 'AI 分析', 'Polymarket', '智能下注'],
-    demoUrl: 'https://nba.clczl.asia/',
-    icon: <TrendingUp size={20} />,
-    accentColor: '#06b6d4',
-  },
-  {
-    title: '织趣社区',
-    description:
-      '钩织爱好者的温馨家园，涵盖产品库、图解教程资源库和讨论区，发现好物、学习技巧、分享作品。',
-    image: "url('/projects/zhiqu-crochet.png') center/cover no-repeat",
-    tags: ['Web App', '社区平台', '产品库', '资源分享'],
-    demoUrl: 'https://zhiqu.clczl.asia/',
-    icon: <Palette size={20} />,
-    accentColor: '#ec4899',
-  },
-]
-
 const journeyItems = [
   {
     step: '01',
@@ -140,6 +100,105 @@ const journeyItems = [
   },
 ]
 
+const visualHighlights = [
+  {
+    title: '工程现场',
+    caption: '把想法推进到可上线的产品',
+    src: '/ai-front.png',
+    accent: 'from-cyan-500/70 to-indigo-500/70',
+  },
+  {
+    title: '体育分析',
+    caption: '数据、预测与实时体验',
+    src: '/projects/nba-predict.png',
+    accent: 'from-orange-500/70 to-sky-500/70',
+  },
+  {
+    title: '插件产品',
+    caption: '轻量入口承载高频场景',
+    src: '/projects/sports-hub.png',
+    accent: 'from-blue-500/70 to-emerald-500/70',
+  },
+  {
+    title: '社区应用',
+    caption: '围绕内容和关系做体验',
+    src: '/projects/zhiqu-crochet.png',
+    accent: 'from-pink-500/70 to-violet-500/70',
+  },
+]
+
+const fallbackLatestPosts: Post[] = [
+  {
+    id: 'fallback-ai-tools-guide',
+    slug: 'ai-tools-guide',
+    title: 'AI 工具链实践指南',
+    date: '2026-03-24',
+    summary: '记录 AI 辅助开发、工作流编排与日常工程提效的实际经验。',
+    tags: [],
+    commentCount: 0,
+    readingTime: 8,
+    coverImage: '/ai-front.png',
+  },
+  {
+    id: 'fallback-agent-workflow',
+    slug: 'nba-langgraph-agent-workflow',
+    title: 'LangGraph Agent 工作流实践',
+    date: '2026-03-21',
+    summary: '从多 Agent 协作、状态管理到工具调用，拆解一个可运行的分析流程。',
+    tags: [],
+    commentCount: 0,
+    readingTime: 10,
+    coverImage: '/projects/nba-predict.png',
+  },
+  {
+    id: 'fallback-enterprise-experience',
+    slug: 'ai-projects-enterprise-experience',
+    title: '企业 AI 项目落地经验',
+    date: '2026-03-18',
+    summary: '围绕需求、数据、交互与交付节奏，总结 AI 项目的工程化要点。',
+    tags: [],
+    commentCount: 0,
+    readingTime: 7,
+    coverImage: '/projects/sports-hub.png',
+  },
+]
+
+const fallbackHotPosts: Post[] = [
+  {
+    id: 'fallback-rag',
+    slug: 'rag-pitfalls-and-langgraph-practice',
+    title: 'RAG 常见误区与实践修正',
+    date: '2026-03-15',
+    summary: '从检索质量、上下文组织和回答可信度几个角度看 RAG 系统落地。',
+    tags: [],
+    commentCount: 0,
+    readingTime: 9,
+    coverImage: '/ai-front.png',
+  },
+  {
+    id: 'fallback-polymarket',
+    slug: 'web3-prediction-market-polymarket',
+    title: '预测市场与体育分析',
+    date: '2026-03-12',
+    summary: '用产品视角理解预测市场、体育数据和交易体验之间的连接。',
+    tags: [],
+    commentCount: 0,
+    readingTime: 6,
+    coverImage: '/projects/nba-predict.png',
+  },
+  {
+    id: 'fallback-security',
+    slug: 'web-security-protection',
+    title: 'Web 安全防护笔记',
+    date: '2026-03-10',
+    summary: '整理前端与全栈项目中常见的安全边界、风险点和防护方式。',
+    tags: [],
+    commentCount: 0,
+    readingTime: 7,
+    coverImage: '/projects/sports-hub.png',
+  },
+]
+
 // ——————————————————————————————————————————————
 // Section wrapper with scroll-triggered reveal
 // ——————————————————————————————————————————————
@@ -152,15 +211,11 @@ function RevealSection({
   className?: string
   id?: string
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
     <motion.section
-      ref={ref}
       id={id}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      initial="visible"
+      animate="visible"
       variants={staggerContainer}
       className={className}
     >
@@ -195,6 +250,40 @@ function JourneyGuide() {
             </a>
           ))}
         </div>
+      </div>
+    </section>
+  )
+}
+
+function VisualDirectionStrip() {
+  return (
+    <section className="px-4 sm:px-6 lg:px-8 mb-14 sm:mb-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {visualHighlights.map((item, index) => (
+          <a
+            key={item.title}
+            href={index === 0 ? '#works' : index === 3 ? '#background' : '#posts'}
+            className={`group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-[0_18px_60px_-36px_rgba(15,23,42,0.7)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10 ${
+              index === 0 ? 'sm:col-span-2 lg:col-span-1' : ''
+            }`}
+          >
+            <div className="relative h-44 sm:h-52 lg:h-64">
+              <Image
+                src={item.src}
+                alt={item.title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority={index === 0}
+              />
+              <div className={`absolute inset-0 bg-gradient-to-t ${item.accent} via-neutral-950/20 to-transparent opacity-80`} />
+              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                <p className="text-base font-semibold text-white">{item.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-white/75">{item.caption}</p>
+              </div>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )
@@ -239,6 +328,9 @@ export default function HomePage() {
     setHeroMode((prev) => (prev === 'animated' ? 'simple' : 'animated'))
   }
 
+  const visibleLatestPosts = latestPosts.length > 0 ? latestPosts : fallbackLatestPosts
+  const visibleHotPosts = hotPosts.length > 0 ? hotPosts : fallbackHotPosts
+
   return (
     <div className="w-full text-neutral-800 dark:text-white overflow-x-hidden bg-white dark:bg-[#050816]">
       {/* Mode Toggle */}
@@ -249,48 +341,7 @@ export default function HomePage() {
           ========================================= */}
       {heroMode === 'animated' ? <HeroAnimated /> : <HeroSimple />}
       <JourneyGuide />
-
-      {/* =========================================
-          FEATURED WORKS SECTION
-          ========================================= */}
-      <RevealSection className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="works">
-        <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8 sm:mb-10">
-          <div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-800 dark:text-white mb-1 sm:mb-2">
-              精选作品
-            </h2>
-            <p className="text-neutral-400 dark:text-white/40 text-sm sm:text-base">
-              探索我最近的项目与开源贡献
-            </p>
-          </div>
-          <Link
-            href="https://github.com/c524069797"
-            target="_blank"
-            className="hidden sm:flex items-center gap-2 text-indigo-500 dark:text-indigo-400 hover:text-indigo-400 dark:hover:text-indigo-300 transition-colors text-sm font-medium"
-          >
-            查看更多 <ArrowRight size={16} />
-          </Link>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {featuredProjects.map((project) => (
-            <motion.div key={project.title} variants={fadeInScale}>
-              <ProjectCard {...project} />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Mobile "查看更多" link */}
-        <motion.div variants={fadeInUp} className="flex sm:hidden justify-center mt-6">
-          <Link
-            href="https://github.com/c524069797"
-            target="_blank"
-            className="flex items-center gap-2 text-indigo-500 dark:text-indigo-400 text-sm font-medium"
-          >
-            查看更多项目 <ArrowRight size={16} />
-          </Link>
-        </motion.div>
-      </RevealSection>
+      <VisualDirectionStrip />
 
       {/* =========================================
           BENTO GRID - POSTS + ABOUT
@@ -331,19 +382,29 @@ export default function HomePage() {
                     </div>
                   </motion.div>
                 ))
-              : latestPosts.map((post) => {
+              : visibleLatestPosts.map((post) => {
                   const categoryInfo = categorizeBlog(post.title, post.summary)
                   return (
                     <motion.div key={post.id} variants={fadeInUp}>
                       <GlowCard glowColor="rgba(99, 102, 241, 0.3)">
                         <div className="flex gap-3 sm:gap-4">
                           <div className="w-20 sm:w-28 h-16 sm:h-20 rounded-xl overflow-hidden shrink-0">
-                            <PostCoverImage
-                              title={post.title}
-                              summary={post.summary}
-                              height={80}
-                              gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                            />
+                            {post.coverImage ? (
+                              <Image
+                                src={post.coverImage}
+                                alt={post.title}
+                                width={112}
+                                height={80}
+                                className="h-full w-full object-cover"
+                              />
+                            ) : (
+                              <PostCoverImage
+                                title={post.title}
+                                summary={post.summary}
+                                height={80}
+                                gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                              />
+                            )}
                           </div>
                           <div className="flex-1 min-w-0">
                             {/* Meta row */}
@@ -501,96 +562,102 @@ export default function HomePage() {
             </motion.div>
           </div>
         </div>
+
+        <div className="mt-10 sm:mt-14">
+          <motion.div variants={fadeInUp} className="mb-6 sm:mb-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-1 h-6 sm:h-8 bg-gradient-to-b from-orange-500 to-rose-500 rounded-full" />
+                <h2 className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-white">
+                  {t('home.hotPosts')}
+                </h2>
+              </div>
+              <Link
+                href="/blog"
+                className="flex items-center gap-1 text-indigo-500 dark:text-indigo-400 hover:text-indigo-400 dark:hover:text-indigo-300 transition-colors text-sm font-medium"
+              >
+                {t('common.viewAll')} <ChevronRight size={16} />
+              </Link>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            {loading
+              ? [1, 2, 3].map((i) => (
+                  <motion.div key={i} variants={fadeInScale}>
+                    <div className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] p-4 sm:p-5 animate-pulse">
+                      <div className="h-28 sm:h-32 rounded-xl bg-neutral-200 dark:bg-white/10 mb-4" />
+                      <div className="h-4 bg-neutral-200 dark:bg-white/10 rounded w-3/4 mb-3" />
+                      <div className="h-3 bg-neutral-200 dark:bg-white/10 rounded w-full" />
+                    </div>
+                  </motion.div>
+                ))
+              : visibleHotPosts.map((post) => {
+                  const categoryInfo = categorizeBlog(post.title, post.summary)
+                  return (
+                    <motion.div key={post.id} variants={fadeInScale} className="h-full">
+                      <GlowCard glowColor="rgba(249, 115, 22, 0.3)" className="h-full">
+                        <div className="flex h-full flex-col">
+                          <div className="h-28 sm:h-32 rounded-xl overflow-hidden mb-3 sm:mb-4">
+                            {post.coverImage ? (
+                              <Image
+                                src={post.coverImage}
+                                alt={post.title}
+                                width={360}
+                                height={128}
+                                className="h-full w-full object-cover"
+                              />
+                            ) : (
+                              <PostCoverImage
+                                title={post.title}
+                                summary={post.summary}
+                                height={128}
+                                gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                              />
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mb-2 text-[10px] sm:text-xs text-neutral-400 dark:text-white/40">
+                            <span
+                              className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] font-medium"
+                              style={{
+                                background: `${categoryInfo.color}20`,
+                                color: categoryInfo.color,
+                                border: `1px solid ${categoryInfo.color}40`,
+                              }}
+                            >
+                              {categoryInfo.label}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Calendar size={10} /> {formatDate(post.date)}
+                            </span>
+                          </div>
+                          <Link href={`/blog/${post.slug}`}>
+                            <h3 className="min-h-[3.5rem] text-neutral-800 dark:text-white font-semibold text-sm sm:text-base mb-1.5 sm:mb-2 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors line-clamp-2">
+                              {post.title}
+                            </h3>
+                          </Link>
+                          <p className="min-h-[3rem] flex-1 text-neutral-400 dark:text-white/40 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-2 sm:mb-3">
+                            {post.summary}
+                          </p>
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            className="mt-auto inline-flex items-center gap-1 text-xs text-orange-500 dark:text-orange-400 hover:text-orange-400 dark:hover:text-orange-300 transition-colors font-medium"
+                          >
+                            {t('common.readMore')} <ArrowRight size={12} />
+                          </Link>
+                        </div>
+                      </GlowCard>
+                    </motion.div>
+                  )
+                })}
+          </div>
+        </div>
       </RevealSection>
 
       <div id="background" className="home-background-sections">
         <CoreExpertise />
         <VisionSection />
       </div>
-
-      {/* =========================================
-          HOT POSTS SECTION
-          ========================================= */}
-      <RevealSection className="mb-16 sm:mb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <motion.div variants={fadeInUp} className="mb-6 sm:mb-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-6 sm:h-8 bg-gradient-to-b from-orange-500 to-rose-500 rounded-full" />
-              <h2 className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-white">
-                {t('home.hotPosts')}
-              </h2>
-            </div>
-            <Link
-              href="/blog"
-              className="flex items-center gap-1 text-indigo-500 dark:text-indigo-400 hover:text-indigo-400 dark:hover:text-indigo-300 transition-colors text-sm font-medium"
-            >
-              {t('common.viewAll')} <ChevronRight size={16} />
-            </Link>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-          {loading
-            ? [1, 2, 3].map((i) => (
-                <motion.div key={i} variants={fadeInScale}>
-                  <div className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] p-4 sm:p-5 animate-pulse">
-                    <div className="h-28 sm:h-32 rounded-xl bg-neutral-200 dark:bg-white/10 mb-4" />
-                    <div className="h-4 bg-neutral-200 dark:bg-white/10 rounded w-3/4 mb-3" />
-                    <div className="h-3 bg-neutral-200 dark:bg-white/10 rounded w-full" />
-                  </div>
-                </motion.div>
-              ))
-            : hotPosts.map((post) => {
-                const categoryInfo = categorizeBlog(post.title, post.summary)
-                return (
-                  <motion.div key={post.id} variants={fadeInScale} className="h-full">
-                    <GlowCard glowColor="rgba(249, 115, 22, 0.3)" className="h-full">
-                      <div className="flex h-full flex-col">
-                        <div className="h-28 sm:h-32 rounded-xl overflow-hidden mb-3 sm:mb-4">
-                          <PostCoverImage
-                            title={post.title}
-                            summary={post.summary}
-                            height={128}
-                            gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                          />
-                        </div>
-                        {/* Meta */}
-                        <div className="flex items-center gap-2 mb-2 text-[10px] sm:text-xs text-neutral-400 dark:text-white/40">
-                          <span
-                            className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] font-medium"
-                            style={{
-                              background: `${categoryInfo.color}20`,
-                              color: categoryInfo.color,
-                              border: `1px solid ${categoryInfo.color}40`,
-                            }}
-                          >
-                            {categoryInfo.label}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Calendar size={10} /> {formatDate(post.date)}
-                          </span>
-                        </div>
-                        <Link href={`/blog/${post.slug}`}>
-                          <h3 className="min-h-[3.5rem] text-neutral-800 dark:text-white font-semibold text-sm sm:text-base mb-1.5 sm:mb-2 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors line-clamp-2">
-                            {post.title}
-                          </h3>
-                        </Link>
-                        <p className="min-h-[3rem] flex-1 text-neutral-400 dark:text-white/40 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-2 sm:mb-3">
-                          {post.summary}
-                        </p>
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="mt-auto inline-flex items-center gap-1 text-xs text-orange-500 dark:text-orange-400 hover:text-orange-400 dark:hover:text-orange-300 transition-colors font-medium"
-                        >
-                          {t('common.readMore')} <ArrowRight size={12} />
-                        </Link>
-                      </div>
-                    </GlowCard>
-                  </motion.div>
-                )
-              })}
-        </div>
-      </RevealSection>
 
       {/* =========================================
           FOOTER SECTION

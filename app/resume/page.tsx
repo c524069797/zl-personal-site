@@ -663,15 +663,6 @@ export default function ResumePage() {
               <p>
                 <span className="resume-work-dot" />
                 <span>
-                  <strong>织趣社区</strong>：面向钩织爱好者的社区产品。{" "}
-                  <a className="resume-link" href="https://zhiqu.clczl.asia/" target="_blank" rel="noopener noreferrer">
-                    zhiqu.clczl.asia
-                  </a>
-                </span>
-              </p>
-              <p>
-                <span className="resume-work-dot" />
-                <span>
                   <strong>Sports Hub 浏览器插件</strong>：聚合 NBA、足球、电竞赛事信息的 Chrome Extension。{" "}
                   <a className="resume-link" href="https://github.com/c524069797/sports-hub-extension" target="_blank" rel="noopener noreferrer">
                     GitHub

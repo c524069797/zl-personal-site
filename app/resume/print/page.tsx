@@ -16,9 +16,10 @@ function SkillTag({ children, template }: { children: React.ReactNode; template:
   );
 }
 
-function ResumeContent({ template }: { template: string }) {
+function ResumeContent({ template, version }: { template: string; version: string }) {
   const [showOtherWorks, setShowOtherWorks] = useState(true);
   const [showAdvantages, setShowAdvantages] = useState(true);
+  const isAiVersion = version === "ai";
 
   const isCard = template === "card";
   const isNavy = template === "navy";
@@ -107,7 +108,7 @@ function ResumeContent({ template }: { template: string }) {
           ].map((t) => (
             <a
               key={t.key}
-              href={`/resume/print?template=${t.key}`}
+              href={`/resume/print?template=${t.key}&version=${version}`}
               className={`inline-flex items-center rounded-full px-3 py-1 text-xs mr-2 transition-colors ${
                 template === t.key
                   ? "bg-cyan-100 text-cyan-700 ring-1 ring-cyan-300"
@@ -127,7 +128,9 @@ function ResumeContent({ template }: { template: string }) {
         {/* Header */}
         <header className={headerWrapper}>
           <h1 className={headerName}>陈子龙</h1>
-          <p className={headerSub}>前端开发工程师（具备 AI 全栈开发经验）</p>
+          <p className={headerSub}>
+            {isAiVersion ? "AI 应用开发工程师（Agent / RAG / AI 全栈）" : "前端开发工程师（具备 AI 全栈开发经验）"}
+          </p>
           <div className={headerMeta}>
             <span>158-7444-2813</span>
             <span>chenzhuo995@gmail.com</span>
@@ -160,22 +163,53 @@ function ResumeContent({ template }: { template: string }) {
             专业技能
           </h2>
           <div className="space-y-1 text-xs">
-            <div className="flex gap-2">
-              <span className="w-20 shrink-0 font-medium text-gray-700">前端开发：</span>
-              <span className="text-gray-600">Vue 2/3, React, Next.js, TypeScript, Ant Design, ECharts, Tailwind CSS, WebSocket</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="w-20 shrink-0 font-medium text-gray-700">工程化：</span>
-              <span className="text-gray-600">Vite, Webpack, Monorepo, ESLint, Vitest, GitLab CI/CD</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="w-20 shrink-0 font-medium text-gray-700">AI 全栈：</span>
-              <span className="text-gray-600">LangGraph, Mastra, RAG, Node.js, Python / FastAPI, Java, PostgreSQL, Redis, 向量存储</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="w-20 shrink-0 font-medium text-gray-700">自动化测试：</span>
-              <span className="text-gray-600">Selenium, Robot Framework, 回归测试</span>
-            </div>
+            {isAiVersion ? (
+              <>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">AI 应用：</span>
+                  <span className="text-gray-600">LangGraph, Mastra, OpenClaw, RAG, Agent Workflow, Tool Calling, Prompt / Guardrail, SSE 流式输出</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">前端产品：</span>
+                  <span className="text-gray-600">Next.js, React, TypeScript, Ant Design, 对话式交互, 响应式布局, 数据可视化</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">后端数据：</span>
+                  <span className="text-gray-600">Node.js, Python / FastAPI, Flask, PostgreSQL, Redis, sqlite-vec, 向量检索</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">工程质量：</span>
+                  <span className="text-gray-600">OpenSpec, Skill 配置化, AI Code Review, Eval 测试集, Observability, GitLab CI/CD</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">前端开发：</span>
+                  <span className="text-gray-600">Vue 2/3, React, Next.js, TypeScript, Ant Design, ECharts, grid-layout-plus, Tailwind CSS, WebSocket</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">移动跨端：</span>
+                  <span className="text-gray-600">React Native, iOS / Android, uni-app, 微信小程序, 离线缓存, 真机调试</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">工程化：</span>
+                  <span className="text-gray-600">Vite, Webpack, Monorepo, ESLint 9, Vitest, Playwright, OpenSpec, GitLab CI/CD</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">后端协作：</span>
+                  <span className="text-gray-600">Node.js, Python / FastAPI, Flask, PostgreSQL, Redis, sqlite-vec</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">AI 全栈：</span>
+                  <span className="text-gray-600">LangGraph, Mastra, RAG, Hybrid Retrieval, Reranker, Eval, Observability, 向量存储</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-20 shrink-0 font-medium text-gray-700">自动化测试：</span>
+                  <span className="text-gray-600">Selenium, Robot Framework, pytest, Playwright, UI 自动化</span>
+                </div>
+              </>
+            )}
           </div>
         </section>
 
@@ -197,6 +231,7 @@ function ResumeContent({ template }: { template: string }) {
             </p>
             <ul className={expList}>
               <li><strong>业务建模：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
+              <li><strong>跨端项目经验：</strong>参与 iOS / Android 与 <strong>React Native</strong> 项目建设，处理业务页面、接口联调、登录态保持、权限与设备适配，具备从真机调试到打包发布的完整链路经验。</li>
               <li><strong>性能优化：</strong>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。</li>
               <li><strong>AI 业务落地：</strong>主导 <strong>scutech-licenser 客服 Agent</strong> 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入客服团队日常使用；持续推进 <strong>Agent Harness Engineering</strong> 与知识库扩展。</li>
             </ul>
@@ -210,6 +245,41 @@ function ResumeContent({ template }: { template: string }) {
             项目经历
           </h2>
 
+          {isAiVersion ? (
+            <>
+              <div className="mb-1.5">
+                <div className="flex items-baseline justify-between">
+                  <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
+                  <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE</span>
+                </div>
+                <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
+                <ul className={expList}>
+                  <li><strong>产品定位：</strong>面向个人投资研究场景，构建“自选股管理 + 多源数据聚合 + AI 分析问答”的投资助手，覆盖桌面端 Dashboard 与移动端卡片化体验。</li>
+                  <li><strong>多 Agent 编排：</strong>基于 <strong>Next.js + Mastra</strong> 拆分行情查询 Agent、技术指标 Agent、新闻摘要 Agent 与投资组合诊断 Agent，通过工作流实现复杂问题分步推理与结构化输出。</li>
+                  <li><strong>数据闭环：</strong>接入实时行情、K 线形态、支撑压力位与近 7 日财经新闻；结合 <strong>OpenClaw</strong> 自动抓取公众号 / 大 V 观点并生成摘要，补齐消息面上下文。</li>
+                  <li><strong>交互体验：</strong>使用 <strong>Server-Sent Events</strong> 实现流式回答，支持推理过程可视化、重点结论高亮与对话上下文保留；通过 PostgreSQL 持久化用户对话、自选股与个性化配置。</li>
+                  <li><strong>工程化：</strong>用 OpenSpec 梳理系统边界、接口契约与任务拆分，同步沉淀系统文档、接口手册和开发规范，形成“需求 - 设计 - 开发 - 文档”闭环。</li>
+                </ul>
+              </div>
+
+              <div className="mb-1.5">
+                <div className="flex items-baseline justify-between">
+                  <h4 className="text-xs font-bold text-gray-900">企业 Agent 客服项目</h4>
+                  <span className={techStack}>React / Python / FastAPI / LangGraph / RAG / sqlite-vec / PostgreSQL</span>
+                </div>
+                <p className="text-[10px] text-gray-400">企业内部产品｜已接入客服团队日常使用</p>
+                <ul className={expList}>
+                  <li><strong>业务背景：</strong>内部管理系统业务逻辑复杂，客服团队需高频处理审批进度查询、报错诊断、套餐功能解释等重复问题，人工响应慢且知识传递成本高。</li>
+                  <li><strong>RAG 知识库：</strong>将产品文档、审批流程、历史工单、Wiki、SOP 和常见报错排查指南构建为结构化知识库，设计多粒度 Chunk、metadata 富化、来源溯源和父子检索策略。</li>
+                  <li><strong>业务数据联动：</strong>打通申请、审批、审计等核心业务数据，使 Agent 能基于真实申请单与工单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</li>
+                  <li><strong>前端对话体验：</strong>开发对话式工作台，支持多轮上下文、引用来源高亮、诊断步骤展示与一键转人工，降低客服使用门槛并保留复杂问题交接路径。</li>
+                  <li><strong>落地效果：</strong>Agent 已接入客服团队日常工作流，覆盖 80% 以上常见咨询场景，平均响应从分钟级缩短至秒级，减少重复工单约 <strong>30%</strong>。</li>
+                  <li><strong>工程治理：</strong>推进 LangGraph Checkpointer、StructuredTool + ToolNode、检索阈值 / Hybrid Search / Reranker、Eval 测试集与 Trace 观测能力，把 AI 助手升级为“可观测、可评估、可回滚”。</li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <>
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
@@ -255,20 +325,37 @@ function ResumeContent({ template }: { template: string }) {
           <div>
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
-              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL</span>
+              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SWR</span>
             </div>
             <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
             <ul className={expList}>
               <li>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局，抽象 App Shell、BottomNav 与断点适配方案。</li>
               <li>基于 <strong>Next.js + Mastra</strong> 搭建投资分析多 Agent 系统，拆分为行情查询、技术指标、新闻摘要与投资组合诊断 Agent。</li>
               <li>对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 <strong>OpenClaw</strong> 工作流自动抓取公众号/大 V 观点并生成摘要。</li>
+              <li><strong>长期记忆与数据分层：</strong>围绕用户画像、自选理由、持仓逻辑和复盘结论设计长期记忆层，区分{'"'}用户记忆{'"'}和{'"'}市场事实{'"'}两类数据，提升跨会话分析连续性。</li>
               <li>使用 Server-Sent Events 实现流式回答，支持推理过程可视化与答案高亮；通过 PostgreSQL 持久化用户对话与自选股数据。</li>
             </ul>
           </div>
+
+          <div className="mb-1.5">
+            <div className="flex items-baseline justify-between">
+              <h4 className="text-xs font-bold text-gray-900">跨端移动应用 / 小程序项目</h4>
+              <span className={techStack}>React Native / iOS / Android / uni-app / 微信云开发</span>
+            </div>
+            <p className="text-[10px] text-gray-400">移动端业务页面、跨端交付与小程序实践</p>
+            <ul className={expList}>
+              <li><strong>跨端开发：</strong>开发 iOS / Android 双端业务页面，处理导航、表单、列表、接口联调、全局状态、登录态保持与异常提示等常见移动端能力。</li>
+              <li><strong>原生链路：</strong>熟悉 iOS / Android 工程配置、真机调试、权限声明、环境区分与打包发布流程，能够定位常见构建、依赖与设备适配问题。</li>
+              <li><strong>小程序实践：</strong>基于 <strong>uni-app + 微信云开发</strong> 实现 AI 改善计划小程序，覆盖云函数、数据库、用户登录、离线优先数据同步与移动端交互适配。</li>
+              <li><strong>体验优化：</strong>关注弱网、键盘遮挡、长列表滚动、空状态 / 加载态和移动端布局密度，能把 Web 端工程经验迁移到 App 与小程序场景。</li>
+            </ul>
+          </div>
+            </>
+          )}
         </section>
 
         {/* Other Works */}
-        {showOtherWorks && (
+        {showOtherWorks && !isAiVersion && (
           <section className="mb-3">
             <h2 className={sectionTitle}>
               {sectionDot}
@@ -276,7 +363,6 @@ function ResumeContent({ template }: { template: string }) {
             </h2>
             <div className="space-y-0.5 text-[11px] leading-relaxed text-gray-800">
               <p><strong>SportOracle</strong>：AI 驱动的体育预测产品（nba.clczl.asia）</p>
-              <p><strong>织趣社区</strong>：面向钩织爱好者的社区产品（zhiqu.clczl.asia）</p>
               <p><strong>Sports Hub</strong>：聚合 NBA、足球、电竞赛事信息的 Chrome Extension</p>
             </div>
           </section>
@@ -289,14 +375,26 @@ function ResumeContent({ template }: { template: string }) {
               {sectionDot}
               个人优势
             </h2>
-            <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
-              <li><strong>前端主导能力明确：</strong>长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。</li>
-              <li><strong>具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型到上线落地。</li>
-              <li><strong>有真实线上作品：</strong>已上线个人作品集、AI 投资助手、体育预测平台、垂直社区等多个可访问项目。</li>
-              <li><strong>AI 信息敏感度高：</strong>善于获取 AI 前沿信息，是多个 AI 学习社区的长期用户，持续跟踪大模型、Agent、RAG 等领域的最新动态与实践。</li>
-              <li><strong>业务学习能力强：</strong>乐于学习业务和不同行业的精髓，能快速理解领域知识并转化为技术实现。</li>
-              <li><strong>学习与专业基础扎实：</strong>持有软件设计师（中级）认证，英语六级，具备日语听读能力。</li>
-            </ul>
+            {isAiVersion ? (
+              <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+                <li><strong>AI 应用闭环能力：</strong>能从业务问题出发，完成需求拆解、知识库建设、Agent 编排、前端对话体验、后端工具接入和上线验证。</li>
+                <li><strong>懂前端也懂 AI 工程：</strong>既能把 AI 能力做成稳定可用的产品界面，也能处理 RAG、Tool、Runtime、Eval、Trace 等工程细节。</li>
+                <li><strong>有真实落地案例：</strong>企业 Agent 客服项目已进入客服团队日常工作流，AI 投资助手可公开访问并持续迭代。</li>
+                <li><strong>学习和迭代速度快：</strong>持续跟踪大模型、Agent、RAG、AI Coding 与工作流工具，将新能力快速转化为可交付功能。</li>
+                <li><strong>业务理解能力强：</strong>能快速理解不同行业业务流程，把领域知识转化为可检索、可调用、可评估的 AI 应用能力。</li>
+              </ul>
+            ) : (
+              <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+                <li><strong>前端主导能力明确：</strong>长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。</li>
+                <li><strong>覆盖 Web 与移动端：</strong>除 Web 中后台和内容产品外，也做过 iOS / Android、React Native、uni-app 与小程序项目，能在多端产品里保持工程一致性和体验稳定性。</li>
+                <li><strong>具备 AI 全栈开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型到上线落地。</li>
+                <li><strong>技术视野完整：</strong>除前端实现外，也长期补充 RAG、评测门禁、数据库架构、自动化测试和发布流程等技术主题，能从系统全链路理解问题。</li>
+                <li><strong>有真实线上作品：</strong>已上线个人作品集、AI 投资助手、体育预测平台等多个可访问项目。</li>
+                <li><strong>AI 信息敏感度高：</strong>善于获取 AI 前沿信息，是多个 AI 学习社区的长期用户，持续跟踪大模型、Agent、RAG 等领域的最新动态与实践。</li>
+                <li><strong>业务学习能力强：</strong>乐于学习业务和不同行业的精髓，能快速理解领域知识并转化为技术实现。</li>
+                <li><strong>学习与专业基础扎实：</strong>持有软件设计师（中级）认证，英语六级，具备日语听读能力。</li>
+              </ul>
+            )}
           </section>
         )}
       </div>
@@ -307,7 +405,8 @@ function ResumeContent({ template }: { template: string }) {
 function ResumePrintPageInner() {
   const searchParams = useSearchParams();
   const template = searchParams.get("template") || "tech";
-  return <ResumeContent template={template} />;
+  const version = searchParams.get("version") === "ai" ? "ai" : "general";
+  return <ResumeContent template={template} version={version} />;
 }
 
 export default function ResumePrintPage() {

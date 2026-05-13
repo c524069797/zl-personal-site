@@ -67,8 +67,7 @@ const skillGroups: Array<{
     title: "前端技能",
     icon: <Code2 size={14} />,
     skills: [
-      { label: "Vue 2", icon: <SiVuedotjs size={12} /> },
-      { label: "Vue 3", icon: <SiVuedotjs size={12} /> },
+      { label: "Vue", icon: <SiVuedotjs size={12} /> },
       { label: "React", icon: <SiReact size={12} /> },
       { label: "Next.js", icon: <SiNextdotjs size={12} /> },
       { label: "TypeScript", icon: <SiTypescript size={12} /> },
@@ -474,7 +473,7 @@ export default function ResumePage() {
 	                  <Card className="resume-project-card">
 	                    <div className="resume-project-heading">
 	                      <h4>迪备备份恢复系统</h4>
-	                      <span>Vue 2 / Vue 3 / TypeScript / WebSocket</span>
+	                      <span>Vue / TypeScript / WebSocket</span>
 	                    </div>
 	                    <p className="resume-project-desc">企业级备份软件核心业务系统，长期负责备份恢复流程、通用能力沉淀与复杂业务交互建设。</p>
 	                    <MetricList
@@ -555,7 +554,7 @@ export default function ResumePage() {
 	              <Card className="resume-project-card">
 	                <div className="resume-project-heading">
 	                  <h4>迪备备份恢复系统</h4>
-	                  <span>Vue 2 / Vue 3 / TypeScript / WebSocket</span>
+	                  <span>Vue / TypeScript / WebSocket</span>
 	                </div>
                 <p className="resume-project-desc">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
                 <MetricList
@@ -604,7 +603,7 @@ export default function ResumePage() {
               <Card className="resume-project-card">
                 <div className="resume-project-heading">
                   <h4>迪备数据可视化监控大屏</h4>
-                  <span>Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
+	                  <span>Vue / grid-layout-plus / WebSocket / ECharts</span>
                 </div>
                 <p className="resume-project-desc">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
                 <MetricList

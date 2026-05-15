@@ -40,7 +40,7 @@ const translations = {
     categories: '部落格分類',
     aboutMe: {
       name: '陳灼',
-      description: '全棧開發工程師 | 深耕 AI 應用、前端工程與系統架構',
+      description: '全棧開發工程師 | 深耕 AI Agent、前端工程與系統架構',
     },
     modeToggle: {
       animated: '動效模式',
@@ -51,7 +51,7 @@ const translations = {
     animatedHero: {
       aiDevLabel: 'AI Development',
       aiDevTitle: 'AI 開發',
-      aiDevDesc: '熱衷探索 AI 與大語言模型應用，熟悉 OpenAI API、LangChain、RAG 等前沿技術。能夠獨立構建 AI 聊天助手、智能內容分析等應用。',
+      aiDevDesc: '熱衷探索 AI Agent 與大語言模型應用，熟悉 OpenAI API、LangGraph、RAG 等前沿技術。能夠獨立構建 AI 聊天助手、智能內容分析等應用。',
       aiDevTag0: 'OpenAI API',
       aiDevTag1: 'LangChain',
       aiDevTag2: 'RAG',
@@ -62,7 +62,7 @@ const translations = {
       frontendDesc: '專注前端架構與交互設計，擅長 React / Next.js 生態。追求極致的用戶體驗，用代碼將設計願景轉化為流暢的數字產品。',
       experienceLabel: 'Experience',
       skillFrontend: '前端開發',
-      skillAI: 'AI 應用',
+      skillAI: 'AI Agent',
       skillDataProtection: '數據保護',
       skillFullstack: '全棧能力',
       years: '4+ Years',
@@ -85,10 +85,10 @@ const translations = {
     coreExpertise: {
       sectionSubtitle: 'Core Expertise',
       sectionTitle: '核心專業能力',
-      sectionDesc: '聚焦AI應用、前端工程與全棧開發，構建智能化數字產品',
-      item0Title: 'AI應用開發',
+      sectionDesc: '聚焦 AI Agent、前端工程與全棧開發，構建智能化數字產品',
+      item0Title: 'AI Agent 開發',
       item0Subtitle: 'AI Development',
-      item0Desc: '基於大語言模型構建智能應用，熟悉OpenAI API、LangChain、RAG等前沿技術棧',
+      item0Desc: '基於大語言模型構建智能 Agent，熟悉 OpenAI API、LangGraph、RAG 等前沿技術棧',
       item1Title: '前端開發',
       item1Subtitle: 'Frontend',
       item1Desc: '深耕React/Next.js生態，擅長複雜交互設計與高性能前端架構',
@@ -107,10 +107,10 @@ const translations = {
     },
     vision: {
       visionTitle: '我的願景',
-      visionSubtitle: '用技術創造價值，讓AI賦能生活',
+      visionSubtitle: '用技術創造價值，讓 AI Agent 賦能生活',
       aiLearningTitle: 'AI賦能深耕',
       aiLearningDesc: '用AI作為加速器，在前後端開發、系統架構、數據工程等領域持續深耕，把前沿技術快速轉化為可落地的業務實踐。',
-      aiLearningSkillsTitle: 'AI應用能力',
+      aiLearningSkillsTitle: 'AI Agent 能力',
       aiLearningSkill0: 'LLM應用開發',
       aiLearningSkill1: 'RAG知識檢索',
       aiLearningSkill2: '智能體構建',
@@ -123,11 +123,11 @@ const translations = {
     },
     skills: {
       title: '技術技能',
-      subtitle: 'AI應用與全棧工程的綜合技術能力',
+      subtitle: 'AI Agent 與全棧工程的綜合技術能力',
       cat0Name: 'AI開發',
       cat0Item0: 'OpenAI API',
       cat0Item1: 'LangChain',
-      cat0Item2: 'RAG檢索',
+      cat0Item2: 'RAG 工程化',
       cat0Item3: 'Prompt工程',
       cat1Name: '前端開發',
       cat1Item0: 'React / Next.js',
@@ -157,11 +157,11 @@ const translations = {
     },
     experience: {
       title: '工作經歷',
-      subtitle: '從前端工程到AI應用的技術成長路徑',
+      subtitle: '從前端工程到 AI Agent 的技術成長路徑',
       exp0Period: '2021 - 至今',
       exp0Title: '前端開發工程師',
       exp0Company: 'Scutech（廣州鼎甲計算機科技有限公司）',
-      exp0Desc: '負責備份恢復和系統級界面的前端開發，主導核心模塊的框架級界面設計與實現。深度參與AI接入開發，將大語言模型能力集成到企業級產品中，提升系統智能化水平。',
+      exp0Desc: '負責備份恢復和系統級界面的前端開發，主導核心模塊的框架級界面設計與實現。深度參與 AI Agent 開發，將大語言模型與智能體集成到企業級產品中，提升系統智能化水平。',
       exp1Period: '2020 - 2021',
       exp1Title: '前端開發工程師',
       exp1Company: '廣東匯源通集團有限公司',
@@ -173,7 +173,7 @@ const translations = {
     },
     focus: {
       title: '當前聚焦',
-      desc: '深耕前後端全棧開發與AI應用落地，探索大語言模型與智能體在企業級產品中的集成方案，用AI加速技術深耕與業務實踐。',
+      desc: '深耕前後端全棧開發與 AI Agent 落地，探索大語言模型與智能體在企業級產品中的集成方案，用 AI 加速技術深耕與業務實踐。',
     },
     featuredWorks: {
       title: '精選作品',
@@ -201,7 +201,7 @@ const translations = {
     },
     aboutMeCard: {
       name: '陳灼 (Jack Chen)',
-      description: '熱愛前端與 AI 應用開發，深耕全棧技術\n籃球愛好者',
+      description: '熱愛前端與 AI Agent 開發，深耕全棧技術\n籃球愛好者',
     },
     categoriesCard: {
       tech: '技術部落格',

@@ -40,7 +40,7 @@ const zhCN = {
     categories: '博客分类',
     aboutMe: {
       name: '陈灼 (Jack Chen)',
-      description: '热爱前端与 AI 应用开发，深耕全栈技术 | 篮球爱好者',
+      description: '热爱前端与 AI Agent 开发，深耕全栈技术 | 篮球爱好者',
     },
     modeToggle: {
       animated: '动效模式',
@@ -51,7 +51,7 @@ const zhCN = {
     animatedHero: {
       aiDevLabel: 'AI Development',
       aiDevTitle: 'AI 开发',
-      aiDevDesc: '热衷探索 AI 与大语言模型应用，熟悉 OpenAI API、LangChain、RAG 等前沿技术。能够独立构建 AI 聊天助手、智能内容分析等应用。',
+      aiDevDesc: '热衷探索 AI Agent 与大语言模型应用，熟悉 OpenAI API、LangGraph、RAG 等前沿技术。能够独立构建 AI 聊天助手、智能内容分析等应用。',
       aiDevTag0: 'OpenAI API',
       aiDevTag1: 'LangChain',
       aiDevTag2: 'RAG',
@@ -62,7 +62,7 @@ const zhCN = {
       frontendDesc: '专注前端架构与交互设计，擅长 React / Next.js 生态。追求极致的用户体验，用代码将设计愿景转化为流畅的数字产品。',
       experienceLabel: 'Experience',
       skillFrontend: '前端开发',
-      skillAI: 'AI 应用',
+      skillAI: 'AI Agent',
       skillDataProtection: '数据保护',
       skillFullstack: '全栈能力',
       years: '4+ Years',
@@ -85,10 +85,10 @@ const zhCN = {
     coreExpertise: {
       sectionSubtitle: 'Core Expertise',
       sectionTitle: '核心专业能力',
-      sectionDesc: '聚焦AI应用、前端工程与全栈开发，构建智能化数字产品',
-      item0Title: 'AI应用开发',
+      sectionDesc: '聚焦 AI Agent、前端工程与全栈开发，构建智能化数字产品',
+      item0Title: 'AI Agent 开发',
       item0Subtitle: 'AI Development',
-      item0Desc: '基于大语言模型构建智能应用，熟悉OpenAI API、LangChain、RAG等前沿技术栈',
+      item0Desc: '深入理解 AI Agent 开发原理，构建具备感知、规划、记忆与工具调用能力的智能体，熟悉 LangGraph、RAG 等前沿技术栈',
       item1Title: '前端开发',
       item1Subtitle: 'Frontend',
       item1Desc: '深耕React/Next.js生态，擅长复杂交互设计与高性能前端架构',
@@ -107,10 +107,10 @@ const zhCN = {
     },
     vision: {
       visionTitle: '我的愿景',
-      visionSubtitle: '用技术创造价值，让AI赋能生活',
+      visionSubtitle: '用技术创造价值，让 AI Agent 赋能生活',
       aiLearningTitle: 'AI赋能深耕',
-      aiLearningDesc: '用AI作为加速器，在前后端开发、系统架构、数据工程等领域持续深耕，把前沿技术快速转化为可落地的业务实践。',
-      aiLearningSkillsTitle: 'AI应用能力',
+      aiLearningDesc: '以 AI Agent 作为加速器，深耕感知、决策、记忆与执行四大核心原理，将大语言模型能力快速转化为可落地的业务实践。',
+      aiLearningSkillsTitle: 'AI Agent 能力',
       aiLearningSkill0: 'LLM应用开发',
       aiLearningSkill1: 'RAG知识检索',
       aiLearningSkill2: '智能体构建',
@@ -123,11 +123,11 @@ const zhCN = {
     },
     skills: {
       title: '技术技能',
-      subtitle: 'AI应用与全栈工程的综合技术能力',
+      subtitle: '深耕 AI Agent 开发原理（感知、规划、记忆、执行）与全栈工程能力',
       cat0Name: 'AI开发',
       cat0Item0: 'OpenAI API',
       cat0Item1: 'LangChain',
-      cat0Item2: 'RAG检索',
+      cat0Item2: 'RAG 工程化',
       cat0Item3: 'Prompt工程',
       cat1Name: '前端开发',
       cat1Item0: 'React / Next.js',
@@ -157,11 +157,11 @@ const zhCN = {
     },
     experience: {
       title: '工作经历',
-      subtitle: '从前端工程到AI应用的技术成长路径',
+      subtitle: '从前端工程到 AI Agent 的技术成长路径',
       exp0Period: '2021 - 至今',
       exp0Title: '前端开发工程师',
       exp0Company: 'Scutech（广州鼎甲计算机科技有限公司）',
-      exp0Desc: '负责备份恢复和系统级界面的前端开发，主导核心模块的框架级界面设计与实现。深度参与AI接入开发，将大语言模型能力集成到企业级产品中，提升系统智能化水平。',
+      exp0Desc: '负责备份恢复和系统级界面的前端开发，主导核心模块的框架级界面设计与实现。深度参与 AI Agent 开发，将大语言模型与智能体集成到企业级产品中，提升系统智能化水平。',
       exp1Period: '2020 - 2021',
       exp1Title: '前端开发工程师',
       exp1Company: '广东汇源通集团有限公司',
@@ -173,7 +173,7 @@ const zhCN = {
     },
     focus: {
       title: '当前聚焦',
-      desc: '深耕前后端全栈开发与AI应用落地，探索大语言模型与智能体在企业级产品中的集成方案，用AI加速技术深耕与业务实践。',
+      desc: '深耕前后端全栈开发与 AI Agent 落地，探索大语言模型与智能体在企业级产品中的集成方案，用 AI 加速技术深耕与业务实践。',
     },
     featuredWorks: {
       title: '精选作品',
@@ -201,7 +201,7 @@ const zhCN = {
     },
     aboutMeCard: {
       name: '陈灼 (Jack Chen)',
-      description: '热爱前端与 AI 应用开发，深耕全栈技术\n篮球爱好者',
+      description: '热爱前端与 AI Agent 开发，深耕全栈技术\n篮球爱好者',
     },
     categoriesCard: {
       tech: '技术博客',

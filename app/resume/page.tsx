@@ -55,7 +55,7 @@ const templateOptions: Array<{ value: TemplateKey; label: string }> = [
 
 const resumeVersionOptions: Array<{ value: ResumeVersion; label: string }> = [
   { value: "general", label: "综合版" },
-  { value: "ai", label: "AI 应用开发版" },
+  { value: "ai", label: "AI Agent 版" },
 ];
 
 const skillGroups: Array<{
@@ -101,16 +101,15 @@ const skillGroups: Array<{
     ],
   },
   {
-    title: "全栈 / AI 技能",
+    title: "AI Agent / 全栈技能",
     icon: <BrainCircuit size={14} />,
     skills: [
       { label: "Node.js", icon: <SiNodedotjs size={12} /> },
       { label: "Python / FastAPI", icon: <SiPython size={12} /> },
+      { label: "Java / Spring" },
       { label: "PostgreSQL", icon: <SiPostgresql size={12} /> },
       { label: "Redis", icon: <SiRedis size={12} /> },
-      { label: "LangGraph" },
-      { label: "RAG" },
-      { label: "向量检索" },
+      { label: "RAG 工程化" },
     ],
   },
 ];
@@ -138,24 +137,23 @@ const aiSkillGroups: Array<{
     skills: [
       { label: "Node.js", icon: <SiNodedotjs size={12} /> },
       { label: "Python / FastAPI", icon: <SiPython size={12} /> },
+      { label: "Java / Spring" },
       { label: "PostgreSQL", icon: <SiPostgresql size={12} /> },
       { label: "Redis", icon: <SiRedis size={12} /> },
-      { label: "向量检索" },
-      { label: "sqlite-vec" },
+      { label: "sqlite-vec / pgvector" },
       { label: "GitLab CI/CD", icon: <SiGitlab size={12} /> },
     ],
   },
   {
-    title: "AI 技能",
+    title: "AI Agent 技能",
     icon: <BrainCircuit size={14} />,
     skills: [
+      { label: "Planning & Reasoning (CoT/ReAct)" },
+      { label: "Memory Management (Short/Long-term)" },
+      { label: "Multi-Agent Coordination" },
+      { label: "Tool Calling & Action Execution" },
       { label: "LangGraph 工作流编排" },
       { label: "RAG 检索链路设计" },
-      { label: "Hybrid Retrieval" },
-      { label: "Metadata Filtering" },
-      { label: "Parent-Child Retrieval" },
-      { label: "Tool Calling" },
-      { label: "Prompt Engineering" },
       { label: "Guardrail / Eval / Observability" },
     ],
   },
@@ -268,7 +266,7 @@ export default function ResumePage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `陈子龙-${resumeVersion === "ai" ? "AI应用开发工程师" : "前端开发工程师"}-简历-${template}-${new Date().getFullYear()}.pdf`;
+      a.download = `陈子龙-${resumeVersion === "ai" ? "AI Agent 开发工程师" : "前端开发工程师"}-简历-${template}-${new Date().getFullYear()}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -301,7 +299,7 @@ export default function ResumePage() {
             <div>
               <h1 className="resume-page-title">个人简历</h1>
               {!canViewAiResume ? (
-                <p className="resume-version-note">当前展示综合版；AI 应用开发版仅管理员可见。</p>
+                <p className="resume-version-note">当前展示综合版；AI Agent 版仅管理员可见。</p>
               ) : null}
             </div>
             <div className="resume-actions">
@@ -325,7 +323,7 @@ export default function ResumePage() {
                 onClick={handleDownload}
                 size="sm"
               >
-                {isGenerating ? "生成中..." : resumeVersion === "ai" ? "下载 AI 版" : "下载综合版"}
+                {isGenerating ? "生成中..." : resumeVersion === "ai" ? "下载 AI Agent 版" : "下载综合版"}
               </Button>
             </div>
           </div>
@@ -337,10 +335,10 @@ export default function ResumePage() {
               <div>
                 <h1 className="resume-name">陈子龙</h1>
                 <p className="resume-role">
-                  {resumeVersion === "ai" ? "AI 应用开发工程师" : "前端开发工程师 / AI Agent 开发工程师"}
+                  {resumeVersion === "ai" ? "AI Agent 开发工程师" : "前端开发工程师 / AI Agent 开发工程师"}
                 </p>
                 <p className="resume-meta">
-                  {resumeVersion === "ai" ? "本科｜近 5 年前端与业务系统开发经验｜AI 应用落地实践｜广州" : "本科｜近 5 年前端与业务系统开发经验｜广州"}
+                  {resumeVersion === "ai" ? "本科｜近 5 年前端与业务系统开发经验｜AI Agent 落地实践" : "本科｜近 5 年前端与业务系统开发经验"}
                 </p>
               </div>
 
@@ -412,7 +410,7 @@ export default function ResumePage() {
                   <span className="resume-date-pill">2021.07 - 至今</span>
                 </div>
                 <div className="resume-entry-role">
-                  {resumeVersion === "ai" ? "前端开发工程师（兼 AI 应用开发）" : "前端开发工程师"}
+                  {resumeVersion === "ai" ? "前端开发工程师（兼 AI Agent 开发）" : "前端开发工程师"}
                 </div>
                 <p className="resume-entry-desc">
                   {resumeVersion === "ai"
@@ -436,7 +434,7 @@ export default function ResumePage() {
                             <strong>AI 产品开发：</strong>独立建设 AI 投资助手，完成多 Agent 编排、行情/新闻/指标数据接入、SSE 流式回答、推理过程展示与用户数据持久化。
                           </>,
                           <>
-                            <strong>AI 开发规范：</strong>在团队内沉淀 <strong>Skill / OpenSpec 配置化</strong> 标准与 AI Code Review 预检查流程，MR 环节自动拦截低级错误，Review 效率提升 <strong>40%</strong>。
+                            <strong>AI 开发规范：</strong>在团队内沉淀 <strong>Skill / OpenSpec 配置化</strong> 标准与 AI Code Review 预检查流程，减少低级问题和重复沟通。
                           </>,
                         ]
                       : [
@@ -448,7 +446,7 @@ export default function ResumePage() {
                             <strong>业务建模：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 <strong>50+ 种许可套餐</strong> 动态组合，将重复配置时间降低 <strong>80% 以上</strong>。
                           </>,
                           <>
-                            <strong>性能优化：</strong>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。
+                            <strong>性能优化：</strong>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表交互体验。
                           </>,
                           <>
                             <strong>跨端项目经验：</strong>参与 iOS / Android 与 <strong>React Native</strong> 项目建设，处理业务页面、接口联调、登录态保持、权限与设备适配，具备从真机调试到打包发布的完整链路经验。
@@ -457,7 +455,7 @@ export default function ResumePage() {
                             <strong>AI 业务落地：</strong>主导内部管理系统智能客服 Agent 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入售后、技术支持团队日常使用。
                           </>,
                           <>
-                            <strong>AI 代码规范：</strong>在前端团队建立 AI 介入开发流程的标准规范，沉淀 <strong>Skill / OpenSpec 配置化</strong> 标准，定义 AI 使用边界与工程化检查清单；引入 AI Code Review 预检查流程，MR 环节自动拦截低级错误，Review 效率提升 <strong>40%</strong>，设计稿落地时间从 2-3 天缩短到 <strong>4-6 小时</strong>。
+                            <strong>AI 代码规范：</strong>在前端团队建立 AI 介入开发流程的标准规范，沉淀 <strong>Skill / OpenSpec 配置化</strong> 标准，定义 AI 使用边界与工程化检查清单；引入 AI Code Review 预检查流程，减少低级问题和重复沟通。
                           </>,
                         ]
                   }
@@ -515,7 +513,7 @@ export default function ResumePage() {
                           <strong>前端对话体验：</strong>开发对话式工作台，支持多轮上下文、引用来源高亮、诊断步骤展示与一键转人工，降低客服使用门槛并保留复杂问题交接路径。
 	                        </>,
 	                        <>
-	                          <strong>落地效果：</strong>Agent 已接入售后、技术支持团队日常工作流，覆盖 80% 以上常见咨询场景，平均响应从分钟级缩短至秒级，减少重复工单约 <strong>30%</strong>。
+	                          <strong>落地效果：</strong>Agent 已接入售后、技术支持团队日常工作流，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。
 	                        </>,
                         <>
                           <strong>工程治理：</strong>推进 LangGraph Checkpointer、StructuredTool + ToolNode、检索阈值 / Hybrid Search / Reranker、Eval 测试集与 Trace 观测能力，把 AI 助手从“能跑”升级为“可观测、可评估、可回滚”。
@@ -540,7 +538,7 @@ export default function ResumePage() {
 	                          <strong>产品闭环：</strong>围绕个人投资研究场景设计“数据聚合 + 分析问答 + 个性化追踪”的产品闭环，覆盖桌面端与移动端体验。
 	                        </>,
 		                        <>
-		                          <strong>多 Agent 编排：</strong>拆分行情、指标、新闻与组合诊断等多个分析角色，通过工作流编排实现复杂问题分步推理与结构化输出。
+		                          <strong>多 Agent 编排：</strong>拆分行情、指标、新闻与组合诊断等多个分析角色，通过工作流路由、上下文组装、工具调用与结果汇总实现复杂问题分步分析和结构化输出。
 		                        </>,
 		                        <>
 		                          <strong>数据与交互闭环：</strong>打通实时行情、技术形态、财经新闻与外部观点摘要，支持流式回答、推理过程展示、重点结论高亮和会话持久化。
@@ -566,13 +564,13 @@ export default function ResumePage() {
                       <strong>通用模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。核心 <strong>WizardWrap</strong> 组件支持步骤导航、验证、动态注入与隐藏，成为全平台备份恢复流程的统一骨架。
                     </>,
                     <>
-                      通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，降低业务组件 60% 以上的心智负担；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。
+                      通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，减少业务组件中的重复状态同步逻辑；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。
                     </>,
                     <>
                       <strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑多条产品线与 <strong>50+ 种许可套餐</strong> 动态组合，将重复配置时间降低 <strong>80% 以上</strong>。
                     </>,
                     <>
-                      围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表体验，<strong>TTI 下降约 30%</strong>。
+                      围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表交互体验。
                     </>,
                   ]}
                 />
@@ -591,10 +589,10 @@ export default function ResumePage() {
                       打通 申请，审批，审计 等核心业务数据，使 Agent 能够基于用户实际申请表单或者工单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。
                     </>,
 	                    <>
-	                      Agent <strong>已正式接入售后、技术支持团队日常工作流</strong>，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约 <strong>30%</strong>。
+	                      Agent <strong>已正式接入售后、技术支持团队日常工作流</strong>，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。
 	                    </>,
                     <>
-                      围绕 Runtime / Tool / RAG / Prompt / Guardrail / Observability / Eval / Cost / Deployment 共 <strong>9 类工程脚手架</strong> 推进落地。
+                      围绕会话状态、工具调用、检索链路、Prompt、权限边界、评估测试集与日志观测推进工程治理。
                     </>,
                   ]}
                 />
@@ -631,13 +629,13 @@ export default function ResumePage() {
                 <MetricList
                   items={[
 	                    <>
-	                      基于 <strong>Next.js + Mastra</strong> 搭建投资分析多 Agent 系统，拆分为行情查询、技术指标、新闻摘要与投资组合诊断 Agent。
+	                      基于 <strong>Next.js + Mastra</strong> 实现投资分析多 Agent 编排，拆分为行情查询、技术指标、新闻摘要与投资组合诊断等角色。
 	                    </>,
                     <>
                       对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 <strong>OpenClaw</strong> 工作流自动抓取公众号/大 V 观点并生成摘要。
                     </>,
                     <>
-                      <strong>长期记忆与数据分层：</strong>围绕用户画像、自选理由、持仓逻辑和复盘结论设计长期记忆层，区分“用户记忆”和“市场事实”两类数据，提升跨会话分析连续性。
+                      <strong>历史上下文复用：</strong>围绕用户画像、自选理由、持仓逻辑和复盘结论持久化分析记录，区分“用户记录”和“市场事实”两类数据，提升跨会话分析连续性。
                     </>,
 	                    "使用 Server-Sent Events 实现流式回答、支持推理过程可视化与答案高亮；通过 PostgreSQL 持久化用户对话与自选股数据。",
 	                  ]}
@@ -680,7 +678,7 @@ export default function ResumePage() {
                   <strong>持续关注 AI 前沿并快速转化实践：</strong>长期关注大模型、Agent、RAG 与 AI 开发工具的新进展，是多个 AI 交流社区的深度参与者；能够将新方向快速转化为可验证方案，并沉淀为可落地的功能与方法。
                 </>,
                 <>
-                  <strong>技术广度完整，具备全栈与多端经验：</strong>除前端工程外，也具备后端协作、数据库、发布部署、测试质量、移动端与小程序等实践经验，能够从产品、研发到交付全链路理解并推进业务系统落地。
+                  <strong>技术广度完整，具备 AI Agent 与全栈经验：</strong>除前端工程外，也具备后端协作、数据库、发布部署、测试质量、移动端与小程序等实践经验，能够从产品、研发到交付全链路理解并推进业务系统落地。
                 </>,
                 <>
                   <strong>学习主动性强，重视实践验证：</strong>面对新方向不止停留在概念理解，而是倾向于主动搭建 Demo、验证可行性并结合真实业务持续迭代，形成从学习、实践到复用的方法沉淀。

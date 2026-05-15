@@ -2,10 +2,10 @@
 
 ## 基本信息
 
-- **求职方向**：前端开发工程师（具备 AI 全栈开发经验）
+- **求职方向**：前端开发工程师（具备 AI Agent 开发经验）
 - **手机**：15874442813
 - **邮箱**：chenzhuo995@gmail.com
-- **所在地**：广州
+- **期望城市**：不限
 - **GitHub**：https://github.com/c524069797
 - **作品集**：https://www.clczl.asia
 - **工作年限**：近 5 年前端开发经验
@@ -23,8 +23,8 @@
 - **前端开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台页面、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV、grid-layout-plus，对组件复用、复杂前端架构拆分与工程取舍有持续实践。
 - **移动端与跨端开发**：做过 iOS / Android 移动端项目，具备 **React Native** 跨端开发经验，了解原生工程配置、真机调试、打包发布、权限处理、登录态维护、离线缓存与移动端适配；同时具备 uni-app / 微信小程序开发实践。
 - **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / Playwright，具备性能优化、模块拆分、代码规范建设、虚拟列表、WebSocket 实时链路与线上问题排查经验，能把 lint、类型检查、测试、构建与回滚策略纳入交付门禁。
-- **后端与服务协作**：具备 Next.js API / Node.js、Python / Flask / FastAPI 实践，做过 **Koa BFF demo**，理解接口聚合、统一鉴权、错误包装、环境配置与前后端协作方式；了解 Java / Spring 与常见后台中间件用法，对 PostgreSQL / MySQL / Redis / sqlite-vec / pgvector 等数据库、缓存和向量存储有学习和实践经验。
-- **AI 应用与全栈协作**：能够结合 **LangGraph**、Mastra、OpenClaw、Agent 工作流完成问答、诊断、结构化输出与工具联动；熟悉 **RAG 工程化**（Chunking / Embedding / Metadata 过滤 / Hybrid Retrieval / RRF / Reranker / Citation 溯源）与 **Agent Harness Engineering**（Runtime / Tool / Prompt / Guardrail / Observability / Eval / Cost / Deployment），了解 Recall@K、MRR、nDCG、Faithfulness、引用命中率等评估指标。
+- **后端与服务协作**：具备 Next.js API / Node.js、Python / Flask / FastAPI 实践，理解接口聚合、统一鉴权、错误包装、环境配置与前后端协作方式；了解 Java / Spring 基础与常见后台协作方式，熟悉 Redis 缓存使用场景，对 PostgreSQL / MySQL / sqlite-vec / pgvector 等数据库、缓存和向量存储有学习和实践经验。
+- **AI Agent 开发原理与实践**：深入理解 Agent 核心架构（感知、规划、记忆、执行），能够结合 **LangGraph**、Mastra、OpenClaw 实现多 Agent 编排、CoT/ReAct 推理链路与工具联动；熟悉 **RAG 工程化**（Chunking / Embedding / Hybrid Retrieval / Reranker），并能围绕评测（Eval）与观测（Observability）沉淀可维护的 AI Agent 工程规范。
 - **自动化测试**：参与公司自动化测试体系建设，熟练使用 Selenium、Robot Framework 完成前端页面自动化测试，能够结合 pytest、接口测试、UI 冒烟测试与 Playwright 验收检查构建分层质量保障。
 
 ## 工作经历
@@ -37,8 +37,8 @@
 - **业务建模**：主导许可证生成、导入校验、续期升级、套餐 / 功能映射等前端设计与实现，推动审批、出货与归档流程由表格 / 钉钉记录转向系统化闭环，支撑多条产品线与 **50+ 种许可套餐**动态组合，将重复配置时间降低 **80% 以上**。
 - **可视化与实时链路**：基于 **grid-layout-plus** 实现拖拽式大屏布局系统，支持 **12 × 12** 网格、碰撞检测、自动放置与布局持久化；使用 VScaleScreen / transform-scale 解决缩放坐标对齐，结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行。
 - **移动端与跨端实践**：参与 iOS / Android 移动端与跨端项目建设，使用 **React Native** 处理业务页面、接口联调、状态管理、登录态保持、权限与设备适配等能力，熟悉从开发调试到打包发布的基本链路。
-- **性能与问题排查**：围绕任务监控与日志展示引入 **增量更新**、**虚拟滚动** 与页面拆分，优化首屏与长列表体验，**TTI 下降约 30%**；同时长期承担线上问题定位、状态链路追踪与复杂交互故障排查工作。
-- **AI 业务落地**：主导 **scutech-licenser 客服 Agent** 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入客服团队日常使用；持续推进 **Agent Harness Engineering**（Runtime 持久化、Tool 结构化、Hybrid Retrieval / Reranker、Eval 测试集、Observability Trace 等 9 类工程脚手架）与知识库扩展（历史工单 / Wiki / SOP 系统化批量入库至向量库）；同时补充 **AI 投资助手**等个人项目，具备从前端到 AI 后端编排与工程化的完整落地经验。
+- **性能与问题排查**：围绕任务监控与日志展示引入 **增量更新**、**虚拟滚动** 与页面拆分，优化首屏与长列表交互体验；同时长期承担线上问题定位、状态链路追踪与复杂交互故障排查工作。
+- **AI Agent 业务落地**：主导内部管理系统智能客服 Agent 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入售后、技术支持团队日常使用；持续推进工具调用、检索阈值、引用溯源、评估测试集与日志观测等工程治理能力，并将历史工单 / Wiki / SOP 系统化批量入库至向量库；同时补充 **AI 投资助手**等个人项目，具备从前端到 AI Agent 编排与工程化的完整落地经验。
 
 ## 项目经历
 
@@ -47,9 +47,9 @@
 在线访问：https://aiold.clczl.asia/
 
 - **前端产品化**：围绕"我的自选股"重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局，抽象 App Shell、BottomNav 与断点适配方案，统一双端体验并降低后续迭代成本。
-- **多 Agent 架构**：基于 **Next.js + Mastra** 搭建投资分析多 Agent 系统，拆分为行情查询 Agent、技术指标 Agent、新闻摘要 Agent 与投资组合诊断 Agent，通过 Agent 编排实现复杂问题的分步推理与结构化输出。
+- **多 Agent 编排**：基于 **Next.js + Mastra** 将投资分析拆分为行情查询、技术指标、新闻摘要与组合诊断等多个 Agent 角色，通过工作流路由、上下文组装、工具调用与结果汇总，实现复杂问题的分步分析与结构化输出。
 - **工具链与数据闭环**：对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 **OpenClaw** 工作流自动抓取公众号 / 大 V 观点并生成摘要，为个股分析补充消息面参考，形成"数据采集 → AI 分析 → 前端呈现"的完整闭环。
-- **工程与体验优化**：使用 Server-Sent Events 实现流式回答、支持推理过程可视化与答案高亮，提升交互体验；通过 PostgreSQL 持久化用户对话与自选股数据，支撑长期记忆与个性化推荐。
+- **工程与体验优化**：使用 Server-Sent Events 实现流式回答、支持推理过程可视化与答案高亮，提升交互体验；通过 PostgreSQL 持久化用户对话、自选股与分析记录，支持历史上下文复用和个性化追踪。
 
 ### 内部管理系统智能客服 Agent（React、Python、Flask、FastAPI、LangGraph、LLM API、RAG、sqlite-vec、PostgreSQL）
 
@@ -59,9 +59,9 @@
 - **RAG 知识库构建**：将产品文档、审批流程说明、历史工单处理方案及常见报错排查指南构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强，确保回答的准确性与可溯源性。
 - **业务数据联动**：打通 申请，审批，审计 等核心业务数据，使 Agent 能够基于用户实际申请表单或者工单状态进行 **实时审批解释、报错智能诊断与进度追踪**，从"通用问答"升级为"业务感知型助手"。
 - **前端对话界面**：设计并开发对话式交互页面，支持多轮对话、上下文记忆、引用来源高亮与 **一键转人工** 功能，降低客服使用门槛，确保复杂问题可平滑交接。
-- **落地效果**：Agent **已正式接入客服团队日常工作流**，覆盖 80% 以上常见咨询场景，平均响应时间从分钟级缩短至秒级，减少重复工单约 **30%**，显著降低人工客服压力并提升客户满意度。
+- **落地效果**：Agent **已正式接入售后、技术支持团队日常工作流**，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。
 - **RAG 工程化升级**：设计多粒度 Chunk 策略（Issue 摘要 / Issue 讨论 / Wiki 整页 / Wiki 按标题拆分），富化 metadata（项目 / tracker / 状态 / 责任人 / 更新时间），支持元数据过滤、来源溯源与父子检索；将历史工单与内部 Wiki 系统化批量入库至 **sqlite-vec（float[1536]）**，知识库规模从 **8 条 seed** 扩展至 **30+ 结构化 chunks**。
-- **Agent Harness Engineering**：围绕 Runtime / Tool / RAG / Prompt / Guardrail / Observability / Eval / Cost / Deployment 共 **9 类工程脚手架**盘点现状与升级路径，推进 **LangGraph Checkpointer**、**StructuredTool + ToolNode**、距离阈值 / Hybrid Search / Reranker、RAGAS 评估测试集与 LangSmith Trace 的落地，把"能跑"升级为"可观测、可评估、可回滚"。
+- **工程治理**：围绕会话状态、工具调用、检索链路、Prompt、权限边界、评估测试集与日志观测盘点升级路径，推进 **LangGraph Checkpointer**、**StructuredTool + ToolNode**、检索阈值 / Hybrid Search / Reranker 与 Trace 记录，把"能跑"升级为"可观测、可评估、可回滚"。
 
 ### 个人网站 / 博客系统（Next.js 16、React 19、TypeScript、Ant Design、PostgreSQL、Prisma）
 
@@ -89,6 +89,6 @@
 
 - **前端主导能力明确**：长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。
 - **覆盖 Web 与移动端**：除 Web 中后台和内容产品外，也做过 iOS / Android、React Native、uni-app 与小程序项目，能在多端产品里保持工程一致性和体验稳定性。
-- **具备 AI 全栈开发能力**：能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型、功能联调与上线落地。
+- **具备 AI Agent 开发能力**：能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型、功能联调与上线落地。
 - **有真实线上作品**：已上线个人作品集、AI 投资助手、体育预测平台等多个可访问项目，具备独立开发与部署意识。
 - **学习与专业基础扎实**：持有软件设计师（中级）认证，英语六级，具备日语听读能力，可直接阅读英文技术文档与部分日文资料。

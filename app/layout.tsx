@@ -12,7 +12,7 @@ import { WebSiteStructuredData } from "@/components/StructuredData";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
 const siteName = "陈灼的网络日志";
-const siteDescription = "个人技术博客，分享编程经验、技术思考和开发实践。专注于前端开发、后端架构、AI应用等领域。";
+const siteDescription = "个人技术博客，分享编程经验、技术思考和开发实践。专注于前端开发、后端架构、AI Agent 等领域。";
 const authorName = "陈灼";
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "React",
     "Next.js",
     "TypeScript",
-    "AI应用",
+    "AI Agent",
     "软件开发",
     "编程教程",
     "技术分享",

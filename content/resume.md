@@ -2,10 +2,10 @@
 
 ## 基本信息
 
-- **求职方向**：前端开发工程师（具备 AI Agent 开发经验）
+- **求职方向**：AI Agent 开发工程师 / LLM 应用工程师（5 年前端工程底座）
 - **手机**：15874442813
 - **邮箱**：chenzhuo995@gmail.com
-- **期望城市**：不限
+- **期望城市**：广州 / 深圳 / 上海
 - **GitHub**：https://github.com/c524069797
 - **作品集**：https://www.clczl.asia
 - **工作年限**：近 5 年前端开发经验
@@ -20,12 +20,12 @@
 
 ## 专业技能
 
-- **前端开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台页面、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV、grid-layout-plus，对组件复用、复杂前端架构拆分与工程取舍有持续实践。
-- **移动端与跨端开发**：做过 iOS / Android 移动端项目，具备 **React Native** 跨端开发经验，了解原生工程配置、真机调试、打包发布、权限处理、登录态维护、离线缓存与移动端适配；同时具备 uni-app / 微信小程序开发实践。
-- **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / Playwright，具备性能优化、模块拆分、代码规范建设、虚拟列表、WebSocket 实时链路与线上问题排查经验，能把 lint、类型检查、测试、构建与回滚策略纳入交付门禁。
-- **后端与服务协作**：具备 Next.js API / Node.js、Python / Flask / FastAPI 实践，理解接口聚合、统一鉴权、错误包装、环境配置与前后端协作方式；了解 Java / Spring 基础与常见后台协作方式，熟悉 Redis 缓存使用场景，对 PostgreSQL / MySQL / sqlite-vec / pgvector 等数据库、缓存和向量存储有学习和实践经验。
-- **AI Agent 开发原理与实践**：深入理解 Agent 核心架构（感知、规划、记忆、执行），能够结合 **LangGraph**、Mastra、OpenClaw 实现多 Agent 编排、CoT/ReAct 推理链路与工具联动；熟悉 **RAG 工程化**（Chunking / Embedding / Hybrid Retrieval / Reranker），并能围绕评测（Eval）与观测（Observability）沉淀可维护的 AI Agent 工程规范。
-- **自动化测试**：参与公司自动化测试体系建设，熟练使用 Selenium、Robot Framework 完成前端页面自动化测试，能够结合 pytest、接口测试、UI 冒烟测试与 Playwright 验收检查构建分层质量保障。
+- **AI Agent 开发**：深入理解 Agent 核心架构（感知、规划、记忆、执行），基于 **LangGraph**（状态机、checkpointer、人工审批 HITL）、Mastra、OpenClaw 实现多 Agent 编排、CoT/ReAct 推理链路与工具联动；有从 0 到 1 上线并接入团队日常使用的企业级 Agent 落地经验。
+- **RAG 工程化**：熟悉 Chunking / Embedding / Hybrid Retrieval / Reranker / **GraphRAG** 全链路，实践过 **Qdrant**、sqlite-vec、pgvector 等向量存储选型，掌握多粒度 Chunk 策略、metadata 过滤、来源溯源与父子检索，并围绕评测（Eval）与观测（Observability）沉淀工程规范。
+- **后端与服务**：FastAPI / Python / Pydantic、Next.js API / Node.js、Flask 实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、错误包装与环境配置；熟悉 PostgreSQL / MySQL / Redis 及向量数据库，了解 Java / Spring 协作方式。
+- **前端开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台页面、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，对组件复用与复杂前端架构拆分有持续实践。
+- **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / **Playwright**（E2E + 布局契约测试），具备性能优化、虚拟列表、WebSocket 实时链路与线上问题排查经验，能把 lint、类型检查、测试、构建纳入交付门禁。
+- **移动端与跨端**：React Native iOS / Android 双端项目经验，了解原生工程配置、真机调试、打包发布；具备 uni-app / 微信小程序开发实践。
 
 ## 工作经历
 
@@ -41,6 +41,17 @@
 - **AI Agent 业务落地**：主导内部管理系统智能客服 Agent 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入售后、技术支持团队日常使用；持续推进工具调用、检索阈值、引用溯源、评估测试集与日志观测等工程治理能力，并将历史工单 / Wiki / SOP 系统化批量入库至向量库；同时补充 **AI 投资助手**等个人项目，具备从前端到 AI Agent 编排与工程化的完整落地经验。
 
 ## 项目经历
+
+### ArcFlow 企业 Agent 智能支持平台（FastAPI、LangGraph、Qdrant、GraphRAG、React 18、antd 6、Playwright、Docker/Nginx）
+
+企业内部客服 Agent 经验的个人平台化完整版，本地替身模式可离线完整演示
+
+- **LangGraph 状态机编排**：意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装四节点状态机；checkpointer 按 thread 保存会话状态，审批恢复时条件入口直接跳过前置节点继续执行。
+- **HITL 人工审批硬闸门**：敏感操作（数据导出、发送邮件、越权动作）在图内暂停执行并生成待审批载荷，人工通过审批接口决策后恢复——状态机层面的硬中断，审批前动作真实不会执行。
+- **业务感知型问答**：9 类意图识别（规则 O(1) 先行 + LLM 兜底），Agent 打通申请、合同、工单、审计业务数据，实现实时审批解释、报错诊断与进度追踪，而不是通用 FAQ 问答。
+- **RAG 工程**：Qdrant 向量库 + 混合检索 + GraphRAG，支持分类过滤与来源溯源，检索证据写入审计日志形成可追溯链路。
+- **权限即 Agent 能力**：RBAC 角色派生 Agent 能力范围（agent:* scope），5 类岗位 Agent 按登录者权限可见可用，每次对话、表格操作与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
+- **工程完整度**：LLM / Embedding / 业务系统 / Redmine / SMTP 五类外部依赖均可降级为本地替身，零外部依赖离线演示；9 条 Playwright 用例守护 OpenAPI 契约、布局信息架构与 Python/Java 双后端输出形态。
 
 ### AI 投资助手（Next.js 16、React 19、TypeScript、Mastra、PostgreSQL、OpenClaw）
 
@@ -62,6 +73,7 @@
 - **落地效果**：Agent **已正式接入售后、技术支持团队日常工作流**，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。
 - **RAG 工程化升级**：设计多粒度 Chunk 策略（Issue 摘要 / Issue 讨论 / Wiki 整页 / Wiki 按标题拆分），富化 metadata（项目 / tracker / 状态 / 责任人 / 更新时间），支持元数据过滤、来源溯源与父子检索；将历史工单与内部 Wiki 系统化批量入库至 **sqlite-vec（float[1536]）**，知识库规模从 **8 条 seed** 扩展至 **30+ 结构化 chunks**。
 - **工程治理**：围绕会话状态、工具调用、检索链路、Prompt、权限边界、评估测试集与日志观测盘点升级路径，推进 **LangGraph Checkpointer**、**StructuredTool + ToolNode**、检索阈值 / Hybrid Search / Reranker 与 Trace 记录，把"能跑"升级为"可观测、可评估、可回滚"。
+- **经验平台化**：将该项目沉淀的编排、RAG、权限与审计经验平台化为个人完整版 **ArcFlow 企业 Agent 平台**（见项目经历首条），补齐 HITL 审批门、岗位 Agent、GraphRAG 与双后端接入形态。
 
 ### 个人网站 / 博客系统（Next.js 16、React 19、TypeScript、Ant Design、PostgreSQL、Prisma）
 
@@ -87,8 +99,8 @@
 
 ## 个人优势
 
-- **前端主导能力明确**：长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。
-- **覆盖 Web 与移动端**：除 Web 中后台和内容产品外，也做过 iOS / Android、React Native、uni-app 与小程序项目，能在多端产品里保持工程一致性和体验稳定性。
-- **具备 AI Agent 开发能力**：能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型、功能联调与上线落地。
-- **有真实线上作品**：已上线个人作品集、AI 投资助手、体育预测平台等多个可访问项目，具备独立开发与部署意识。
+- **有已上线的企业级 Agent 落地经验**：从 0 到 1 主导客服 Agent 上线运营，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；并将该经验平台化为完整的企业 Agent 系统（LangGraph + RAG + HITL 审批 + RBAC + 审计）。
+- **AI 全栈闭环能力**：React/Next.js 前端 + FastAPI/Python 服务 + PostgreSQL/向量库，能独立完成"数据接入 → Agent 编排 → 工具调用 → 前端交付 → Playwright 验收"的完整链路，不停留在模型调用层。
+- **复杂业务前端架构底座**：长期负责企业级备份系统、许可证系统等复杂流程型产品，主导 50+ 资源类型统一流程抽象与可编辑监控大屏，具备把碎片化业务收敛成可扩展架构的能力。
+- **有真实线上作品**：个人作品集、AI 投资助手、体育预测平台等多个可访问项目，具备独立开发与部署意识。
 - **学习与专业基础扎实**：持有软件设计师（中级）认证，英语六级，具备日语听读能力，可直接阅读英文技术文档与部分日文资料。

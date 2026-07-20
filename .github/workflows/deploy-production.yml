@@ -9,6 +9,8 @@ jobs:
   deploy:
     name: 部署到生产环境
     runs-on: ubuntu-latest
+    env:
+      DINGTALK_WEBHOOK_URL: ${{ secrets.DINGTALK_WEBHOOK_URL }}
     
     steps:
       - name: 检出代码
@@ -112,11 +114,11 @@ jobs:
         continue-on-error: true
 
       - name: 发送钉钉通知（可选）
-        if: always() && secrets.DINGTALK_WEBHOOK_URL != ''
+        if: always() && env.DINGTALK_WEBHOOK_URL != ''
         run: |
           STATUS="${{ job.status == 'success' && '成功' || '失败' }}"
           EMOJI="${{ job.status == 'success' && '✅' || '❌' }}"
-          curl -X POST "${{ secrets.DINGTALK_WEBHOOK_URL }}" \
+          curl -X POST "$DINGTALK_WEBHOOK_URL" \
             -H 'Content-Type: application/json' \
             -d "{
               \"msgtype\": \"markdown\",
@@ -126,4 +128,3 @@ jobs:
               }
             }"
         continue-on-error: true
-

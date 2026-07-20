@@ -33,9 +33,9 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <motion.div
-      className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-xl"
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-xl will-change-transform hover:z-10"
+      whileHover={{ y: -6, scale: 1.025 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 22 }}
     >
       {/* Flowing border glow on hover */}
       <div

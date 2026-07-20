@@ -7,8 +7,13 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [displayChildren, setDisplayChildren] = useState(children)
+  const isResumePrintPage = pathname?.startsWith('/resume/print')
 
   useEffect(() => {
+    if (isResumePrintPage) {
+      return
+    }
+
     /**
      * 【React 进阶模式学习 10：手动调度与 Fiber 调度思想】
      * 这里的 requestAnimationFrame (rAF) 是浏览器提供的原生调度 API。
@@ -26,7 +31,11 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       cancelAnimationFrame(raf)
       clearTimeout(timer)
     }
-  }, [pathname, children])
+  }, [pathname, children, isResumePrintPage])
+
+  if (isResumePrintPage) {
+    return <>{children}</>
+  }
 
   return (
     <div

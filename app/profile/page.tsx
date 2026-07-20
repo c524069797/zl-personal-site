@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ThemeToggle } from '@/components/ThemeToggle'
@@ -12,18 +12,26 @@ interface User {
   role: string
 }
 
+interface ProfilePost {
+  id: string
+  slug: string
+  title: string
+  date: string
+  published: boolean
+  summary?: string | null
+  author: {
+    id: string
+  }
+}
+
 export default function ProfilePage() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const [posts, setPosts] = useState<any[]>([])
+  const [posts, setPosts] = useState<ProfilePost[]>([])
   const [postsLoading, setPostsLoading] = useState(false)
 
-  useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     const token = localStorage.getItem('token')
 
     if (!token) {
@@ -47,14 +55,18 @@ export default function ProfilePage() {
 
       const data = await response.json()
       setUser(data.user)
-    } catch (error) {
+    } catch {
       router.push('/login')
     } finally {
       setLoading(false)
     }
-  }
+  }, [router])
 
-  const fetchMyPosts = async () => {
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth])
+
+  const fetchMyPosts = useCallback(async () => {
     const token = localStorage.getItem('token')
     if (!token || !user) return
 
@@ -67,25 +79,25 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json() as { posts?: ProfilePost[] }
         // 只显示当前用户的文章
-        const myPosts = data.posts.filter((post: any) =>
+        const myPosts = (data.posts || []).filter((post) =>
           post.author.id === user.id || user.role === 'admin'
         )
         setPosts(myPosts)
       }
-    } catch (error) {
+    } catch {
       // 错误已静默处理
     } finally {
       setPostsLoading(false)
     }
-  }
+  }, [user])
 
   useEffect(() => {
     if (user) {
       fetchMyPosts()
     }
-  }, [user])
+  }, [fetchMyPosts, user])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
@@ -117,7 +129,7 @@ export default function ProfilePage() {
       } else {
         alert('删除失败')
       }
-    } catch (error) {
+    } catch {
       alert('删除失败')
     }
   }
@@ -270,4 +282,3 @@ export default function ProfilePage() {
     </div>
   )
 }
-

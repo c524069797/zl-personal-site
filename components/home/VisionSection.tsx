@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import {
   Code2,
   Server,
@@ -67,14 +67,10 @@ function RevealSection({
   children: React.ReactNode
   className?: string
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
     <motion.section
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      initial="visible"
+      animate="visible"
       variants={staggerContainer}
       className={className}
     >

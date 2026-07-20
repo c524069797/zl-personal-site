@@ -1,5 +1,7 @@
 import { Spin } from 'antd'
 
+const tagSkeletonWidths = [48, 64, 72, 56, 80, 52, 68, 60]
+
 const BlogListLoading = () => {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 24px' }}>
@@ -54,8 +56,8 @@ const BlogListLoading = () => {
           <div className="skeleton" style={{ padding: '20px', marginBottom: '20px', border: '1px solid var(--border)' }}>
             <div className="skeleton-line" style={{ width: '60px', height: '16px', marginBottom: '16px' }} />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                <div key={i} className="skeleton-line" style={{ width: `${45 + Math.random() * 35}px`, height: '24px', borderRadius: '4px' }} />
+              {tagSkeletonWidths.map((width, i) => (
+                <div key={i} className="skeleton-line" style={{ width: `${width}px`, height: '24px', borderRadius: '4px' }} />
               ))}
             </div>
           </div>

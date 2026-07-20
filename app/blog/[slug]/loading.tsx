@@ -1,3 +1,6 @@
+const contentLineWidths = ['88%', '96%', '91%', '99%', '87%', '94%', '90%', '97%']
+const tagSkeletonWidths = [58, 72, 64, 76, 55, 68]
+
 const BlogDetailLoading = () => {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 24px' }}>
@@ -33,12 +36,12 @@ const BlogDetailLoading = () => {
           </div>
 
           {/* Content lines */}
-          {Array.from({ length: 8 }).map((_, i) => (
+          {contentLineWidths.map((width, i) => (
             <div
               key={i}
               className="skeleton-line"
               style={{
-                width: `${85 + Math.random() * 15}%`,
+                width,
                 height: '14px',
                 marginBottom: '12px',
               }}
@@ -79,8 +82,8 @@ const BlogDetailLoading = () => {
           <div className="skeleton" style={{ padding: '20px', border: '1px solid var(--border)' }}>
             <div className="skeleton-line" style={{ width: '60px', height: '16px', marginBottom: '16px' }} />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {[1, 2, 3, 4, 5, 6].map(i => (
-                <div key={i} className="skeleton-line" style={{ width: `${50 + Math.random() * 30}px`, height: '24px', borderRadius: '4px' }} />
+              {tagSkeletonWidths.map((width, i) => (
+                <div key={i} className="skeleton-line" style={{ width: `${width}px`, height: '24px', borderRadius: '4px' }} />
               ))}
             </div>
           </div>

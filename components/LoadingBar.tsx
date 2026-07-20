@@ -1,8 +1,15 @@
 'use client'
 
 import { AppProgressBar } from 'next-nprogress-bar'
+import { usePathname } from 'next/navigation'
 
 export function LoadingBar() {
+  const pathname = usePathname()
+
+  if (pathname?.startsWith('/resume/print')) {
+    return null
+  }
+
   return (
     <AppProgressBar
       height="4px"

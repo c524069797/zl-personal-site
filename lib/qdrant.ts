@@ -88,11 +88,15 @@ export async function searchVectors(
     })
 
     return results
-  } catch (error: any) {
+  } catch (error) {
     console.error('❌ Failed to search vectors:', error)
 
     // 提供更友好的错误信息
-    if (error.message?.includes('ECONNREFUSED') || error.code === 'ECONNREFUSED') {
+    const errorCode =
+      typeof error === 'object' && error !== null && 'code' in error
+        ? error.code
+        : undefined
+    if ((error instanceof Error && error.message.includes('ECONNREFUSED')) || errorCode === 'ECONNREFUSED') {
       throw new Error('Qdrant服务连接失败，请确保Qdrant服务正在运行（docker run -p 6333:6333 qdrant/qdrant）')
     }
 
@@ -121,4 +125,3 @@ export async function deletePostVectors(postId: string) {
     throw error
   }
 }
-

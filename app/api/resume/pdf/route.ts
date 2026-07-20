@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
+import { getCurrentUser } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   let browser;
@@ -9,7 +10,21 @@ export async function GET(request: NextRequest) {
     const protocol = request.headers.get("x-forwarded-proto") || "http";
     const host = request.headers.get("host") || "localhost:3000";
     const template = request.nextUrl.searchParams.get("template") || "tech";
-    const resumeUrl = `${protocol}://${host}/resume/print?template=${encodeURIComponent(template)}`;
+    const version = request.nextUrl.searchParams.get("version") === "ai" ? "ai" : "general";
+
+    if (version === "ai") {
+      const token = request.headers.get("authorization")?.replace("Bearer ", "");
+      const user = await getCurrentUser(token || null);
+
+      if (user?.role !== "admin") {
+        return NextResponse.json(
+          { error: "AI 应用开发版简历仅管理员可下载" },
+          { status: 403 }
+        );
+      }
+    }
+
+    const resumeUrl = `${protocol}://${host}/resume/print?template=${encodeURIComponent(template)}&version=${encodeURIComponent(version)}`;
 
     const isProd = process.env.NODE_ENV === "production";
     const exePath = isProd
@@ -74,7 +89,7 @@ export async function GET(request: NextRequest) {
 
     await browser.close();
 
-    const filename = `陈子龙-前端开发工程师-简历-${new Date().getFullYear()}.pdf`;
+    const filename = `陈子龙-${version === "ai" ? "AI应用开发工程师" : "前端开发工程师"}-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
     return new NextResponse(Buffer.from(pdf), {

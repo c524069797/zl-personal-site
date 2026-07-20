@@ -6,8 +6,13 @@ import { usePathname } from 'next/navigation'
 export function GlobalLoadingMask() {
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(false)
+  const isResumePrintPage = pathname?.startsWith('/resume/print')
 
   useEffect(() => {
+    if (isResumePrintPage) {
+      return
+    }
+
     const raf = requestAnimationFrame(() => setIsLoading(true))
     const timer = setTimeout(() => {
       setIsLoading(false)
@@ -16,7 +21,9 @@ export function GlobalLoadingMask() {
       cancelAnimationFrame(raf)
       clearTimeout(timer)
     }
-  }, [pathname])
+  }, [pathname, isResumePrintPage])
+
+  if (isResumePrintPage) return null
 
   if (!isLoading) return null
 

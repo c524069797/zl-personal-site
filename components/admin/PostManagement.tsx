@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Table, Button, Tag, Space, message, Popconfirm, Card, Input, Modal, Form, Input as AntInput, DatePicker, Switch, ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
 import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined, EyeOutlined } from '@ant-design/icons'
@@ -47,7 +47,7 @@ export default function PostManagement() {
   const [editingPost, setEditingPost] = useState<Post | null>(null)
   const [form] = Form.useForm()
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams()
@@ -64,16 +64,16 @@ export default function PostManagement() {
 
       const data = await response.json()
       setPosts(data.posts || [])
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.fetchPostsFailed'))
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchText, t])
 
   useEffect(() => {
     fetchPosts()
-  }, [searchText])
+  }, [fetchPosts])
 
   const handleCreate = () => {
     setEditingPost(null)
@@ -107,7 +107,7 @@ export default function PostManagement() {
         date: fullPost.date ? dayjs(fullPost.date) : dayjs(),
       })
       setIsModalOpen(true)
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.fetchPostDetailFailed'))
     } finally {
       setLoading(false)
@@ -127,7 +127,7 @@ export default function PostManagement() {
 
       message.success(t('admin.messages.postDeleted'))
       fetchPosts()
-    } catch (error) {
+    } catch {
       message.error(t('admin.messages.deleteFailed'))
     }
   }
@@ -169,11 +169,11 @@ export default function PostManagement() {
       setEditingPost(null)
       form.resetFields()
       fetchPosts()
-    } catch (error: any) {
-      if (error.errorFields) {
+    } catch (error) {
+      if (typeof error === 'object' && error !== null && 'errorFields' in error) {
         return
       }
-      message.error(error.message || t('admin.messages.operationFailed'))
+      message.error(error instanceof Error ? error.message : t('admin.messages.operationFailed'))
     }
   }
 
@@ -386,4 +386,3 @@ export default function PostManagement() {
     </>
   )
 }
-

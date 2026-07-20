@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Form, Input, Button, Avatar, Space, Typography, App } from 'antd'
+import { useCallback, useEffect, useState } from 'react'
+import { Form, Input, Button, Avatar, Typography, App } from 'antd'
 import { UserOutlined, SendOutlined, HeartOutlined } from '@ant-design/icons'
 
 const { TextArea } = Input
@@ -20,18 +20,21 @@ interface CommentSectionProps {
   postSlug: string
 }
 
+interface CommentFormValues {
+  author: string
+  email?: string
+  website?: string
+  content: string
+}
+
 export default function CommentSection({ postSlug }: CommentSectionProps) {
   const { message } = App.useApp()
   const [comments, setComments] = useState<CommentItem[]>([])
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<CommentFormValues>()
 
-  useEffect(() => {
-    fetchComments()
-  }, [postSlug])
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     setLoading(true)
     try {
       const response = await fetch(`/api/posts/${postSlug}/comments`)
@@ -39,14 +42,18 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
         const data = await response.json()
         setComments(data.comments || [])
       }
-    } catch (error) {
+    } catch {
       // 错误已静默处理
     } finally {
       setLoading(false)
     }
-  }
+  }, [postSlug])
 
-  const handleSubmit = async (values: any) => {
+  useEffect(() => {
+    fetchComments()
+  }, [fetchComments])
+
+  const handleSubmit = async (values: CommentFormValues) => {
     setSubmitting(true)
     try {
       const response = await fetch(`/api/posts/${postSlug}/comments`, {
@@ -72,7 +79,7 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
       } else {
         message.error(data.error || '评论提交失败')
       }
-    } catch (error) {
+    } catch {
       message.error('评论提交失败，请稍后重试')
     } finally {
       setSubmitting(false)
@@ -122,7 +129,7 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
         <Title level={3} style={{ fontSize: '20px', marginBottom: '24px' }}>
           发表评论
         </Title>
-        <Form
+        <Form<CommentFormValues>
           form={form}
           onFinish={handleSubmit}
           layout="vertical"
@@ -278,4 +285,3 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
     </div>
   )
 }
-

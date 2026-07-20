@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
   Sparkles,
   Code2,
@@ -30,8 +29,6 @@ const staggerContainer = {
 
 export default function CoreExpertise() {
   const { t } = useTranslation()
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   const expertiseItems = [
     {
@@ -103,10 +100,10 @@ export default function CoreExpertise() {
   ]
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="text-center mb-10 sm:mb-14"
       >
@@ -123,8 +120,8 @@ export default function CoreExpertise() {
 
       <motion.div
         variants={staggerContainer}
-        initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        initial="visible"
+        animate="visible"
         className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6"
       >
         {expertiseItems.map((item) => {

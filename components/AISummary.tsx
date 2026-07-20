@@ -15,7 +15,7 @@ interface AISummaryProps {
   postSlug: string
 }
 
-export default function AISummary({ postId, postSlug }: AISummaryProps) {
+export default function AISummary({ postId }: AISummaryProps) {
   const { t } = useTranslation()
   const [summary, setSummary] = useState<string | null>(null)
   const [keywords, setKeywords] = useState<string[]>([])
@@ -49,7 +49,7 @@ export default function AISummary({ postId, postSlug }: AISummaryProps) {
         console.error('Failed to fetch summary:', data.error, data.details)
         alert(data.error || '生成摘要失败，请稍后重试')
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to fetch summary:', error)
       alert('网络错误，请稍后重试')
     } finally {
@@ -184,4 +184,3 @@ export default function AISummary({ postId, postSlug }: AISummaryProps) {
       </Card>
   )
 }
-

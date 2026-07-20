@@ -10,7 +10,9 @@ on:
 jobs:
   lint-and-deploy:
     runs-on: ubuntu-latest
-    
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -43,7 +45,10 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
+      # 生产部署由 Vercel 的 GitHub 集成自动完成；此步骤仅在配置了
+      # VERCEL_TOKEN 时作为备用 CLI 部署通道执行
       - name: 部署到 Vercel
+        if: env.VERCEL_TOKEN != ''
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}

@@ -140,7 +140,7 @@ const aiSkillGroups: Array<{
       { label: "Java / Spring" },
       { label: "PostgreSQL", icon: <SiPostgresql size={12} /> },
       { label: "Redis", icon: <SiRedis size={12} /> },
-      { label: "sqlite-vec / pgvector" },
+      { label: "Qdrant / sqlite-vec / pgvector" },
       { label: "GitLab CI/CD", icon: <SiGitlab size={12} /> },
     ],
   },
@@ -153,7 +153,9 @@ const aiSkillGroups: Array<{
       { label: "Multi-Agent Coordination" },
       { label: "Tool Calling & Action Execution" },
       { label: "LangGraph 工作流编排" },
+      { label: "HITL 人工审批（Checkpointer 中断恢复）" },
       { label: "RAG 检索链路设计" },
+      { label: "Hybrid Retrieval / GraphRAG" },
       { label: "Guardrail / Eval / Observability" },
     ],
   },
@@ -494,10 +496,10 @@ export default function ResumePage() {
 
                   <Card className="resume-project-card">
 	                    <div className="resume-project-heading">
-	                      <h4>企业 Agent 客服项目</h4>
-	                      <span>React / Python / FastAPI / LangGraph / RAG / sqlite-vec / PostgreSQL</span>
+	                      <h4>企业 Agent 智能支持平台（ArcFlow）</h4>
+	                      <span>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
 	                    </div>
-	                    <p className="resume-project-desc">公司落地项目｜已接入售后、技术支持团队日常使用</p>
+	                    <p className="resume-project-desc">公司落地版已接入团队日常使用｜个人平台化完整版可离线演示（HITL 审批 / 岗位 Agent / RBAC 审计）</p>
 	                    <MetricList
                       items={[
                         <>
@@ -516,7 +518,13 @@ export default function ResumePage() {
 	                          <strong>落地效果：</strong>Agent 已接入售后、技术支持团队日常工作流，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。
 	                        </>,
                         <>
-                          <strong>工程治理：</strong>推进 LangGraph Checkpointer、StructuredTool + ToolNode、检索阈值 / Hybrid Search / Reranker、Eval 测试集与 Trace 观测能力，把 AI 助手从“能跑”升级为“可观测、可评估、可回滚”。
+                          <strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在 LangGraph 图内暂停并生成待审批载荷，人工决策后按 thread 恢复执行——状态机层面的硬中断，而非提示词层面的“请确认”。
+                        </>,
+                        <>
+                          <strong>权限即 Agent 能力：</strong>RBAC 角色派生 agent:* 能力范围，岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
+                        </>,
+                        <>
+                          <strong>工程质量：</strong>五类外部依赖（LLM / Embedding / 业务系统 / 工单 / 邮件）均可降级本地替身，零依赖离线演示；9 条 Playwright 用例守护 OpenAPI 契约与布局信息架构，Qdrant + Hybrid Retrieval + GraphRAG 检索链路可溯源。
                         </>,
                       ]}
 	                    />
@@ -579,9 +587,9 @@ export default function ResumePage() {
 	              <Card className="resume-project-card">
 	                <div className="resume-project-heading">
 	                  <h4>内部管理系统智能客服 Agent</h4>
-	                  <span>React / Python / FastAPI / LangGraph / RAG / sqlite-vec / PostgreSQL</span>
+	                  <span>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
 	                </div>
-	                <p className="resume-project-desc">公司落地项目｜已接入售后、技术支持团队日常使用</p>
+	                <p className="resume-project-desc">公司落地版已接入团队日常使用｜个人平台化完整版可离线演示（HITL 审批 / 岗位 Agent / RBAC 审计）</p>
                 <MetricList
                   items={[
                     "将产品文档、审批流程说明、历史工单处理方案构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强。",

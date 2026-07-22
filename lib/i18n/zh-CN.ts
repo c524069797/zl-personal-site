@@ -45,8 +45,14 @@ const zhCN = {
     modeToggle: {
       animated: '动效模式',
       simple: '简洁模式',
+      threeD: '3D 模式',
       switchToAnimated: '切换到动效模式',
       switchToSimple: '切换到简洁模式',
+      switchStyle: '切换首屏风格',
+    },
+    hero3d: {
+      eyebrow: '全栈 · AI 工程师',
+      dragHint: '拖拽旋转 · 看看我的 3D 形象',
     },
     animatedHero: {
       aiDevLabel: 'AI Development',

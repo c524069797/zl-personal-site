@@ -26,6 +26,7 @@ import { categorizeBlog } from '@/lib/blog-category'
 import GlowCard from '@/components/home/GlowCard'
 import HeroAnimated from '@/components/home/HeroAnimated'
 import HeroSimple from '@/components/home/HeroSimple'
+import Hero3D from '@/components/home/Hero3D'
 import VisionSection from '@/components/home/VisionSection'
 import CoreExpertise from '@/components/home/CoreExpertise'
 import ModeToggle from '@/components/home/ModeToggle'
@@ -294,7 +295,7 @@ function VisualDirectionStrip() {
 // ——————————————————————————————————————————————
 export default function HomePage() {
   const { t } = useTranslation()
-  const [heroMode, setHeroMode] = useState<'animated' | 'simple'>('animated')
+  const [heroMode, setHeroMode] = useState<'animated' | 'simple' | '3d'>('3d')
   const [latestPosts, setLatestPosts] = useState<Post[]>([])
   const [hotPosts, setHotPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
@@ -325,7 +326,9 @@ export default function HomePage() {
   }, [])
 
   const toggleMode = () => {
-    setHeroMode((prev) => (prev === 'animated' ? 'simple' : 'animated'))
+    setHeroMode((prev) =>
+      prev === '3d' ? 'animated' : prev === 'animated' ? 'simple' : '3d',
+    )
   }
 
   const visibleLatestPosts = latestPosts.length > 0 ? latestPosts : fallbackLatestPosts
@@ -337,9 +340,15 @@ export default function HomePage() {
       <ModeToggle mode={heroMode} onToggle={toggleMode} />
 
       {/* =========================================
-          HERO SECTION — switchable
+          HERO SECTION — switchable (3D / animated / simple)
           ========================================= */}
-      {heroMode === 'animated' ? <HeroAnimated /> : <HeroSimple />}
+      {heroMode === '3d' ? (
+        <Hero3D />
+      ) : heroMode === 'animated' ? (
+        <HeroAnimated />
+      ) : (
+        <HeroSimple />
+      )}
       <JourneyGuide />
       <VisualDirectionStrip />
 

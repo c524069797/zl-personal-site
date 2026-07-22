@@ -45,8 +45,14 @@ const translations = {
     modeToggle: {
       animated: 'Animated',
       simple: 'Simple',
+      threeD: '3D',
       switchToAnimated: 'Switch to Animated',
       switchToSimple: 'Switch to Simple',
+      switchStyle: 'Switch hero style',
+    },
+    hero3d: {
+      eyebrow: 'AI Full-Stack Engineer',
+      dragHint: 'Drag to rotate my 3D avatar',
     },
     animatedHero: {
       aiDevLabel: 'AI Agent Development',

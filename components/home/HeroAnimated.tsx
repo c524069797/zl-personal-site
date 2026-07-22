@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Database, Server, HardDrive, ShieldCheck, ArchiveRestore, BadgeCheck, BookOpen, FileText, ArrowDown } from 'lucide-react'
+import { Database, Server, HardDrive, ShieldCheck, ArchiveRestore, BadgeCheck, BookOpen, FileText, ArrowDown, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { ScrollingTextRow } from './ScrollingText'
 import FluidBackground from './FluidBackground'
@@ -23,7 +23,7 @@ function FloatingIcon({
   x,
   y,
 }: {
-  Icon: React.ElementType
+  Icon: LucideIcon
   label: string
   delay: number
   x: string

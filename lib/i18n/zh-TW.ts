@@ -45,8 +45,14 @@ const translations = {
     modeToggle: {
       animated: '動效模式',
       simple: '簡潔模式',
+      threeD: '3D 模式',
       switchToAnimated: '切換到動效模式',
       switchToSimple: '切換到簡潔模式',
+      switchStyle: '切換首屏風格',
+    },
+    hero3d: {
+      eyebrow: '全端 · AI 工程師',
+      dragHint: '拖曳旋轉 · 看看我的 3D 形象',
     },
     animatedHero: {
       aiDevLabel: 'AI Development',

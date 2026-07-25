@@ -53,6 +53,17 @@
 - **权限即 Agent 能力**：RBAC 角色派生 Agent 能力范围（agent:* scope），5 类岗位 Agent 按登录者权限可见可用，每次对话、表格操作与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
 - **工程完整度**：LLM / Embedding / 业务系统 / Redmine / SMTP 五类外部依赖均可降级为本地替身，零外部依赖离线演示；9 条 Playwright 用例守护 OpenAPI 契约、布局信息架构与 Python/Java 双后端输出形态。
 
+### BackupPilot 智能备份 Agent（Python、LangGraph、Pydantic v2、MCP、httpx、zstd、SQLite、Typer）
+
+个人项目｜自然语言驱动的备份 / 恢复 + 企业运维智能体，纯本地可离线完整演示
+
+- **LangGraph 八节点状态机 + HITL**：意图识别 → 规划 → 策略决策 → 执行 → 校验汇报的状态图；恢复等破坏性操作用 `interrupt()` 中断等人工确认，不确认绝不落盘——备份场景里误覆盖数据是最致命事故，HITL 是硬约束。
+- **混合引擎架构（换引擎不换大脑）**：统一 `BackupEngine` 抽象接口，local 自研引擎（内容寻址去重 sha256+zstd + mtime 增量 + 原子写）与 enterprise 企业后端适配器（httpx REST、异步任务轮询）都实现它；实测把引擎从 local 换成 enterprise，状态图一行不改，同一 Agent 内核服务个人备份与企业运维两种形态。
+- **LLM 意图理解 + 实测能力边界**：意图解析双层——LLM 结构化输出（Pydantic schema 约束）优先、规则解析兜底，保证离线可用与测试确定；实测轻量模型在语义别名解析上强于规则、但复杂槽位抽取不稳定，用 `xfail` 如实记录，确立"LLM 提供理解增益、安全边界交给规则 + HITL"的取舍。
+- **MCP 工具暴露（一套逻辑双 adapter）**：能力封装成协议无关工具函数，MCP Server（Claude Desktop 可接）与 langchain `@tool` 两个薄 adapter 同源；破坏性 restore 带 `confirm` 二次门控，LLM / 客户端也无法误覆盖数据。
+- **企业运维 Agent**：多机巡检、失败诊断（原因分类 + 修复建议）、容量预测；`ops` 意图复用既有状态图零改动接入（开闭原则），命令行与自然语言对话双入口。
+- **工程质量**：stdlib 零依赖 mock 企业后端支持离线演示，端到端测试真起 server 打 HTTP；67 项测试 + 88% 覆盖率，中文提交历史 + CHANGELOG 版本演进。
+
 ### AI 投资助手（Next.js 16、React 19、TypeScript、Mastra、PostgreSQL、OpenClaw）
 
 在线访问：https://aiold.clczl.asia/

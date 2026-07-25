@@ -496,10 +496,18 @@ export default function ResumePage() {
 
                   <Card className="resume-project-card">
 	                    <div className="resume-project-heading">
-	                      <h4>企业 Agent 智能支持平台（ArcFlow）</h4>
+	                      <h4>
+	                        <a href="https://github.com/c524069797/enterprise-agent-platform" target="_blank" rel="noopener noreferrer">
+	                          企业 Agent 智能支持平台（ArcFlow）
+	                        </a>
+	                      </h4>
 	                      <span>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
 	                    </div>
 	                    <p className="resume-project-desc">公司落地版已接入团队日常使用｜个人平台化完整版可离线演示（HITL 审批 / 岗位 Agent / RBAC 审计）</p>
+	                    <a className="resume-project-link" href="https://github.com/c524069797/enterprise-agent-platform" target="_blank" rel="noopener noreferrer">
+	                      <Github size={12} />
+	                      github.com/c524069797/enterprise-agent-platform
+	                    </a>
 	                    <MetricList
                       items={[
                         <>
@@ -532,7 +540,11 @@ export default function ResumePage() {
 
 	                  <Card className="resume-project-card">
 	                    <div className="resume-project-heading">
-	                      <h4>AI 投资助手</h4>
+	                      <h4>
+	                        <a href="https://aiold.clczl.asia/" target="_blank" rel="noopener noreferrer">
+	                          AI 投资助手
+	                        </a>
+	                      </h4>
 	                      <span>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE / OpenClaw</span>
 	                    </div>
 	                    <p className="resume-project-desc">个人项目｜面向个人投资研究场景的 AI 驱动产品</p>
@@ -586,10 +598,18 @@ export default function ResumePage() {
 
 	              <Card className="resume-project-card">
 	                <div className="resume-project-heading">
-	                  <h4>内部管理系统智能客服 Agent</h4>
+	                  <h4>
+	                    <a href="https://github.com/c524069797/enterprise-agent-platform" target="_blank" rel="noopener noreferrer">
+	                      内部管理系统智能客服 Agent
+	                    </a>
+	                  </h4>
 	                  <span>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
 	                </div>
 	                <p className="resume-project-desc">公司落地版已接入团队日常使用｜个人平台化完整版可离线演示（HITL 审批 / 岗位 Agent / RBAC 审计）</p>
+	                <a className="resume-project-link" href="https://github.com/c524069797/enterprise-agent-platform" target="_blank" rel="noopener noreferrer">
+	                  <Github size={12} />
+	                  github.com/c524069797/enterprise-agent-platform
+	                </a>
                 <MetricList
                   items={[
                     "将产品文档、审批流程说明、历史工单处理方案构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强。",
@@ -626,7 +646,11 @@ export default function ResumePage() {
 
 	              <Card className="resume-project-card">
 	                <div className="resume-project-heading">
-	                  <h4>AI 投资助手</h4>
+	                  <h4>
+	                    <a href="https://aiold.clczl.asia/" target="_blank" rel="noopener noreferrer">
+	                      AI 投资助手
+	                    </a>
+	                  </h4>
 	                  <span>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE / OpenClaw</span>
 	                </div>
 	                <p className="resume-project-desc">个人项目｜面向个人投资研究场景的 AI 驱动产品</p>
@@ -660,7 +684,12 @@ export default function ResumePage() {
               <p>
                 <span className="resume-work-dot" />
                 <span>
-                  <strong>SportOracle 体育预测平台</strong>：AI 驱动的体育预测产品。{" "}
+                  <strong>
+                    <a className="resume-title-link" href="https://nba.clczl.asia/" target="_blank" rel="noopener noreferrer">
+                      SportOracle 体育预测平台
+                    </a>
+                  </strong>
+                  ：AI 驱动的体育预测产品。{" "}
                   <a className="resume-link" href="https://nba.clczl.asia/" target="_blank" rel="noopener noreferrer">
                     nba.clczl.asia
                   </a>
@@ -669,7 +698,12 @@ export default function ResumePage() {
               <p>
                 <span className="resume-work-dot" />
                 <span>
-                  <strong>Sports Hub 浏览器插件</strong>：聚合 NBA、足球、电竞赛事信息的 Chrome Extension。{" "}
+                  <strong>
+                    <a className="resume-title-link" href="https://github.com/c524069797/sports-hub-extension" target="_blank" rel="noopener noreferrer">
+                      Sports Hub 浏览器插件
+                    </a>
+                  </strong>
+                  ：聚合 NBA、足球、电竞赛事信息的 Chrome Extension。{" "}
                   <a className="resume-link" href="https://github.com/c524069797/sports-hub-extension" target="_blank" rel="noopener noreferrer">
                     GitHub
                   </a>

@@ -2211,6 +2211,19 @@ a:active {
   text-decoration: underline;
 }
 
+/* 项目名可点击链接：保持标题原色，hover 显示主题色提示可点 */
+.resume-project-heading h4 a,
+.resume-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resume-project-heading h4 a:hover,
+.resume-title-link:hover {
+  color: var(--czl-color-accent);
+  text-decoration: underline;
+}
+
 .resume-section {
   margin-bottom: 20px;
 }

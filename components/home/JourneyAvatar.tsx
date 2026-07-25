@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { useGLTF, Center, ContactShadows, Html, useProgress } from '@react-three/drei'
+import { useGLTF, Center, Clone, ContactShadows, Html, useProgress } from '@react-three/drei'
 import { useTheme } from 'next-themes'
 import { MathUtils } from 'three'
 import type { Group } from 'three'
@@ -39,7 +39,8 @@ function Model({
   return (
     <group ref={ref}>
       <Center>
-        <primitive object={scene} />
+        {/* 与首屏共享 useGLTF 缓存，Clone 独立实例避免两个 Canvas 互抢节点 */}
+        <Clone object={scene} />
       </Center>
     </group>
   )

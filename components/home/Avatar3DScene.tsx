@@ -6,6 +6,7 @@ import {
   OrbitControls,
   Float,
   Center,
+  Clone,
   ContactShadows,
   Html,
   useGLTF,
@@ -19,7 +20,9 @@ useGLTF.preload(MODEL_URL)
 
 function Avatar() {
   const { scene } = useGLTF(MODEL_URL)
-  return <primitive object={scene} />
+  // useGLTF 全局缓存同一 scene 对象，直接 primitive 会被其他 Canvas（经历区）抢走节点，
+  // 必须 Clone 出独立实例，两个场景才能同时显示
+  return <Clone object={scene} />
 }
 
 function SceneLoader() {

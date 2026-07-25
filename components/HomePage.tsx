@@ -27,6 +27,7 @@ import GlowCard from '@/components/home/GlowCard'
 import HeroAnimated from '@/components/home/HeroAnimated'
 import HeroSimple from '@/components/home/HeroSimple'
 import Hero3D from '@/components/home/Hero3D'
+import ExperienceJourney from '@/components/home/ExperienceJourney'
 import VisionSection from '@/components/home/VisionSection'
 import CoreExpertise from '@/components/home/CoreExpertise'
 import ModeToggle from '@/components/home/ModeToggle'
@@ -335,7 +336,7 @@ export default function HomePage() {
   const visibleHotPosts = hotPosts.length > 0 ? hotPosts : fallbackHotPosts
 
   return (
-    <div className="w-full text-neutral-800 dark:text-white overflow-x-hidden bg-white dark:bg-[#050816]">
+    <div className="w-full text-neutral-800 dark:text-white overflow-x-clip bg-white dark:bg-[#050816]">
       {/* Mode Toggle */}
       <ModeToggle mode={heroMode} onToggle={toggleMode} />
 
@@ -349,6 +350,7 @@ export default function HomePage() {
       ) : (
         <HeroSimple />
       )}
+      <ExperienceJourney />
       <JourneyGuide />
       <VisualDirectionStrip />
 

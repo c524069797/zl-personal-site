@@ -6,7 +6,6 @@ import {
   OrbitControls,
   Float,
   Center,
-  Bounds,
   ContactShadows,
   Html,
   useGLTF,
@@ -16,7 +15,6 @@ import { useTheme } from 'next-themes'
 
 const MODEL_URL = '/models/passion-avatar.glb'
 
-// 预加载模型，进入首屏时尽快就绪
 useGLTF.preload(MODEL_URL)
 
 function Avatar() {
@@ -24,7 +22,6 @@ function Avatar() {
   return <primitive object={scene} />
 }
 
-// 模型加载中的占位（渲染在 Canvas 内部）
 function SceneLoader() {
   const { progress } = useProgress()
   return (
@@ -43,12 +40,11 @@ export default function Avatar3DScene() {
 
   return (
     <Canvas
-      camera={{ position: [0, 0.4, 5], fov: 42 }}
+      camera={{ position: [0, 0.1, 3.4], fov: 38 }}
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
       style={{ width: '100%', height: '100%' }}
     >
-      {/* 灯光：不依赖外部 HDR，加载快、可控 */}
       <hemisphereLight
         intensity={dark ? 0.8 : 1.0}
         color={dark ? '#3b4a6b' : '#ffffff'}
@@ -63,25 +59,22 @@ export default function Avatar3DScene() {
       />
 
       <Suspense fallback={<SceneLoader />}>
-        {/* Bounds fit 自动把模型框进视口，避免手调 scale；不加 observe 防 Float 抖动 */}
-        <Bounds fit clip margin={1.15}>
-          <Float speed={1.4} rotationIntensity={0.35} floatIntensity={0.5}>
-            <Center>
-              <Avatar />
-            </Center>
-          </Float>
-        </Bounds>
+        <Float speed={1.4} rotationIntensity={0.35} floatIntensity={0.5}>
+          <Center>
+            <Avatar />
+          </Center>
+        </Float>
       </Suspense>
 
       <ContactShadows
-        position={[0, -1.4, 0]}
-        opacity={dark ? 0.45 : 0.28}
+        position={[0, -1.5, 0]}
+        opacity={dark ? 0.4 : 0.25}
         scale={10}
         blur={2.6}
         far={4}
       />
 
-      {/* 自动缓慢旋转 + 允许鼠标拖拽；禁缩放/平移，限制俯仰角避免看到模型底部 */}
+      {/* 自动缓慢旋转 + 可鼠标拖拽；禁缩放/平移 */}
       <OrbitControls
         makeDefault
         autoRotate

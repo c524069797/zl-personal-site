@@ -57,14 +57,14 @@ GitHub：https://github.com/c524069797/enterprise-agent-platform
 
 ### BackupPilot 智能备份 Agent（Python、LangGraph、Pydantic v2、MCP、httpx、zstd、SQLite、Typer）
 
-个人项目｜自然语言驱动的备份 / 恢复 + 企业运维智能体，纯本地可离线完整演示
+个人项目｜自然语言驱动的备份 / 恢复 + 企业运维智能体，已接入企业备份平台，纯本地可离线完整演示
 
 - **LangGraph 八节点状态机 + HITL**：意图识别 → 规划 → 策略决策 → 执行 → 校验汇报的状态图；恢复等破坏性操作用 `interrupt()` 中断等人工确认，不确认绝不落盘——备份场景里误覆盖数据是最致命事故，HITL 是硬约束。
-- **混合引擎架构（换引擎不换大脑）**：统一 `BackupEngine` 抽象接口，local 自研引擎（内容寻址去重 sha256+zstd + mtime 增量 + 原子写）与 enterprise 企业后端适配器（httpx REST、异步任务轮询）都实现它；实测把引擎从 local 换成 enterprise，状态图一行不改，同一 Agent 内核服务个人备份与企业运维两种形态。
+- **接入企业备份平台（换引擎不换大脑）**：统一 `BackupEngine` 抽象接口，local 自研引擎（内容寻址去重 sha256+zstd + mtime 增量 + 原子写）与 enterprise 备份平台适配器都实现它；适配层把接口方法翻译成平台 REST 调用（Bearer 认证，备份按平台异步任务模型走"创建任务 → 轮询到终态"），并解决内网代理劫持 502（私网默认直连）、统一错误通道转自愈诊断等真实部署问题；引擎一个环境变量切换，状态图一行不改，同一 Agent 内核服务个人备份与企业运维两种形态。
 - **LLM 意图理解 + 实测能力边界**：意图解析双层——LLM 结构化输出（Pydantic schema 约束）优先、规则解析兜底，保证离线可用与测试确定；实测轻量模型在语义别名解析上强于规则、但复杂槽位抽取不稳定，用 `xfail` 如实记录，确立"LLM 提供理解增益、安全边界交给规则 + HITL"的取舍。
 - **MCP 工具暴露（一套逻辑双 adapter）**：能力封装成协议无关工具函数，MCP Server（Claude Desktop 可接）与 langchain `@tool` 两个薄 adapter 同源；破坏性 restore 带 `confirm` 二次门控，LLM / 客户端也无法误覆盖数据。
-- **企业运维 Agent**：多机巡检、失败诊断（原因分类 + 修复建议）、容量预测；`ops` 意图复用既有状态图零改动接入（开闭原则），命令行与自然语言对话双入口。
-- **工程质量**：stdlib 零依赖 mock 企业后端支持离线演示，端到端测试真起 server 打 HTTP；67 项测试 + 88% 覆盖率，中文提交历史 + CHANGELOG 版本演进。
+- **企业运维 Agent（平台数据驱动）**：多机巡检、失败诊断（原因分类 + 修复建议）、容量预测（几天写满 + 扩容建议）、策略合规检查与四合一运维报告；平台只提供原始事实，解读与建议逻辑放客户端层；`ops` 意图复用既有状态图零改动接入（开闭原则），命令行与自然语言对话双入口。
+- **企业级数据安全与工程质量**：恢复逐文件校验拒写坏数据 + 恢复演练 drill、路径穿越防护、SQLite 并发安全；备份仓库信封加密（scrypt + AES-GCM + HMAC 对象名防指纹泄露，改口令 O(1) 不重加密）；204 项测试全绿，端到端真起模拟平台后端打 HTTP；一键测试环境脚本，中文提交历史 + CHANGELOG 版本演进。
 
 ### AI 投资助手（Next.js 16、React 19、TypeScript、Mastra、PostgreSQL、OpenClaw）
 

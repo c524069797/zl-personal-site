@@ -254,12 +254,26 @@ function ResumeContent({ template, version }: { template: string; version: strin
                 </div>
                 <p className="text-[10px] text-gray-400">企业客服 Agent 已接入团队日常使用｜个人平台化完整版可离线演示</p>
                 <ul className={expList}>
-                  <li><strong>业务背景与落地：</strong>客服团队高频处理审批进度、报错诊断、套餐解释等重复咨询；Agent 打通申请、审批、工单、审计业务数据实现<strong>实时审批解释、报错智能诊断与进度追踪</strong>，已接入售后、技术支持团队日常工作流。</li>
-                  <li><strong>LangGraph 状态机编排：</strong>意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装四节点；checkpointer 按 thread 保存状态，审批恢复时条件入口跳过前置节点继续执行。</li>
-                  <li><strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在图内暂停并生成待审批载荷，人工决策后恢复——状态机层面的硬中断，而非提示词层面的“请确认”。</li>
-                  <li><strong>RAG 工程：</strong>Qdrant + Hybrid Retrieval + GraphRAG，多粒度 Chunk、metadata 富化、来源溯源与父子检索，检索证据写入审计日志形成可追溯链路。</li>
-                  <li><strong>权限即 Agent 能力：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。</li>
-                  <li><strong>工程质量：</strong>LLM / Embedding / 业务系统 / Redmine / SMTP 五类外部依赖均可降级本地替身，零依赖离线演示；9 条 Playwright 用例守护 OpenAPI 契约、布局信息架构与 Python/Java 双后端形态。</li>
+                  <li><strong>项目概述：</strong>面向企业内部客服与技术支持场景的智能支持平台，打通申请、合同、工单、审计业务数据实现<strong>实时审批解释、报错智能诊断与进度追踪</strong>；企业落地版已接入售后、技术支持团队日常工作流。</li>
+                  <li><strong>Agent 编排：</strong>LangGraph 四节点状态机（意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装）；checkpointer 按 thread 保存状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底。</li>
+                  <li><strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在图内暂停并生成待审批载荷，人工决策后恢复——状态机层面的硬中断，审批前动作真实不会执行。</li>
+                  <li><strong>检索链路：</strong>Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，metadata 分类过滤、来源溯源与父子检索，检索证据写入审计日志形成可追溯回答链路。</li>
+                  <li><strong>权限与审计：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。</li>
+                  <li><strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；五类外部依赖可降级本地替身离线演示，9 条 Playwright 用例守护 OpenAPI 契约与 Python/Java 双后端一致性。</li>
+                </ul>
+              </div>
+
+              <div className="mb-1.5">
+                <div className="flex items-baseline justify-between">
+                  <h4 className="text-xs font-bold text-gray-900">BackupPilot 智能备份 Agent</h4>
+                  <span className={techStack}>Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd</span>
+                </div>
+                <p className="text-[10px] text-gray-400">个人项目｜自然语言驱动的备份/恢复与企业运维智能体，已接入企业备份平台，可离线完整演示</p>
+                <ul className={expList}>
+                  <li><strong>Agent 编排 + HITL：</strong>LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故。</li>
+                  <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，local 自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量 + 原子写）与企业备份平台 REST 适配器实现同一抽象；一个环境变量切换引擎，状态图一行不改。</li>
+                  <li><strong>MCP 工具 + 运维 Agent：</strong>MCP Server（Claude Desktop 可接）与 langchain @tool 双 adapter 同源，破坏性 restore 带 confirm 二次门控；基于平台数据实现多机巡检、失败诊断、容量预测与四合一运维报告。</li>
+                  <li><strong>项目成效：</strong>204 项测试全绿（端到端真起模拟平台后端走 HTTP）；备份仓库信封加密（scrypt + AES-GCM）改口令 O(1) 不重加密；解决内网代理劫持 502 等真实部署问题。</li>
                 </ul>
               </div>
 

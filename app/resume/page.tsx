@@ -511,30 +511,63 @@ export default function ResumePage() {
 	                    <MetricList
                       items={[
                         <>
-                          <strong>业务背景：</strong>内部管理系统业务逻辑复杂，客服团队需高频处理审批进度查询、报错诊断、套餐功能解释等重复问题，人工响应慢且知识传递成本高。
+                          <strong>项目概述：</strong>面向企业内部客服与技术支持场景的智能支持平台，打通申请、合同、工单、审计等核心业务数据，实现实时审批解释、报错智能诊断与进度追踪；企业落地版已接入售后、技术支持团队日常工作流。
                         </>,
                         <>
-                          <strong>RAG 知识库：</strong>将产品文档、审批流程、历史工单、Wiki、SOP 和常见报错排查指南构建为结构化知识库，设计多粒度 Chunk、metadata 富化、来源溯源和父子检索策略。
+                          <strong>Agent 编排：</strong>LangGraph 四节点状态机（意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。
                         </>,
                         <>
-                          <strong>业务数据联动：</strong>打通申请、审批、审计等核心业务数据，使 Agent 能基于真实申请单与工单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。
+                          <strong>HITL 审批硬闸门：</strong>数据导出、发送邮件、越权动作等敏感操作在图内暂停并生成待审批载荷，人工决策后按 thread 恢复执行——状态机层面的硬中断，审批前动作真实不会执行。
                         </>,
                         <>
-                          <strong>前端对话体验：</strong>开发对话式工作台，支持多轮上下文、引用来源高亮、诊断步骤展示与一键转人工，降低客服使用门槛并保留复杂问题交接路径。
+                          <strong>检索链路：</strong>Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，支持 metadata 分类过滤、来源溯源与父子检索；检索证据写入审计日志，每条回答可追溯到证据来源。
 	                        </>,
 	                        <>
-	                          <strong>落地效果：</strong>Agent 已接入售后、技术支持团队日常工作流，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。
+	                          <strong>权限与审计：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话、表格操作与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
 	                        </>,
                         <>
-                          <strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在 LangGraph 图内暂停并生成待审批载荷，人工决策后按 thread 恢复执行——状态机层面的硬中断，而非提示词层面的“请确认”。
+                          <strong>工程化落地：</strong>FastAPI 封装 RESTful API + React 18 对话工作台，Docker Compose 容器化 + Nginx 反向代理部署；LLM / Embedding / 业务系统 / 工单 / 邮件五类外部依赖均可降级本地替身，零外部依赖离线演示。
                         </>,
                         <>
-                          <strong>权限即 Agent 能力：</strong>RBAC 角色派生 agent:* 能力范围，岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
+                          <strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；敏感操作 100% 经人工审批后执行，审批前零副作用。
                         </>,
                         <>
-                          <strong>工程质量：</strong>五类外部依赖（LLM / Embedding / 业务系统 / 工单 / 邮件）均可降级本地替身，零依赖离线演示；9 条 Playwright 用例守护 OpenAPI 契约与布局信息架构，Qdrant + Hybrid Retrieval + GraphRAG 检索链路可溯源。
+                          <strong>工程质量：</strong>9 条 Playwright E2E 用例守护 OpenAPI 契约、布局信息架构与 Python / Java 双后端输出一致性，保障持续迭代不回归。
                         </>,
                       ]}
+	                    />
+	                  </Card>
+
+	                  <Card className="resume-project-card">
+	                    <div className="resume-project-heading">
+	                      <h4>BackupPilot 智能备份 Agent</h4>
+	                      <span>Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd / Typer</span>
+	                    </div>
+	                    <p className="resume-project-desc">个人项目｜自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，纯本地可离线完整演示</p>
+	                    <MetricList
+	                      items={[
+	                        <>
+	                          <strong>Agent 编排 + HITL：</strong>LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作用 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故，HITL 是硬约束。
+	                        </>,
+	                        <>
+	                          <strong>双引擎架构：</strong>统一 BackupEngine 抽象接口，local 自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量 + 原子写）与企业备份平台 REST 适配器（Bearer 认证，创建任务 → 轮询到终态）实现同一抽象；一个环境变量切换引擎，状态图一行不改。
+	                        </>,
+	                        <>
+	                          <strong>意图理解：</strong>LLM 结构化输出（Pydantic schema 约束）优先、规则解析兜底；实测轻量模型语义别名解析强于规则、复杂槽位抽取不稳定，用 xfail 如实记录——理解增益交给 LLM，安全边界交给规则 + HITL。
+	                        </>,
+	                        <>
+	                          <strong>MCP 工具暴露：</strong>MCP Server（Claude Desktop 可直接接入）与 langchain @tool 双 adapter 同源；破坏性 restore 带 confirm 二次门控，LLM / 外部客户端也无法误覆盖数据。
+	                        </>,
+	                        <>
+	                          <strong>企业运维 Agent：</strong>基于平台数据实现多机巡检、失败诊断、容量预测、策略合规检查与四合一运维报告；ops 意图复用既有状态图零改动接入，命令行与自然语言双入口。
+	                        </>,
+	                        <>
+	                          <strong>数据安全：</strong>恢复逐文件校验拒写坏数据 + 恢复演练 drill、路径穿越防护；备份仓库信封加密（scrypt + AES-GCM + HMAC 对象名防指纹泄露），改口令 O(1) 无需重加密。
+	                        </>,
+	                        <>
+	                          <strong>项目成效：</strong>204 项测试全绿（端到端真实启动模拟平台后端走 HTTP 全链路）；已接入企业备份平台跑通备份 / 恢复 / 巡检闭环，解决内网代理劫持 502 等真实部署问题。
+	                        </>,
+	                      ]}
 	                    />
 	                  </Card>
 

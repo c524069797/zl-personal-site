@@ -40,7 +40,7 @@ const zhCN = {
     categories: '博客分类',
     aboutMe: {
       name: '陈灼 (Jack Chen)',
-      description: '热爱前端与 AI Agent 开发，深耕全栈技术 | 篮球爱好者',
+      description: '热爱 AI Agent 与全栈开发，深耕工程实践 | 篮球爱好者',
     },
     modeToggle: {
       animated: '动效模式',
@@ -163,13 +163,13 @@ const zhCN = {
     },
     experience: {
       title: '工作经历',
-      subtitle: '从前端工程到 AI Agent 的技术成长路径',
+      subtitle: '从 Web 工程到 AI Agent 的技术成长路径',
       exp0Period: '2021 - 至今',
-      exp0Title: '前端开发工程师',
+      exp0Title: 'Web 软件工程师',
       exp0Company: 'Scutech（广州鼎甲计算机科技有限公司）',
       exp0Desc: '负责备份恢复和系统级界面的前端开发，主导核心模块的框架级界面设计与实现。深度参与 AI Agent 开发，将大语言模型与智能体集成到企业级产品中，提升系统智能化水平。',
       exp1Period: '2020 - 2021',
-      exp1Title: '前端开发工程师',
+      exp1Title: 'Web 软件工程师',
       exp1Company: '广东汇源通集团有限公司',
       exp1Desc: '参与框架级界面开发设计，负责企业级管理系统的前端架构与组件化建设。积累了对复杂业务系统界面设计的深入理解，奠定了扎实的前端工程化基础。',
     },

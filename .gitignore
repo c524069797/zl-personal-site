@@ -44,3 +44,6 @@ next-env.d.ts
 # scripts
 scripts/publish-prod.sh
 
+
+# playwright artifacts
+playwright-report/

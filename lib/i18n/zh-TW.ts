@@ -40,7 +40,7 @@ const translations = {
     categories: '部落格分類',
     aboutMe: {
       name: '陳灼',
-      description: '全棧開發工程師 | 深耕 AI Agent、前端工程與系統架構',
+      description: '全棧開發工程師 | 深耕 AI Agent、Web 工程與系統架構',
     },
     modeToggle: {
       animated: '動效模式',
@@ -163,13 +163,13 @@ const translations = {
     },
     experience: {
       title: '工作經歷',
-      subtitle: '從前端工程到 AI Agent 的技術成長路徑',
+      subtitle: '從 Web 工程到 AI Agent 的技術成長路徑',
       exp0Period: '2021 - 至今',
-      exp0Title: '前端開發工程師',
+      exp0Title: 'Web 軟體工程師',
       exp0Company: 'Scutech（廣州鼎甲計算機科技有限公司）',
       exp0Desc: '負責備份恢復和系統級界面的前端開發，主導核心模塊的框架級界面設計與實現。深度參與 AI Agent 開發，將大語言模型與智能體集成到企業級產品中，提升系統智能化水平。',
       exp1Period: '2020 - 2021',
-      exp1Title: '前端開發工程師',
+      exp1Title: 'Web 軟體工程師',
       exp1Company: '廣東匯源通集團有限公司',
       exp1Desc: '參與框架級界面開發設計，負責企業級管理系統的前端架構與組件化建設。積累了對複雜業務系統界面設計的深入理解，奠定了紮實的前端工程化基礎。',
     },

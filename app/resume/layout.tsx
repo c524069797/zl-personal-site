@@ -3,32 +3,32 @@ import type { Metadata } from "next";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
 
 export const metadata: Metadata = {
-  title: "个人简历 | 前端开发工程师",
+  title: "个人简历 | AI Agent / AI 全栈工程师",
   description:
-    "前端开发工程师简历，聚焦企业级中后台、复杂业务流程与 AI Agent 开发协作。",
+    "AI Agent / AI 全栈工程师简历，聚焦 Agent 编排、RAG 工程化与企业级业务系统落地。",
   keywords: [
-    "前端开发",
-    "Vue.js",
-    "Vue 3",
-    "React",
-    "TypeScript",
-    "企业级中后台",
     "AI Agent",
+    "AI 全栈",
+    "LangGraph",
+    "RAG",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Python",
     "软件设计师",
-    "CET-6",
     "简历",
   ],
   openGraph: {
-    title: "个人简历 | 前端开发工程师",
-    description: "前端开发工程师简历 | 企业级后台 | 复杂业务建模 | AI Agent 开发",
+    title: "个人简历 | AI Agent / AI 全栈工程师",
+    description: "AI Agent / AI 全栈工程师简历 | Agent 编排 | RAG 工程化 | 企业级业务系统",
     type: "profile",
     url: `${siteUrl}/resume`,
     siteName: "个人简历",
   },
   twitter: {
     card: "summary",
-    title: "个人简历 | 前端开发工程师",
-    description: "前端开发工程师简历 - Vue/React/TS/AI Agent 开发",
+    title: "个人简历 | AI Agent / AI 全栈工程师",
+    description: "AI Agent / AI 全栈工程师简历 - LangGraph/RAG/Next.js/Python",
   },
   robots: {
     index: false,

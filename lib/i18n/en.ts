@@ -40,7 +40,7 @@ const translations = {
     categories: 'Blog Categories',
     aboutMe: {
       name: 'Chen Zhuo',
-      description: 'Full-stack Developer | Deep expertise in AI Agents, frontend engineering, and system architecture.',
+      description: 'Full-stack Developer | Deep expertise in AI Agents, web engineering, and system architecture.',
     },
     modeToggle: {
       animated: 'Animated',
@@ -163,13 +163,13 @@ const translations = {
     },
     experience: {
       title: 'Work Experience',
-      subtitle: 'A technical growth path from frontend engineering to AI Agents',
+      subtitle: 'A technical growth path from web engineering to AI Agents',
       exp0Period: '2021 - Present',
-      exp0Title: 'Frontend Engineer',
+      exp0Title: 'Web Software Engineer',
       exp0Company: 'Scutech (Guangzhou Dingjia Computer Technology Co., Ltd.)',
       exp0Desc: 'Responsible for frontend development of backup recovery and system-level interfaces, leading framework-level UI design and implementation of core modules. Deeply involved in AI Agent integration, incorporating large language model and agent capabilities into enterprise products to enhance system intelligence.',
       exp1Period: '2020 - 2021',
-      exp1Title: 'Frontend Engineer',
+      exp1Title: 'Web Software Engineer',
       exp1Company: 'Guangdong Huiyuantong Group Co., Ltd.',
       exp1Desc: 'Participated in framework-level UI development and design, responsible for frontend architecture and componentization of enterprise management systems. Built a solid foundation in frontend engineering through deep engagement with complex business system interface design.',
     },

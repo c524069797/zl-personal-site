@@ -16,10 +16,9 @@ function SkillTag({ children, template }: { children: React.ReactNode; template:
   );
 }
 
-function ResumeContent({ template, version }: { template: string; version: string }) {
+function ResumeContent({ template }: { template: string }) {
   const [showOtherWorks, setShowOtherWorks] = useState(true);
   const [showAdvantages, setShowAdvantages] = useState(true);
-  const isAiVersion = version === "ai";
 
   const isCard = template === "card";
   const isNavy = template === "navy";
@@ -108,7 +107,7 @@ function ResumeContent({ template, version }: { template: string; version: strin
           ].map((t) => (
             <a
               key={t.key}
-              href={`/resume/print?template=${t.key}&version=${version}`}
+              href={`/resume/print?template=${t.key}`}
               className={`inline-flex items-center rounded-full px-3 py-1 text-xs mr-2 transition-colors ${
                 template === t.key
                   ? "bg-cyan-100 text-cyan-700 ring-1 ring-cyan-300"
@@ -128,9 +127,7 @@ function ResumeContent({ template, version }: { template: string; version: strin
         {/* Header */}
         <header className={headerWrapper}>
           <h1 className={headerName}>陈子龙</h1>
-          <p className={headerSub}>
-            {isAiVersion ? "AI Agent 开发工程师（Agent / RAG / 全栈）" : "前端开发工程师（具备 AI Agent 开发经验）"}
-          </p>
+          <p className={headerSub}>AI Agent 开发 / AI 全栈工程师</p>
           <div className={headerMeta}>
             <span>158-7444-2813</span>
             <span>chenzhuo995@gmail.com</span>
@@ -163,53 +160,22 @@ function ResumeContent({ template, version }: { template: string; version: strin
             专业技能
           </h2>
           <div className="space-y-1 text-xs">
-            {isAiVersion ? (
-              <>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">AI Agent：</span>
-                  <span className="text-gray-600">LangGraph（状态机 / HITL / Checkpointer）, RAG, Hybrid Retrieval, GraphRAG, Tool Calling, Mastra, Prompt / Guardrail, SSE 流式输出</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">前端产品：</span>
-                  <span className="text-gray-600">Next.js, React, TypeScript, Ant Design, 对话式交互, 响应式布局, 数据可视化</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">后端数据：</span>
-                  <span className="text-gray-600">Node.js, Python / FastAPI, Flask, Java / Spring, PostgreSQL, Redis, Qdrant / sqlite-vec / pgvector</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">工程质量：</span>
-                  <span className="text-gray-600">OpenSpec, Skill 配置化, AI Code Review, 评估测试集, 日志观测, GitLab CI/CD</span>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">前端开发：</span>
-                  <span className="text-gray-600">Vue 2/3, React, Next.js, TypeScript, Ant Design, ECharts, grid-layout-plus, Tailwind CSS, WebSocket</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">移动跨端：</span>
-                  <span className="text-gray-600">React Native, iOS / Android, uni-app, 微信小程序, 离线缓存, 真机调试</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">工程化：</span>
-                  <span className="text-gray-600">Vite, Webpack, Monorepo, ESLint 9, Vitest, Playwright, OpenSpec, GitLab CI/CD</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">后端协作：</span>
-                  <span className="text-gray-600">Node.js, Python / FastAPI, Flask, Java / Spring, PostgreSQL, Redis, sqlite-vec</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">AI Agent：</span>
-                  <span className="text-gray-600">LangGraph, Mastra, RAG 工程化, Hybrid Retrieval, Reranker, Eval, Observability</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-20 shrink-0 font-medium text-gray-700">自动化测试：</span>
-                  <span className="text-gray-600">Selenium, Robot Framework, pytest, Playwright, UI 自动化</span>
-                </div>
-              </>
-            )}
+            <div className="flex gap-2">
+              <span className="w-20 shrink-0 font-medium text-gray-700">AI Agent：</span>
+              <span className="text-gray-600">LangGraph（状态机 / HITL / Checkpointer）, RAG, Hybrid Retrieval, GraphRAG, Tool Calling, MCP, Mastra, Prompt / Guardrail, SSE 流式输出</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="w-20 shrink-0 font-medium text-gray-700">前端产品：</span>
+              <span className="text-gray-600">Next.js, React, TypeScript, Ant Design, 对话式交互, 响应式布局, 数据可视化</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="w-20 shrink-0 font-medium text-gray-700">后端数据：</span>
+              <span className="text-gray-600">Node.js, Python / FastAPI, Flask, Java / Spring, PostgreSQL, Redis, Qdrant / sqlite-vec / pgvector</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="w-20 shrink-0 font-medium text-gray-700">工程质量：</span>
+              <span className="text-gray-600">Playwright, pytest, OpenSpec, Skill 配置化, AI Code Review, 评估测试集, 日志观测, GitLab CI/CD</span>
+            </div>
           </div>
         </section>
 
@@ -225,15 +191,15 @@ function ResumeContent({ template, version }: { template: string; version: strin
               <h3 className={expTitle}>广州鼎甲计算机科技有限公司</h3>
               <span className={expDate}>2021.07 – 至今</span>
             </div>
-            <p className={expRole}>前端开发工程师 · 核心业务组</p>
+            <p className={expRole}>Web 软件工程师（兼 AI Agent 开发）· 核心业务组</p>
             <p className={expDesc}>
-              负责企业级备份软件（迪备）、许可证与内部综合管理系统等核心业务模块前端，长期服务复杂流程型场景。
+              负责企业级备份软件、许可证与内部综合管理系统等核心业务模块建设，同时主导 AI Agent 与 RAG 能力在真实业务中的落地。
             </p>
             <ul className={expList}>
-              <li><strong>业务建模：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
-              <li><strong>跨端项目经验：</strong>参与 iOS / Android 与 <strong>React Native</strong> 项目建设，处理业务页面、接口联调、登录态保持、权限与设备适配，具备从真机调试到打包发布的完整链路经验。</li>
-              <li><strong>性能优化：</strong>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表交互体验。</li>
-              <li><strong>AI 业务落地：</strong>主导内部管理系统智能客服 Agent 从需求调研到上线运营的全流程，构建基于业务数据的 RAG 诊断与问答能力，已接入售后、技术支持团队日常使用；持续推进工具调用、检索链路、评估测试集与日志观测。</li>
+              <li><strong>企业 Agent 落地：</strong>主导内部管理系统智能客服 Agent 从需求调研、知识库整理、RAG 检索、对话界面到上线运营的完整闭环，已接入售后、技术支持团队日常使用，覆盖审批解释、报错诊断、进度追踪等高频场景。</li>
+              <li><strong>RAG 工程化：</strong>将产品文档、历史工单、Wiki、SOP 拆分为可检索知识单元，设计 metadata 过滤、来源溯源、父子检索与阈值控制，把回答链路推进到可追踪、可评估、可维护。</li>
+              <li><strong>复杂业务系统：</strong>主导许可证生成、导入校验、续期升级、套餐/功能映射等模块设计与实现，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
+              <li><strong>AI 开发规范：</strong>在团队内沉淀 <strong>Skill / OpenSpec 配置化</strong>标准与 AI Code Review 预检查流程，减少低级问题和重复沟通。</li>
             </ul>
           </div>
         </section>
@@ -245,136 +211,74 @@ function ResumeContent({ template, version }: { template: string; version: strin
             项目经历
           </h2>
 
-          {isAiVersion ? (
-            <>
-              <div className="mb-1.5">
-                <div className="flex items-baseline justify-between">
-                  <h4 className="text-xs font-bold text-gray-900">企业 Agent 智能支持平台（ArcFlow）</h4>
-                  <span className={techStack}>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
-                </div>
-                <p className="text-[10px] text-gray-400">企业客服 Agent 已接入团队日常使用｜个人平台化完整版可离线演示</p>
-                <ul className={expList}>
-                  <li><strong>项目概述：</strong>面向企业内部客服与技术支持场景的智能支持平台，打通申请、合同、工单、审计业务数据实现<strong>实时审批解释、报错智能诊断与进度追踪</strong>；企业落地版已接入售后、技术支持团队日常工作流。</li>
-                  <li><strong>Agent 编排：</strong>LangGraph 四节点状态机（意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装）；checkpointer 按 thread 保存状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底。</li>
-                  <li><strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在图内暂停并生成待审批载荷，人工决策后恢复——状态机层面的硬中断，审批前动作真实不会执行。</li>
-                  <li><strong>检索链路：</strong>Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，metadata 分类过滤、来源溯源与父子检索，检索证据写入审计日志形成可追溯回答链路。</li>
-                  <li><strong>权限与审计：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。</li>
-                  <li><strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；五类外部依赖可降级本地替身离线演示，9 条 Playwright 用例守护 OpenAPI 契约与 Python/Java 双后端一致性。</li>
-                </ul>
-              </div>
+          <div className="mb-1.5">
+            <div className="flex items-baseline justify-between">
+              <h4 className="text-xs font-bold text-gray-900">企业 Agent 智能支持平台（ArcFlow）</h4>
+              <span className={techStack}>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
+            </div>
+            <p className="text-[10px] text-gray-400">企业客服 Agent 已接入团队日常使用｜个人平台化完整版可离线演示</p>
+            <ul className={expList}>
+              <li><strong>项目概述：</strong>面向企业内部客服与技术支持场景的智能支持平台，打通申请、合同、工单、审计业务数据实现<strong>实时审批解释、报错智能诊断与进度追踪</strong>；企业落地版已接入售后、技术支持团队日常工作流。</li>
+              <li><strong>Agent 编排：</strong>LangGraph 四节点状态机（意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装）；checkpointer 按 thread 保存状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底。</li>
+              <li><strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在图内暂停并生成待审批载荷，人工决策后恢复——状态机层面的硬中断，审批前动作真实不会执行。</li>
+              <li><strong>检索链路：</strong>Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，metadata 分类过滤、来源溯源与父子检索，检索证据写入审计日志形成可追溯回答链路。</li>
+              <li><strong>权限与审计：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。</li>
+              <li><strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；五类外部依赖可降级本地替身离线演示，9 条 Playwright 用例守护 OpenAPI 契约与 Python/Java 双后端一致性。</li>
+            </ul>
+          </div>
 
-              <div className="mb-1.5">
-                <div className="flex items-baseline justify-between">
-                  <h4 className="text-xs font-bold text-gray-900">BackupPilot 智能备份 Agent</h4>
-                  <span className={techStack}>Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd</span>
-                </div>
-                <p className="text-[10px] text-gray-400">个人项目｜自然语言驱动的备份/恢复与企业运维智能体，已接入企业备份平台，可离线完整演示</p>
-                <ul className={expList}>
-                  <li><strong>Agent 编排 + HITL：</strong>LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故。</li>
-                  <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，local 自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量 + 原子写）与企业备份平台 REST 适配器实现同一抽象；一个环境变量切换引擎，状态图一行不改。</li>
-                  <li><strong>MCP 工具 + 运维 Agent：</strong>MCP Server（Claude Desktop 可接）与 langchain @tool 双 adapter 同源，破坏性 restore 带 confirm 二次门控；基于平台数据实现多机巡检、失败诊断、容量预测与四合一运维报告。</li>
-                  <li><strong>项目成效：</strong>204 项测试全绿（端到端真起模拟平台后端走 HTTP）；备份仓库信封加密（scrypt + AES-GCM）改口令 O(1) 不重加密；解决内网代理劫持 502 等真实部署问题。</li>
-                </ul>
-              </div>
+          <div className="mb-1.5">
+            <div className="flex items-baseline justify-between">
+              <h4 className="text-xs font-bold text-gray-900">BackupPilot 智能备份 Agent</h4>
+              <span className={techStack}>Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd</span>
+            </div>
+            <p className="text-[10px] text-gray-400">个人项目｜自然语言驱动的备份/恢复与企业运维智能体，已接入企业备份平台，可离线完整演示</p>
+            <ul className={expList}>
+              <li><strong>Agent 编排 + HITL：</strong>LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故。</li>
+              <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，local 自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量 + 原子写）与企业备份平台 REST 适配器实现同一抽象；一个环境变量切换引擎，状态图一行不改。</li>
+              <li><strong>MCP 工具 + 运维 Agent：</strong>MCP Server（Claude Desktop 可接）与 langchain @tool 双 adapter 同源，破坏性 restore 带 confirm 二次门控；基于平台数据实现多机巡检、失败诊断、容量预测与四合一运维报告。</li>
+              <li><strong>回测强化与诊断 RAG：</strong>scrub 全仓健康检查（损坏注入必检出）+ 恢复演练例行化 + 边界矩阵逐字节比对；12 篇运维 SOP 知识库 + BM25 检索与置信度控制，失败诊断升级为规则兜底 + RAG 增强。</li>
+              <li><strong>项目成效：</strong>253 项测试全绿（端到端真起模拟平台后端走 HTTP）；GB 级实测 1GB 首备 84 MB/s、去重压缩 4.8x、加密开销约 5%；信封加密（scrypt + AES-GCM）改口令 O(1) 不重加密；解决内网代理劫持 502 等真实部署问题。</li>
+            </ul>
+          </div>
 
-              <div className="mb-1.5">
-                <div className="flex items-baseline justify-between">
-                  <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
-                  <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE</span>
-                </div>
-                <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
-                <ul className={expList}>
-                  <li><strong>产品定位：</strong>面向个人投资研究场景，构建“自选股管理 + 多源数据聚合 + AI 分析问答”的投资助手，覆盖桌面端 Dashboard 与移动端卡片化体验。</li>
-                  <li><strong>多 Agent 编排：</strong>基于 <strong>Next.js + Mastra</strong> 拆分行情查询、技术指标、新闻摘要与投资组合诊断等角色，通过工作流路由、上下文组装、工具调用与结果汇总实现复杂问题分步分析和结构化输出。</li>
-                  <li><strong>数据闭环：</strong>接入实时行情、K 线形态、支撑压力位与近 7 日财经新闻；结合 <strong>OpenClaw</strong> 自动抓取公众号 / 大 V 观点并生成摘要，补齐消息面上下文。</li>
-                  <li><strong>交互体验：</strong>使用 <strong>Server-Sent Events</strong> 实现流式回答，支持推理过程可视化、重点结论高亮与对话上下文保留；通过 PostgreSQL 持久化用户对话、自选股与个性化配置。</li>
-                </ul>
-              </div>
-            </>
-          ) : (
-            <>
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
-              <span className={techStack}>Vue 2/3 / 工厂模式 / Context / Proxy / WebSocket</span>
+              <span className={techStack}>Vue / TypeScript / WebSocket</span>
             </div>
-            <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 核心备份/恢复流程前端</p>
+            <p className="text-[10px] text-gray-400">企业级备份软件核心业务系统</p>
             <ul className={expList}>
-              <li><strong>通用模块：</strong>主导备份/恢复向导前端设计与实现。为解决多资源类型流程重复开发问题，设计 <strong>通用向导框架</strong>，基于 <strong>工厂模式 + Context + Proxy</strong> 支撑 <strong>50+ 资源类型</strong>（文件、数据库、虚拟机、对象存储等）动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
-              <li>通过 Proxy 拦截步骤间状态流转，统一处理步骤校验、数据缓存、回滚与恢复，减少业务组件中的重复状态同步逻辑；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步。</li>
-              <li><strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等全流程前端设计与实现，推动审批、出货与归档流程由表格/钉钉记录转向系统化闭环，支撑多条产品线与 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。</li>
-              <li>围绕任务监控与日志展示引入 <strong>增量更新</strong>、<strong>虚拟滚动</strong> 与页面拆分，优化首屏与长列表交互体验。</li>
-            </ul>
-          </div>
-
-          <div className="mb-1.5">
-            <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">内部管理系统智能客服 Agent</h4>
-              <span className={techStack}>React / Python / Flask / LLM API / RAG / PostgreSQL</span>
-            </div>
-            <p className="text-[10px] text-gray-400">企业内部产品｜已接入客服团队日常使用</p>
-            <ul className={expList}>
-              <li>将产品文档、审批流程说明、历史工单处理方案构建为结构化知识库，结合 RAG 技术实现精准检索与上下文增强。</li>
-              <li>打通申请，审批，审计 等核心业务数据，使 Agent 能够基于用户实际申请表单或者工单状态进行 <strong>实时审批解释、报错智能诊断与进度追踪</strong>。</li>
-              <li>Agent <strong>已正式接入售后、技术支持团队日常工作流</strong>，覆盖审批解释、报错诊断、进度追踪等高频咨询场景，减少重复沟通并提升一线团队处理效率。</li>
-              <li>围绕会话状态、工具调用、检索链路、Prompt、权限边界、评估测试集与日志观测推进工程治理。</li>
-            </ul>
-          </div>
-
-          <div className="mb-1.5">
-            <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">迪备数据可视化监控大屏</h4>
-              <span className={techStack}>Vue 3 / grid-layout-plus / WebSocket / ECharts</span>
-            </div>
-            <p className="text-[10px] text-gray-400">企业级备份软件（迪备）· 数据可视化监控大屏子系统</p>
-            <ul className={expList}>
-              <li>基于 <strong>grid-layout-plus</strong> 实现可编辑驾驶舱系统，支持模块自由增删、拖拽布局、行列配置、预览保存与主题背景切换，是产品化大屏平台而非一次性展示页。</li>
-              <li>解决大屏整体缩放后拖拽坐标不准问题，通过 <strong>transform-scale</strong> 将外层缩放系统与布局引擎坐标系对齐，保证拖拽和 resize 在任意缩放比下精准落点。</li>
-              <li>实现新增模块自动放置逻辑，通过 <strong>LayoutTracker</strong> 维护网格占用状态并计算最大空白可用区域，避免新增模块与已有模块冲突。</li>
-              <li>设计面向 <strong>7×24 运行</strong> 的心跳检测与优雅降级机制：先探测服务状态再刷新数据，异常时按 <strong>递增退避策略</strong>（0/1/2/5/10/30/60s）重试，避免请求风暴并支持降级展示。</li>
+              <li><strong>流程抽象：</strong>主导备份/恢复向导框架设计与实现，支撑 <strong>50+ 资源类型</strong>动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
+              <li><strong>组件能力：</strong>主导企业级 Vue 3 组件库与通用能力建设，沉淀 <strong>40+</strong> 组件支撑多条产品线复用；结合 WebSocket 推送、缓冲队列与重连机制保障任务状态秒级同步。</li>
+              <li><strong>性能优化：</strong>围绕任务监控与日志展示引入增量更新、虚拟滚动与页面拆分，优化首屏与长列表交互体验。</li>
             </ul>
           </div>
 
           <div>
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
-              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SWR</span>
+              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE</span>
             </div>
             <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
             <ul className={expList}>
-              <li>围绕{'"'}我的自选股{'"'}重构产品首页，拆分桌面端 dashboard 与移动端卡片化布局，抽象 App Shell、BottomNav 与断点适配方案。</li>
-              <li>基于 <strong>Next.js + Mastra</strong> 实现投资分析多 Agent 编排，拆分为行情查询、技术指标、新闻摘要与投资组合诊断等角色。</li>
-              <li>对接实时行情、K 线形态、支撑压力位与近 7 日财经新闻等多源数据；接入 <strong>OpenClaw</strong> 工作流自动抓取公众号/大 V 观点并生成摘要。</li>
-              <li><strong>历史上下文复用：</strong>围绕用户画像、自选理由、持仓逻辑和复盘结论持久化分析记录，区分{'"'}用户记录{'"'}和{'"'}市场事实{'"'}两类数据，提升跨会话分析连续性。</li>
-              <li>使用 Server-Sent Events 实现流式回答，支持推理过程可视化与答案高亮；通过 PostgreSQL 持久化用户对话与自选股数据。</li>
+              <li><strong>产品定位：</strong>面向个人投资研究场景，构建自选股管理 + 多源数据聚合 + AI 分析问答的投资助手，覆盖桌面端 Dashboard 与移动端卡片化体验。</li>
+              <li><strong>多 Agent 编排：</strong>基于 <strong>Next.js + Mastra</strong> 拆分行情查询、技术指标、新闻摘要与投资组合诊断等角色，通过工作流路由、上下文组装、工具调用与结果汇总实现复杂问题分步分析和结构化输出。</li>
+              <li><strong>数据闭环：</strong>接入实时行情、K 线形态、支撑压力位与近 7 日财经新闻；结合 <strong>OpenClaw</strong> 自动抓取公众号 / 大 V 观点并生成摘要，补齐消息面上下文。</li>
+              <li><strong>交互与质量：</strong>使用 <strong>Server-Sent Events</strong> 实现流式回答，支持推理过程可视化与对话持久化；补齐 Agent 工具调用与向量检索测试（46 → 83 用例），保障持续迭代不回归。</li>
             </ul>
           </div>
-
-          <div className="mb-1.5">
-            <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">跨端移动应用 / 小程序项目</h4>
-              <span className={techStack}>React Native / iOS / Android / uni-app / 微信云开发</span>
-            </div>
-            <p className="text-[10px] text-gray-400">移动端业务页面、跨端交付与小程序实践</p>
-            <ul className={expList}>
-              <li><strong>跨端开发：</strong>开发 iOS / Android 双端业务页面，处理导航、表单、列表、接口联调、全局状态、登录态保持与异常提示等常见移动端能力。</li>
-              <li><strong>原生链路：</strong>熟悉 iOS / Android 工程配置、真机调试、权限声明、环境区分与打包发布流程，能够定位常见构建、依赖与设备适配问题。</li>
-              <li><strong>小程序实践：</strong>基于 <strong>uni-app + 微信云开发</strong> 实现 AI 改善计划小程序，覆盖云函数、数据库、用户登录、离线优先数据同步与移动端交互适配。</li>
-              <li><strong>体验优化：</strong>关注弱网、键盘遮挡、长列表滚动、空状态 / 加载态和移动端布局密度，能把 Web 端工程经验迁移到 App 与小程序场景。</li>
-            </ul>
-          </div>
-            </>
-          )}
         </section>
 
         {/* Other Works */}
-        {showOtherWorks && !isAiVersion && (
+        {showOtherWorks && (
           <section className="mb-3">
             <h2 className={sectionTitle}>
               {sectionDot}
               其他个人作品
             </h2>
             <div className="space-y-0.5 text-[11px] leading-relaxed text-gray-800">
+              <p><strong>个人网站 / 博客系统</strong>：Next.js 16 全栈站点，含博客、AI 问答与 React Three Fiber 3D 交互首屏（clczl.asia）</p>
               <p><strong>SportOracle</strong>：AI 驱动的体育预测产品（nba.clczl.asia）</p>
               <p><strong>Sports Hub</strong>：聚合 NBA、足球、电竞赛事信息的 Chrome Extension</p>
             </div>
@@ -388,25 +292,13 @@ function ResumeContent({ template, version }: { template: string; version: strin
               {sectionDot}
               个人优势
             </h2>
-            {isAiVersion ? (
-              <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
-                <li><strong>AI Agent 闭环能力：</strong>能从业务问题出发，完成需求拆解、知识库建设、Agent 编排、前端对话体验、后端工具接入和上线验证。</li>
-                <li><strong>懂前端也懂 AI 工程：</strong>既能把 AI 能力做成稳定可用的产品界面，也能处理 RAG、Tool、Runtime、Eval、Trace 等工程细节。</li>
-                <li><strong>有真实落地案例：</strong>企业 Agent 客服已进入客服团队日常工作流，并平台化为可离线演示的 ArcFlow 完整版（HITL 审批、岗位 Agent、RBAC 审计）；AI 投资助手可公开访问并持续迭代。</li>
-                <li><strong>学习和迭代速度快：</strong>持续跟踪大模型、Agent、RAG、AI Coding 与工作流工具，将新能力快速转化为可交付功能。</li>
-                <li><strong>业务理解能力强：</strong>能快速理解不同行业业务流程，把领域知识转化为可检索、可调用、可评估的 AI Agent 能力。</li>
-              </ul>
-            ) : (
-              <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
-                <li><strong>前端主导能力明确：</strong>长期负责企业级中后台、复杂流程与可视化页面建设，覆盖备份、许可证、监控大屏等高复杂度业务场景。</li>
-                <li><strong>覆盖 Web 与移动端：</strong>除 Web 中后台和内容产品外，也做过 iOS / Android、React Native、uni-app 与小程序项目，能在多端产品里保持工程一致性和体验稳定性。</li>
-                <li><strong>具备 AI Agent 开发能力：</strong>能够基于 Next.js / Python / PostgreSQL 结合 Agent 与工作流完成产品原型到上线落地。</li>
-                <li><strong>技术视野完整：</strong>除前端实现外，也长期补充 RAG 工程化、评测门禁、数据库架构、自动化测试和发布流程等技术主题，能从系统全链路理解问题。</li>
-                <li><strong>有真实线上作品：</strong>已上线个人作品集、AI 投资助手、体育预测平台等多个可访问项目。</li>
-                <li><strong>持续跟踪 AI 前沿并快速转化：</strong>长期关注大模型、Agent、RAG 与 AI 工具链的新进展，能快速理解业务领域知识并将新方向转化为可落地的技术方案。</li>
-                <li><strong>学习与专业基础扎实：</strong>持有软件设计师（中级）认证，英语六级，具备日语听读能力。</li>
-              </ul>
-            )}
+            <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
+              <li><strong>AI Agent 闭环能力：</strong>能从业务问题出发，完成需求拆解、知识库建设、Agent 编排、前端对话体验、后端工具接入和上线验证。</li>
+              <li><strong>全栈与 AI 工程并重：</strong>既能把 AI 能力做成稳定可用的产品界面，也能处理 RAG、Tool、Runtime、Eval、Trace 等工程细节。</li>
+              <li><strong>有真实落地案例：</strong>企业 Agent 客服已进入客服团队日常工作流，并平台化为可离线演示的 ArcFlow 完整版（HITL 审批、岗位 Agent、RBAC 审计）；AI 投资助手可公开访问并持续迭代。</li>
+              <li><strong>学习和迭代速度快：</strong>持续跟踪大模型、Agent、RAG、AI Coding 与工作流工具，将新能力快速转化为可交付功能。</li>
+              <li><strong>业务理解能力强：</strong>能快速理解不同行业业务流程，把领域知识转化为可检索、可调用、可评估的 AI Agent 能力。</li>
+            </ul>
           </section>
         )}
       </div>
@@ -417,8 +309,7 @@ function ResumeContent({ template, version }: { template: string; version: strin
 function ResumePrintPageInner() {
   const searchParams = useSearchParams();
   const template = searchParams.get("template") || "tech";
-  const version = searchParams.get("version") === "ai" ? "ai" : "general";
-  return <ResumeContent template={template} version={version} />;
+  return <ResumeContent template={template} />;
 }
 
 export default function ResumePrintPage() {

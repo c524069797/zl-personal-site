@@ -2,7 +2,16 @@
 
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { BookOpen, FileText } from 'lucide-react'
+import MagneticButton from './MagneticButton'
+import { useTranslation } from '@/hooks/useTranslation'
+
+// 固定展示的双语 one-liner（不随语言切换，双语并置）
+const ONELINE_EN =
+  'Fueled by passion, I turn complex business into AI agents that actually ship.'
+const ONELINE_CN = '带着热爱，把复杂的业务做成真正能上线的 AI Agent。'
 
 // 经历时间轴数据（从新到旧，与滚动进度对应）。i18n 待后续补充。
 const JOURNEY = [
@@ -79,7 +88,7 @@ function TimelineItem({
   )
 
   return (
-    <motion.div style={{ opacity }} className="relative pl-10 pb-16 last:pb-0">
+    <motion.div style={{ opacity }} className="relative pl-10 pb-8 last:pb-0 sm:pb-10">
       {/* 时间轴节点 */}
       <motion.span
         style={{ scale: dotScale }}
@@ -88,21 +97,22 @@ function TimelineItem({
       <div className="text-xs font-medium uppercase tracking-[0.25em] text-neutral-400 dark:text-white/40">
         {item.year}
       </div>
-      <h3 className="mt-2 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl lg:text-5xl">
+      <h3 className="mt-1.5 text-xl font-bold text-neutral-900 dark:text-white sm:text-2xl lg:text-3xl">
         {item.title}
       </h3>
-      <p className="mt-2 text-base text-neutral-600 dark:text-white/70 sm:text-lg">
+      <p className="mt-1 text-sm text-neutral-600 dark:text-white/70 sm:text-base">
         {item.sub}
       </p>
-      <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-500 dark:text-white/45">
+      <p className="mt-1.5 hidden max-w-md text-xs leading-relaxed text-neutral-500 dark:text-white/45 sm:block sm:text-sm">
         {item.detail}
       </p>
     </motion.div>
   )
 }
 
-export default function ExperienceJourney() {
+export default function ExperienceJourney({ withIntro = false }: { withIntro?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation()
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end end'],
@@ -116,25 +126,85 @@ export default function ExperienceJourney() {
       style={{ height: `${JOURNEY.length * 100 + 30}vh` }}
     >
       <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-hidden">
-        <div className="mx-auto grid h-full max-w-7xl grid-cols-1 items-center gap-4 px-5 sm:px-10 lg:grid-cols-2 lg:gap-10 lg:px-16">
+        {/* 顶部光晕装饰（原 Hero 层元素，下沉合并） */}
+        {withIntro && (
+          <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-400/10 via-indigo-400/10 to-violet-400/10 blur-3xl" />
+        )}
+
+        <div className="mx-auto grid h-full max-w-7xl grid-cols-1 items-center gap-2 px-5 sm:px-10 lg:grid-cols-2 lg:gap-10 lg:px-16">
           {/* 左：3D 手办（sticky 内固定，随滚动转身） */}
-          <div className="relative order-1 h-[45vh] w-full lg:h-full">
+          <div
+            className={`relative order-1 w-full lg:h-full ${
+              withIntro ? 'h-[26vh] sm:h-[36vh]' : 'h-[45vh]'
+            }`}
+          >
             <JourneyAvatar progress={scrollYProgress} />
             <div className="pointer-events-none absolute right-0 top-1/2 hidden h-40 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-neutral-300 to-transparent dark:via-white/15 lg:block" />
           </div>
 
-          {/* 右：时间轴 */}
+          {/* 右：介绍文案（withIntro）+ 时间轴 */}
           <div className="relative order-2 flex h-full flex-col justify-center">
-            <div className="absolute bottom-10 left-[9px] top-10 w-px bg-neutral-200 dark:bg-white/10" />
-            {JOURNEY.map((item, i) => (
-              <TimelineItem
-                key={item.year}
-                item={item}
-                index={i}
-                count={JOURNEY.length}
-                progress={scrollYProgress}
-              />
-            ))}
+            {withIntro && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="mb-6 sm:mb-9"
+              >
+                <span className="text-[11px] font-medium uppercase tracking-[0.3em] text-cyan-500 dark:text-cyan-300/80 sm:text-xs">
+                  {t('home.hero3d.eyebrow')}
+                </span>
+
+                <h1 className="mt-2.5 text-3xl font-bold leading-[1.08] text-neutral-900 dark:text-white sm:text-5xl">
+                  <span className="bg-gradient-to-r from-cyan-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent">
+                    Passion Life
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
+                    Passion AI
+                  </span>
+                </h1>
+
+                <p className="mt-3.5 max-w-md text-sm font-medium text-neutral-700 dark:text-white/80 sm:text-base">
+                  {ONELINE_EN}
+                </p>
+                <p className="mt-1.5 hidden max-w-md text-xs leading-relaxed text-neutral-500 dark:text-white/50 sm:block sm:text-sm">
+                  {ONELINE_CN}
+                </p>
+
+                <div className="mt-5 flex flex-row gap-3">
+                  <Link href="/blog">
+                    <MagneticButton className="rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-5 py-2.5 text-xs font-semibold text-white transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(56,189,248,0.4)] sm:px-6 sm:text-sm">
+                      <span className="flex items-center justify-center gap-2">
+                        <BookOpen size={15} />
+                        {t('common.browseBlog')}
+                      </span>
+                    </MagneticButton>
+                  </Link>
+                  <Link href="/resume">
+                    <MagneticButton className="rounded-full border-2 border-neutral-200 px-5 py-2.5 text-xs font-semibold text-neutral-600 transition-all duration-300 hover:border-cyan-400/50 hover:text-cyan-600 dark:border-white/20 dark:text-white/80 dark:hover:text-white sm:px-6 sm:text-sm">
+                      <span className="flex items-center justify-center gap-2">
+                        <FileText size={15} />
+                        {t('common.viewResume')}
+                      </span>
+                    </MagneticButton>
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+
+            <div className="relative">
+              <div className="absolute bottom-4 left-[9px] top-4 w-px bg-neutral-200 dark:bg-white/10" />
+              {JOURNEY.map((item, i) => (
+                <TimelineItem
+                  key={item.year}
+                  item={item}
+                  index={i}
+                  count={JOURNEY.length}
+                  progress={scrollYProgress}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

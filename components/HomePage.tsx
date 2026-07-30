@@ -26,7 +26,6 @@ import { categorizeBlog } from '@/lib/blog-category'
 import GlowCard from '@/components/home/GlowCard'
 import HeroAnimated from '@/components/home/HeroAnimated'
 import HeroSimple from '@/components/home/HeroSimple'
-import Hero3D from '@/components/home/Hero3D'
 import ExperienceJourney from '@/components/home/ExperienceJourney'
 import VisionSection from '@/components/home/VisionSection'
 import CoreExpertise from '@/components/home/CoreExpertise'
@@ -341,16 +340,17 @@ export default function HomePage() {
       <ModeToggle mode={heroMode} onToggle={toggleMode} />
 
       {/* =========================================
-          HERO SECTION — switchable (3D / animated / simple)
+          HERO SECTION — 3d 模式直接以经历时间轴开场（Passion 文案已下沉合并），
+          其余模式保留独立 Hero + 时间轴
           ========================================= */}
       {heroMode === '3d' ? (
-        <Hero3D />
-      ) : heroMode === 'animated' ? (
-        <HeroAnimated />
+        <ExperienceJourney withIntro />
       ) : (
-        <HeroSimple />
+        <>
+          {heroMode === 'animated' ? <HeroAnimated /> : <HeroSimple />}
+          <ExperienceJourney />
+        </>
       )}
-      <ExperienceJourney />
       <JourneyGuide />
       <VisualDirectionStrip />
 

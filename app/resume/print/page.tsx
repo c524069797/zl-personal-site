@@ -245,13 +245,27 @@ function ResumeContent({ template }: { template: string }) {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
-              <span className={techStack}>Vue / TypeScript / WebSocket</span>
+              <span className={techStack}>Vue / TypeScript / WebSocket / C++</span>
             </div>
             <p className="text-[10px] text-gray-400">企业级备份软件核心业务系统</p>
             <ul className={expList}>
               <li><strong>流程抽象：</strong>主导备份/恢复向导框架设计与实现，支撑 <strong>50+ 资源类型</strong>动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。</li>
               <li><strong>组件能力：</strong>主导企业级 Vue 3 组件库与通用能力建设，沉淀 <strong>40+</strong> 组件支撑多条产品线复用；结合 WebSocket 推送、缓冲队列与重连机制保障任务状态秒级同步。</li>
               <li><strong>性能优化：</strong>围绕任务监控与日志展示引入增量更新、虚拟滚动与页面拆分，优化首屏与长列表交互体验。</li>
+              <li><strong>C++ 服务协作：</strong>参与备份引擎 C++ 侧问题排查与小功能开发（任务状态上报、错误码与日志梳理、文件扫描过滤规则），理解引擎多线程任务队列与 RAII 资源管理，能从引擎视角定位备份/恢复链路问题。</li>
+            </ul>
+          </div>
+
+          <div className="mb-1.5">
+            <div className="flex items-baseline justify-between">
+              <h4 className="text-xs font-bold text-gray-900">内部综合管理系统（许可证 / 审批 / 出货全流程）</h4>
+              <span className={techStack}>React / Python Flask / PostgreSQL / Nginx</span>
+            </div>
+            <p className="text-[10px] text-gray-400">公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目</p>
+            <ul className={expList}>
+              <li><strong>全栈独立交付：</strong>独立完成 React 前端、Python Flask 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。</li>
+              <li><strong>业务闭环：</strong>覆盖许可证生成、导入校验、续期升级、套餐/功能映射与审批、出货、归档全流程，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>；Flask RESTful API 围绕审批流与许可证状态建模，实现权限校验与操作审计。</li>
+              <li><strong>AI 能力载体：</strong>后续在该系统上落地智能客服 Agent 并平台化为 ArcFlow，成为公司内部 AI 能力落地的业务载体。</li>
             </ul>
           </div>
 

@@ -330,7 +330,7 @@ export default function ResumePage() {
               <Card className="resume-project-card">
                 <div className="resume-project-heading">
                   <h4>迪备备份恢复系统</h4>
-                  <span>Vue / TypeScript / WebSocket</span>
+                  <span>Vue / TypeScript / WebSocket / C++</span>
                 </div>
                 <p className="resume-project-desc">企业级备份软件核心业务系统，长期负责备份恢复流程、通用能力沉淀与复杂业务交互建设。</p>
                 <MetricList
@@ -342,10 +342,34 @@ export default function ResumePage() {
                       <strong>流程抽象：</strong>主导备份/恢复向导框架设计与实现，支撑 <strong>50+ 资源类型</strong>动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。
                     </>,
                     <>
-                      <strong>许可证模块：</strong>独立负责许可证生成、导入校验、续期升级、套餐/功能映射等核心模块，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。
+                      <strong>C++ 服务协作：</strong>参与备份引擎 C++ 侧问题排查与小功能开发（任务状态上报、错误码与日志梳理、文件扫描过滤规则），理解引擎多线程任务队列与 RAII 资源管理，能从引擎视角定位备份/恢复链路问题。
                     </>,
                     <>
                       <strong>性能优化：</strong>围绕任务监控、长列表和日志展示持续做性能优化，结合增量更新、虚拟滚动和页面拆分，显著改善复杂页面的交互体验与响应效率。
+                    </>,
+                  ]}
+                />
+              </Card>
+
+              <Card className="resume-project-card">
+                <div className="resume-project-heading">
+                  <h4>内部综合管理系统（许可证 / 审批 / 出货全流程）</h4>
+                  <span>React / Python Flask / PostgreSQL / Nginx</span>
+                </div>
+                <p className="resume-project-desc">公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目</p>
+                <MetricList
+                  items={[
+                    <>
+                      <strong>全栈独立交付：</strong>独立完成 React 前端、Python Flask 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。
+                    </>,
+                    <>
+                      <strong>业务闭环：</strong>覆盖许可证生成、导入校验、续期升级、套餐/功能映射与审批、出货、归档全流程，把表格 + 钉钉的记录方式收敛为系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。
+                    </>,
+                    <>
+                      <strong>后端设计：</strong>Flask RESTful API 分层设计，围绕审批流与许可证状态建模，实现角色权限校验、操作审计与多角色协作下的数据一致性保障。
+                    </>,
+                    <>
+                      <strong>AI 能力载体：</strong>后续在该系统上落地智能客服 Agent 并平台化为 ArcFlow（见下一项目），成为公司内部 AI 能力落地的业务载体。
                     </>,
                   ]}
                 />

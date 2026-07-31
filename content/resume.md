@@ -22,7 +22,7 @@
 
 - **AI Agent 开发**：深入理解 Agent 核心架构（感知、规划、记忆、执行），基于 **LangGraph**（状态机、checkpointer、人工审批 HITL）、Mastra、OpenClaw 实现多 Agent 编排、CoT/ReAct 推理链路与工具联动；有从 0 到 1 上线并接入团队日常使用的企业级 Agent 落地经验。
 - **RAG 工程化**：熟悉 Chunking / Embedding / Hybrid Retrieval / Reranker / **GraphRAG** 全链路，实践过 **Qdrant**、sqlite-vec、pgvector 等向量存储选型，掌握多粒度 Chunk 策略、metadata 过滤、来源溯源与父子检索，并围绕评测（Eval）与观测（Observability）沉淀工程规范。
-- **后端与服务**：FastAPI / Python / Pydantic、Next.js API / Node.js、Flask 实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、错误包装与环境配置；熟悉 PostgreSQL / MySQL / Redis 及向量数据库，了解 Java / Spring 协作方式。
+- **后端与服务**：Java / Spring Boot / Spring Security / MyBatis-Plus / Spring AI 与 Python / FastAPI / Pydantic 双栈实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、审批状态机与幂等设计、错误包装与环境配置；熟悉 MySQL / PostgreSQL / Redis / RabbitMQ 及向量数据库。
 - **前端开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台页面、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，对组件复用与复杂前端架构拆分有持续实践。
 - **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / **Playwright**（E2E + 布局契约测试），具备性能优化、虚拟列表、WebSocket 实时链路与线上问题排查经验，能把 lint、类型检查、测试、构建纳入交付门禁。
 - **移动端与跨端**：React Native iOS / Android 双端项目经验，了解原生工程配置、真机调试、打包发布；具备 uni-app / 微信小程序开发实践。
@@ -47,7 +47,7 @@
 
 **项目概述**：面向企业内部客服与技术支持场景的智能支持平台（企业客服 Agent 上线经验的平台化完整版），打通申请、合同、工单、审计等核心业务数据，通过 LangGraph 编排实现业务感知型问答、敏感操作人工审批与全链路审计，本地替身模式可离线完整演示。
 
-**技术栈**：FastAPI + LangGraph + Qdrant + GraphRAG + React 18 + Ant Design 6 + Playwright + Docker / Nginx
+**技术栈**：FastAPI + LangGraph + Qdrant + GraphRAG + Java 21 / Spring Boot 3 / Spring AI（双后端）+ React 18 + Ant Design 6 + Playwright + Docker / Nginx
 
 GitHub：https://github.com/c524069797/enterprise-agent-platform
 
@@ -97,16 +97,17 @@ GitHub：https://github.com/c524069797/enterprise-agent-platform
 - **工程与体验优化**：使用 Server-Sent Events 实现流式回答、支持推理过程可视化与答案高亮，提升交互体验；通过 PostgreSQL 持久化用户对话、自选股与分析记录，支持历史上下文复用和个性化追踪。
 - **质量保障**：补齐 Agent 工具调用与向量检索测试（46 → 83 用例），覆盖多 Agent 编排链路与检索能力，保障持续迭代不回归。
 
-### 内部综合管理系统（React、Python Flask、PostgreSQL、Nginx）
+### 内部综合管理系统（React、Java、Spring Boot、MySQL、Redis、RabbitMQ、Nginx）
 
 公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目
 
-- **全栈独立交付**：独立完成 React 前端、Python Flask 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。
+- **全栈独立交付**：独立完成 React 前端、Java Spring Boot 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。
 - **业务闭环**：覆盖许可证生成、导入校验、续期升级、套餐 / 功能映射与审批、出货、归档全流程，把表格 + 钉钉的记录方式收敛为系统化闭环，支撑 **50+ 种许可套餐**动态组合，将重复配置时间降低 **80% 以上**。
-- **后端设计**：Flask RESTful API 分层设计，围绕审批流与许可证状态建模，实现角色权限校验、操作审计与多角色协作下的数据一致性保障。
-- **AI 能力载体**：后续在该系统上落地智能客服 Agent 并平台化为 ArcFlow（见项目经历首条），成为公司内部 AI 能力落地的业务载体。
+- **后端设计**：围绕许可证生命周期设计**审批状态机**（枚举转移表 + 乐观锁防并发错乱）；许可证生成以申请单号做**幂等键**（数据库唯一索引 + Redis 防重锁），许可证内容经 RSA 私钥签名防伪造；套餐配置走 **Redis Cache-Aside** 缓存；审批通过经 **RabbitMQ** 事件解耦证书生成与钉钉 / 邮件通知（本地消息表补偿 + 消费幂等），出货与生成记录**每日定时对账**兜底一致性。
+- **权限与审计**：Spring Security + JWT 实现 RBAC 角色权限校验，AOP 切面统一记录操作审计（操作者 / 对象 / 前后变更），线程池异步落库不阻塞主流程，保障多角色协作下的数据一致性与可追溯。
+- **AI 能力载体**：主系统暴露受控只读聚合 API（服务间认证）向 Python Agent 服务开放业务数据，后续在此之上落地智能客服 Agent 并平台化为 ArcFlow（见项目经历首条），成为公司内部 AI 能力落地的业务载体。
 
-### 内部管理系统智能客服 Agent（React、Python、Flask、FastAPI、LangGraph、LLM API、RAG、sqlite-vec、PostgreSQL）
+### 内部管理系统智能客服 Agent（React、Python、FastAPI、LangGraph、LLM API、RAG、sqlite-vec、PostgreSQL）
 
 企业内部产品｜已接入客服团队日常使用
 
@@ -145,7 +146,7 @@ GitHub：https://github.com/c524069797/enterprise-agent-platform
 ## 个人优势
 
 - **有已上线的企业级 Agent 落地经验**：从 0 到 1 主导客服 Agent 上线运营，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；并将该经验平台化为完整的企业 Agent 系统（LangGraph + RAG + HITL 审批 + RBAC + 审计）。
-- **AI 全栈闭环能力**：React/Next.js 前端 + FastAPI/Python 服务 + PostgreSQL/向量库，能独立完成"数据接入 → Agent 编排 → 工具调用 → 前端交付 → Playwright 验收"的完整链路，不停留在模型调用层。
+- **AI 全栈闭环能力**：React/Next.js 前端 + Java/Spring Boot 与 FastAPI/Python 双栈服务 + MySQL/PostgreSQL/向量库，能独立完成"数据接入 → Agent 编排 → 工具调用 → 前端交付 → Playwright 验收"的完整链路，不停留在模型调用层。
 - **复杂业务系统架构底座**：长期负责企业级备份系统、许可证系统等复杂流程型产品，主导 50+ 资源类型统一流程抽象与可编辑监控大屏，具备把碎片化业务收敛成可扩展架构的能力。
 - **有真实线上作品**：个人作品集、AI 投资助手、体育预测平台等多个可访问项目，具备独立开发与部署意识。
 - **学习与专业基础扎实**：持有软件设计师（中级）认证，英语六级，具备日语听读能力，可直接阅读英文技术文档与部分日文资料。

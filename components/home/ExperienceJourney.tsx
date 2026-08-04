@@ -16,7 +16,7 @@ const ONELINE_CN = '带着热爱，把复杂的业务做成真正能上线的 AI
 // 经历时间轴数据（从新到旧，与滚动进度对应）。i18n 待后续补充。
 const JOURNEY = [
   {
-    year: '2026 · 广州鼎甲',
+    year: '2025 – 2026 · 广州鼎甲',
     title: 'AI 全栈',
     sub: '主导内部智能客服 Agent 从 0 到 1 上线',
     detail: '数据接入 → Agent 编排 → 工具调用 → 前端交付',
@@ -28,7 +28,7 @@ const JOURNEY = [
     detail: 'Web 端前后端功能对接、50+ 资源类型统一流程、可视化大屏与跨端',
   },
   {
-    year: '2021 · 卓为会员通',
+    year: '2021 · 卓维汇源通',
     title: '前端开发',
     sub: '职业起点',
     detail: '把工程基础打扎实，学会为写下的每一行代码负责',
@@ -111,21 +111,18 @@ function TimelineItem({
 }
 
 export default function ExperienceJourney({ withIntro = false }: { withIntro?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
-  })
+  // 时间轴改为区域内自滚动：进度由时间轴容器自身滚动驱动，
+  // 默认停在顶部 → 优先高亮最新的 AI 全栈经历
+  const { scrollYProgress } = useScroll({ container: scrollRef })
 
   return (
     <section
-      ref={ref}
       id="experience-journey"
       className="relative bg-white dark:bg-[#050816]"
-      style={{ height: `${JOURNEY.length * 100 + 30}vh` }}
     >
-      <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-hidden">
+      <div className="relative h-[calc(100vh-4rem)] overflow-hidden">
         {/* 顶部光晕装饰（原 Hero 层元素，下沉合并） */}
         {withIntro && (
           <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-400/10 via-indigo-400/10 to-violet-400/10 blur-3xl" />
@@ -193,17 +190,31 @@ export default function ExperienceJourney({ withIntro = false }: { withIntro?: b
               </motion.div>
             )}
 
+            {/* 可滚动时间轴：区域内上下滑动查看全部经历 */}
             <div className="relative">
-              <div className="absolute bottom-4 left-[9px] top-4 w-px bg-neutral-200 dark:bg-white/10" />
-              {JOURNEY.map((item, i) => (
-                <TimelineItem
-                  key={item.year}
-                  item={item}
-                  index={i}
-                  count={JOURNEY.length}
-                  progress={scrollYProgress}
-                />
-              ))}
+              <div
+                ref={scrollRef}
+                className={`overflow-y-auto overscroll-contain pr-2 ${
+                  withIntro
+                    ? 'max-h-[30vh] sm:max-h-[36vh]'
+                    : 'max-h-[46vh] sm:max-h-[52vh]'
+                }`}
+              >
+                <div className="relative pb-10">
+                  <div className="absolute bottom-4 left-[9px] top-4 w-px bg-neutral-200 dark:bg-white/10" />
+                  {JOURNEY.map((item, i) => (
+                    <TimelineItem
+                      key={item.year}
+                      item={item}
+                      index={i}
+                      count={JOURNEY.length}
+                      progress={scrollYProgress}
+                    />
+                  ))}
+                </div>
+              </div>
+              {/* 底部渐隐：提示还有内容可滚动 */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent dark:from-[#050816]" />
             </div>
           </div>
         </div>

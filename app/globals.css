@@ -1785,19 +1785,9 @@ a:active {
 }
 
 /* Personal homepage reading path */
-.home-journey-guide {
-  scroll-margin-top: 88px;
-}
-
 .home-background-sections {
   scroll-margin-top: 88px;
   padding-top: 8px;
-}
-
-@media (max-width: 768px) {
-  .home-journey-guide {
-    margin-top: -24px;
-  }
 }
 
 /* AI chat page */

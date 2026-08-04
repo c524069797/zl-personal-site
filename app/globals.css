@@ -2268,6 +2268,18 @@ a:active {
   gap: 6px;
 }
 
+/* 技能组单行式：标题（含冒号）与技能标签同行排布 */
+.resume-skill-line {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+
+.resume-skill-line .resume-card-title {
+  margin-bottom: 0;
+}
+
 .resume-tag-row--end {
   justify-content: flex-end;
 }

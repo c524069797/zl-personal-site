@@ -7,7 +7,6 @@ import {
   Code2,
   Github,
   Globe2,
-  Link as LinkIcon,
   Mail,
   Monitor,
   Phone,
@@ -275,11 +274,11 @@ export default function ResumePage() {
             <div className="resume-card-grid">
               {skillGroups.map((group) => (
                 <Card className="resume-skill-card" key={group.title} padding="sm">
-                  <div className="resume-card-title">
-                    <IconBadge>{group.icon}</IconBadge>
-                    <span>{group.title}</span>
-                  </div>
-                  <div className="resume-tag-row">
+                  <div className="resume-skill-line">
+                    <div className="resume-card-title">
+                      <IconBadge>{group.icon}</IconBadge>
+                      <span>{group.title}：</span>
+                    </div>
                     {group.skills.map((skill) => (
                       <SkillTag icon={skill.icon} key={skill.label}>
                         {skill.label}
@@ -314,7 +313,7 @@ export default function ResumePage() {
                       <strong>复杂业务系统：</strong>长期负责企业级复杂流程系统建设，覆盖备份恢复、许可证管理、审批与监控等场景，具备将复杂业务规则抽象为可复用能力的经验。
                     </>,
                     <>
-                      <strong>AI 产品开发：</strong>独立建设 AI 投资助手，完成多 Agent 编排、行情/新闻/指标数据接入、SSE 流式回答、推理过程展示与用户数据持久化。
+                      <strong>AI 产品开发：</strong>在内部管理系统中基于 Mastra（TypeScript Agent 框架）实现多 Agent 编排、SSE 流式回答、推理过程展示与会话数据持久化。
                     </>,
                     <>
                       <strong>AI 开发规范：</strong>在团队内沉淀 <strong>Skill / OpenSpec 配置化</strong> 标准与 AI Code Review 预检查流程，减少低级问题和重复沟通。
@@ -354,22 +353,22 @@ export default function ResumePage() {
               <Card className="resume-project-card">
                 <div className="resume-project-heading">
                   <h4>内部综合管理系统（许可证 / 审批 / 出货全流程）</h4>
-                  <span>React / Python Flask / PostgreSQL / Nginx</span>
+                  <span>React / Java Spring Boot / Mastra / MySQL / Redis / RabbitMQ / Nginx</span>
                 </div>
                 <p className="resume-project-desc">公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目</p>
                 <MetricList
                   items={[
                     <>
-                      <strong>全栈独立交付：</strong>独立完成 React 前端、Python Flask 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。
+                      <strong>全栈独立交付：</strong>独立完成 React 前端、Java Spring Boot 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。
                     </>,
                     <>
                       <strong>业务闭环：</strong>覆盖许可证生成、导入校验、续期升级、套餐/功能映射与审批、出货、归档全流程，把表格 + 钉钉的记录方式收敛为系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>。
                     </>,
                     <>
-                      <strong>后端设计：</strong>Flask RESTful API 分层设计，围绕审批流与许可证状态建模，实现角色权限校验、操作审计与多角色协作下的数据一致性保障。
+                      <strong>后端设计：</strong>Spring Boot RESTful API 分层设计，围绕许可证生命周期实现审批状态机与幂等键防重，RabbitMQ 事件解耦证书生成与通知，实现 RBAC 权限校验、操作审计与多角色协作下的数据一致性保障。
                     </>,
                     <>
-                      <strong>AI 能力载体：</strong>后续在该系统上落地智能客服 Agent 并平台化为 ArcFlow（见下一项目），成为公司内部 AI 能力落地的业务载体。
+                      <strong>AI 能力载体：</strong>基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排与 SSE 流式问答入口，后续落地智能客服 Agent 并平台化为 ArcFlow（见下一项目），成为公司内部 AI 能力落地的业务载体。
                     </>,
                   ]}
                 />
@@ -447,38 +446,6 @@ export default function ResumePage() {
                     </>,
                     <>
                       <strong>项目成效：</strong>253 项测试全绿（端到端真实启动模拟平台后端走 HTTP 全链路）；GB 级基准实测：1GB 首备 84 MB/s、去重压缩 4.8x、修改 1% 后增量 0.7s、加密开销约 5%；解决内网代理劫持 502 等真实部署问题。
-                    </>,
-                  ]}
-                />
-              </Card>
-
-              <Card className="resume-project-card">
-                <div className="resume-project-heading">
-                  <h4>
-                    <a href="https://aiold.clczl.asia/" target="_blank" rel="noopener noreferrer">
-                      AI 投资助手
-                    </a>
-                  </h4>
-                  <span>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE / OpenClaw</span>
-                </div>
-                <p className="resume-project-desc">个人项目｜面向个人投资研究场景的 AI 驱动产品</p>
-                <a className="resume-project-link" href="https://aiold.clczl.asia/" target="_blank" rel="noopener noreferrer">
-                  <LinkIcon size={12} />
-                  aiold.clczl.asia
-                </a>
-                <MetricList
-                  items={[
-                    <>
-                      <strong>产品闭环：</strong>围绕个人投资研究场景设计“数据聚合 + 分析问答 + 个性化追踪”的产品闭环，覆盖桌面端与移动端体验。
-                    </>,
-                    <>
-                      <strong>多 Agent 编排：</strong>拆分行情、指标、新闻与组合诊断等多个分析角色，通过工作流路由、上下文组装、工具调用与结果汇总实现复杂问题分步分析和结构化输出。
-                    </>,
-                    <>
-                      <strong>数据与交互闭环：</strong>打通实时行情、技术形态、财经新闻与外部观点摘要，支持流式回答、推理过程展示、重点结论高亮和会话持久化。
-                    </>,
-                    <>
-                      <strong>质量保障：</strong>补齐 Agent 工具调用与向量检索测试（46 → 83 用例），覆盖多 Agent 编排链路与检索能力，保障持续迭代不回归。
                     </>,
                   ]}
                 />

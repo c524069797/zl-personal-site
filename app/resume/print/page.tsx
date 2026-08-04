@@ -170,7 +170,7 @@ function ResumeContent({ template }: { template: string }) {
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">后端数据：</span>
-              <span className="text-gray-600">Node.js, Python / FastAPI, Flask, Java / Spring, PostgreSQL, Redis, Qdrant / sqlite-vec / pgvector</span>
+              <span className="text-gray-600">Node.js, Python / FastAPI, Java / Spring, PostgreSQL, Redis, Qdrant / sqlite-vec / pgvector</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">工程质量：</span>
@@ -259,27 +259,13 @@ function ResumeContent({ template }: { template: string }) {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">内部综合管理系统（许可证 / 审批 / 出货全流程）</h4>
-              <span className={techStack}>React / Python Flask / PostgreSQL / Nginx</span>
+              <span className={techStack}>React / Java Spring Boot / Mastra / MySQL / Redis / RabbitMQ / Nginx</span>
             </div>
             <p className="text-[10px] text-gray-400">公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目</p>
             <ul className={expList}>
-              <li><strong>全栈独立交付：</strong>独立完成 React 前端、Python Flask 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。</li>
-              <li><strong>业务闭环：</strong>覆盖许可证生成、导入校验、续期升级、套餐/功能映射与审批、出货、归档全流程，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>；Flask RESTful API 围绕审批流与许可证状态建模，实现权限校验与操作审计。</li>
-              <li><strong>AI 能力载体：</strong>后续在该系统上落地智能客服 Agent 并平台化为 ArcFlow，成为公司内部 AI 能力落地的业务载体。</li>
-            </ul>
-          </div>
-
-          <div>
-            <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">AI 投资助手</h4>
-              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Mastra / PostgreSQL / SSE</span>
-            </div>
-            <p className="text-[10px] text-gray-400">aiold.clczl.asia</p>
-            <ul className={expList}>
-              <li><strong>产品定位：</strong>面向个人投资研究场景，构建自选股管理 + 多源数据聚合 + AI 分析问答的投资助手，覆盖桌面端 Dashboard 与移动端卡片化体验。</li>
-              <li><strong>多 Agent 编排：</strong>基于 <strong>Next.js + Mastra</strong> 拆分行情查询、技术指标、新闻摘要与投资组合诊断等角色，通过工作流路由、上下文组装、工具调用与结果汇总实现复杂问题分步分析和结构化输出。</li>
-              <li><strong>数据闭环：</strong>接入实时行情、K 线形态、支撑压力位与近 7 日财经新闻；结合 <strong>OpenClaw</strong> 自动抓取公众号 / 大 V 观点并生成摘要，补齐消息面上下文。</li>
-              <li><strong>交互与质量：</strong>使用 <strong>Server-Sent Events</strong> 实现流式回答，支持推理过程可视化与对话持久化；补齐 Agent 工具调用与向量检索测试（46 → 83 用例），保障持续迭代不回归。</li>
+              <li><strong>全栈独立交付：</strong>独立完成 React 前端、Java Spring Boot 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。</li>
+              <li><strong>业务闭环：</strong>覆盖许可证生成、导入校验、续期升级、套餐/功能映射与审批、出货、归档全流程，支撑 <strong>50+ 种许可套餐</strong>动态组合，将重复配置时间降低 <strong>80% 以上</strong>；Spring Boot RESTful API 围绕审批状态机与幂等键建模，RabbitMQ 事件解耦通知，实现 RBAC 权限校验与操作审计。</li>
+              <li><strong>AI 能力载体：</strong>基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排与 SSE 流式问答入口，后续落地智能客服 Agent 并平台化为 ArcFlow，成为公司内部 AI 能力落地的业务载体。</li>
             </ul>
           </div>
         </section>
@@ -309,7 +295,7 @@ function ResumeContent({ template }: { template: string }) {
             <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
               <li><strong>AI Agent 闭环能力：</strong>能从业务问题出发，完成需求拆解、知识库建设、Agent 编排、前端对话体验、后端工具接入和上线验证。</li>
               <li><strong>全栈与 AI 工程并重：</strong>既能把 AI 能力做成稳定可用的产品界面，也能处理 RAG、Tool、Runtime、Eval、Trace 等工程细节。</li>
-              <li><strong>有真实落地案例：</strong>企业 Agent 客服已进入客服团队日常工作流，并平台化为可离线演示的 ArcFlow 完整版（HITL 审批、岗位 Agent、RBAC 审计）；AI 投资助手可公开访问并持续迭代。</li>
+              <li><strong>有真实落地案例：</strong>企业 Agent 客服已进入客服团队日常工作流，并平台化为可离线演示的 ArcFlow 完整版（HITL 审批、岗位 Agent、RBAC 审计）。</li>
               <li><strong>学习和迭代速度快：</strong>持续跟踪大模型、Agent、RAG、AI Coding 与工作流工具，将新能力快速转化为可交付功能。</li>
               <li><strong>业务理解能力强：</strong>能快速理解不同行业业务流程，把领域知识转化为可检索、可调用、可评估的 AI Agent 能力。</li>
             </ul>

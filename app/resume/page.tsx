@@ -381,7 +381,7 @@ export default function ResumePage() {
                       企业 Agent 智能支持平台（ArcFlow）
                     </a>
                   </h4>
-                  <span>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
+                  <span>FastAPI / LangGraph / Qdrant / GraphRAG / Java Spring AI / React 18 / Playwright</span>
                 </div>
                 <p className="resume-project-desc">公司落地版已接入团队日常使用｜个人平台化完整版可离线演示（HITL 审批 / 岗位 Agent / RBAC 审计）</p>
                 <a className="resume-project-link" href="https://github.com/c524069797/enterprise-agent-platform" target="_blank" rel="noopener noreferrer">
@@ -403,7 +403,7 @@ export default function ResumePage() {
                       <strong>检索链路：</strong>Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，支持 metadata 分类过滤、来源溯源与父子检索；检索证据写入审计日志，每条回答可追溯到证据来源。
                     </>,
                     <>
-                      <strong>权限与审计：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话、表格操作与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
+                      <strong>权限与审计：</strong>RBAC 角色映射 Agent 调用权限，5 类岗位 Agent 按登录者权限可见可用，每次对话、表格操作与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。
                     </>,
                     <>
                       <strong>工程化落地：</strong>FastAPI 封装 RESTful API + React 18 对话工作台，Docker Compose 容器化 + Nginx 反向代理部署；LLM / Embedding / 业务系统 / 工单 / 邮件五类外部依赖均可降级本地替身，零外部依赖离线演示。
@@ -412,7 +412,7 @@ export default function ResumePage() {
                       <strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；敏感操作 100% 经人工审批后执行，审批前零副作用。
                     </>,
                     <>
-                      <strong>工程质量：</strong>9 条 Playwright E2E 用例守护 OpenAPI 契约、布局信息架构与 Python / Java 双后端输出一致性，保障持续迭代不回归。
+                      <strong>工程质量：</strong>后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，9 条 Playwright E2E 用例守护契约、布局信息架构与双后端输出一致性，保障持续迭代不回归。
                     </>,
                   ]}
                 />
@@ -445,7 +445,7 @@ export default function ResumePage() {
                       <strong>数据安全：</strong>恢复逐文件校验拒写坏数据、路径穿越防护；备份仓库信封加密（scrypt + AES-GCM + HMAC 对象名防指纹泄露），改口令 O(1) 无需重加密。
                     </>,
                     <>
-                      <strong>项目成效：</strong>253 项测试全绿（端到端真实启动模拟平台后端走 HTTP 全链路）；GB 级基准实测：1GB 首备 84 MB/s、去重压缩 4.8x、修改 1% 后增量 0.7s、加密开销约 5%；解决内网代理劫持 502 等真实部署问题。
+                      <strong>项目成效：</strong>253 项测试全绿，E2E 拉起模拟平台后端走 HTTP 全链路；GB 级基准实测：1GB 首备 84 MB/s、去重压缩 4.8x、修改 1% 后增量 0.7s、加密开销约 5%；接入企业备份平台时定位并解决内网代理劫持 502（私网地址默认直连）。
                     </>,
                   ]}
                 />

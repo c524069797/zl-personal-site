@@ -214,7 +214,7 @@ function ResumeContent({ template }: { template: string }) {
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
               <h4 className="text-xs font-bold text-gray-900">企业 Agent 智能支持平台（ArcFlow）</h4>
-              <span className={techStack}>FastAPI / LangGraph / Qdrant / GraphRAG / React 18 / Playwright</span>
+              <span className={techStack}>FastAPI / LangGraph / Qdrant / GraphRAG / Java Spring AI / React 18 / Playwright</span>
             </div>
             <p className="text-[10px] text-gray-400">企业客服 Agent 已接入团队日常使用｜个人平台化完整版可离线演示</p>
             <ul className={expList}>
@@ -222,8 +222,8 @@ function ResumeContent({ template }: { template: string }) {
               <li><strong>Agent 编排：</strong>LangGraph 四节点状态机（意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装）；checkpointer 按 thread 保存状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底。</li>
               <li><strong>HITL 审批硬闸门：</strong>敏感操作（数据导出、发送邮件、越权动作）在图内暂停并生成待审批载荷，人工决策后恢复——状态机层面的硬中断，审批前动作真实不会执行。</li>
               <li><strong>检索链路：</strong>Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，metadata 分类过滤、来源溯源与父子检索，检索证据写入审计日志形成可追溯回答链路。</li>
-              <li><strong>权限与审计：</strong>RBAC 角色派生 agent:* 能力范围，5 类岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。</li>
-              <li><strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；五类外部依赖可降级本地替身离线演示，9 条 Playwright 用例守护 OpenAPI 契约与 Python/Java 双后端一致性。</li>
+              <li><strong>权限与审计：</strong>RBAC 角色映射 Agent 调用权限，5 类岗位 Agent 按登录者权限可见可用，每次对话与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。</li>
+              <li><strong>项目成效：</strong>企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；五类外部依赖可降级本地替身离线演示，9 条 Playwright 用例守护 OpenAPI 契约与 FastAPI / Spring AI 双后端（同一契约两套实现）输出一致。</li>
             </ul>
           </div>
 
@@ -238,7 +238,7 @@ function ResumeContent({ template }: { template: string }) {
               <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，local 自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量 + 原子写）与企业备份平台 REST 适配器实现同一抽象；一个环境变量切换引擎，状态图一行不改。</li>
               <li><strong>MCP 工具 + 运维 Agent：</strong>MCP Server（Claude Desktop 可接）与 langchain @tool 双 adapter 同源，破坏性 restore 带 confirm 二次门控；基于平台数据实现多机巡检、失败诊断、容量预测与四合一运维报告。</li>
               <li><strong>回测强化与诊断 RAG：</strong>scrub 全仓健康检查（损坏注入必检出）+ 恢复演练例行化 + 边界矩阵逐字节比对；12 篇运维 SOP 知识库 + BM25 检索与置信度控制，失败诊断升级为规则兜底 + RAG 增强。</li>
-              <li><strong>项目成效：</strong>253 项测试全绿（端到端真起模拟平台后端走 HTTP）；GB 级实测 1GB 首备 84 MB/s、去重压缩 4.8x、加密开销约 5%；信封加密（scrypt + AES-GCM）改口令 O(1) 不重加密；解决内网代理劫持 502 等真实部署问题。</li>
+              <li><strong>项目成效：</strong>253 项测试全绿，E2E 拉起模拟平台后端走 HTTP 全链路；GB 级实测 1GB 首备 84 MB/s、去重压缩 4.8x、加密开销约 5%；信封加密（scrypt + AES-GCM）改口令 O(1) 不重加密；接入企业备份平台时定位并解决内网代理劫持 502（私网地址默认直连）。</li>
             </ul>
           </div>
 

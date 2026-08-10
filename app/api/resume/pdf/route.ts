@@ -9,8 +9,10 @@ export async function GET(request: NextRequest) {
     const protocol = request.headers.get("x-forwarded-proto") || "http";
     const host = request.headers.get("host") || "localhost:3000";
     const template = request.nextUrl.searchParams.get("template") || "tech";
+    const version = request.nextUrl.searchParams.get("version") || "fullstack";
+    const printPath = version === "frontend" ? "/resume/print/frontend" : "/resume/print";
 
-    const resumeUrl = `${protocol}://${host}/resume/print?template=${encodeURIComponent(template)}`;
+    const resumeUrl = `${protocol}://${host}${printPath}?template=${encodeURIComponent(template)}`;
 
     const isProd = process.env.NODE_ENV === "production";
     const exePath = isProd
@@ -75,7 +77,10 @@ export async function GET(request: NextRequest) {
 
     await browser.close();
 
-    const filename = `陈子龙-AI全栈工程师-简历-${new Date().getFullYear()}.pdf`;
+    const filename =
+      version === "frontend"
+        ? `陈子龙-前端工程师(AI方向)-简历-${new Date().getFullYear()}.pdf`
+        : `陈子龙-AI全栈工程师-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
     return new NextResponse(Buffer.from(pdf), {

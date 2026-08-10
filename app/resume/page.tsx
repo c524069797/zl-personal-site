@@ -163,17 +163,22 @@ function MetricList({ items }: { items: ReactNode[] }) {
 export default function ResumePage() {
   const [template, setTemplate] = useState<TemplateKey>("showcase");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isGeneratingFrontend, setIsGeneratingFrontend] = useState(false);
 
-  const handleDownload = async () => {
-    setIsGenerating(true);
+  const downloadPdf = async (version: "fullstack" | "frontend") => {
+    const setLoading = version === "frontend" ? setIsGeneratingFrontend : setIsGenerating;
+    setLoading(true);
     try {
-      const response = await fetch(`/api/resume/pdf?template=${template}`);
+      const response = await fetch(`/api/resume/pdf?template=${template}&version=${version}`);
       if (!response.ok) throw new Error("生成 PDF 失败");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `陈子龙-AI全栈工程师-简历-${new Date().getFullYear()}.pdf`;
+      a.download =
+        version === "frontend"
+          ? `陈子龙-前端工程师(AI方向)-简历-${new Date().getFullYear()}.pdf`
+          : `陈子龙-AI全栈工程师-简历-${new Date().getFullYear()}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -182,9 +187,11 @@ export default function ResumePage() {
       console.error("下载 PDF 失败:", error);
       alert("下载 PDF 失败，请稍后重试");
     } finally {
-      setIsGenerating(false);
+      setLoading(false);
     }
   };
+
+  const handleDownload = () => downloadPdf("fullstack");
 
   return (
     <main className="resume-page" data-resume-theme={template}>
@@ -218,6 +225,15 @@ export default function ResumePage() {
                 size="sm"
               >
                 {isGenerating ? "生成中..." : "下载简历"}
+              </Button>
+              <Button
+                className="resume-download-button"
+                loading={isGeneratingFrontend}
+                onClick={() => downloadPdf("frontend")}
+                size="sm"
+                variant="secondary"
+              >
+                {isGeneratingFrontend ? "生成中..." : "前端版 PDF"}
               </Button>
             </div>
           </div>

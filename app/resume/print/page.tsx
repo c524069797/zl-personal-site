@@ -85,6 +85,9 @@ function ResumeContent({ template }: { template: string }) {
             </label>
           </div>
           <div className="flex items-center gap-3">
+            <a href={`/resume/print/frontend?template=${template}`} className="text-sm text-cyan-600 hover:underline">
+              切换到前端版
+            </a>
             <a href="/resume" className="text-sm text-cyan-600 hover:underline">
               ← 返回展示版
             </a>

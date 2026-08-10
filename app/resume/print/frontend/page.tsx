@@ -146,14 +146,14 @@ function ResumeContent({ template }: { template: string }) {
             教育经历 / 语言能力
           </h2>
           <div className="flex items-baseline justify-between text-xs">
-            <span className="font-medium">吉首大学 · 软件工程（本科）</span>
+            <span className="flex items-center gap-2 flex-wrap">
+              <span className="font-medium">吉首大学 · 软件工程（本科）</span>
+              <SkillTag template={template}>CET-6</SkillTag>
+              <SkillTag template={template}>软件设计师（中级）</SkillTag>
+              <span className="text-gray-500">日语听读</span>
+            </span>
             <span className={isNavy ? "text-indigo-400" : "text-gray-400"}>2017.09 – 2021.06</span>
           </div>
-          <div className="mt-1 flex flex-wrap gap-1.5">
-            <SkillTag template={template}>CET-6</SkillTag>
-            <SkillTag template={template}>软件设计师（中级）</SkillTag>
-          </div>
-          <p className={expDesc}>英文技术文档阅读通畅，具备日语听读能力</p>
         </section>
 
         {/* Skills */}
@@ -225,54 +225,60 @@ function ResumeContent({ template }: { template: string }) {
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
+              <h4 className="text-sm font-bold text-gray-900">迪备备份恢复系统</h4>
               <span className={techStack}>Vue / TypeScript / WebSocket / C++</span>
             </div>
-            <p className="text-[10px] text-gray-400">企业级备份软件核心业务系统</p>
+            <p className="text-[10px] text-gray-400">企业级备份软件核心业务系统｜长期负责前端架构与核心模块</p>
             <ul className={expList}>
-              <li><strong>向导框架：</strong>主导备份/恢复通用向导框架设计与实现，基于工厂模式 + Context + Proxy 支撑 <strong>50+ 资源类型</strong>动态注入与跨步骤状态共享，新增资源类型开发周期从 2 周缩短到 2 天。</li>
-              <li><strong>组件库建设：</strong>主导企业级 Vue 3 组件库与通用能力建设，沉淀 <strong>40+</strong> 组件支撑多条产品线复用。</li>
-              <li><strong>可视化大屏：</strong>基于 grid-layout-plus 实现拖拽式大屏布局（12 × 12 网格、碰撞检测、自动放置、布局持久化），WebSocket 推送 + 缓冲队列 + 重连机制保障任务状态秒级同步。</li>
-              <li><strong>性能优化：</strong>任务监控与日志场景引入增量更新、虚拟滚动与页面拆分，解决万级长列表卡顿与首屏加载问题。</li>
+              <li><strong>通用向导框架：</strong>为解决多资源类型备份/恢复流程重复开发问题，基于 <strong>工厂模式 + Context + Proxy</strong> 设计通用向导框架，支撑 <strong>50+ 资源类型</strong>动态注入与跨步骤状态共享，新增资源类型的开发周期从 <strong>2 周缩短到 2 天</strong>，同类功能重复代码减少 <strong>70%+</strong>。</li>
+              <li><strong>组件库建设：</strong>主导企业级 Vue 3 组件库与通用能力建设，沉淀 <strong>40+ 组件</strong>支撑多条产品线复用，统一交互规范与视觉标准，降低跨团队协作成本。</li>
+              <li><strong>可视化大屏：</strong>基于 grid-layout-plus 实现拖拽式大屏布局系统，支持 <strong>12 × 12 网格</strong>、碰撞检测、自动放置与布局持久化；用 VScaleScreen / transform-scale 解决缩放场景下的坐标对齐问题。</li>
+              <li><strong>实时链路：</strong>WebSocket 推送 + 缓冲队列 + 断线重连机制，保障任务状态<strong>秒级同步</strong>与 <strong>7×24 小时</strong>长时间稳定运行，消息峰值场景不丢帧不卡顿。</li>
+              <li><strong>性能优化：</strong>任务监控与日志场景引入增量更新、虚拟滚动与页面拆分，<strong>万级长列表</strong>滚动流畅，首屏加载显著提速；长期承担线上问题定位与复杂交互故障排查。</li>
+              <li><strong>C++ 引擎协作：</strong>参与备份引擎 C++ 侧问题排查与小功能开发（任务状态上报、错误码梳理），能从引擎视角定位备份/恢复全链路问题，前后端联调排查不设边界。</li>
             </ul>
           </div>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">内部管理系统智能客服 Agent</h4>
+              <h4 className="text-sm font-bold text-gray-900">内部管理系统智能客服 Agent</h4>
               <span className={techStack}>React / Python / FastAPI / LangGraph / RAG / sqlite-vec</span>
             </div>
-            <p className="text-[10px] text-gray-400">企业内部产品｜已接入售后、技术支持团队日常使用</p>
+            <p className="text-[10px] text-gray-400">企业内部产品｜从 0 到 1 主导，已接入售后、技术支持团队日常使用</p>
             <ul className={expList}>
-              <li><strong>对话前端：</strong>独立设计并开发对话式交互页面，支持 SSE 流式输出、多轮对话、上下文记忆、引用来源高亮与一键转人工，复杂问题可平滑交接。</li>
-              <li><strong>RAG 知识库：</strong>将产品文档、审批流程、历史工单与报错排查指南构建为结构化知识库，多粒度 Chunk + metadata 过滤 + 来源溯源，保证回答准确可追溯。</li>
+              <li><strong>业务背景：</strong>内部管理系统业务逻辑复杂，客服团队每日需处理大量重复咨询（审批进度、报错诊断、套餐解释），人工响应慢、知识传递成本高；主导从需求调研、知识库建设、Agent 编排到前端交付的完整闭环。</li>
+              <li><strong>对话前端：</strong>独立设计并开发对话式交互页面，实现 <strong>SSE 流式输出</strong>与流式 Markdown 渲染、多轮对话与上下文记忆、<strong>引用来源高亮</strong>与一键转人工，复杂问题可平滑交接，降低客服使用门槛。</li>
+              <li><strong>RAG 工程化：</strong>设计多粒度 Chunk 策略（工单摘要 / 讨论 / Wiki 整页 / 按标题拆分），富化 metadata 支持过滤、来源溯源与父子检索；历史工单与 Wiki 系统化批量入库 <strong>sqlite-vec（float[1536]）</strong>，知识库从 <strong>8 条 seed 扩展至 30+ 结构化 chunks</strong>。</li>
               <li><strong>业务数据联动：</strong>打通申请、审批、审计等核心业务数据，实现实时审批解释、报错智能诊断与进度追踪，从通用问答升级为业务感知型助手。</li>
-              <li><strong>落地成效：</strong>覆盖 80%+ 高频咨询场景（审批解释、报错诊断、进度追踪），平均响应从分钟级降至秒级，减少重复工单约 30%。</li>
+              <li><strong>落地成效：</strong>覆盖 <strong>80%+ 高频咨询场景</strong>，平均响应从<strong>分钟级降至秒级</strong>，减少重复工单约 <strong>30%</strong>；后续平台化为 ArcFlow 企业 Agent 平台（GitHub 可查证），补齐 HITL 审批门与 <strong>9 条 Playwright E2E</strong> 契约测试。</li>
             </ul>
           </div>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">智能备份助手（BackupPilot）</h4>
-              <span className={techStack}>Python / LangGraph / Pydantic / MCP / SQLite</span>
+              <h4 className="text-sm font-bold text-gray-900">智能备份助手（BackupPilot）</h4>
+              <span className={techStack}>Python / LangGraph / Pydantic / MCP / SQLite / zstd</span>
             </div>
-            <p className="text-[10px] text-gray-400">个人项目｜自然语言驱动的备份/恢复与运维智能体</p>
+            <p className="text-[10px] text-gray-400">个人项目｜自然语言驱动的备份/恢复与运维智能体，已接入企业备份平台</p>
             <ul className={expList}>
-              <li><strong>Agent 编排 + HITL：</strong>LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报），恢复等破坏性操作 interrupt() 中断等待人工确认，不确认绝不落盘。</li>
-              <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，本地自研引擎（内容寻址去重 + zstd 压缩 + 增量备份）与企业备份平台 REST 适配器同一抽象，一个环境变量切换引擎。</li>
-              <li><strong>项目成效：</strong>253 项测试全绿；GB 级实测首备吞吐 84 MB/s、去重压缩 4.8x；已接入企业备份平台跑通备份/恢复/巡检闭环。</li>
+              <li><strong>Agent 编排 + HITL：</strong>LangGraph <strong>八节点状态机</strong>（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报），恢复等破坏性操作 interrupt() 中断等待人工确认，不确认绝不落盘，破坏性操作 <strong>100%</strong> 经确认后执行。</li>
+              <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，本地自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量）与企业备份平台 REST 适配器实现同一抽象，<strong>一个环境变量</strong>切换引擎、状态图零改动。</li>
+              <li><strong>MCP 工具暴露：</strong>能力封装为协议无关工具函数，MCP Server（Claude Desktop 可直接接入）与 langchain @tool 双 adapter 同源，破坏性操作带 confirm 二次门控。</li>
+              <li><strong>项目成效：</strong><strong>253 项测试全绿</strong>；GB 级实测首备吞吐 <strong>84 MB/s</strong>、去重压缩 <strong>4.8x</strong>、修改 1% 后增量备份 <strong>0.7s</strong>、仓库加密开销约 <strong>5%</strong>；已接入企业备份平台跑通备份/恢复/巡检闭环。</li>
             </ul>
           </div>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">内部综合管理系统（React 前端 + Java 全栈独立交付）</h4>
-              <span className={techStack}>React / Java Spring Boot / MySQL / Redis / RabbitMQ</span>
+              <h4 className="text-sm font-bold text-gray-900">内部综合管理系统</h4>
+              <span className={techStack}>React / Java Spring Boot / MySQL / Redis / RabbitMQ / Nginx</span>
             </div>
-            <p className="text-[10px] text-gray-400">公司内部核心业务系统｜个人独立完成前后端设计、开发与部署</p>
+            <p className="text-[10px] text-gray-400">公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目</p>
             <ul className={expList}>
-              <li><strong>前端：</strong>React 实现许可证全流程（生成、导入校验、续期升级、套餐/功能映射、审批、出货、归档）的复杂表单与流程页面，支撑 <strong>50+ 种许可套餐</strong>动态组合，重复配置时间降低 <strong>80%+</strong>。</li>
-              <li><strong>全栈能力：</strong>独立完成 Spring Boot 后端（审批状态机、幂等设计、RBAC + 审计、Redis 缓存、RabbitMQ 事件解耦），前后端联调排查效率高，不依赖后端排期。</li>
+              <li><strong>前端交付：</strong>React 实现许可证全流程（生成、导入校验、续期升级、套餐/功能映射、审批、出货、归档）的复杂表单与流程页面，把表格 + 钉钉的记录方式收敛为系统化闭环，支撑 <strong>50+ 种许可套餐</strong>动态组合，重复配置时间降低 <strong>80%+</strong>。</li>
+              <li><strong>后端设计：</strong>独立完成 Spring Boot 后端——审批状态机（枚举转移表 + 乐观锁）、申请单号幂等键（唯一索引 + Redis 防重锁）、Redis Cache-Aside 缓存、RabbitMQ 事件解耦通知（本地消息表补偿 + 消费幂等）、每日定时对账兜底一致性。</li>
+              <li><strong>权限与审计：</strong>Spring Security + JWT 实现 RBAC 权限校验，AOP 切面统一记录操作审计，线程池异步落库不阻塞主流程。</li>
+              <li><strong>AI 能力载体：</strong>基于 <strong>Mastra</strong>（TypeScript Agent 框架）实现系统内多 Agent 编排与 SSE 流式问答入口，成为公司内部 AI 能力落地的业务载体。</li>
             </ul>
           </div>
         </section>
@@ -300,10 +306,11 @@ function ResumeContent({ template }: { template: string }) {
               个人优势
             </h2>
             <ul className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800">
-              <li><strong>前端深度 + 线上作品：</strong>从企业级中后台（50+ 资源类型向导框架、拖拽大屏）到内容型站点（Next.js SSR/SEO、3D 首屏），多形态前端均有完整交付；作品集、预测平台、Chrome 插件均在线可访问。</li>
+              <li><strong>前端深度 + 线上作品：</strong>从企业级中后台（<strong>50+</strong> 资源类型向导框架、拖拽大屏）到内容型站点（Next.js SSR/SEO、3D 首屏），多形态前端均有完整交付；作品集、预测平台、Chrome 插件均在线可访问。</li>
               <li><strong>AI 应用前端稀缺经验：</strong>做过真实上线的 Agent 对话产品前端（流式输出、引用溯源、HITL 审批交互、转人工），且理解 Agent / RAG 底层链路，是「会做 AI 产品的前端」。</li>
               <li><strong>工程化与质量意识：</strong>ESLint 零警告门禁、Playwright E2E 契约测试、CI/CD 交付门禁的长期实践者，代码可长期迭代不劣化。</li>
               <li><strong>全栈兜底能力：</strong>Java / Python 后端均有生产实践，能独立完成 BFF 与全栈交付，联调排查效率高。</li>
+              <li><strong>乐于了解行业发展新趋势：</strong>持续跟踪前端框架演进（React RSC、Vue 3 生态）与大模型、Agent、AI Coding 等方向的新进展，习惯把新能力快速验证并转化为可交付的功能。</li>
             </ul>
           </section>
         )}

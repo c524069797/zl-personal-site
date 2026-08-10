@@ -165,27 +165,27 @@ function ResumeContent({ template }: { template: string }) {
           <div className="space-y-1 text-xs">
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">前端框架：</span>
-              <span className="text-gray-600">React 18/19, Next.js（App Router / RSC / SSR / SSG）, Vue 2 / Vue 3, TypeScript, 企业中后台 / 复杂表单向导 / 内容型站点 / 可视化大屏</span>
+              <span className="text-gray-600">React 18/19, Next.js, Vue 2 / Vue 3, TypeScript</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">组件与样式：</span>
-              <span className="text-gray-600">Ant Design, Tailwind CSS 4, ECharts / DataV, 组件抽象与复用（向导框架支撑 50+ 资源类型）, Hooks 设计</span>
+              <span className="text-gray-600">Ant Design, Tailwind CSS, ECharts, DataV</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">工程化：</span>
-              <span className="text-gray-600">Vite / Webpack / Monorepo, ESLint 9 / Prettier / husky + lint-staged, Vitest, Playwright（E2E + 布局契约测试）, GitLab CI/CD</span>
+              <span className="text-gray-600">Vite, Webpack, Monorepo, ESLint, Vitest, Playwright, GitLab CI/CD</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">性能体验：</span>
-              <span className="text-gray-600">首屏优化, 虚拟滚动, 增量更新, SSR / SEO, 暗色主题体系, WebSocket 实时链路, React Three Fiber 3D / Framer Motion 动效</span>
+              <span className="text-gray-600">首屏优化, 虚拟滚动, 增量更新, SSR / SEO, WebSocket, React Three Fiber</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">AI 应用前端：</span>
-              <span className="text-gray-600">SSE 流式对话, 引用来源高亮, 流式 Markdown 渲染, 转人工交接; 理解 Agent / RAG 链路（LangGraph / 向量检索）</span>
+              <span className="text-gray-600">SSE 流式交互, LangGraph, RAG, MCP, Prompt Engineering</span>
             </div>
             <div className="flex gap-2">
               <span className="w-20 shrink-0 font-medium text-gray-700">跨端与后端：</span>
-              <span className="text-gray-600">React Native iOS / Android, uni-app / 微信小程序; Java / Spring Boot 与 Python / FastAPI 生产实践, PostgreSQL / Redis / Prisma</span>
+              <span className="text-gray-600">React Native, uni-app, 微信小程序, Java / Spring Boot, Python / FastAPI, PostgreSQL, Redis</span>
             </div>
           </div>
         </section>
@@ -225,30 +225,42 @@ function ResumeContent({ template }: { template: string }) {
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">个人网站 / 博客系统（重点项目）</h4>
-              <span className={techStack}>Next.js 16 / React 19 / TypeScript / Tailwind 4 / R3F / Prisma / PostgreSQL / Qdrant</span>
+              <h4 className="text-xs font-bold text-gray-900">迪备备份恢复系统</h4>
+              <span className={techStack}>Vue / TypeScript / WebSocket / C++</span>
             </div>
-            <p className="text-[10px] text-gray-400">在线访问 clczl.asia｜独立完成设计、开发、部署与长期迭代的完整产品</p>
+            <p className="text-[10px] text-gray-400">企业级备份软件核心业务系统</p>
             <ul className={expList}>
-              <li><strong>现代前端架构：</strong>Next.js App Router 组织路由与 Server/Client 组件边界，SSR + 静态生成兼顾首屏性能与 SEO（sitemap / JSON-LD 结构化数据 / RSS）；按 feature 划分模块，组件、Hooks、类型分层清晰。</li>
-              <li><strong>3D 交互首屏：</strong>React Three Fiber 实现 3D 模型 Hero 首屏，处理模型加载策略、渲染性能与低端设备降级；配合 Canvas 粒子动画、Framer Motion 过渡动效与磁吸按钮等微交互。</li>
-              <li><strong>主题与国际化：</strong>next-themes 暗色/亮色双主题（CSS 变量 + Ant Design 组件级暗色覆盖），自建 i18n 支持中/英/繁/西四语言切换。</li>
-              <li><strong>AI 功能前端：</strong>实现 AI 流式对话、文章 AI 摘要、RAG 站内问答（Qdrant 向量检索）完整链路，覆盖流式 Markdown 渲染、加载与错误态、会话交互设计。</li>
-              <li><strong>内容系统与工程化：</strong>博客（搜索/分类/标签/归档）、评论（含 AI 审核）、管理后台（JWT + RBAC）、简历 PDF 导出与 A4 打印样式；husky + lint-staged 提交门禁（ESLint 零警告策略）。</li>
+              <li><strong>向导框架：</strong>主导备份/恢复通用向导框架设计与实现，基于工厂模式 + Context + Proxy 支撑 <strong>50+ 资源类型</strong>动态注入与跨步骤状态共享，新增资源类型开发周期从 2 周缩短到 2 天。</li>
+              <li><strong>组件库建设：</strong>主导企业级 Vue 3 组件库与通用能力建设，沉淀 <strong>40+</strong> 组件支撑多条产品线复用。</li>
+              <li><strong>可视化大屏：</strong>基于 grid-layout-plus 实现拖拽式大屏布局（12 × 12 网格、碰撞检测、自动放置、布局持久化），WebSocket 推送 + 缓冲队列 + 重连机制保障任务状态秒级同步。</li>
+              <li><strong>性能优化：</strong>任务监控与日志场景引入增量更新、虚拟滚动与页面拆分，解决万级长列表卡顿与首屏加载问题。</li>
             </ul>
           </div>
 
           <div className="mb-1.5">
             <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">ArcFlow 企业 Agent 智能支持平台（AI 产品前端 + 全栈）</h4>
-              <span className={techStack}>React 18 / Ant Design 6 / Playwright / FastAPI / LangGraph / Qdrant</span>
+              <h4 className="text-xs font-bold text-gray-900">内部管理系统智能客服 Agent</h4>
+              <span className={techStack}>React / Python / FastAPI / LangGraph / RAG / sqlite-vec</span>
             </div>
-            <p className="text-[10px] text-gray-400">github.com/c524069797/enterprise-agent-platform｜企业客服 Agent 已接入团队日常使用</p>
+            <p className="text-[10px] text-gray-400">企业内部产品｜已接入售后、技术支持团队日常使用</p>
             <ul className={expList}>
-              <li><strong>Agent 对话工作台：</strong>React 18 实现企业级 Agent 对话前端——流式回答、检索证据与来源溯源展示、敏感操作审批交互（HITL 人工审批门）、多岗位 Agent 按 RBAC 权限可见可用。</li>
-              <li><strong>契约测试守护：</strong>9 条 Playwright E2E 用例守护 API 契约、页面信息架构与双后端（Python / Java）输出一致性，保障持续迭代不回归。</li>
-              <li><strong>AI 链路理解：</strong>后端 LangGraph 状态机（意图识别 → RAG 检索 + 工具调用 → 人工审批 → 回答组装）同样由本人实现，具备与算法/后端协作时「说同一种语言」的能力。</li>
-              <li><strong>落地成效：</strong>企业落地版覆盖 80%+ 高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%。</li>
+              <li><strong>对话前端：</strong>独立设计并开发对话式交互页面，支持 SSE 流式输出、多轮对话、上下文记忆、引用来源高亮与一键转人工，复杂问题可平滑交接。</li>
+              <li><strong>RAG 知识库：</strong>将产品文档、审批流程、历史工单与报错排查指南构建为结构化知识库，多粒度 Chunk + metadata 过滤 + 来源溯源，保证回答准确可追溯。</li>
+              <li><strong>业务数据联动：</strong>打通申请、审批、审计等核心业务数据，实现实时审批解释、报错智能诊断与进度追踪，从通用问答升级为业务感知型助手。</li>
+              <li><strong>落地成效：</strong>覆盖 80%+ 高频咨询场景（审批解释、报错诊断、进度追踪），平均响应从分钟级降至秒级，减少重复工单约 30%。</li>
+            </ul>
+          </div>
+
+          <div className="mb-1.5">
+            <div className="flex items-baseline justify-between">
+              <h4 className="text-xs font-bold text-gray-900">智能备份助手（BackupPilot）</h4>
+              <span className={techStack}>Python / LangGraph / Pydantic / MCP / SQLite</span>
+            </div>
+            <p className="text-[10px] text-gray-400">个人项目｜自然语言驱动的备份/恢复与运维智能体</p>
+            <ul className={expList}>
+              <li><strong>Agent 编排 + HITL：</strong>LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报），恢复等破坏性操作 interrupt() 中断等待人工确认，不确认绝不落盘。</li>
+              <li><strong>双引擎架构：</strong>统一 BackupEngine 抽象，本地自研引擎（内容寻址去重 + zstd 压缩 + 增量备份）与企业备份平台 REST 适配器同一抽象，一个环境变量切换引擎。</li>
+              <li><strong>项目成效：</strong>253 项测试全绿；GB 级实测首备吞吐 84 MB/s、去重压缩 4.8x；已接入企业备份平台跑通备份/恢复/巡检闭环。</li>
             </ul>
           </div>
 
@@ -263,17 +275,6 @@ function ResumeContent({ template }: { template: string }) {
               <li><strong>全栈能力：</strong>独立完成 Spring Boot 后端（审批状态机、幂等设计、RBAC + 审计、Redis 缓存、RabbitMQ 事件解耦），前后端联调排查效率高，不依赖后端排期。</li>
             </ul>
           </div>
-
-          <div className="mb-1.5">
-            <div className="flex items-baseline justify-between">
-              <h4 className="text-xs font-bold text-gray-900">跨端移动应用 / 小程序项目</h4>
-              <span className={techStack}>React Native / iOS / Android / uni-app / 微信云开发</span>
-            </div>
-            <ul className={expList}>
-              <li><strong>双端交付：</strong>React Native iOS / Android 双端业务开发（导航、状态管理、登录态保持、权限与设备适配），熟悉真机调试到打包发布链路；uni-app + 微信云开发实现 AI 改善计划小程序。</li>
-              <li><strong>移动体验：</strong>关注弱网、触控热区、键盘遮挡、长列表滚动、空/加载态等移动端体验细节。</li>
-            </ul>
-          </div>
         </section>
 
         {/* Other Works */}
@@ -284,6 +285,7 @@ function ResumeContent({ template }: { template: string }) {
               其他个人作品
             </h2>
             <div className="space-y-0.5 text-[11px] leading-relaxed text-gray-800">
+              <p><strong>个人网站 / 博客系统</strong>：Next.js 16 全栈站点，含博客、AI 问答与 React Three Fiber 3D 交互首屏（clczl.asia）</p>
               <p><strong>SportOracle</strong>：AI 驱动的体育预测产品（nba.clczl.asia）</p>
               <p><strong>Sports Hub</strong>：聚合 NBA、足球、电竞赛事信息的 Chrome Extension</p>
             </div>

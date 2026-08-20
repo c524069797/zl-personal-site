@@ -130,15 +130,6 @@ GitHub：https://github.com/c524069797/llm-gateway-java
 - **工程治理**：围绕会话状态、工具调用、检索链路、Prompt、权限边界、评估测试集与日志观测盘点升级路径，推进 **LangGraph Checkpointer**、**StructuredTool + ToolNode**、检索阈值 / Hybrid Search / Reranker 与 Trace 记录，把"能跑"升级为"可观测、可评估、可回滚"。
 - **经验平台化**：将该项目沉淀的编排、RAG、权限与审计经验平台化为个人完整版 **ArcFlow 企业 Agent 平台**（见项目经历首条），补齐 HITL 审批门、岗位 Agent、GraphRAG 与双后端接入形态。
 
-### 个人网站 / 博客系统（Next.js 16、React 19、TypeScript、Ant Design、PostgreSQL、Prisma）
-
-在线访问：https://www.clczl.asia
-
-- **完整产品搭建**：独立实现博客、简历、评论、文章管理等能力，支持 Markdown 内容渲染、暗黑模式、RSS、PDF 导出与响应式页面，作为个人作品集长期对外展示。
-- **3D 交互首屏**：基于 React Three Fiber 实现 3D 模型 Hero 首屏，兼顾视觉表现、加载性能与降级方案，作为作品集的差异化入口。
-- **内容型前端能力**：围绕内容展示与阅读体验完成信息架构、页面设计与组件抽象，并结合 SSR / SEO 优化提升站点可访问性与展示效果。
-- **AI 增强**：接入 AI 文章摘要、关键词提取与站内问答能力，将内容产品与 AI 功能结合，形成更完整的个人技术展示载体。
-
 ### 跨端移动应用 / 小程序项目（React Native、iOS、Android、uni-app、微信云开发）
 
 - **React Native 跨端实践**：开发 iOS / Android 双端业务页面，处理导航、表单、列表、接口联调、全局状态、登录态保持与异常提示等常见移动端能力，保证同一套业务逻辑在双端一致交付。

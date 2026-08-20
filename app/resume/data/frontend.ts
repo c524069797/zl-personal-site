@@ -94,38 +94,6 @@ export const frontendResume: ResumeData = {
 
   projects: [
     {
-      title: "个人网站 / 博客系统",
-      href: "https://www.clczl.asia",
-      stack: "Next.js 16 / React 19 / TypeScript / Tailwind CSS 4 / Ant Design / Framer Motion / React Three Fiber / Prisma / PostgreSQL",
-      desc: "个人重点项目｜独立完成设计、开发、部署与长期迭代的完整产品，在线可访问",
-      bullets: [
-        {
-          label: "现代前端架构",
-          text: "基于 Next.js App Router 组织路由与 Server/Client 组件边界，SSR + 静态生成兼顾首屏性能与 SEO（sitemap、robots、JSON-LD 结构化数据、RSS Feed）；按 feature 划分模块，组件、Hooks、类型分层清晰。",
-        },
-        {
-          label: "3D 交互首屏",
-          text: "React Three Fiber 实现 3D 模型 Hero 首屏，处理模型加载策略、渲染性能与低端设备降级方案；配合 Canvas 粒子/流星动画背景、Framer Motion 过渡动效与磁吸按钮等微交互，形成差异化视觉入口。",
-        },
-        {
-          label: "主题与国际化体系",
-          text: "next-themes 暗色/亮色双主题，CSS 变量 + Ant Design 组件级暗色覆盖统一视觉；自建 i18n 方案支持中/英/繁/西四语言切换。",
-        },
-        {
-          label: "AI 功能前端",
-          text: "实现 AI 对话（流式输出）、文章 AI 摘要、RAG 站内问答（Qdrant 向量检索）完整链路，前端覆盖流式 Markdown 渲染、加载与错误态、会话交互设计——把 AI 能力做成可用的产品功能。",
-        },
-        {
-          label: "内容系统与后台",
-          text: "博客（搜索/分类/标签/归档/分页）、评论（含 AI 审核评分）、文章管理后台（JWT + RBAC 鉴权）、简历页 PDF 导出与 A4 打印样式；Prisma + PostgreSQL 建模，Vercel 部署。",
-        },
-        {
-          label: "工程化质量",
-          text: "husky + lint-staged 提交门禁（ESLint 零警告策略 + Prettier）、Playwright 截图验证，保持长期迭代不劣化。",
-        },
-      ],
-    },
-    {
       title: "企业 Agent 智能支持平台（ArcFlow）",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "React 18 / Ant Design 6 / Playwright ＋ FastAPI / LangGraph / Qdrant（后端）",
@@ -208,8 +176,8 @@ export const frontendResume: ResumeData = {
 
   advantages: [
     {
-      label: "前端深度 + 线上作品",
-      text: "从企业级中后台（50+ 资源类型向导框架、40+ 组件库、拖拽大屏）到内容型站点（Next.js SSR/SEO、3D 首屏），多形态前端均有完整交付；作品集、预测平台、Chrome 插件均在线可访问。",
+      label: "前端深度 + 多形态交付",
+      text: "从企业级中后台（50+ 资源类型向导框架、40+ 组件库、拖拽式可视化大屏）到 AI 对话产品前端与跨端移动应用，多种形态前端均有完整交付经验，能独立承担前端架构设计而不只是页面实现。",
     },
     {
       label: "AI 应用前端稀缺经验",

@@ -200,7 +200,7 @@ function ResumeContent({ template }: { template: string }) {
           <div className="mb-2">
             <div className="flex items-baseline justify-between">
               <h3 className={expTitle}>广州鼎甲计算机科技有限公司</h3>
-              <span className={expDate}>2021.07 – 至今</span>
+              <span className={expDate}>2021.07 – 2026.06</span>
             </div>
             <p className={expRole}>Web 软件工程师（前端方向）· 核心业务组</p>
             <p className={expDesc}>

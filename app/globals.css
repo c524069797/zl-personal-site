@@ -2115,6 +2115,52 @@ a:active {
   margin-left: 8px;
 }
 
+/* 版本 / 模板双切换器：上排选简历版本，下排选配色模板 */
+.resume-switcher-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resume-switcher {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.resume-switcher-label {
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.dark .resume-switcher-label {
+  color: #9ca3af;
+}
+
+/* 切换简历版本时的淡入，避免内容整块突变 */
+.resume-paper-swap {
+  animation: resumePaperSwap 0.28s ease;
+}
+
+@keyframes resumePaperSwap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-paper-swap {
+    animation: none;
+  }
+}
+
 .resume-paper {
   border-radius: 12px;
   box-shadow: 0 22px 80px rgba(15, 23, 42, 0.12);
@@ -2389,6 +2435,14 @@ a:active {
   .resume-education-grid {
     grid-template-columns: 1fr;
     width: 100%;
+  }
+
+  .resume-switcher-stack {
+    width: 100%;
+  }
+
+  .resume-switcher {
+    flex-wrap: wrap;
   }
 
   .resume-paper {

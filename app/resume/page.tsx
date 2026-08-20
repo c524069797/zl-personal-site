@@ -27,7 +27,6 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { LinkTransition } from "@/lib/link-transition";
 import {
   SiAntdesign,
-  SiGitlab,
   SiNextdotjs,
   SiNodedotjs,
   SiPostgresql,
@@ -64,15 +63,13 @@ const groupIcons: Record<SkillIconKey, ReactNode> = {
 const skillIcons: Record<string, ReactNode> = {
   "Next.js": <SiNextdotjs size={12} />,
   React: <SiReact size={12} />,
-  "React 18/19": <SiReact size={12} />,
   TypeScript: <SiTypescript size={12} />,
   "Ant Design": <SiAntdesign size={12} />,
   "Tailwind CSS": <SiTailwindcss size={12} />,
   "Node.js": <SiNodedotjs size={12} />,
-  "Python / FastAPI": <SiPython size={12} />,
+  Python: <SiPython size={12} />,
   PostgreSQL: <SiPostgresql size={12} />,
   Redis: <SiRedis size={12} />,
-  "GitLab CI/CD": <SiGitlab size={12} />,
 };
 
 const CONTACTS = {

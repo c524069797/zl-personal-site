@@ -137,11 +137,11 @@ export const frontendResume: ResumeData = {
         },
         {
           label: "契约测试守护",
-          text: "9 条 Playwright E2E 用例守护 API 契约、页面信息架构与双后端（Python/Java）输出一致性，保障持续迭代不回归。",
+          text: "10 条 Playwright E2E 用例守护 API 契约、页面信息架构与双后端（Python/Java）输出一致性，保障持续迭代不回归。",
         },
         {
           label: "AI 链路理解",
-          text: "后端 LangGraph 四节点状态机（意图识别 → RAG 检索 + 工具调用 → 人工审批 → 回答组装）同样由本人实现，具备与算法/后端「说同一种语言」的协作能力。",
+          text: "后端 LangGraph 六节点状态机（意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 查询改写 → 人工审批 → 回答组装）与 Agent Harness（工具封装、错误降级、SSE 流式、会话持久化）同样由本人实现，具备与算法/后端「说同一种语言」的协作能力。",
         },
         {
           label: "落地成效",

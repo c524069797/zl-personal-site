@@ -134,7 +134,11 @@ export const backendResume: ResumeData = {
       bullets: [
         {
           label: "Agent 编排",
-          text: "LangGraph 四节点状态机（意图识别 → RAG 检索 + 工具调用 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口直接跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。",
+          text: "LangGraph 六节点状态机（意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 低置信查询改写 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口直接跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。",
+        },
+        {
+          label: "Agent Harness 建设",
+          text: "Agent 骨架层的主要工作量在编排之外：Corrective RAG 自纠循环（检索质量不达标则改写查询重检）、3 类业务工具统一错误分类与降级返回、SSE 流式输出、会话状态持久化与中断恢复、五类外部依赖本地替身；136 项 pytest + 10 条 Playwright E2E 覆盖 harness 各分支，保证换模型、换后端、断依赖都不改状态图。",
         },
         {
           label: "HITL 审批硬闸门",
@@ -150,7 +154,7 @@ export const backendResume: ResumeData = {
         },
         {
           label: "双后端同契约",
-          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，9 条 Playwright E2E 用例守护契约与双后端输出一致性；LLM / Embedding / 业务系统 / 工单 / 邮件五类外部依赖均可降级本地替身，零外部依赖离线演示。",
+          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，136 项 pytest 与 10 条 Playwright E2E 用例守护契约与双后端输出一致性；LLM / Embedding / 业务系统 / 工单 / 邮件五类外部依赖均可降级本地替身，零外部依赖离线演示。",
         },
         {
           label: "项目成效",
@@ -201,6 +205,10 @@ export const backendResume: ResumeData = {
         {
           label: "意图理解",
           text: "LLM 结构化输出（Pydantic schema 约束）优先、规则解析兜底，保证离线可用与测试确定；理解增益交给 LLM，安全边界交给规则 + HITL。",
+        },
+        {
+          label: "Agent Harness 建设",
+          text: "能力封装成协议无关工具函数，由 MCP Server 与 langchain @tool 两个薄 adapter 同源暴露，换接入方式不改业务逻辑；破坏性操作 confirm 二次门控 + interrupt 中断，253 项测试覆盖 harness 各分支与失败路径。",
         },
         {
           label: "MCP 工具暴露",

@@ -55,17 +55,18 @@ GitHub：https://github.com/c524069797/enterprise-agent-platform
 
 **核心功能**：
 
-1. **Agent 编排**：LangGraph 四节点状态机，意图识别 → RAG 检索 + 工具调用 → 人工审批门 → 回答组装；checkpointer 按 thread 持久化会话状态，审批恢复时条件入口直接跳过前置节点继续执行。9 类业务意图采用规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。
-2. **HITL 审批硬闸门**：数据导出、发送邮件、越权动作等敏感操作在图内暂停并生成待审批载荷，人工通过审批接口决策后恢复执行——状态机层面的硬中断，审批前动作真实不会执行。
-3. **检索链路**：Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，支持 metadata 分类过滤、来源溯源与父子检索；检索证据写入审计日志，每条回答可追溯到证据来源。
-4. **权限与审计**：RBAC 角色映射 Agent 调用权限，5 类岗位 Agent 按登录者权限可见可用；每次对话、表格操作与 Agent 运行全量审计（操作者 / 对象 / 结果 / 风险级 / 耗时）。
-5. **工程化落地**：FastAPI 封装 RESTful API，React 18 对话工作台，Docker Compose 容器化 + Nginx 反向代理；LLM / Embedding / 业务系统 / Redmine / SMTP 五类外部依赖均可降级为本地替身，零外部依赖离线演示。
+1. **Agent 编排**：LangGraph 六节点状态机，意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 低置信查询改写 → 人工审批门 → 回答组装；checkpointer 按 thread 持久化会话状态，审批恢复时条件入口直接跳过前置节点继续执行。9 类业务意图采用规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。
+2. **Agent Harness 建设**：围绕 LangGraph 搭建可长期运行的 Agent 骨架——Corrective RAG 自纠循环（检索质量不达标则改写查询重检）、3 类业务工具统一错误分类与降级返回、SSE 流式输出、会话状态持久化与中断恢复；**136 项 pytest + 10 条 Playwright E2E** 守护 harness 各分支行为不回归。
+3. **HITL 审批硬闸门**：数据导出、发送邮件、越权动作等敏感操作在图内暂停并生成待审批载荷，人工通过审批接口决策后恢复执行——状态机层面的硬中断，审批前动作真实不会执行。
+4. **检索链路**：Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，支持 metadata 分类过滤、来源溯源与父子检索；检索证据写入审计日志，每条回答可追溯到证据来源。
+5. **权限与审计**：RBAC 角色映射 Agent 调用权限，5 类岗位 Agent 按登录者权限可见可用；每次对话、表格操作与 Agent 运行全量审计（操作者 / 对象 / 结果 / 风险级 / 耗时）。
+6. **工程化落地**：FastAPI 封装 RESTful API，React 18 对话工作台，Docker Compose 容器化 + Nginx 反向代理；LLM / Embedding / 业务系统 / Redmine / SMTP 五类外部依赖均可降级为本地替身，零外部依赖离线演示。
 
 **项目成效**：
 
 - 企业落地版已接入售后、技术支持团队日常工作流，覆盖 80% 以上高频咨询场景（审批解释、报错诊断、进度追踪），平均响应从分钟级降至秒级，减少重复工单约 30%
 - 敏感操作 100% 经人工审批后执行，审批前零副作用；对话与 Agent 运行全量审计，回答证据链可追溯
-- 后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，9 条 Playwright E2E 用例守护契约、布局信息架构与双后端输出一致性，保障持续迭代不回归
+- 后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，10 条 Playwright E2E 用例守护契约、布局信息架构与双后端输出一致性，保障持续迭代不回归
 
 ### ArcFlow LLM Gateway 统一模型接入层（Java 独立服务）
 

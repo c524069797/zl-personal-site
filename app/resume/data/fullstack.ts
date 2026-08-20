@@ -100,7 +100,11 @@ export const fullstackResume: ResumeData = {
         },
         {
           label: "Agent 编排",
-          text: "LangGraph 四节点状态机（意图识别 → RAG 检索+工具调用 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。",
+          text: "LangGraph 六节点状态机（意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 低置信查询改写 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。",
+        },
+        {
+          label: "Agent Harness 建设",
+          text: "围绕 LangGraph 搭建可长期运行的 Agent 骨架：Corrective RAG 自纠循环（检索质量不达标则改写查询重检）、3 类业务工具统一错误分类与降级返回、SSE 流式输出、会话状态持久化与中断恢复；136 项 pytest + 10 条 Playwright E2E 守护 harness 各分支行为不回归。",
         },
         {
           label: "HITL 审批硬闸门",
@@ -124,7 +128,7 @@ export const fullstackResume: ResumeData = {
         },
         {
           label: "工程质量",
-          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，9 条 Playwright E2E 用例守护契约、布局信息架构与双后端输出一致性，保障持续迭代不回归。",
+          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，136 项 pytest 与 10 条 Playwright E2E 用例守护契约、布局信息架构与双后端输出一致性，保障持续迭代不回归。",
         },
       ],
     },
@@ -164,6 +168,10 @@ export const fullstackResume: ResumeData = {
         {
           label: "Agent 编排 + HITL",
           text: "LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作用 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故，HITL 是硬约束。",
+        },
+        {
+          label: "Agent Harness 建设",
+          text: "把「模型能说」做成「系统能干」：Pydantic schema 约束结构化输出、规则解析兜底保证离线可用与测试确定、能力封装成协议无关工具函数由 MCP Server 与 langchain @tool 两个薄 adapter 同源暴露、破坏性操作 confirm 二次门控；253 项测试覆盖 harness 各分支。",
         },
         {
           label: "双引擎架构",

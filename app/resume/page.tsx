@@ -162,24 +162,20 @@ export default function ResumePage() {
   const [template, setTemplate] = useState<TemplateKey>("showcase");
   const [version, setVersion] = useState<ResumeVersion>("fullstack");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isGeneratingFrontend, setIsGeneratingFrontend] = useState(false);
 
   const data = resumeDataMap[version];
 
-  const downloadPdf = async (pdfVersion: "fullstack" | "frontend") => {
-    const setLoading = pdfVersion === "frontend" ? setIsGeneratingFrontend : setIsGenerating;
-    setLoading(true);
+  // PDF 与页面同源：导出的永远是当前选中的版本
+  const downloadPdf = async () => {
+    setIsGenerating(true);
     try {
-      const response = await fetch(`/api/resume/pdf?template=${template}&version=${pdfVersion}`);
+      const response = await fetch(`/api/resume/pdf?template=${template}&version=${version}`);
       if (!response.ok) throw new Error("生成 PDF 失败");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download =
-        pdfVersion === "frontend"
-          ? `陈子龙-前端工程师(AI方向)-简历-${new Date().getFullYear()}.pdf`
-          : `陈子龙-AI全栈工程师-简历-${new Date().getFullYear()}.pdf`;
+      a.download = `陈子龙-${data.tabLabel}-简历-${new Date().getFullYear()}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -188,11 +184,10 @@ export default function ResumePage() {
       console.error("下载 PDF 失败:", error);
       alert("下载 PDF 失败，请稍后重试");
     } finally {
-      setLoading(false);
+      setIsGenerating(false);
     }
   };
 
-  const handleDownload = () => downloadPdf("fullstack");
 
   return (
     <main className="resume-page" data-resume-theme={template}>
@@ -236,19 +231,10 @@ export default function ResumePage() {
               <Button
                 className="resume-download-button"
                 loading={isGenerating}
-                onClick={handleDownload}
+                onClick={downloadPdf}
                 size="sm"
               >
-                {isGenerating ? "生成中..." : "下载简历"}
-              </Button>
-              <Button
-                className="resume-download-button"
-                loading={isGeneratingFrontend}
-                onClick={() => downloadPdf("frontend")}
-                size="sm"
-                variant="secondary"
-              >
-                {isGeneratingFrontend ? "生成中..." : "前端版 PDF"}
+                {isGenerating ? "生成中..." : `下载 ${data.tabLabel} PDF`}
               </Button>
             </div>
           </div>
@@ -277,6 +263,10 @@ export default function ResumePage() {
               </div>
             </div>
           </header>
+
+          <ResumeSection title="个人优势">
+            <MetricList items={renderBullets(data.advantages)} />
+          </ResumeSection>
 
           <ResumeSection title="个人简介">
             <p className="resume-entry-desc">{data.summary}</p>
@@ -390,9 +380,6 @@ export default function ResumePage() {
             </div>
           </ResumeSection>
 
-          <ResumeSection title="个人优势">
-            <MetricList items={renderBullets(data.advantages)} />
-          </ResumeSection>
         </Paper>
       </div>
     </main>

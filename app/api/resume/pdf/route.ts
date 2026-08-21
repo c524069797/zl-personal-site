@@ -10,7 +10,12 @@ export async function GET(request: NextRequest) {
     const host = request.headers.get("host") || "localhost:3000";
     const template = request.nextUrl.searchParams.get("template") || "tech";
     const version = request.nextUrl.searchParams.get("version") || "fullstack";
-    const printPath = version === "frontend" ? "/resume/print/frontend" : "/resume/print";
+    const printPath =
+      version === "frontend"
+        ? "/resume/print/frontend"
+        : version === "backend"
+        ? "/resume/print/backend"
+        : "/resume/print";
 
     const resumeUrl = `${protocol}://${host}${printPath}?template=${encodeURIComponent(template)}`;
 
@@ -77,10 +82,13 @@ export async function GET(request: NextRequest) {
 
     await browser.close();
 
-    const filename =
+    const roleLabel =
       version === "frontend"
-        ? `陈子龙-前端工程师(AI方向)-简历-${new Date().getFullYear()}.pdf`
-        : `陈子龙-AI全栈工程师-简历-${new Date().getFullYear()}.pdf`;
+        ? "前端工程师(AI方向)"
+        : version === "backend"
+        ? "AI Agent后端工程师"
+        : "AI全栈工程师";
+    const filename = `陈子龙-${roleLabel}-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
     return new NextResponse(Buffer.from(pdf), {

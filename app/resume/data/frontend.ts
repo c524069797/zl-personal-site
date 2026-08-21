@@ -11,48 +11,50 @@ export const frontendResume: ResumeData = {
 
   skillGroups: [
     {
-      title: "前端框架与工程化",
+      title: "前端",
       iconKey: "frontend",
       skills: [
         "React",
         "Next.js",
         "Vue 3",
         "TypeScript",
-        "Vite",
-        "Webpack",
-        "ESLint",
-        "Vitest",
-        "Playwright",
-      ],
-    },
-    {
-      title: "UI 与性能",
-      iconKey: "agent",
-      skills: [
         "Ant Design",
         "Tailwind CSS",
         "ECharts",
+        "Vite",
+        "Webpack",
+        "Vitest",
+        "Playwright",
         "性能优化",
         "虚拟滚动",
         "SSR / SEO",
         "React Three Fiber",
         "Framer Motion",
-        "WebSocket",
+        "React Native",
       ],
     },
     {
-      title: "AI 前端与后端协作",
-      iconKey: "backend",
+      title: "AI 技能",
+      iconKey: "agent",
       skills: [
         "SSE 流式对话",
         "LangGraph",
         "RAG",
+        "Tool Calling",
+        "HITL 人工审批",
+      ],
+    },
+    {
+      title: "后端",
+      iconKey: "backend",
+      skills: [
         "Java",
         "Spring Boot",
         "Python",
         "FastAPI",
         "PostgreSQL",
-        "React Native",
+        "Redis",
+        "WebSocket",
       ],
     },
   ],
@@ -175,6 +177,10 @@ export const frontendResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantages: [
+    {
+      label: "AI 信息敏感，想法直接做成 MVP",
+      text: "长期跟踪大模型、Agent 与 AI 工具链的进展，习惯第一时间判断新方向能不能落到业务上；判断完不停在讨论，直接搭 MVP 跑通验证——ArcFlow、BackupPilot、LLM Gateway 都是这么从一个判断做成可运行、可演示的系统。",
+    },
     {
       label: "前端深度 + 多形态交付",
       text: "从企业级中后台（50+ 资源类型向导框架、40+ 组件库、拖拽式可视化大屏）到 AI 对话产品前端与跨端移动应用，多种形态前端均有完整交付经验，能独立承担前端架构设计而不只是页面实现。",

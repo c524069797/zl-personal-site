@@ -11,7 +11,7 @@ export const fullstackResume: ResumeData = {
 
   skillGroups: [
     {
-      title: "AI Agent 技能",
+      title: "AI 技能",
       iconKey: "agent",
       skills: [
         "LangGraph",
@@ -25,7 +25,7 @@ export const fullstackResume: ResumeData = {
       ],
     },
     {
-      title: "后端 / 数据技能",
+      title: "后端",
       iconKey: "backend",
       skills: [
         "Java",
@@ -42,7 +42,7 @@ export const fullstackResume: ResumeData = {
       ],
     },
     {
-      title: "前端技能",
+      title: "前端",
       iconKey: "frontend",
       skills: [
         "React",
@@ -230,6 +230,10 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantages: [
+    {
+      label: "AI 信息敏感，想法直接做成 MVP",
+      text: "长期跟踪大模型、Agent 与 AI 工具链的进展，习惯第一时间判断新方向能不能落到业务上；判断完不停在讨论，直接搭 MVP 跑通验证——ArcFlow、BackupPilot、LLM Gateway 都是这么从一个判断做成可运行、可演示的系统。",
+    },
     {
       label: "有已上线的企业级 Agent 落地经验",
       text: "从 0 到 1 主导客服 Agent 上线运营，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；并将该经验平台化为完整的企业 Agent 系统（LangGraph + RAG + HITL 审批 + RBAC + 审计）。",

@@ -59,5 +59,6 @@ export interface ResumeData {
   experience: ExperienceEntry[];
   projects: ProjectEntry[];
   otherWorks: OtherWork[];
-  advantages: Bullet[];
+  /** 个人优势：一句话，控制在 50-60 字 */
+  advantage: string;
 }

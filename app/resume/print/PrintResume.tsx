@@ -176,7 +176,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
               {sectionDot}
               个人优势
             </h2>
-            <BulletItems bullets={data.advantages} className="list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800" />
+            <p className="text-[11px] leading-relaxed text-gray-800">{data.advantage}</p>
           </section>
         )}
 

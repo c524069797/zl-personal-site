@@ -234,30 +234,6 @@ export const backendResume: ResumeData = {
 
   otherWorks: OTHER_WORKS,
 
-  advantages: [
-    {
-      label: "AI 信息敏感，想法直接做成 MVP",
-      text: "长期跟踪大模型、Agent 与 AI 工具链的进展，习惯第一时间判断新方向能不能落到业务上；判断完不停在讨论，直接搭 MVP 跑通验证——ArcFlow、BackupPilot、LLM Gateway 都是这么从一个判断做成可运行、可演示的系统。",
-    },
-    {
-      label: "有已上线的企业级 Agent 后端落地经验",
-      text: "从 0 到 1 主导客服 Agent 上线运营，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；并将该经验平台化为完整企业 Agent 系统（LangGraph 状态机 + RAG + HITL 审批 + RBAC + 全量审计）。",
-    },
-    {
-      label: "后端业务母题全部有真实落地",
-      text: "审批状态机、幂等设计、缓存一致性、MQ 事件解耦与消费幂等、定时对账兜底、分布式限流、熔断降级——不是背概念，每一条都能指到具体系统和代码。",
-    },
-    {
-      label: "Java + Python 双栈可查证",
-      text: "LLM Gateway 是 Java 21 + Spring Boot 3 独立服务（GitHub 可查），ArcFlow 提供 FastAPI 与 Spring AI 同契约双后端实现，两条技术栈都有可运行代码和测试。",
-    },
-    {
-      label: "工程化视角做 AI",
-      text: "关注状态持久化、审批闸门、权限边界、失败降级、评估与审计，目标是能长期运行、可审计、可维护的系统，不做 prompt 玩具。",
-    },
-    {
-      label: "能独立交付全链路",
-      text: "具备前端生产经验，可独立完成「数据接入 → Agent 编排 → 工具调用 → 接口设计 → 前端交付 → E2E 验收」，小团队即插即用。",
-    },
-  ],
+  advantage:
+    "善于捕捉 AI 前沿信息并快速做成 MVP 验证，习惯用工程化视角把新能力做成能长期运行、可审计的系统。",
 };

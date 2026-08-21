@@ -176,26 +176,6 @@ export const frontendResume: ResumeData = {
 
   otherWorks: OTHER_WORKS,
 
-  advantages: [
-    {
-      label: "AI 信息敏感，想法直接做成 MVP",
-      text: "长期跟踪大模型、Agent 与 AI 工具链的进展，习惯第一时间判断新方向能不能落到业务上；判断完不停在讨论，直接搭 MVP 跑通验证——ArcFlow、BackupPilot、LLM Gateway 都是这么从一个判断做成可运行、可演示的系统。",
-    },
-    {
-      label: "前端深度 + 多形态交付",
-      text: "从企业级中后台（50+ 资源类型向导框架、40+ 组件库、拖拽式可视化大屏）到 AI 对话产品前端与跨端移动应用，多种形态前端均有完整交付经验，能独立承担前端架构设计而不只是页面实现。",
-    },
-    {
-      label: "AI 应用前端稀缺经验",
-      text: "做过真实上线的 Agent 对话产品前端（流式输出、引用溯源、HITL 审批交互、转人工），且理解 Agent/RAG 底层链路，是「会做 AI 产品的前端」。",
-    },
-    {
-      label: "工程化与质量意识",
-      text: "ESLint 零警告门禁、Playwright E2E 契约测试、CI/CD 交付门禁的长期实践者，代码可长期迭代不劣化。",
-    },
-    {
-      label: "全栈兜底能力",
-      text: "Java / Python 后端均有生产实践，能独立完成 BFF 与全栈交付，联调排查效率高，不依赖后端排期。",
-    },
-  ],
+  advantage:
+    "善于捕捉 AI 前沿信息并快速做成 MVP 验证，能把 Agent、RAG 这类新能力做成用户真正用得起来的产品界面。",
 };

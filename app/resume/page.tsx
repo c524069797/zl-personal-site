@@ -265,7 +265,7 @@ export default function ResumePage() {
           </header>
 
           <ResumeSection title="个人优势">
-            <MetricList items={renderBullets(data.advantages)} />
+            <p className="resume-entry-desc">{data.advantage}</p>
           </ResumeSection>
 
           <ResumeSection title="个人简介">

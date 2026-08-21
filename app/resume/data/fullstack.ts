@@ -229,30 +229,6 @@ export const fullstackResume: ResumeData = {
 
   otherWorks: OTHER_WORKS,
 
-  advantages: [
-    {
-      label: "AI 信息敏感，想法直接做成 MVP",
-      text: "长期跟踪大模型、Agent 与 AI 工具链的进展，习惯第一时间判断新方向能不能落到业务上；判断完不停在讨论，直接搭 MVP 跑通验证——ArcFlow、BackupPilot、LLM Gateway 都是这么从一个判断做成可运行、可演示的系统。",
-    },
-    {
-      label: "有已上线的企业级 Agent 落地经验",
-      text: "从 0 到 1 主导客服 Agent 上线运营，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；并将该经验平台化为完整的企业 Agent 系统（LangGraph + RAG + HITL 审批 + RBAC + 审计）。",
-    },
-    {
-      label: "AI 全栈闭环能力",
-      text: "React/Next.js 前端 + Java/Spring Boot 与 FastAPI/Python 双栈服务 + MySQL/PostgreSQL/向量库，能独立完成「数据接入 → Agent 编排 → 工具调用 → 前端交付 → Playwright 验收」的完整链路，不停留在模型调用层。",
-    },
-    {
-      label: "复杂业务系统架构底座",
-      text: "长期负责企业级备份系统、许可证系统等复杂流程型产品，主导 50+ 资源类型统一流程抽象与可编辑监控大屏，具备把碎片化业务收敛成可扩展架构的能力。",
-    },
-    {
-      label: "持续关注 AI 前沿并快速转化实践",
-      text: "长期关注大模型、Agent、RAG 与 AI 开发工具的新进展，是多个 AI 交流社区的深度参与者；能够将新方向快速转化为可验证方案，并沉淀为可落地的功能与方法。",
-    },
-    {
-      label: "学习主动性强，重视实践验证",
-      text: "面对新方向不止停留在概念理解，而是倾向于主动搭建 Demo、验证可行性并结合真实业务持续迭代，形成从学习、实践到复用的方法沉淀。",
-    },
-  ],
+  advantage:
+    "善于捕捉 AI 前沿信息并判断能否落地，想法能快速做成 MVP 验证——已把三个判断做成上线运行或可完整演示的系统。",
 };

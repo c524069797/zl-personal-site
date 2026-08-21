@@ -99,10 +99,10 @@ export const backendResume: ResumeData = {
 
   projects: [
     {
-      title: "ArcFlow LLM Gateway 统一模型接入层",
+      title: "ArcFlow LLM Gateway 模型接入网关",
       href: "https://github.com/c524069797/llm-gateway-java",
       stack: "Java 21（虚拟线程）/ Spring Boot 3.5 / Resilience4j / Redis",
-      desc: "个人项目｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
+      desc: "ArcFlow 平台的模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
       bullets: [
         {
           label: "路由打分与熔断透明降级",
@@ -134,31 +134,23 @@ export const backendResume: ResumeData = {
       bullets: [
         {
           label: "Agent 编排",
-          text: "LangGraph 六节点状态机（意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 低置信查询改写 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口直接跳过前置节点继续执行；9 类业务意图规则 O(1) 先行 + LLM 兜底，高频路径零 LLM 开销。",
+          text: "LangGraph 六节点状态机（意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 低置信查询改写 → 人工审批门 → 回答组装），checkpointer 按 thread 持久化会话状态，审批恢复时条件入口直接跳过前置节点继续执行；9 类业务意图关键词规则先行、LLM 兜底，高频路径零 LLM 开销。",
         },
         {
           label: "Agent Harness 建设",
-          text: "Agent 骨架层的主要工作量在编排之外：Corrective RAG 自纠循环（检索质量不达标则改写查询重检）、3 类业务工具统一错误分类与降级返回、SSE 流式输出、会话状态持久化与中断恢复、五类外部依赖本地替身；136 项 pytest + 10 条 Playwright E2E 覆盖 harness 各分支，保证换模型、换后端、断依赖都不改状态图。",
+          text: "Agent 骨架层的主要工作量在编排之外：Corrective RAG 自纠循环、3 类业务工具统一错误分类与降级返回、SSE 流式输出、会话状态持久化与中断恢复、五类外部依赖本地替身；136 项 pytest + 10 条 Playwright E2E 覆盖各分支，保证换模型、换后端、断依赖都不改状态图。",
         },
         {
           label: "HITL 审批硬闸门",
           text: "数据导出、发送邮件、越权动作等敏感操作在图内暂停并生成待审批载荷，人工决策后按 thread 恢复执行——状态机层面的硬中断，审批前动作真实不会执行。",
         },
         {
-          label: "检索链路",
-          text: "Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，支持 metadata 分类过滤、来源溯源与父子检索；检索证据写入审计日志，每条回答可追溯到证据来源。",
+          label: "检索链路与权限审计",
+          text: "Qdrant 向量检索 + 关键词混合检索 → GraphRAG 关系扩展，支持 metadata 过滤、来源溯源与父子检索；RBAC 角色映射 Agent 调用权限，对话、表格操作与 Agent 运行全量审计，检索证据一并入库可追溯。",
         },
         {
-          label: "权限与审计",
-          text: "RBAC 角色映射 Agent 调用权限，5 类岗位 Agent 按登录者权限可见可用；每次对话、表格操作与 Agent 运行全量审计（操作者/对象/结果/风险级/耗时）。",
-        },
-        {
-          label: "双后端同契约",
-          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，136 项 pytest 与 10 条 Playwright E2E 用例守护契约与双后端输出一致性；LLM / Embedding / 业务系统 / 工单 / 邮件五类外部依赖均可降级本地替身，零外部依赖离线演示。",
-        },
-        {
-          label: "项目成效",
-          text: "企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%；敏感操作 100% 经人工审批后执行，审批前零副作用。",
+          label: "双后端同契约与成效",
+          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，输出一致性由 E2E 用例守护；企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%。",
         },
       ],
     },
@@ -199,28 +191,20 @@ export const backendResume: ResumeData = {
           text: "LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作用 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故，HITL 是硬约束。",
         },
         {
+          label: "Agent Harness 建设",
+          text: "LLM 结构化输出（Pydantic schema 约束）优先、规则解析兜底保证离线可用；能力封装成协议无关工具函数，由 MCP Server 与 langchain @tool 两个薄 adapter 同源暴露，换接入方式不改业务逻辑；破坏性操作 confirm 二次门控。",
+        },
+        {
           label: "双引擎架构（换引擎不换大脑）",
           text: "统一 BackupEngine 接口，local 自研引擎（sha256 内容寻址去重 + zstd 压缩 + mtime 增量 + 原子写）与企业备份平台适配器实现同一抽象；适配层把接口方法翻译成平台 REST 调用（Bearer 认证，备份走「创建任务 → 轮询到终态」异步任务模型），一个环境变量切换引擎，状态图一行不改。",
         },
         {
-          label: "意图理解",
-          text: "LLM 结构化输出（Pydantic schema 约束）优先、规则解析兜底，保证离线可用与测试确定；理解增益交给 LLM，安全边界交给规则 + HITL。",
-        },
-        {
-          label: "Agent Harness 建设",
-          text: "能力封装成协议无关工具函数，由 MCP Server 与 langchain @tool 两个薄 adapter 同源暴露，换接入方式不改业务逻辑；破坏性操作 confirm 二次门控 + interrupt 中断，253 项测试覆盖 harness 各分支与失败路径。",
-        },
-        {
-          label: "MCP 工具暴露",
-          text: "能力封装成协议无关工具函数，MCP Server 与 langchain @tool 两个薄 adapter 同源；破坏性 restore 带 confirm 二次门控，LLM / 外部客户端也无法误覆盖数据。",
-        },
-        {
           label: "数据安全",
-          text: "恢复逐文件校验拒写坏数据 + 恢复演练 drill、路径穿越防护、SQLite 并发安全；备份仓库信封加密（scrypt 派生密钥 + AES-GCM + HMAC 对象名防指纹泄露），改口令 O(1) 无需重加密。",
+          text: "恢复逐文件校验拒写坏数据、路径穿越防护、SQLite 并发安全；备份仓库信封加密（scrypt 派生密钥 + AES-GCM + HMAC 对象名防指纹泄露），改口令 O(1) 无需重加密。",
         },
         {
           label: "项目成效",
-          text: "253 项测试全绿，E2E 拉起模拟平台后端走 HTTP 全链路；GB 级基准实测：1GB 首备 84 MB/s、去重压缩 4.8x、修改 1% 后增量 0.7s、加密开销约 5%；接入企业备份平台时定位并解决内网代理劫持 502（私网地址默认直连）。",
+          text: "253 项测试全绿，E2E 拉起模拟平台后端走 HTTP 全链路；GB 级基准实测：1GB 首备 84 MB/s、去重压缩 4.8x、修改 1% 后增量 0.7s、加密开销约 5%；已接入企业备份平台跑通备份 / 恢复 / 巡检闭环。",
         },
       ],
     },

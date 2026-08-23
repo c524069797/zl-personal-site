@@ -170,38 +170,28 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
           </div>
         </header>
 
-        {showAdvantages && (
-          <section className="mb-3">
-            <h2 className={sectionTitle}>
-              {sectionDot}
-              个人优势
-            </h2>
-            <p className="text-[11px] leading-relaxed text-gray-800">{data.advantage}</p>
-          </section>
-        )}
-
         <section className="mb-3">
           <h2 className={sectionTitle}>
             {sectionDot}
-            教育经历 / 语言能力
+            个人概览
           </h2>
-          <div className="flex items-baseline justify-between text-xs">
-            <span className="font-medium">吉首大学 · 软件工程（本科）</span>
-            <span className={isNavy ? "text-indigo-400" : "text-gray-400"}>2017.09 – 2021.06</span>
-          </div>
-          <div className="mt-1 flex flex-wrap gap-1.5">
-            <SkillTag template={template}>CET-6</SkillTag>
-            <SkillTag template={template}>软件设计师（中级）</SkillTag>
-          </div>
-          <p className={expDesc}>英文技术文档阅读通畅，具备日语听读能力</p>
-        </section>
+          {showAdvantages && (
+            <p className="mb-1 text-[11px] font-semibold leading-relaxed text-gray-900">{data.advantage}</p>
+          )}
+          <p className="mb-2 text-[11px] leading-relaxed text-gray-700">{data.summary}</p>
 
-        <section className="mb-3">
-          <h2 className={sectionTitle}>
-            {sectionDot}
-            专业技能
-          </h2>
-          <div className="space-y-1 text-xs">
+          <div className="flex gap-2 text-xs">
+            <span className="w-14 shrink-0 font-medium text-gray-700">教育：</span>
+            <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-gray-600">
+              <span>吉首大学 · 软件工程（本科）</span>
+              <span className={isNavy ? "text-indigo-400" : "text-gray-400"}>2017.09 – 2021.06</span>
+              <SkillTag template={template}>CET-6</SkillTag>
+              <SkillTag template={template}>软件设计师（中级）</SkillTag>
+              <span className="text-gray-500">英文技术文档阅读通畅，具备日语听读能力</span>
+            </span>
+          </div>
+
+          <div className="mt-1 space-y-1 text-xs">
             {data.skillGroups.map((g) => (
               <div className="flex gap-2" key={g.title}>
                 <span className="w-14 shrink-0 font-medium text-gray-700">{g.title}：</span>

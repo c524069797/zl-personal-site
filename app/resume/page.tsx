@@ -264,49 +264,36 @@ export default function ResumePage() {
             </div>
           </header>
 
-          <ResumeSection title="个人优势">
-            <p className="resume-entry-desc">{data.advantage}</p>
-          </ResumeSection>
-
-          <ResumeSection title="个人简介">
+          <ResumeSection title="个人概览">
+            <p className="resume-highlight">{data.advantage}</p>
             <p className="resume-entry-desc">{data.summary}</p>
-          </ResumeSection>
 
-          <ResumeSection title="教育经历 / 语言能力">
-            <div className="resume-education-grid">
-              <Card className="resume-info-card" padding="sm">
-                <div className="resume-info-title">吉首大学｜软件工程（本科）</div>
-                <div className="resume-muted">2017.09 - 2021.06</div>
-              </Card>
-
-              <div className="resume-education-aside">
-                <div className="resume-tag-row resume-tag-row--end">
-                  <SkillTag>CET-6</SkillTag>
-                  <SkillTag>软件设计师（中级）</SkillTag>
-                </div>
-                <div className="resume-muted">英文技术文档阅读通畅，具备日语听读能力</div>
+            <div className="resume-overview-row">
+              <span className="resume-overview-label">教育</span>
+              <div className="resume-overview-body">
+                <span className="resume-info-title">吉首大学｜软件工程（本科）</span>
+                <span className="resume-muted">2017.09 - 2021.06</span>
+                <SkillTag>CET-6</SkillTag>
+                <SkillTag>软件设计师（中级）</SkillTag>
+                <span className="resume-muted">英文技术文档阅读通畅，具备日语听读能力</span>
               </div>
             </div>
-          </ResumeSection>
 
-          <ResumeSection title="专业技能">
-            <div className="resume-card-grid">
-              {data.skillGroups.map((group) => (
-                <Card className="resume-skill-card" key={group.title} padding="sm">
-                  <div className="resume-skill-line">
-                    <div className="resume-card-title">
-                      <IconBadge>{groupIcons[group.iconKey]}</IconBadge>
-                      <span>{group.title}：</span>
-                    </div>
-                    {group.skills.map((skill) => (
-                      <SkillTag icon={skillIcons[skill]} key={skill}>
-                        {skill}
-                      </SkillTag>
-                    ))}
-                  </div>
-                </Card>
-              ))}
-            </div>
+            {data.skillGroups.map((group) => (
+              <div className="resume-overview-row" key={group.title}>
+                <span className="resume-overview-label">
+                  <IconBadge size="sm">{groupIcons[group.iconKey]}</IconBadge>
+                  {group.title}
+                </span>
+                <div className="resume-overview-body">
+                  {group.skills.map((skill) => (
+                    <SkillTag icon={skillIcons[skill]} key={skill}>
+                      {skill}
+                    </SkillTag>
+                  ))}
+                </div>
+              </div>
+            ))}
           </ResumeSection>
 
           <ResumeSection title="工作经历">

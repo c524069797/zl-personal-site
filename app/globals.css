@@ -437,7 +437,56 @@ body {
 }
 
 /* 简历纸张在暗黑模式下使用高对比度浅色文字 */
-.dark .resume-paper {
+.dark /* 个人概览：优势句 + 简介 + 教育 + 技能合成一节，用行内小标签替代四个大节标题 */
+.resume-highlight {
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.7;
+  margin: 0 0 6px;
+}
+
+.resume-overview-row {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.resume-overview-label {
+  align-items: center;
+  color: #4b5563;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 4px;
+  width: 62px;
+}
+
+.dark .resume-overview-label {
+  color: #d1d5db;
+}
+
+.resume-overview-body {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .resume-overview-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .resume-overview-label {
+    width: auto;
+  }
+}
+
+.resume-paper {
   color: #e5e7eb;
 }
 

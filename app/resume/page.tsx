@@ -36,6 +36,7 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
+import { renderRich } from "./rich-text";
 import { RESUME_VERSIONS, resumeDataMap } from "./data";
 import type { Bullet, ResumeVersion, SkillIconKey } from "./data";
 
@@ -265,17 +266,18 @@ export default function ResumePage() {
           </header>
 
           <ResumeSection title="个人概览">
-            <p className="resume-highlight">{data.advantage}</p>
-            <p className="resume-entry-desc">{data.summary}</p>
+            <div className="resume-overview">
+              <p className="resume-highlight">{renderRich(data.advantage)}</p>
+              <p className="resume-overview-summary">{data.summary}</p>
 
             <div className="resume-overview-row">
               <span className="resume-overview-label">教育</span>
               <div className="resume-overview-body">
-                <span className="resume-info-title">吉首大学｜软件工程（本科）</span>
-                <span className="resume-muted">2017.09 - 2021.06</span>
+                <span className="resume-overview-strong">吉首大学｜软件工程（本科）</span>
+                <span>2017.09 - 2021.06</span>
                 <SkillTag>CET-6</SkillTag>
                 <SkillTag>软件设计师（中级）</SkillTag>
-                <span className="resume-muted">英文技术文档阅读通畅，具备日语听读能力</span>
+                <span>英文技术文档阅读通畅，具备日语听读能力</span>
               </div>
             </div>
 
@@ -293,7 +295,8 @@ export default function ResumePage() {
                   ))}
                 </div>
               </div>
-            ))}
+              ))}
+            </div>
           </ResumeSection>
 
           <ResumeSection title="工作经历">

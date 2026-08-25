@@ -11,8 +11,47 @@ export interface Post {
   date: string;
   summary: string;
   tags: string[];
+  category?: string;
   draft?: boolean;
   content: string;
+}
+
+export interface BlogListPost {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  summary: string;
+  category: string;
+  tags: Array<{ name: string; slug: string }>;
+  commentCount: number;
+  readingTime?: number;
+}
+
+export interface BlogTag {
+  id: string;
+  name: string;
+  slug: string;
+  count: number;
+}
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+  count: number;
+  color: string;
+}
+
+export interface BlogSidebarData {
+  hotPosts: BlogListPost[];
+  tags: BlogTag[];
+  categories: BlogCategory[];
+}
+
+export interface BlogPageData extends BlogSidebarData {
+  posts: BlogListPost[];
+  total: number;
 }
 
 // 从数据库获取所有文章
@@ -40,10 +79,11 @@ async function getAllPostsFromDB(): Promise<Post[]> {
       date: post.date.toISOString(),
       summary: post.summary || '',
       tags: post.tags.map((pt) => pt.tag.name),
+      category: post.category || 'tech',
       draft: !post.published,
       content: post.content,
     }));
-  } catch (error) {
+  } catch {
     // 如果数据库连接失败，回退到文件系统
     return [];
   }
@@ -70,6 +110,7 @@ function getAllPostsFromFS(): Post[] {
         date: data.date || "",
         summary: data.summary || "",
         tags: data.tags || [],
+        category: data.category || "tech",
         draft: data.draft || false,
         content,
       };
@@ -86,17 +127,173 @@ function getAllPostsFromFS(): Post[] {
   return allPostsData;
 }
 
+function toBlogListPost(post: Post, id = `file:${post.slug}`): BlogListPost {
+  return {
+    id,
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    summary: post.summary,
+    category: post.category || 'tech',
+    tags: post.tags.map((tag) => ({
+      name: tag,
+      slug: tag.toLowerCase().replace(/\s+/g, '-'),
+    })),
+    commentCount: 0,
+    readingTime: Math.ceil((post.content?.length || 0) / 200),
+  };
+}
+
+async function getBlogListPostsFromDB(): Promise<BlogListPost[]> {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        published: true,
+      },
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        date: true,
+        summary: true,
+        category: true,
+        content: true,
+        tags: {
+          select: {
+            tag: {
+              select: {
+                name: true,
+                slug: true,
+              },
+            },
+          },
+        },
+        _count: {
+          select: {
+            comments: {
+              where: {
+                approved: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        date: 'desc',
+      },
+    });
+
+    return posts.map((post) => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      date: post.date.toISOString(),
+      summary: post.summary || '',
+      category: post.category || 'tech',
+      tags: post.tags.map(({ tag }) => tag),
+      commentCount: post._count.comments,
+      readingTime: Math.ceil((post.content?.length || 0) / 200),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+function getBlogListPostsFromFS(): BlogListPost[] {
+  return getAllPostsFromFS().map((post) => toBlogListPost(post));
+}
+
+function mergeBlogListPosts(dbPosts: BlogListPost[], filePosts: BlogListPost[]): BlogListPost[] {
+  const postsBySlug = new Map(dbPosts.map((post) => [post.slug, post]));
+
+  for (const filePost of filePosts) {
+    if (!postsBySlug.has(filePost.slug)) {
+      postsBySlug.set(filePost.slug, filePost);
+    }
+  }
+
+  return Array.from(postsBySlug.values()).sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+}
+
+function buildBlogSidebarData(posts: BlogListPost[]): BlogSidebarData {
+  const tagCounts = new Map<string, BlogTag>();
+  const categoryCounts = new Map<string, BlogCategory>([
+    ['tech', { id: 'tech', name: '技术博客', slug: 'tech', count: 0, color: '#1890ff' }],
+    ['life', { id: 'life', name: '生活记录', slug: 'life', count: 0, color: '#52c41a' }],
+  ]);
+
+  for (const post of posts) {
+    const category = post.category === 'life' ? 'life' : 'tech';
+    const categoryData = categoryCounts.get(category);
+    if (categoryData) categoryData.count += 1;
+
+    for (const tag of post.tags) {
+      const existingTag = tagCounts.get(tag.slug);
+      if (existingTag) {
+        existingTag.count += 1;
+      } else {
+        tagCounts.set(tag.slug, {
+          id: `tag:${tag.slug}`,
+          name: tag.name,
+          slug: tag.slug,
+          count: 1,
+        });
+      }
+    }
+  }
+
+  const hotPosts = [...posts]
+    .sort((a, b) => {
+      const commentDiff = b.commentCount - a.commentCount;
+      if (commentDiff !== 0) return commentDiff;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+    .slice(0, 5);
+
+  return {
+    hotPosts,
+    tags: [...tagCounts.values()].sort((a, b) => b.count - a.count),
+    categories: [...categoryCounts.values()],
+  };
+}
+
+let blogPageDataPromise: Promise<BlogPageData> | null = null;
+
+export function getBlogPageData(): Promise<BlogPageData> {
+  if (!blogPageDataPromise) {
+    blogPageDataPromise = Promise.all([
+      getBlogListPostsFromDB(),
+      Promise.resolve(getBlogListPostsFromFS()),
+    ]).then(([dbPosts, filePosts]) => {
+      const allPosts = mergeBlogListPosts(dbPosts, filePosts);
+      return {
+        posts: allPosts.slice(0, 10),
+        total: allPosts.length,
+        ...buildBlogSidebarData(allPosts),
+      };
+    });
+  }
+
+  return blogPageDataPromise;
+}
+
 // 主函数：优先使用数据库，如果数据库为空则使用文件系统
 export async function getAllPosts(): Promise<Post[]> {
   const dbPosts = await getAllPostsFromDB();
+  const filePosts = getAllPostsFromFS();
+  const postsBySlug = new Map(dbPosts.map((post) => [post.slug, post]));
 
-  // 如果数据库有数据，使用数据库
-  if (dbPosts.length > 0) {
-    return dbPosts;
+  for (const filePost of filePosts) {
+    if (!postsBySlug.has(filePost.slug)) {
+      postsBySlug.set(filePost.slug, filePost);
+    }
   }
 
-  // 否则使用文件系统（用于迁移期间）
-  return getAllPostsFromFS();
+  return Array.from(postsBySlug.values()).sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 }
 
 // 从数据库获取单篇文章
@@ -127,10 +324,11 @@ async function getPostBySlugFromDB(slug: string): Promise<Post | null> {
       date: post.date.toISOString(),
       summary: post.summary || '',
       tags: post.tags.map((pt) => pt.tag.name),
+      category: post.category || 'tech',
       draft: !post.published,
       content: post.content,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -145,12 +343,17 @@ function getPostBySlugFromFS(slug: string): Post | null {
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
 
+      if (data.draft) {
+        return null;
+      }
+
       return {
         slug,
         title: data.title || "",
         date: data.date || "",
         summary: data.summary || "",
         tags: data.tags || [],
+        category: data.category || "tech",
         draft: data.draft || false,
         content,
       };
@@ -173,6 +376,25 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 }
 
 // 从数据库获取单篇文章（包含作者信息）
+function getFilePostWithAuthor(slug: string) {
+  const filePost = getPostBySlugFromFS(slug);
+  if (!filePost) return null;
+
+  return {
+    id: `file:${filePost.slug}`,
+    slug: filePost.slug,
+    title: filePost.title,
+    date: filePost.date,
+    summary: filePost.summary,
+    tags: filePost.tags.map((tag) => ({
+      name: tag,
+      slug: tag.toLowerCase().replace(/\s+/g, '-'),
+    })),
+    content: filePost.content,
+    author: null,
+  };
+}
+
 export async function getPostWithAuthorBySlug(slug: string) {
   try {
     // findUnique 只能使用唯一字段，所以先查找 slug，再检查 published
@@ -198,7 +420,7 @@ export async function getPostWithAuthorBySlug(slug: string) {
 
     // 检查文章是否存在且已发布
     if (!post || !post.published) {
-      return null;
+      return getFilePostWithAuthor(slug);
     }
 
     return {
@@ -214,8 +436,8 @@ export async function getPostWithAuthorBySlug(slug: string) {
       content: post.content,
       author: post.author,
     };
-  } catch (error) {
-    return null;
+  } catch {
+    return getFilePostWithAuthor(slug);
   }
 }
 
@@ -231,29 +453,11 @@ export async function getAllPostSlugs(): Promise<string[]> {
       },
     });
 
-    if (posts.length > 0) {
-      return posts.map((post) => post.slug);
-    }
-
-    // 如果数据库为空，使用文件系统
-    if (!fs.existsSync(postsDirectory)) {
-      return [];
-    }
-
-    const fileNames = fs.readdirSync(postsDirectory);
-    return fileNames
-      .filter((name) => name.endsWith(".md") || name.endsWith(".mdx"))
-      .map((fileName) => fileName.replace(/\.(md|mdx)$/, ""));
-  } catch (error) {
+    const fileSlugs = getAllPostsFromFS().map((post) => post.slug);
+    return [...new Set([...posts.map((post) => post.slug), ...fileSlugs])];
+  } catch {
 
     // 回退到文件系统
-    if (!fs.existsSync(postsDirectory)) {
-      return [];
-    }
-
-    const fileNames = fs.readdirSync(postsDirectory);
-    return fileNames
-      .filter((name) => name.endsWith(".md") || name.endsWith(".mdx"))
-      .map((fileName) => fileName.replace(/\.(md|mdx)$/, ""));
+    return getAllPostsFromFS().map((post) => post.slug);
   }
 }

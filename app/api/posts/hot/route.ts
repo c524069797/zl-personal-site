@@ -15,10 +15,21 @@ export async function GET(request: NextRequest) {
       where: {
         published: true,
       },
-      include: {
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        date: true,
+        summary: true,
+        content: true,
         tags: {
-          include: {
-            tag: true,
+          select: {
+            tag: {
+              select: {
+                name: true,
+                slug: true,
+              },
+            },
           },
         },
         _count: {
@@ -56,9 +67,14 @@ export async function GET(request: NextRequest) {
       readingTime: Math.ceil((post.content?.length || 0) / 200),
     }))
 
-    return NextResponse.json({
-      posts: formattedPosts,
-    })
+    return NextResponse.json(
+      { posts: formattedPosts },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
+        },
+      }
+    )
   } catch (error: unknown) {
     console.error('Error fetching hot posts:', error)
     const errorMessage = error instanceof Error ? error.message : String(error)
@@ -71,4 +87,3 @@ export async function GET(request: NextRequest) {
     )
   }
 }
-

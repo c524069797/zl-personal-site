@@ -438,34 +438,50 @@ body {
 
 /* 简历纸张在暗黑模式下使用高对比度浅色文字 */
 .dark /* 个人概览：优势句 + 简介 + 教育 + 技能合成一节，用行内小标签替代四个大节标题 */
+/* 概览区所有文字统一用正文色，只靠字号与字重分层，不靠深浅灰 */
+.resume-overview {
+  color: var(--czl-color-text, var(--foreground));
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.resume-overview .resume-highlight,
+.resume-overview .resume-overview-summary,
+.resume-overview .resume-overview-label,
+.resume-overview .resume-overview-body {
+  color: inherit;
+}
+
 .resume-highlight {
-  color: var(--foreground);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   line-height: 1.7;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
+}
+
+.resume-highlight strong {
+  font-weight: 700;
+}
+
+.resume-overview-summary {
+  margin: 0;
 }
 
 .resume-overview-row {
   align-items: baseline;
   display: flex;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .resume-overview-label {
   align-items: center;
-  color: #4b5563;
   display: inline-flex;
   flex-shrink: 0;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 700;
   gap: 4px;
-  width: 62px;
-}
-
-.dark .resume-overview-label {
-  color: #d1d5db;
+  width: 72px;
 }
 
 .resume-overview-body {
@@ -473,6 +489,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.resume-overview-strong {
+  font-weight: 700;
 }
 
 @media (max-width: 640px) {

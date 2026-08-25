@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
-import { getAllPostSlugs, getPostWithAuthorBySlug } from "@/lib/posts";
+import { getAllPostSlugs, getBlogPageData, getPostWithAuthorBySlug } from "@/lib/posts";
 import { formatDateISO } from "@/lib/utils";
-import Navigation from "@/components/Navigation";
 import BlogSidebar from "@/components/BlogSidebar";
-import Footer from "@/components/Footer";
 import CommentSection from "@/components/CommentSection";
 import ArticleHeader from "@/components/ArticleHeader";
 import ArticleActions from "@/components/ArticleActions";
@@ -12,6 +10,8 @@ import AISummary from "@/components/AISummary";
 import AIChatBot from "@/components/AIChatBot";
 import { ArticleStructuredData, BreadcrumbStructuredData } from "@/components/StructuredData";
 import ScrollToTop from "@/components/ScrollToTop";
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -82,6 +82,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
+  const blogData = await getBlogPageData();
+
   // 计算阅读时间（假设每分钟200字）
   const readingTime = Math.ceil(post.content?.length / 200 || 0);
 
@@ -115,14 +117,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         ]}
       />
 
-      <Navigation
-        breadcrumbItems={[
-          {
-            title: post.title,
-          },
-        ]}
-      />
-
       {/* 主体内容区域 */}
       <div style={{
         display: 'flex',
@@ -143,7 +137,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             title={post.title}
             date={post.date}
             tags={post.tags}
-            author={post.author}
+            author={post.author || undefined}
             readingTime={readingTime}
           />
 
@@ -165,13 +159,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* 侧边栏 */}
         <aside style={{ width: '100%', flexShrink: 0 }} className="blog-sidebar">
-          <AISummary postId={post.id} postSlug={slug} />
-          <BlogSidebar author={post.author} excludeSlug={slug} />
+          {!post.id.startsWith('file:') && <AISummary postId={post.id} postSlug={slug} />}
+          <BlogSidebar
+            author={post.author || undefined}
+            excludeSlug={slug}
+            initialData={blogData}
+          />
         </aside>
       </div>
-
-      {/* 页脚 */}
-      <Footer />
 
       {/* AI聊天机器人 */}
       <AIChatBot />

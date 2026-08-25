@@ -67,10 +67,22 @@ export async function GET(request: NextRequest) {
     const [posts, total] = await Promise.all([
       prisma.post.findMany({
         where,
-        include: {
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          date: true,
+          summary: true,
+          category: true,
+          content: true,
           tags: {
-            include: {
-              tag: true,
+            select: {
+              tag: {
+                select: {
+                  name: true,
+                  slug: true,
+                },
+              },
             },
           },
           author: {
@@ -102,17 +114,23 @@ export async function GET(request: NextRequest) {
         name: pt.tag.name,
         slug: pt.tag.slug,
       })),
-      content: post.content,
       readingTime: Math.ceil((post.content?.length || 0) / 200),
       author: post.author,
     }))
 
-    return NextResponse.json({
-      posts: formattedPosts,
-      total,
-      page,
-      totalPages: Math.ceil(total / limit),
-    })
+    return NextResponse.json(
+      {
+        posts: formattedPosts,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit),
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
+        },
+      }
+    )
   } catch (error: unknown) {
     const errorObj = error instanceof Error ? error : new Error(String(error))
     const errorWithCode = error as { code?: string }
@@ -131,4 +149,3 @@ export async function GET(request: NextRequest) {
     )
   }
 }
-

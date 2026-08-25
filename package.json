@@ -19,7 +19,9 @@
     "migrate:posts": "tsx scripts/migrate-posts.ts",
     "migrate:posts-force": "tsx scripts/migrate-posts-force.ts",
     "publish:post": "tsx scripts/auto-publish-post.ts",
-    "publish:post-auto": "tsx scripts/auto-publish-post.ts --auto-publish"
+    "publish:post-auto": "tsx scripts/auto-publish-post.ts --auto-publish",
+    "resume:md": "tsx scripts/export-resume-md.ts",
+    "resume:export": "bash scripts/export-resume.sh"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",

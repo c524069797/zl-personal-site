@@ -10,6 +10,7 @@ import {
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
 import { useTranslation } from '@/hooks/useTranslation'
+import type { BlogSidebarData } from '@/lib/posts'
 
 const { Title, Text } = Typography
 
@@ -38,6 +39,7 @@ interface Author {
 interface BlogSidebarProps {
   author?: Author
   excludeSlug?: string
+  initialData?: BlogSidebarData
 }
 
 interface Category {
@@ -54,27 +56,33 @@ let cachedTags: Tag[] | null = null
 let cachedCategories: Category[] | null = null
 let sidebarDataLoaded = false
 
-export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
+export default function BlogSidebar({ author, excludeSlug, initialData }: BlogSidebarProps) {
   const { t } = useTranslation()
   const [popularPosts, setPopularPosts] = useState<Post[]>(() => {
+    if (initialData) {
+      return initialData.hotPosts.filter((p) => p.slug !== excludeSlug).slice(0, 3)
+    }
     if (excludeSlug && cachedPopularPosts) {
       return cachedPopularPosts.filter((p) => p.slug !== excludeSlug).slice(0, 3)
     }
     return cachedPopularPosts || []
   })
-  const [tags, setTags] = useState<Tag[]>(cachedTags || [])
-  const [categories, setCategories] = useState<Category[]>(cachedCategories || [])
-  const [loading, setLoading] = useState(!sidebarDataLoaded)
+  const [tags, setTags] = useState<Tag[]>(initialData?.tags || cachedTags || [])
+  const [categories, setCategories] = useState<Category[]>(initialData?.categories || cachedCategories || [])
+  const [loading, setLoading] = useState(!initialData && !sidebarDataLoaded)
   const [showAllTags, setShowAllTags] = useState(false)
 
   useEffect(() => {
+    if (initialData) {
+      cachedPopularPosts = initialData.hotPosts
+      cachedTags = initialData.tags
+      cachedCategories = initialData.categories
+      sidebarDataLoaded = true
+      return
+    }
+
     if (sidebarDataLoaded) {
-      // 缓存已存在，只需根据 excludeSlug 过滤热门文章
-      if (cachedPopularPosts && excludeSlug) {
-        setPopularPosts(
-          cachedPopularPosts.filter((p) => p.slug !== excludeSlug).slice(0, 3)
-        )
-      }
+      // 初始状态已根据 excludeSlug 过滤缓存数据。
       return
     }
 
@@ -120,7 +128,7 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
     }
 
     fetchSidebarData()
-  }, [excludeSlug])
+  }, [excludeSlug, initialData])
 
   return (
     <div style={{ width: '100%' }}>
@@ -444,4 +452,3 @@ export default function BlogSidebar({ author, excludeSlug }: BlogSidebarProps) {
     </div>
   )
 }
-

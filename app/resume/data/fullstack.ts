@@ -230,5 +230,5 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "善于捕捉 AI 前沿信息并判断能否落地，想法能快速做成 MVP 验证——已把三个判断做成上线运行或可完整演示的系统。",
+    "有 **AI 嗅觉**，熟悉从模型选型到 Agent 上线的完整流程；**多年 Web 开发经验**，有设计审美，能把 AI 能力做成好用的产品。",
 };

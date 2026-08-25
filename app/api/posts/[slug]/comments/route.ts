@@ -37,7 +37,14 @@ export async function GET(
       },
     })
 
-    return NextResponse.json({ comments })
+    return NextResponse.json(
+      { comments },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        },
+      }
+    )
   } catch {
     return NextResponse.json(
       { error: '获取评论失败' },
@@ -149,4 +156,3 @@ export async function POST(
     )
   }
 }
-

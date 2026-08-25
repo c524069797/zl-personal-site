@@ -10,8 +10,12 @@ export async function GET() {
     const tags = await prisma.tag.findMany({
       include: {
         posts: {
-          include: {
-            post: true,
+          select: {
+            post: {
+              select: {
+                published: true,
+              },
+            },
           },
         },
       },
@@ -27,9 +31,14 @@ export async function GET() {
       count: tag.posts.filter((pt) => pt.post.published).length,
     }))
 
-    return NextResponse.json({
-      tags: formattedTags,
-    })
+    return NextResponse.json(
+      { tags: formattedTags },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
+        },
+      }
+    )
   } catch (error) {
     console.error('Error fetching tags:', error)
     const errorMessage = error instanceof Error ? error.message : String(error)
@@ -46,4 +55,3 @@ export async function GET() {
     })
   }
 }
-

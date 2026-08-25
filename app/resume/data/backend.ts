@@ -235,5 +235,5 @@ export const backendResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "善于捕捉 AI 前沿信息并快速做成 MVP 验证，习惯用工程化视角把新能力做成能长期运行、可审计的系统。",
+    "有 **AI 嗅觉**，熟悉 Agent 与 RAG 的完整工程流程；**多年 Web 开发经验**，做接口与系统时会一并考虑使用体验。",
 };

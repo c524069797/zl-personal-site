@@ -177,5 +177,5 @@ export const frontendResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "善于捕捉 AI 前沿信息并快速做成 MVP 验证，能把 Agent、RAG 这类新能力做成用户真正用得起来的产品界面。",
+    "**多年 Web 开发经验**，有设计经验与审美判断；有 **AI 嗅觉**，熟悉 Agent 与 RAG 流程，能独立把 AI 能力做成好用的界面。",
 };

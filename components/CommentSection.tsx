@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Form, Input, Button, Avatar, Typography, App } from 'antd'
 import { UserOutlined, SendOutlined, HeartOutlined } from '@ant-design/icons'
 
@@ -33,6 +33,7 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [form] = Form.useForm<CommentFormValues>()
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   const fetchComments = useCallback(async () => {
     setLoading(true)
@@ -50,7 +51,24 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
   }, [postSlug])
 
   useEffect(() => {
-    fetchComments()
+    const section = sectionRef.current
+    if (!section || typeof IntersectionObserver === 'undefined') {
+      fetchComments()
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          fetchComments()
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '640px 0px' }
+    )
+
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [fetchComments])
 
   const handleSubmit = async (values: CommentFormValues) => {
@@ -104,7 +122,7 @@ export default function CommentSection({ postSlug }: CommentSectionProps) {
   }
 
   return (
-    <div style={{ marginTop: '48px' }}>
+    <div ref={sectionRef} style={{ marginTop: '48px' }}>
       <Title
         level={2}
         style={{

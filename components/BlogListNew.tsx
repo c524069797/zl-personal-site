@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Card, Tag, Space, Typography, Input, Row, Col, Pagination, Empty } from 'antd'
@@ -15,6 +15,7 @@ import {
 import { formatDate } from '@/lib/utils'
 import PostCoverImage from '@/components/PostCoverImage'
 import { useTranslation } from '@/hooks/useTranslation'
+import type { BlogPageData } from '@/lib/posts'
 
 const { Title, Text } = Typography
 const { Search } = Input
@@ -45,6 +46,10 @@ interface Category {
   color: string
 }
 
+interface BlogListNewProps {
+  initialData?: BlogPageData
+}
+
 // 模块级缓存：sidebar 数据（tags、categories、hotPosts）只请求一次
 // 即使组件重新挂载，也不会重复请求
 /**
@@ -60,25 +65,30 @@ let cachedCategories: Category[] | null = null
 let cachedHotPosts: Post[] | null = null
 let sidebarCacheLoaded = false
 
-export default function BlogListNew() {
+export default function BlogListNew({ initialData }: BlogListNewProps) {
   const { t } = useTranslation()
   const searchParams = useSearchParams()
-  const [posts, setPosts] = useState<Post[]>([])
-  const [tags, setTags] = useState<Tag[]>(cachedTags || [])
-  const [categories, setCategories] = useState<Category[]>(cachedCategories || [])
-  const [hotPosts, setHotPosts] = useState<Post[]>(cachedHotPosts || [])
-  const [loading, setLoading] = useState(true)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [total, setTotal] = useState(0)
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const [selectedTag, setSelectedTag] = useState<string | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const initialPage = parseInt(searchParams.get('page') || '1')
+  const initialTag = searchParams.get('tag') || null
+  const initialSearch = searchParams.get('search') || ''
+  const initialCategory = searchParams.get('category') || null
+  const hasInitialFilter = Boolean(initialPage > 1 || initialTag || initialSearch || initialCategory)
+  const [posts, setPosts] = useState<Post[]>(hasInitialFilter ? [] : (initialData?.posts || []))
+  const [tags, setTags] = useState<Tag[]>(initialData?.tags || cachedTags || [])
+  const [categories, setCategories] = useState<Category[]>(initialData?.categories || cachedCategories || [])
+  const [hotPosts, setHotPosts] = useState<Post[]>(initialData?.hotPosts || cachedHotPosts || [])
+  const [loading, setLoading] = useState(!initialData || hasInitialFilter)
+  const [currentPage, setCurrentPage] = useState(initialPage)
+  const [total, setTotal] = useState(initialData?.total || 0)
+  const [searchKeyword, setSearchKeyword] = useState(initialSearch)
+  const [selectedTag, setSelectedTag] = useState<string | null>(initialTag)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory)
   const [showAllTags, setShowAllTags] = useState(false)
 
   const pageSize = 10
 
   // Static sidebar data: only fetch once globally
-  const [sidebarLoaded, setSidebarLoaded] = useState(sidebarCacheLoaded)
+  const [sidebarLoaded, setSidebarLoaded] = useState(Boolean(initialData) || sidebarCacheLoaded)
 
   /**
    * 【React 进阶模式学习 2：副作用隔离与并发请求】
@@ -86,6 +96,14 @@ export default function BlogListNew() {
    * 2. 全局状态拦截：利用外部的 sidebarCacheLoaded 变量，确保跨路由跳转时也不会重复触发网络请求。
    */
   useEffect(() => {
+    if (initialData) {
+      cachedTags = initialData.tags
+      cachedCategories = initialData.categories
+      cachedHotPosts = initialData.hotPosts
+      sidebarCacheLoaded = true
+      return
+    }
+
     if (sidebarCacheLoaded) return
 
     const fetchSidebarData = async () => {
@@ -128,34 +146,9 @@ export default function BlogListNew() {
       }
     }
     fetchSidebarData()
-  }, [])
+  }, [initialData])
 
-  /**
-   * 【React 进阶模式学习 3：防重复渲染守卫 (useRef Guard)】
-   * 为什么要用 useRef？
-   * React 18 的 StrictMode 在开发环境下会自动挂载、卸载、再挂载组件，导致 useEffect 执行两次。
-   * 这里用 isInitialLoad 这个 ref 充当一个“一次性开关”，保证初始化参数的逻辑只执行一次。
-   * useRef 的核心特性：它的 .current 值改变时，【绝对不会】触发组件重渲染，非常适合保存“静默的标志位”。
-   */
-  // Initial load from URL searchParams only once
-  const isInitialLoad = useRef(true)
-  useEffect(() => {
-    if (!isInitialLoad.current) return
-    isInitialLoad.current = false
-
-    const page = parseInt(searchParams.get('page') || '1')
-    const tag = searchParams.get('tag') || null
-    const search = searchParams.get('search') || ''
-    const category = searchParams.get('category') || null
-
-    setCurrentPage(page)
-    setSelectedTag(tag)
-    setSelectedCategory(category)
-    setSearchKeyword(search)
-    fetchPosts(page, tag, search, category)
-  }, [searchParams])
-
-  const fetchPosts = async (page: number, tag: string | null, search: string, category: string | null) => {
+  async function fetchPosts(page: number, tag: string | null, search: string, category: string | null) {
     setLoading(true)
     try {
       const params = new URLSearchParams()
@@ -177,6 +170,21 @@ export default function BlogListNew() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    const page = parseInt(searchParams.get('page') || '1')
+    const tag = searchParams.get('tag') || null
+    const search = searchParams.get('search') || ''
+    const category = searchParams.get('category') || null
+
+    if (initialData && page === 1 && !tag && !search && !category) return
+
+    const timer = window.setTimeout(() => {
+      void fetchPosts(page, tag, search, category)
+    }, 0)
+
+    return () => window.clearTimeout(timer)
+  }, [searchParams, initialData])
 
   /**
    * 【React 进阶模式学习 4：浅路由更新 (Shallow Routing / URL State Sync)】

@@ -27,24 +27,31 @@ export async function GET() {
       }),
     ])
 
-    return NextResponse.json({
-      categories: [
-        {
-          id: 'tech',
-          name: '技术博客',
-          slug: 'tech',
-          count: techCount,
-          color: '#1890ff',
+    return NextResponse.json(
+      {
+        categories: [
+          {
+            id: 'tech',
+            name: '技术博客',
+            slug: 'tech',
+            count: techCount,
+            color: '#1890ff',
+          },
+          {
+            id: 'life',
+            name: '生活记录',
+            slug: 'life',
+            count: lifeCount,
+            color: '#52c41a',
+          },
+        ],
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
         },
-        {
-          id: 'life',
-          name: '生活记录',
-          slug: 'life',
-          count: lifeCount,
-          color: '#52c41a',
-        },
-      ],
-    })
+      }
+    )
   } catch (error) {
     console.error('Error fetching categories:', error)
     const errorMessage = error instanceof Error ? error.message : String(error)
@@ -54,4 +61,3 @@ export async function GET() {
     )
   }
 }
-

@@ -1,50 +1,14 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getBlogPageData } from '@/lib/posts'
 
 // 获取分类统计信息
 export async function GET() {
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
-    const [techCount, lifeCount] = await Promise.all([
-      // 技术博客：category为'tech'或null的文章
-      prisma.post.count({
-        where: {
-          published: true,
-          OR: [
-            { category: 'tech' },
-            { category: null },
-          ],
-        },
-      }),
-      // 生活记录：category为'life'的文章
-      prisma.post.count({
-        where: {
-          published: true,
-          category: 'life',
-        },
-      }),
-    ])
+    const { categories } = await getBlogPageData()
 
     return NextResponse.json(
       {
-        categories: [
-          {
-            id: 'tech',
-            name: '技术博客',
-            slug: 'tech',
-            count: techCount,
-            color: '#1890ff',
-          },
-          {
-            id: 'life',
-            name: '生活记录',
-            slug: 'life',
-            count: lifeCount,
-            color: '#52c41a',
-          },
-        ],
+        categories,
       },
       {
         headers: {

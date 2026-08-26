@@ -1,35 +1,10 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getBlogPageData } from '@/lib/posts'
 
 // 获取所有标签及其文章数量
 export async function GET() {
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
-    const tags = await prisma.tag.findMany({
-      include: {
-        posts: {
-          select: {
-            post: {
-              select: {
-                published: true,
-              },
-            },
-          },
-        },
-      },
-      orderBy: {
-        name: 'asc',
-      },
-    })
-
-    const formattedTags = tags.map((tag) => ({
-      id: tag.id,
-      name: tag.name,
-      slug: tag.slug,
-      count: tag.posts.filter((pt) => pt.post.published).length,
-    }))
+    const { tags: formattedTags } = await getBlogPageData()
 
     return NextResponse.json(
       { tags: formattedTags },
@@ -49,9 +24,5 @@ export async function GET() {
       },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect().catch(() => {
-      // 忽略断开连接错误
-    })
   }
 }

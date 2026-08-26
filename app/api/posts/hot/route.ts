@@ -1,74 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getAllBlogListPosts, toPublicBlogListPost } from '@/lib/posts'
 
 // 获取最热文章（按评论数量排序）
 export async function GET(request: NextRequest) {
   try {
-    // 确保数据库连接
-    await prisma.$connect()
-
     const searchParams = request.nextUrl.searchParams
     const limit = parseInt(searchParams.get('limit') || '10')
 
-    // 获取所有已发布的文章及其评论数量
-    const posts = await prisma.post.findMany({
-      where: {
-        published: true,
-      },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        date: true,
-        summary: true,
-        content: true,
-        tags: {
-          select: {
-            tag: {
-              select: {
-                name: true,
-                slug: true,
-              },
-            },
-          },
-        },
-        _count: {
-          select: {
-            comments: {
-              where: {
-                approved: true,
-              },
-            },
-          },
-        },
-      },
-    })
-
-    // 按评论数量排序，然后按日期排序
-    const sortedPosts = posts
+    const posts = [...(await getAllBlogListPosts())]
       .sort((a, b) => {
-        const commentDiff = b._count.comments - a._count.comments
+        const commentDiff = b.commentCount - a.commentCount
         if (commentDiff !== 0) return commentDiff
-        return b.date.getTime() - a.date.getTime()
+        return new Date(b.date).getTime() - new Date(a.date).getTime()
       })
       .slice(0, limit)
-
-    const formattedPosts = sortedPosts.map((post) => ({
-      id: post.id,
-      slug: post.slug,
-      title: post.title,
-      date: post.date.toISOString(),
-      summary: post.summary || '',
-      tags: post.tags.map((pt) => ({
-        name: pt.tag.name,
-        slug: pt.tag.slug,
-      })),
-      commentCount: post._count.comments,
-      readingTime: Math.ceil((post.content?.length || 0) / 200),
-    }))
+      .map(toPublicBlogListPost)
 
     return NextResponse.json(
-      { posts: formattedPosts },
+      { posts },
       {
         headers: {
           'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',

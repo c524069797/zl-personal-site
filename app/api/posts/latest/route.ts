@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getAllBlogListPosts, toPublicBlogListPost } from '@/lib/posts'
 
 // 获取最新文章（按发布时间排序）
 export async function GET(request: NextRequest) {
@@ -9,59 +9,12 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const limit = parseInt(searchParams.get('limit') || '10')
 
-    const posts = await prisma.post.findMany({
-      where: {
-        published: true,
-      },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        date: true,
-        summary: true,
-        content: true,
-        tags: {
-          select: {
-            tag: {
-              select: {
-                name: true,
-                slug: true,
-              },
-            },
-          },
-        },
-        _count: {
-          select: {
-            comments: {
-              where: {
-                approved: true,
-              },
-            },
-          },
-        },
-      },
-      orderBy: {
-        date: 'desc',
-      },
-      take: limit,
-    })
-
-    const formattedPosts = posts.map((post) => ({
-      id: post.id,
-      slug: post.slug,
-      title: post.title,
-      date: post.date.toISOString(),
-      summary: post.summary || '',
-      tags: post.tags.map((pt) => ({
-        name: pt.tag.name,
-        slug: pt.tag.slug,
-      })),
-      commentCount: post._count.comments,
-      readingTime: Math.ceil((post.content?.length || 0) / 200),
-    }))
+    const posts = (await getAllBlogListPosts())
+      .slice(0, limit)
+      .map(toPublicBlogListPost)
 
     return NextResponse.json(
-      { posts: formattedPosts },
+      { posts },
       {
         headers: {
           'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',

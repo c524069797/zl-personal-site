@@ -26,6 +26,7 @@ export interface BlogListPost {
   tags: Array<{ name: string; slug: string }>;
   commentCount: number;
   readingTime?: number;
+  searchText?: string;
 }
 
 export interface BlogTag {
@@ -141,6 +142,7 @@ function toBlogListPost(post: Post, id = `file:${post.slug}`): BlogListPost {
     })),
     commentCount: 0,
     readingTime: Math.ceil((post.content?.length || 0) / 200),
+    searchText: post.content,
   };
 }
 
@@ -193,6 +195,7 @@ async function getBlogListPostsFromDB(): Promise<BlogListPost[]> {
       tags: post.tags.map(({ tag }) => tag),
       commentCount: post._count.comments,
       readingTime: Math.ceil((post.content?.length || 0) / 200),
+      searchText: post.content,
     }));
   } catch {
     return [];
@@ -259,19 +262,38 @@ function buildBlogSidebarData(posts: BlogListPost[]): BlogSidebarData {
   };
 }
 
+export function toPublicBlogListPost(post: BlogListPost): BlogListPost {
+  const publicPost = { ...post };
+  delete publicPost.searchText;
+  return publicPost;
+}
+
+let allBlogListPostsPromise: Promise<BlogListPost[]> | null = null;
+
+export function getAllBlogListPosts(): Promise<BlogListPost[]> {
+  if (!allBlogListPostsPromise) {
+    allBlogListPostsPromise = Promise.all([
+      getBlogListPostsFromDB(),
+      Promise.resolve(getBlogListPostsFromFS()),
+    ]).then(([dbPosts, filePosts]) => mergeBlogListPosts(dbPosts, filePosts));
+  }
+
+  return allBlogListPostsPromise;
+}
+
 let blogPageDataPromise: Promise<BlogPageData> | null = null;
 
 export function getBlogPageData(): Promise<BlogPageData> {
   if (!blogPageDataPromise) {
-    blogPageDataPromise = Promise.all([
-      getBlogListPostsFromDB(),
-      Promise.resolve(getBlogListPostsFromFS()),
-    ]).then(([dbPosts, filePosts]) => {
-      const allPosts = mergeBlogListPosts(dbPosts, filePosts);
+    blogPageDataPromise = getAllBlogListPosts().then((allPosts) => {
+      const sidebarData = buildBlogSidebarData(allPosts);
+
       return {
-        posts: allPosts.slice(0, 10),
+        posts: allPosts.slice(0, 10).map(toPublicBlogListPost),
         total: allPosts.length,
-        ...buildBlogSidebarData(allPosts),
+        hotPosts: sidebarData.hotPosts.map(toPublicBlogListPost),
+        tags: sidebarData.tags,
+        categories: sidebarData.categories,
       };
     });
   }

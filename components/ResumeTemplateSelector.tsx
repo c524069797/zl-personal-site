@@ -45,7 +45,7 @@ export function ResumeTemplateSelector() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `陈子龙-前端开发工程师-简历-${templateKey}-${new Date().getFullYear()}.pdf`;
+      a.download = `陈子龙-Web开发工程师-简历-${templateKey}-${new Date().getFullYear()}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);

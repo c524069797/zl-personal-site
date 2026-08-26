@@ -9,7 +9,7 @@ import type { Bullet, ResumeData, ResumeVersion } from "../data";
 /**
  * 打印版简历渲染器（PDF 的数据源）。
  *
- * 三个版本（全栈 / 前端 / 后端）共用这一份渲染逻辑，内容全部来自 app/resume/data，
+ * 三个版本（全栈 / Web 开发 / 后端）共用这一份渲染逻辑，内容全部来自 app/resume/data，
  * 与在线简历页同源——改数据层，网站和 PDF 一起变。
  */
 
@@ -17,7 +17,7 @@ const CONTACTS = ["158-7444-2813", "chenzhuo995@gmail.com", "github.com/c5240697
 
 const VERSION_LABELS: Record<ResumeVersion, string> = {
   fullstack: "AI 全栈",
-  frontend: "AI 前端",
+  frontend: "AI Web 开发",
   backend: "AI 后端",
 };
 

@@ -51,7 +51,7 @@ export const backendResume: ResumeData = {
       ],
     },
     {
-      title: "前端",
+      title: "Web 开发",
       iconKey: "frontend",
       skills: [
         "React",
@@ -102,10 +102,10 @@ export const backendResume: ResumeData = {
 
   projects: [
     {
-      title: "ArcFlow LLM Gateway 模型接入网关",
+      title: "LLM Gateway 模型接入网关",
       href: "https://github.com/c524069797/llm-gateway-java",
       stack: "Java 21（虚拟线程）/ Spring Boot 3.5 / Resilience4j / Redis",
-      desc: "ArcFlow 平台的模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
+      desc: "统一模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
       bullets: [
         {
           label: "路由打分与熔断透明降级",
@@ -130,7 +130,7 @@ export const backendResume: ResumeData = {
       ],
     },
     {
-      title: "企业 Agent 智能支持平台（ArcFlow）",
+      title: "企业 Agent 智能支持平台",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "FastAPI / LangGraph / Qdrant / GraphRAG / Java 21 / Spring Boot 3 / Spring AI（双后端）",
       desc: "公司落地版已接入团队日常使用｜个人平台化完整版可离线演示",
@@ -160,7 +160,7 @@ export const backendResume: ResumeData = {
     {
       title: "内部综合管理系统（许可证 / 审批 / 出货全流程）",
       stack: "Java Spring Boot / MySQL / Redis / RabbitMQ / Mastra / React / Nginx",
-      desc: "公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目",
+      desc: "公司内部核心业务系统｜个人独立完成 Web 应用与后端设计、开发与部署的全栈项目",
       bullets: [
         {
           label: "业务闭环",
@@ -180,7 +180,7 @@ export const backendResume: ResumeData = {
         },
         {
           label: "AI 能力载体",
-          text: "主系统暴露受控只读聚合 API（服务间认证）向 Python Agent 服务开放业务数据，并基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排、SSE 流式问答与会话持久化入口；后续在此之上落地智能客服 Agent 并平台化为 ArcFlow。",
+          text: "主系统暴露受控只读聚合 API（服务间认证）向 Python Agent 服务开放业务数据，并基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排、SSE 流式问答与会话持久化入口；后续在此之上落地智能客服 Agent 并沉淀为企业 Agent 平台。",
         },
       ],
     },
@@ -222,11 +222,11 @@ export const backendResume: ResumeData = {
         },
         {
           label: "实时链路",
-          text: "WebSocket 推送结合缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行；配合增量更新与虚拟滚动优化万级任务列表。",
+          text: "WebSocket 推送结合缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行；配合增量更新与分段加载优化万级任务列表。",
         },
         {
           label: "引擎侧排查",
-          text: "参与备份引擎 C++ 侧问题排查与小功能开发，理解多线程任务队列与 RAII 资源管理，能跨前后端与引擎定位完整链路问题。",
+          text: "参与备份引擎 C++ 侧问题排查与小功能开发，理解多线程任务队列与 RAII 资源管理，能跨 Web 层、服务与引擎定位完整链路问题。",
         },
       ],
     },
@@ -235,5 +235,5 @@ export const backendResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "有 **AI 嗅觉**，熟悉 Agent 与 RAG 的完整工程流程；**多年 Web 开发经验**，做接口与系统时会一并考虑使用体验。",
+    "有 **AI 嗅觉**，熟悉 Agent 与 RAG 的完整工程流程；**多年 Web 开发经验**，能将 AI 能力落地为可用、可交付、可持续迭代的产品。",
 };

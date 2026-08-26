@@ -5,9 +5,9 @@ import { EMPLOYMENT_DATE, OTHER_WORKS } from "./shared";
 export const fullstackResume: ResumeData = {
   tabLabel: "AI 全栈",
   role: "AI Agent 开发 / AI 全栈工程师",
-  meta: "本科｜近 5 年业务系统研发经验｜AI Agent 落地实践",
+  meta: "本科｜近 5 年 Web 开发经验｜AI Agent 落地实践",
   summary:
-    "具备近 5 年业务系统研发与 AI 应用落地经验，能够围绕真实业务场景完成需求拆解、知识库建设、RAG 检索、Agent 工作流编排、前后端联调与上线验证。既有企业级复杂流程系统建设经验，也有智能客服 Agent、备份智能体、AI 助手等落地案例，能够将 AI 能力产品化为稳定、可评估、可持续迭代的业务系统。",
+    "具备近 5 年 Web 开发与 AI 应用落地经验，能够围绕真实业务场景完成需求拆解、知识库建设、RAG 检索、Agent 工作流编排、Web 应用与服务联调及上线验证。既有企业级复杂流程系统建设经验，也有智能客服 Agent、备份智能体、AI 助手等落地案例，能够将 AI 能力产品化为稳定、可评估、可持续迭代的业务系统。",
 
   skillGroups: [
     {
@@ -42,7 +42,7 @@ export const fullstackResume: ResumeData = {
       ],
     },
     {
-      title: "前端",
+      title: "Web 开发",
       iconKey: "frontend",
       skills: [
         "React",
@@ -61,7 +61,7 @@ export const fullstackResume: ResumeData = {
       company: "广州鼎甲计算机科技有限公司",
       date: EMPLOYMENT_DATE,
       role: "Web 软件工程师（兼 AI Agent 开发）",
-      desc: "负责企业级备份软件、许可证与内部综合管理系统等核心业务模块建设，同时主导 AI Agent 与 RAG 能力在真实业务中的落地，覆盖需求分析、系统设计、前后端实现与上线运营。",
+      desc: "负责企业级备份软件、许可证与内部综合管理系统等核心业务模块建设，同时主导 AI Agent 与 RAG 能力在真实业务中的落地，覆盖需求分析、系统设计、Web 应用与服务实现及上线运营。",
       bullets: [
         {
           label: "企业 Agent 落地",
@@ -89,7 +89,7 @@ export const fullstackResume: ResumeData = {
 
   projects: [
     {
-      title: "企业 Agent 智能支持平台（ArcFlow）",
+      title: "企业 Agent 智能支持平台",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "FastAPI / LangGraph / Qdrant / GraphRAG / Java Spring AI / React 18 / Playwright",
       desc: "公司落地版已接入团队日常使用｜个人平台化完整版可离线演示（HITL 审批 / 岗位 Agent / RBAC 审计）",
@@ -121,10 +121,10 @@ export const fullstackResume: ResumeData = {
       ],
     },
     {
-      title: "ArcFlow LLM Gateway 模型接入网关",
+      title: "LLM Gateway 模型接入网关",
       href: "https://github.com/c524069797/llm-gateway-java",
       stack: "Java 21（虚拟线程）/ Spring Boot 3.5 / Resilience4j / Redis",
-      desc: "ArcFlow 平台的模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
+      desc: "统一模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
       bullets: [
         {
           label: "路由与透明降级",
@@ -178,11 +178,11 @@ export const fullstackResume: ResumeData = {
     {
       title: "内部综合管理系统（许可证 / 审批 / 出货全流程）",
       stack: "React / Java Spring Boot / Mastra / MySQL / Redis / RabbitMQ / Nginx",
-      desc: "公司内部核心业务系统｜个人独立完成前后端设计、开发与部署的全栈项目",
+      desc: "公司内部核心业务系统｜个人独立完成 Web 应用与后端设计、开发与部署的全栈项目",
       bullets: [
         {
           label: "全栈独立交付",
-          text: "独立完成 React 前端、Java Spring Boot 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。",
+          text: "独立完成 React Web 应用、Java Spring Boot 后端、数据库设计到部署上线的完整链路，长期独立维护与迭代，支撑多条产品线与多部门日常协作。",
         },
         {
           label: "业务闭环",
@@ -198,7 +198,7 @@ export const fullstackResume: ResumeData = {
         },
         {
           label: "AI 能力载体",
-          text: "基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排与 SSE 流式问答入口，后续落地智能客服 Agent 并平台化为 ArcFlow（见上），成为公司内部 AI 能力落地的业务载体。",
+          text: "基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排与 SSE 流式问答入口，后续落地智能客服 Agent 并沉淀为企业 Agent 平台（见上），成为公司内部 AI 能力落地的业务载体。",
         },
       ],
     },
@@ -221,7 +221,7 @@ export const fullstackResume: ResumeData = {
         },
         {
           label: "性能优化",
-          text: "围绕任务监控、长列表和日志展示持续做性能优化，结合增量更新、虚拟滚动和页面拆分，显著改善复杂页面的交互体验与响应效率。",
+          text: "围绕任务监控、长列表和日志展示持续做性能优化，结合增量更新、分段加载和页面拆分，显著改善复杂页面的交互体验与响应效率。",
         },
       ],
     },
@@ -230,5 +230,5 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "有 **AI 嗅觉**，熟悉从模型选型到 Agent 上线的完整流程；**多年 Web 开发经验**，有设计审美，能把 AI 能力做成好用的产品。",
+    "有 **AI 嗅觉**，熟悉从模型选型到 Agent 上线的完整流程；**多年 Web 开发经验**，有设计审美，能将 AI 能力落地为可用、可交付、可持续迭代的产品。",
 };

@@ -1,17 +1,17 @@
 import type { ResumeData } from "./types";
 import { EMPLOYMENT_DATE, OTHER_WORKS } from "./shared";
 
-/** AI 应用前端版：投前端开发工程师 / 资深前端（AI 方向） */
+/** AI 应用 Web 版：投 Web 开发工程师（AI 方向） */
 export const frontendResume: ResumeData = {
-  tabLabel: "AI 前端",
-  role: "前端开发工程师（React / Next.js，AI 应用方向）",
-  meta: "本科｜近 5 年前端与全栈研发经验｜AI 产品前端落地实践",
+  tabLabel: "AI Web 开发",
+  role: "Web 开发工程师（React / Next.js，AI 应用方向）",
+  meta: "本科｜近 5 年 Web 开发经验｜AI 产品落地实践",
   summary:
-    "近 5 年前端与全栈研发经验，覆盖企业级中后台、复杂表单向导、可视化大屏、内容型站点与跨端移动应用等多种形态。做过真实上线的 AI Agent 对话产品前端（流式输出、引用溯源、HITL 审批交互、一键转人工），同时理解 Agent 与 RAG 底层链路，能与算法、后端高效协作并独立完成 AI 功能的前端交付。",
+    "近 5 年 Web 开发经验，覆盖企业级中后台、复杂表单向导、可视化大屏、内容型站点与跨端移动应用等多种形态。参与真实上线的 AI Agent 产品建设，负责流式输出、引用溯源、HITL 审批交互、一键转人工等产品能力，同时理解 Agent 与 RAG 底层链路，能与算法、后端协作并独立完成 AI 功能从交互设计到产品上线的交付。",
 
   skillGroups: [
     {
-      title: "前端",
+      title: "Web 开发",
       iconKey: "frontend",
       skills: [
         "React",
@@ -26,7 +26,11 @@ export const frontendResume: ResumeData = {
         "Vitest",
         "Playwright",
         "性能优化",
-        "虚拟滚动",
+        "企业级中后台",
+        "复杂表单与流程",
+        "组件抽象与设计系统",
+        "WebSocket 实时链路",
+        "长列表与日志优化",
         "SSR / SEO",
         "React Three Fiber",
         "Framer Motion",
@@ -63,8 +67,8 @@ export const frontendResume: ResumeData = {
     {
       company: "广州鼎甲计算机科技有限公司",
       date: EMPLOYMENT_DATE,
-      role: "Web 软件工程师（前端方向）",
-      desc: "负责企业级备份软件、许可证与内部综合管理系统、数据可视化监控大屏等核心产品的前端架构与开发，支撑 50+ 资源类型接入与多条产品线协同。",
+      role: "Web 软件工程师",
+      desc: "负责企业级备份软件、许可证与内部综合管理系统、数据可视化监控大屏等核心产品的 Web 架构与开发，支撑 50+ 资源类型接入与多条产品线协同。",
       bullets: [
         {
           label: "通用向导框架",
@@ -80,11 +84,11 @@ export const frontendResume: ResumeData = {
         },
         {
           label: "性能优化",
-          text: "任务监控与日志场景引入增量更新、虚拟滚动、页面拆分，解决万级长列表卡顿与首屏加载问题；长期承担线上问题定位与复杂交互故障排查。",
+          text: "任务监控与日志场景引入增量更新、分段加载与页面拆分，解决万级长列表卡顿与首屏加载问题；长期承担线上问题定位与复杂交互故障排查。",
         },
         {
-          label: "AI 产品前端",
-          text: "主导内部智能客服 Agent 从 0 到 1 上线，独立设计并开发对话式前端（多轮对话、上下文记忆、引用来源高亮、一键转人工），已接入售后与技术支持团队日常使用；并基于 Mastra（TypeScript Agent 框架）实践多 Agent 编排与 SSE 流式问答前端链路。",
+          label: "AI 产品交付",
+          text: "主导内部智能客服 Agent 从 0 到 1 上线，独立设计并开发对话式产品（多轮对话、上下文记忆、引用来源高亮、一键转人工），已接入售后与技术支持团队日常使用；并基于 Mastra（TypeScript Agent 框架）实践多 Agent 编排与 SSE 流式问答链路。",
         },
         {
           label: "移动端与跨端",
@@ -96,14 +100,14 @@ export const frontendResume: ResumeData = {
 
   projects: [
     {
-      title: "企业 Agent 智能支持平台（ArcFlow）",
+      title: "企业 Agent 智能支持平台",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "React 18 / Ant Design 6 / Playwright ＋ FastAPI / LangGraph / Qdrant（后端）",
-      desc: "AI 产品前端 + 全栈｜企业落地版已接入团队日常使用",
+      desc: "AI 产品开发 + 全栈协作｜企业落地版已接入团队日常使用",
       bullets: [
         {
           label: "Agent 对话工作台",
-          text: "React 18 实现企业级 Agent 对话前端——流式回答、检索证据与来源溯源展示、敏感操作审批交互（HITL 人工审批门）、多岗位 Agent 按 RBAC 权限可见可用。",
+          text: "React 18 实现企业级 Agent 对话工作台——流式回答、检索证据与来源溯源展示、敏感操作审批交互（HITL 人工审批门）、多岗位 Agent 按 RBAC 权限可见可用。",
         },
         {
           label: "契约测试守护",
@@ -120,9 +124,9 @@ export const frontendResume: ResumeData = {
       ],
     },
     {
-      title: "迪备备份恢复系统（企业级中后台前端）",
+      title: "备份恢复系统（企业级 Web 应用）",
       stack: "Vue 3 / TypeScript / WebSocket / grid-layout-plus / ECharts",
-      desc: "企业级备份软件核心业务系统，长期负责前端架构、通用能力沉淀与复杂业务交互建设",
+      desc: "企业级备份软件核心业务系统，长期负责 Web 架构、通用能力沉淀与复杂业务交互建设",
       bullets: [
         {
           label: "流程抽象",
@@ -138,22 +142,22 @@ export const frontendResume: ResumeData = {
         },
         {
           label: "性能优化",
-          text: "围绕任务监控、长列表与日志展示做增量更新、虚拟滚动与页面拆分，显著改善复杂页面的交互体验与响应效率。",
+          text: "围绕任务监控、长列表与日志展示做增量更新、分段加载与页面拆分，显著改善复杂页面的交互体验与响应效率。",
         },
       ],
     },
     {
-      title: "内部综合管理系统（React 前端 + Java 全栈独立交付）",
+      title: "内部综合管理系统（React + Java 全栈独立交付）",
       stack: "React / Java Spring Boot / MySQL / Redis / RabbitMQ / Nginx",
-      desc: "公司内部核心业务系统｜个人独立完成前后端设计、开发与部署",
+      desc: "公司内部核心业务系统｜个人独立完成 Web 应用与后端设计、开发与部署",
       bullets: [
         {
-          label: "复杂流程前端",
+          label: "复杂业务 Web 应用",
           text: "React 实现许可证全流程（生成、导入校验、续期升级、套餐/功能映射、审批、出货、归档）的复杂表单与流程页面，支撑 50+ 种许可套餐动态组合，重复配置时间降低 80% 以上。",
         },
         {
           label: "全栈兜底能力",
-          text: "独立完成 Spring Boot 后端（审批状态机、幂等设计、RBAC + 审计、Redis 缓存、RabbitMQ 事件解耦），具备前后端联调中「看穿接口背后逻辑」的排查效率。",
+          text: "独立完成 Spring Boot 后端（审批状态机、幂等设计、RBAC + 审计、Redis 缓存、RabbitMQ 事件解耦），具备 Web 应用与服务联调中「看穿接口背后逻辑」的排查效率。",
         },
       ],
     },
@@ -177,5 +181,5 @@ export const frontendResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "**多年 Web 开发经验**，有设计经验与审美判断；有 **AI 嗅觉**，熟悉 Agent 与 RAG 流程，能独立把 AI 能力做成好用的界面。",
+    "**多年 Web 开发经验**，有设计经验与审美判断；有 **AI 嗅觉**，熟悉 Agent 与 RAG 流程，能将 AI 能力落地为可用、可交付、可持续迭代的产品。",
 };

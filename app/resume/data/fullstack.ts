@@ -185,11 +185,11 @@ export const fullstackResume: ResumeData = {
       bullets: [
         {
           label: "组件能力",
-          text: "主导企业级 Vue 3 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 通用组件，支撑多条产品线复用。",
+          text: "主导企业级 Vue 3 组件库建设，沉淀 Components / Forms / Layout / Plugins 等模块，供多条产品线复用。",
         },
         {
           label: "流程抽象",
-          text: "主导备份/恢复向导框架设计与实现，基于工厂模式 + Context + Proxy 支撑 多种资源类型动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。",
+          text: "主导备份/恢复向导框架设计与实现，基于工厂模式 + Context + Proxy 支持资源类型动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。",
         },
         {
           label: "C++ 服务协作",
@@ -206,5 +206,5 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "有 **AI 嗅觉**，熟悉从模型选型到 Agent 上线的完整流程；**多年 Web 开发经验**，有设计审美，能将 AI 能力落地为可用、可交付、可持续迭代的产品。",
+    "参与智能客服 Agent 上线，具备 RAG 检索、业务数据接入和 Web 产品交付经验；长期负责企业业务系统的流程设计、开发与维护。",
 };

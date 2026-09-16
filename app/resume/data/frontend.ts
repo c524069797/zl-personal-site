@@ -152,11 +152,11 @@ export const frontendResume: ResumeData = {
         },
         {
           label: "组件体系",
-          text: "沉淀 Components / Forms / Layout / Plugins 等 通用组件，支撑多条产品线复用，统一交互规范与视觉一致性。",
+          text: "沉淀 Components / Forms / Layout / Plugins 等模块，供多条产品线复用，统一交互与视觉规范。",
         },
         {
           label: "可视化大屏",
-          text: "建设拖拽式大屏布局系统，支持 网格布局、碰撞检测、自动放置和布局持久化；通过缩放坐标对齐与 WebSocket 实时数据推送，保障长时间稳定运行。",
+          text: "建设拖拽式大屏布局系统，支持网格布局、碰撞检测、自动放置和布局持久化；通过缩放坐标对齐与 WebSocket 推送更新任务状态。",
         },
         {
           label: "性能优化",
@@ -185,5 +185,5 @@ export const frontendResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "**多年 Web 开发经验**，有设计经验与审美判断；有 **AI 嗅觉**，熟悉 Agent 与 RAG 流程，能将 AI 能力落地为可用、可交付、可持续迭代的产品。",
+    "长期开发企业 Web 应用，负责复杂流程、组件与数据展示；参与智能客服 Agent 的对话交互、来源引用和业务数据接入。",
 };

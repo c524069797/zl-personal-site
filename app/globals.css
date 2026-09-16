@@ -436,13 +436,21 @@ body {
   border-color: #ffffff;
 }
 
-/* 简历纸张在暗黑模式下使用高对比度浅色文字 */
-.dark /* 个人概览：优势句 + 简介 + 教育 + 技能合成一节，用行内小标签替代四个大节标题 */
-/* 概览区所有文字统一用正文色，只靠字号与字重分层，不靠深浅灰 */
+/* 个人概览统一使用黑色正文 */
 .resume-overview {
-  color: var(--czl-color-text, var(--foreground));
+  color: #111827;
   font-size: 13.5px;
   line-height: 1.75;
+}
+
+.dark .resume-overview {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.dark .resume-overview strong {
+  color: #111827;
 }
 
 .resume-overview .resume-highlight,

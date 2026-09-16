@@ -18,7 +18,6 @@ import {
   IconBadge,
   Paper,
   SectionHeading,
-  SegmentedControl,
   Tag,
   Timeline,
   TimelineItem,
@@ -37,21 +36,11 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import { renderRich } from "./rich-text";
-import { RESUME_VERSIONS, resumeDataMap } from "./data";
-import type { Bullet, ResumeVersion, SkillIconKey } from "./data";
+import { resumeDataMap } from "./data";
+import type { Bullet, SkillIconKey } from "./data";
 
-type TemplateKey = "showcase" | "tech" | "navy";
-
-const templateOptions: Array<{ value: TemplateKey; label: string }> = [
-  { value: "showcase", label: "展示版" },
-  { value: "tech", label: "科技青" },
-  { value: "navy", label: "商务蓝" },
-];
-
-const versionOptions = RESUME_VERSIONS.map((value) => ({
-  value,
-  label: resumeDataMap[value].tabLabel,
-}));
+const template = "showcase";
+const version = "fullstack";
 
 /** 技能分组标题左侧的图标 */
 const groupIcons: Record<SkillIconKey, ReactNode> = {
@@ -160,13 +149,11 @@ function MetricList({ items }: { items: ReactNode[] }) {
 }
 
 export default function ResumePage() {
-  const [template, setTemplate] = useState<TemplateKey>("showcase");
-  const [version, setVersion] = useState<ResumeVersion>("fullstack");
   const [isGenerating, setIsGenerating] = useState(false);
 
   const data = resumeDataMap[version];
 
-  // PDF 与页面同源：导出的永远是当前选中的版本
+  // PDF 与页面使用相同的简历数据和配色。
   const downloadPdf = async () => {
     setIsGenerating(true);
     try {
@@ -209,33 +196,13 @@ export default function ResumePage() {
               <h1 className="resume-page-title">个人简历</h1>
             </div>
             <div className="resume-actions">
-              <div className="resume-switcher-stack">
-                <div className="resume-switcher">
-                  <span className="resume-switcher-label">简历版本</span>
-                  <SegmentedControl<ResumeVersion>
-                    ariaLabel="选择简历版本"
-                    options={versionOptions}
-                    value={version}
-                    onChange={setVersion}
-                  />
-                </div>
-                <div className="resume-switcher">
-                  <span className="resume-switcher-label">配色模板</span>
-                  <SegmentedControl<TemplateKey>
-                    ariaLabel="选择简历模板"
-                    options={templateOptions}
-                    value={template}
-                    onChange={setTemplate}
-                  />
-                </div>
-              </div>
               <Button
                 className="resume-download-button"
                 loading={isGenerating}
                 onClick={downloadPdf}
                 size="sm"
               >
-                {isGenerating ? "生成中..." : `下载 ${data.tabLabel} PDF`}
+                {isGenerating ? "生成中..." : "下载 PDF"}
               </Button>
             </div>
           </div>

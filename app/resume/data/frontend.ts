@@ -11,10 +11,13 @@ export const frontendResume: ResumeData = {
 
   skillGroups: [
     {
-      title: "Web 开发",
+      title: "Web 与跨端开发",
       iconKey: "frontend",
       skills: [
         "React",
+        "Flutter",
+        "Electron",
+        "Taro",
         "Next.js",
         "Vue 3",
         "TypeScript",
@@ -100,26 +103,41 @@ export const frontendResume: ResumeData = {
 
   projects: [
     {
-      title: "企业 Agent 智能支持平台",
+      title: "内部综合管理系统（业务管理与智能客服）",
       href: "https://github.com/c524069797/enterprise-agent-platform",
-      stack: "React 18 / Ant Design 6 / Playwright ＋ FastAPI / LangGraph / Qdrant（后端）",
-      desc: "AI 产品开发 + 全栈协作｜企业落地版已接入团队日常使用",
+      stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ",
+      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端为个人扩展实现",
       bullets: [
         {
-          label: "Agent 对话工作台",
-          text: "React 18 实现企业级 Agent 对话工作台——流式回答、检索证据与来源溯源展示、敏感操作审批交互（HITL 人工审批门）、多岗位 Agent 按 RBAC 权限可见可用。",
+          label: "业务管理与对话工作台",
+          text: "使用 React 实现许可证配置、审批、出货及智能客服页面；对话界面支持流式回答、来源引用、业务状态查询与转人工，重复配置时间降低 80% 以上。",
         },
         {
-          label: "契约测试守护",
-          text: "10 条 Playwright E2E 用例守护 API 契约、页面信息架构与双后端（Python/Java）输出一致性，保障持续迭代不回归。",
+          label: "知识与业务数据接入",
+          text: "将产品文档、历史工单、Wiki 与 SOP 构建为可检索知识库；主系统通过只读聚合 API 提供申请、审批和工单状态，支持审批解释、报错诊断与进度查询。",
         },
         {
-          label: "AI 链路理解",
-          text: "理解后端 LangGraph 六节点状态机（意图识别 → RAG 检索 + 工具调用 → 检索质量评估 → 查询改写 → 人工审批 → 回答组装）与 Agent 工程骨架（工具封装、错误降级、SSE 流式、会话持久化），能够与算法和后端围绕状态流转、接口契约及异常处理高效协作。",
+          label: "Agent 能力扩展（个人项目）",
+          text: "在个人扩展平台中实现岗位 Agent 可见范围、人工审批交互与检索证据展示，通过 Playwright 验证页面和 API 契约；后端基于 LangGraph 编排检索与工具调用。",
         },
         {
           label: "落地成效",
-          text: "企业落地版已接入售后、技术支持团队的日常工作流，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%。",
+          text: "内部智能客服已接入售后、技术支持团队日常工作，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 30%。",
+        },
+      ],
+    },
+    {
+      title: "liveshop-ai 直播电商 AI 助播平台",
+      stack: "Java Spring Boot / React / Flutter / Redis / RabbitMQ / RAG",
+      desc: "个人练手项目｜同一后端服务支持主播中控台与观众 Web、Flutter App",
+      bullets: [
+        {
+          label: "交易与直播间交互",
+          text: "使用 Redis Lua 扣减秒杀库存，RabbitMQ 异步落单并释放超时未支付订单；通过 STOMP 推送弹幕，React 实现主播中控台和观众页面，Flutter 实现观众 App。",
+        },
+        {
+          label: "AI 助播",
+          text: "将弹幕攒批做意图分类；商品资料经本地向量化后用于 RAG 问答，通过 SSE 输出商品回答与讲品话术。",
         },
       ],
     },
@@ -130,15 +148,15 @@ export const frontendResume: ResumeData = {
       bullets: [
         {
           label: "流程抽象",
-          text: "主导备份/恢复向导框架设计与实现，基于工厂模式 + Context + Proxy 支持 50+ 资源类型动态注入与跨步骤状态共享；新资源接入从「复制改造整套页面」简化为「注册配置 + 差异步骤」，开发周期从 2 周缩短到 2 天。",
+          text: "主导备份/恢复向导框架设计与实现，基于工厂模式 + Context + Proxy 支持 多种资源类型动态注入与跨步骤状态共享；新资源接入从「复制改造整套页面」简化为「注册配置 + 差异步骤」，开发周期从 2 周缩短到 2 天。",
         },
         {
           label: "组件体系",
-          text: "沉淀 Components / Forms / Layout / Plugins 等 40+ 通用组件，支撑多条产品线复用，统一交互规范与视觉一致性。",
+          text: "沉淀 Components / Forms / Layout / Plugins 等 通用组件，支撑多条产品线复用，统一交互规范与视觉一致性。",
         },
         {
           label: "可视化大屏",
-          text: "建设拖拽式大屏布局系统，支持 12 × 12 网格、碰撞检测、自动放置和布局持久化；通过缩放坐标对齐与 WebSocket 实时数据推送，保障长时间稳定运行。",
+          text: "建设拖拽式大屏布局系统，支持 网格布局、碰撞检测、自动放置和布局持久化；通过缩放坐标对齐与 WebSocket 实时数据推送，保障长时间稳定运行。",
         },
         {
           label: "性能优化",
@@ -146,21 +164,7 @@ export const frontendResume: ResumeData = {
         },
       ],
     },
-    {
-      title: "内部综合管理系统（React + Java 全栈独立交付）",
-      stack: "React / Java Spring Boot / MySQL / Redis / RabbitMQ / Nginx",
-      desc: "公司内部核心业务系统｜个人独立完成 Web 应用与后端设计、开发与部署",
-      bullets: [
-        {
-          label: "复杂业务 Web 应用",
-          text: "使用 React 实现许可证生成、导入校验、续期升级、套餐/功能映射、审批、出货和归档等流程页面，支撑 50+ 种许可套餐动态组合，将重复配置时间降低 80% 以上。",
-        },
-        {
-          label: "全栈兜底能力",
-          text: "独立完成 Spring Boot 后端的审批状态机、幂等设计、RBAC、审计、Redis 缓存和 RabbitMQ 事件解耦，能够在 Web 应用与服务联调中快速定位接口背后的业务逻辑问题。",
-        },
-      ],
-    },
+
     {
       title: "跨端移动应用 / 小程序项目",
       stack: "React Native / iOS / Android / uni-app / 微信云开发",

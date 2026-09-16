@@ -51,10 +51,13 @@ export const backendResume: ResumeData = {
       ],
     },
     {
-      title: "Web 开发",
+      title: "Web 与跨端开发",
       iconKey: "frontend",
       skills: [
         "React",
+        "Flutter",
+        "Electron",
+        "Taro",
         "Next.js",
         "TypeScript",
         "OpenAPI",
@@ -78,7 +81,7 @@ export const backendResume: ResumeData = {
         },
         {
           label: "业务系统后端设计",
-          text: "主导许可证生成、导入校验、续期升级、套餐/功能映射等流程设计与实现；围绕许可证生命周期设计审批状态机，以枚举转移表约束状态流转并通过乐观锁防止并发错乱；以申请单号作为幂等键，结合数据库唯一索引与 Redis 防重锁避免重复生成，支撑 50+ 种许可套餐动态组合，将重复配置时间降低 80% 以上。",
+          text: "主导许可证生成、导入校验、续期升级、套餐/功能映射等流程设计与实现；围绕许可证生命周期设计审批状态机，以枚举转移表约束状态流转并通过乐观锁控制并发更新；以申请单号作为幂等键，结合数据库唯一索引与 Redis 防重锁实现幂等生成，支撑 50+ 种许可套餐动态组合，将重复配置时间降低 80% 以上。",
         },
         {
           label: "消息驱动与一致性",
@@ -86,7 +89,7 @@ export const backendResume: ResumeData = {
         },
         {
           label: "权限与审计",
-          text: "使用 Spring Security + JWT 实现 RBAC 角色权限校验，通过 AOP 切面统一记录操作者、对象及变更前后数据，并使用线程池异步写入审计日志，保障多角色协作下的数据可追溯，同时避免阻塞主流程。",
+          text: "使用 Spring Security + JWT 实现 RBAC 角色权限校验，通过 AOP 切面统一记录操作者、对象及变更前后数据，并使用线程池异步写入审计日志。",
         },
         {
           label: "C++ 引擎侧协作",
@@ -105,109 +108,86 @@ export const backendResume: ResumeData = {
       title: "LLM Gateway 模型接入网关",
       href: "https://github.com/c524069797/llm-gateway-java",
       stack: "Java 21（虚拟线程）/ Spring Boot 3.5 / Resilience4j / Redis",
-      desc: "统一模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，换模型改配置不改代码",
+      desc: "统一模型接入层｜对业务暴露 OpenAI 兼容接口，业务侧改一个 base_url 即接入，通过配置切换模型",
       bullets: [
         {
-          label: "路由打分与熔断透明降级",
-          text: "将熔断器状态、成本与近期延迟纳入评分后选择主供应商；供应商处于熔断状态时直接跳过，主选失败则沿降级链切换，客户端无需感知。SSE 请求在收到首个 chunk 后才确认供应商归属，首包前失败仍可继续降级。",
+          label: "模型路由与缓存",
+          text: "根据熔断状态、成本和近期延迟选择供应商，请求失败时沿降级链切换；SSE 请求以首个 chunk 确认供应商，首包前失败继续降级。语义缓存结合归一化精确匹配与相似度匹配，使用 TTL / LRU 淘汰，命中后直接返回缓存响应。",
         },
         {
-          label: "鉴权与双维度限流",
-          text: "提供 API key 鉴权与 OpenAI 风格错误响应；使用 RPM 令牌桶和 TPM 分钟窗口实现双维度限流，并通过 Redis Lua 脚本保证「补充—判断—扣减」的原子性。限流组件提供内存与 Redis 两种实现，启动时探测 Redis 可用性后自动选择，兼顾单实例零依赖与多实例分布式场景。",
+          label: "鉴权与限流",
+          text: "通过 API key 鉴权，使用 RPM 令牌桶与 TPM 分钟窗口限流；Redis Lua 脚本原子执行额度补充、判断和扣减。限流组件提供内存与 Redis 实现，启动时根据 Redis 可用性选择。",
         },
         {
-          label: "语义缓存",
-          text: "归一化精确匹配 + 相似度匹配 + TTL / LRU 双淘汰，命中不调上游、不计费；实测命中耗时 35ms → 2.8ms。",
+          label: "计费与对账",
+          text: "请求流水与账本分别记录，通过 Redis Stream consumer group 与 ACK 异步投递计费事件；以 requestId 唯一约束实现消费幂等，对账任务识别漏账与孤账后补偿重发。",
         },
         {
-          label: "账单对账（最终一致 + 对账兜底）",
-          text: "请求流水与账本双侧记录，通过 Redis Stream consumer group + ACK 异步投递计费事件；使用 requestId 唯一约束保证消费幂等，对账任务识别漏账与孤账后补偿重发。",
-        },
-        {
-          label: "项目成效",
-          text: "25 项 P0 测试全绿；一键脚本在零外部依赖条件下验证故障注入、熔断、降级、恢复、限流、缓存命中，以及事件丢失后的对账补偿流程，具备完整的故障演练链路。",
+          label: "性能与验证",
+          text: "缓存命中耗时从 35ms 降至 2.8ms，降低 92%；通过自动化脚本验证熔断、降级、恢复、限流、缓存命中与计费事件补偿。",
         },
       ],
     },
     {
-      title: "企业 Agent 智能支持平台",
+      title: "内部综合管理系统（业务管理与智能客服）",
       href: "https://github.com/c524069797/enterprise-agent-platform",
-      stack: "FastAPI / LangGraph / Qdrant / GraphRAG / Java 21 / Spring Boot 3 / Spring AI（双后端）",
-      desc: "公司落地版已接入团队日常使用｜个人平台化完整版可离线演示",
+      stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ / Qdrant",
+      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端为个人扩展实现",
       bullets: [
         {
-          label: "Agent 编排",
-          text: "LangGraph 六节点状态机负责意图识别、RAG 检索、工具调用、检索质量评估、查询改写、人工审批与回答组装；checkpointer 按 thread 持久化会话状态，审批恢复时从条件入口继续执行，无需重复经过前置节点。9 类业务意图优先使用关键词规则，未命中时再由 LLM 兜底，高频路径无需调用 LLM。",
+          label: "状态机与消息处理",
+          text: "使用审批状态机与乐观锁管理许可证流程，以申请单号、数据库唯一索引和 Redis 锁处理生成幂等；RabbitMQ 解耦证书生成与通知，结合本地消息表、消费幂等及每日对账处理异常记录，重复配置时间降低 80% 以上。",
         },
         {
-          label: "Agent 工程骨架",
-          text: "围绕 Agent 长期运行所需的工程能力，补充 Corrective RAG 自纠循环、3 类业务工具的统一错误分类与降级返回、SSE 流式输出、会话状态持久化与中断恢复，以及五类外部依赖的本地替代实现；136 项 pytest 与 10 条 Playwright E2E 覆盖关键分支，验证更换模型、后端或外部依赖不可用时系统仍能按预期运行。",
+          label: "业务数据与知识检索",
+          text: "通过主系统只读聚合 API 提供申请、审批及工单状态；将历史工单、Wiki 和 SOP 入库，结合 RAG 检索提供审批解释、报错诊断与进度查询，并记录回答来源。",
         },
         {
-          label: "HITL 审批硬闸门",
-          text: "数据导出、发送邮件、越权动作等敏感操作在图内暂停并生成待审批载荷，人工决策后按 thread 恢复执行；审批前不会执行实际操作，避免敏感动作产生副作用。",
+          label: "Agent 能力扩展（个人项目）",
+          text: "基于 LangGraph 编排检索与工具调用，通过 checkpointer 保存会话；在个人扩展平台中实现人工审批、RBAC、GraphRAG 与审计，FastAPI 和 Spring AI 后端遵循同一 API 契约。",
         },
         {
-          label: "检索链路与权限审计",
-          text: "通过 Qdrant 向量检索、关键词混合检索与 GraphRAG 关系扩展构建检索链路，支持 metadata 过滤、来源溯源与父子检索；RBAC 控制 Agent 调用权限，对话、表格操作和 Agent 运行全量审计，并将检索证据一并写入审计记录，支持后续追溯。",
-        },
-        {
-          label: "双后端同契约与成效",
-          text: "后端提供 FastAPI（Python）与 Spring AI（Java）同一 OpenAPI 契约的两套实现，输出一致性由 E2E 用例守护；企业落地版覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，减少重复工单约 30%。",
+          label: "落地成效",
+          text: "内部智能客服已接入售后、技术支持团队日常工作，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 30%。",
         },
       ],
     },
+
     {
-      title: "内部综合管理系统（许可证 / 审批 / 出货全流程）",
-      stack: "Java Spring Boot / MySQL / Redis / RabbitMQ / Mastra / React / Nginx",
-      desc: "公司内部核心业务系统｜个人独立完成 Web 应用与后端设计、开发与部署的全栈项目",
+      title: "liveshop-ai 直播电商 AI 助播平台",
+      stack: "Java Spring Boot / React / Flutter / Redis / RabbitMQ / RAG",
+      desc: "个人练手项目｜同一后端服务支持主播中控台与观众 Web、Flutter App",
       bullets: [
         {
-          label: "业务闭环",
-          text: "覆盖许可证生成、导入校验、续期升级、套餐/功能映射与审批、出货、归档全流程，把表格 + 钉钉的记录方式收敛为系统化闭环，支撑 50+ 种许可套餐动态组合，将重复配置时间降低 80% 以上。",
+          label: "交易与直播间交互",
+          text: "使用 Redis Lua 扣减秒杀库存，RabbitMQ 异步落单并释放超时未支付订单；通过 STOMP 推送弹幕，React 实现主播中控台和观众页面，Flutter 实现观众 App。",
         },
         {
-          label: "状态机与幂等",
-          text: "围绕许可证生命周期设计审批状态机（枚举转移表 + 乐观锁防并发错乱）；许可证生成以申请单号做幂等键（数据库唯一索引 + Redis 防重锁），许可证内容经 RSA 私钥签名防伪造。",
-        },
-        {
-          label: "缓存与消息",
-          text: "套餐配置采用 Redis Cache-Aside，审批通过后通过 RabbitMQ 解耦证书生成与钉钉、邮件通知，配合本地消息表补偿与消费幂等保障消息可靠处理；出货与生成记录通过每日定时对账校验最终一致性。",
-        },
-        {
-          label: "权限与审计",
-          text: "使用 Spring Security + JWT 实现 RBAC 角色权限校验，通过 AOP 切面统一记录操作者、对象及变更前后数据，并使用线程池异步写入审计日志，避免阻塞主流程。",
-        },
-        {
-          label: "AI 能力载体",
-          text: "主系统通过服务间认证暴露受控只读聚合 API，向 Python Agent 服务提供业务数据；基于 Mastra（TypeScript Agent 框架）实现系统内多 Agent 编排、SSE 流式问答与会话持久化入口，后续在此基础上落地智能客服 Agent，并沉淀为企业 Agent 平台。",
+          label: "AI 助播",
+          text: "将弹幕攒批做意图分类；商品资料经本地向量化后用于 RAG 问答，通过 SSE 输出商品回答与讲品话术。",
         },
       ],
     },
     {
       title: "BackupPilot 智能备份 Agent",
       stack: "Python / LangGraph / Pydantic v2 / MCP / httpx / SQLite / zstd / Typer",
-      desc: "个人项目｜自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，纯本地可离线完整演示",
+      desc: "个人项目｜自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
       bullets: [
         {
-          label: "Agent 编排 + HITL",
-          text: "LangGraph 八节点状态机（意图识别 → 规划 → 策略决策 → 执行 → 校验汇报）；恢复等破坏性操作用 interrupt() 中断等待人工确认，不确认绝不落盘——备份场景误覆盖数据是最致命事故，HITL 是硬约束。",
+          label: "Agent 编排与工具接入",
+          text: "基于 LangGraph 编排意图识别、规划、执行与结果校验，使用 Pydantic schema 约束 LLM 结构化输出，离线场景使用规则解析。工具函数通过 MCP Server 和 langchain @tool 适配复用；恢复操作调用 interrupt() 暂停，人工确认后恢复执行，工具层通过 confirm 参数校验确认状态。",
         },
         {
-          label: "Agent 工程骨架",
-          text: "优先使用 Pydantic schema 约束 LLM 结构化输出，离线场景使用规则解析兜底；将能力封装为与协议无关的工具函数，由 MCP Server 和 langchain @tool 两个薄适配层复用；恢复等破坏性操作增加 confirm 二次门控。",
+          label: "备份引擎与平台接入",
+          text: "通过 BackupEngine 接口接入本地引擎与企业备份平台，使用环境变量切换实现。本地引擎采用 sha256 内容寻址去重、zstd 压缩、mtime 增量与原子写；平台适配器通过 REST 创建任务并轮询结果，结合平台数据实现多机巡检、失败诊断与容量预测。",
         },
         {
-          label: "双引擎架构",
-          text: "统一 BackupEngine 抽象接口，local 自研引擎（sha256 内容寻址去重、zstd 压缩、mtime 增量与原子写）与企业备份平台适配器实现同一抽象；适配层将接口方法转换为平台 REST 调用，备份采用先创建任务、再轮询终态的异步模型；通过环境变量切换引擎，无需修改 Agent 状态图。",
+          label: "恢复校验与诊断",
+          text: "恢复时逐文件校验内容完整性与目标路径，仓库采用信封加密，并通过 scrub 检查与恢复演练验证数据。运维 SOP 结合 BM25 检索与规则匹配生成诊断结果，低置信度时返回静态字典结果。",
         },
         {
-          label: "数据安全与恢复验证",
-          text: "恢复时逐文件校验并拒绝写入损坏数据，同时做好路径穿越防护与 SQLite 并发控制；备份仓库采用信封加密（scrypt 派生密钥 + AES-GCM + HMAC 对象名，避免泄露文件指纹），更换口令为 O(1) 操作，无需重加密。",
-        },
-        {
-          label: "项目成效",
-          text: "253 项测试全绿，E2E 通过模拟平台后端验证 HTTP 全链路；GB 级基准实测：1GB 首备吞吐 84 MB/s、去重压缩 4.8x、修改 1% 后增量备份 0.7s、加密开销约 5%；已接入企业备份平台跑通备份、恢复与巡检闭环。",
+          label: "性能与验证",
+          text: "1GB 数据首备吞吐 84 MB/s、去重压缩 4.8x，修改 1% 数据后增量备份耗时 0.7s，加密开销约 5%；通过平台后端的 HTTP 接口验证备份、恢复与巡检流程。",
         },
       ],
     },
@@ -218,7 +198,7 @@ export const backendResume: ResumeData = {
       bullets: [
         {
           label: "流程抽象",
-          text: "主导备份/恢复向导框架设计与实现，工厂模式 + Context + Proxy 支撑 50+ 资源类型动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。",
+          text: "主导备份/恢复向导框架设计与实现，工厂模式 + Context + Proxy 支撑 多种资源类型动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。",
         },
         {
           label: "实时链路",

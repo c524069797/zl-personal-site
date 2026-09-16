@@ -185,7 +185,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
             <div className="flex gap-2">
               <span className="w-16 shrink-0 font-bold">教育</span>
               <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span className="font-bold">吉首大学 · 软件工程（本科）</span>
+                <span className="font-bold">吉首大学 · 软件工程（本科/一批）</span>
                 <span>2017.09 – 2021.06</span>
                 <SkillTag template={template}>CET-6</SkillTag>
                 <SkillTag template={template}>软件设计师（中级）</SkillTag>

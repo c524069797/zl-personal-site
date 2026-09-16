@@ -240,7 +240,7 @@ export default function ResumePage() {
             <div className="resume-overview-row">
               <span className="resume-overview-label">教育</span>
               <div className="resume-overview-body">
-                <span className="resume-overview-strong">吉首大学｜软件工程（本科）</span>
+                <span className="resume-overview-strong">吉首大学｜软件工程（本科/一批）</span>
                 <span>2017.09 - 2021.06</span>
                 <SkillTag>CET-6</SkillTag>
                 <SkillTag>软件设计师（中级）</SkillTag>

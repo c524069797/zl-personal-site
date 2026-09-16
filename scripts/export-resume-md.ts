@@ -49,7 +49,7 @@ function toMarkdown(data: ResumeData): string {
   parts.push("");
   parts.push(data.summary);
   parts.push("");
-  parts.push("**教育**：吉首大学｜软件工程（本科）｜2017.09 – 2021.06｜CET-6、软件设计师（中级）；英文技术文档阅读通畅，具备日语听读能力");
+  parts.push("**教育**：吉首大学｜软件工程（本科/一批）｜2017.09 – 2021.06｜CET-6、软件设计师（中级）；英文技术文档阅读通畅，具备日语听读能力");
   parts.push("");
   data.skillGroups.forEach((g) => parts.push(`**${g.title}**：${g.skills.join("、")}`));
   parts.push("");

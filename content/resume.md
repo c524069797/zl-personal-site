@@ -101,10 +101,13 @@ GitHub：https://github.com/c524069797/llm-gateway-java
 
 ### liveshop-ai 直播电商 AI 助播平台
 
-个人练手项目｜Java / Spring Boot + React + Flutter + Redis + RabbitMQ
+个人项目 · 企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App
 
-- **交易与直播间交互**：使用 Redis Lua 扣减秒杀库存，RabbitMQ 异步落单并释放超时未支付订单；通过 STOMP 推送弹幕，React 提供主播中控台和观众 Web 页面，Flutter 提供观众 App。
-- **AI 助播**：将弹幕攒批做意图分类；商品资料经本地向量化后用于 RAG 问答，通过 SSE 输出商品回答与讲品话术。
+**技术栈**：Java / Spring Boot + React + Flutter + Redis + RabbitMQ + RAG
+
+- **交易一致性**：现有版本使用 Redis Lua 扣减秒杀库存、RabbitMQ 异步落单与超时释放；扩展方案设计支付确认与关单状态流转，规划条件更新、Outbox、消费幂等及对账补偿，处理重复回调与支付关单竞争。
+- **促销与计价方案**：设计 SKU 计价、优惠叠加规则及成交快照，规划优惠券占用、核销与释放，结合价格版本校验和优惠分摊处理价格变化与部分退款。
+- **AI 助播与业务集成**：现有版本支持弹幕批量意图分类、商品 RAG 及 SSE 问答与话术；扩展方案结合 SKU/资料版本过滤和实时价格、库存、本人订单查询工具，规划权限校验、来源展示与失败降级。
 
 ## 其他个人作品
 

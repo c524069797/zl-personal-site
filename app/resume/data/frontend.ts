@@ -126,7 +126,7 @@ export const frontendResume: ResumeData = {
       ],
     },
     {
-      title: "内部管理系统（业务管理与智能客服）",
+      title: "智能OA&客服系统",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ",
       desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",

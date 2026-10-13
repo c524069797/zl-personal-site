@@ -7,7 +7,7 @@ export const frontendResume: ResumeData = {
   role: "Web 开发工程师（React / Next.js，AI 应用方向）",
   meta: "本科｜近 5 年 Web 开发经验｜AI 产品落地实践",
   summary:
-    "近 5 年 Web 开发经验，覆盖企业级中后台、复杂表单向导、可视化大屏、内容型站点与跨端移动应用等多种形态。参与内部智能客服上线，开发流式回答、引用展示和转人工交互；在个人项目中实践 Agent 审批交互、直播电商 Web 与 Flutter 页面。",
+    "近 5 年 Web 开发经验，覆盖企业级中后台、复杂表单向导、可视化大屏、内容型站点与跨端移动应用等多种形态。参与内部智能客服上线，开发流式回答、引用展示和转人工交互；项目实践还覆盖 Agent 审批交互、直播电商 Web 与 Flutter 页面。",
 
   skillGroups: [
     {
@@ -129,7 +129,7 @@ export const frontendResume: ResumeData = {
       title: "内部管理系统（业务管理与智能客服）",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ",
-      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端为个人扩展实现",
+      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
       bullets: [
         {
           label: "业务管理与对话工作台",
@@ -140,8 +140,8 @@ export const frontendResume: ResumeData = {
           text: "将产品文档、历史工单、Wiki 与 SOP 构建为可检索知识库；主系统通过只读聚合 API 提供申请、审批和工单状态，支持审批解释、报错诊断与进度查询。",
         },
         {
-          label: "Agent 能力扩展（个人项目）",
-          text: "在个人扩展平台中实现岗位 Agent 可见范围、人工审批交互与检索证据展示，通过 Playwright 验证页面和 API 契约；后端基于 LangGraph 编排检索与工具调用。",
+          label: "Agent 能力扩展",
+          text: "在扩展平台中实现岗位 Agent 可见范围、人工审批交互与检索证据展示，通过 Playwright 验证页面和 API 契约；后端基于 LangGraph 编排检索与工具调用。",
         },
         {
           label: "落地成效",
@@ -152,7 +152,7 @@ export const frontendResume: ResumeData = {
     {
       title: "BackupPilot 智能备份助手",
       stack: "Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd / Typer",
-      desc: "个人项目｜自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
+      desc: "自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
       bullets: [
         {
           label: "Agent 编排与工具接入",
@@ -199,7 +199,7 @@ export const frontendResume: ResumeData = {
     {
       title: "liveshop-ai 直播电商 AI 助播平台",
       stack: "Java Spring Boot / React / Flutter / Redis / RabbitMQ / RAG",
-      desc: "个人项目 · 企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
+      desc: "企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
       bullets: [
         {
           label: "交易一致性",

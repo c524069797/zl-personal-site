@@ -127,7 +127,7 @@ export const backendResume: ResumeData = {
       title: "内部管理系统（业务管理与智能客服）",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ / Qdrant",
-      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端为个人扩展实现",
+      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
       bullets: [
         {
           label: "状态机与消息处理",
@@ -138,8 +138,8 @@ export const backendResume: ResumeData = {
           text: "通过主系统只读聚合 API 提供申请、审批及工单状态；将历史工单、Wiki 和 SOP 入库，结合 RAG 检索提供审批解释、报错诊断与进度查询，并记录回答来源。",
         },
         {
-          label: "Agent 能力扩展（个人项目）",
-          text: "基于 LangGraph 编排检索与工具调用，通过 checkpointer 保存会话；在个人扩展平台中实现人工审批、RBAC、GraphRAG 与审计，FastAPI 和 Spring AI 后端遵循同一 API 契约。",
+          label: "Agent 能力扩展",
+          text: "基于 LangGraph 编排检索与工具调用，通过 checkpointer 保存会话；在扩展平台中实现人工审批、RBAC、GraphRAG 与审计，FastAPI 和 Spring AI 后端遵循同一 API 契约。",
         },
         {
           label: "落地成效",
@@ -150,7 +150,7 @@ export const backendResume: ResumeData = {
     {
       title: "BackupPilot 智能备份助手",
       stack: "Python / LangGraph / Pydantic v2 / MCP / httpx / SQLite / zstd / Typer",
-      desc: "个人项目｜自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
+      desc: "自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
       bullets: [
         {
           label: "Agent 编排与工具接入",
@@ -197,7 +197,7 @@ export const backendResume: ResumeData = {
     {
       title: "liveshop-ai 直播电商 AI 助播平台",
       stack: "Java Spring Boot / React / Flutter / Redis / RabbitMQ / RAG",
-      desc: "个人项目 · 企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
+      desc: "企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
       bullets: [
         {
           label: "交易一致性",

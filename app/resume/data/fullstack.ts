@@ -7,7 +7,7 @@ export const fullstackResume: ResumeData = {
   role: "AI Agent 开发 / AI 全栈工程师",
   meta: "本科｜近 5 年 Web 开发经验｜AI Agent 落地实践",
   summary:
-    "具备近 5 年 Web 开发与 AI 应用落地经验，能够围绕真实业务场景完成需求拆解、知识库建设、RAG 检索、Agent 工作流编排、Web 应用与后端服务联调及上线验证。企业项目覆盖备份恢复、内部管理与智能客服；个人项目包括 BackupPilot 智能备份助手、LLM Gateway 和直播电商 AI 助播平台。",
+    "具备近 5 年 Web 开发与 AI 应用落地经验，能够围绕真实业务场景完成需求拆解、知识库建设、RAG 检索、Agent 工作流编排、Web 应用与后端服务联调及上线验证。项目覆盖备份恢复、内部管理、智能客服、BackupPilot 智能备份助手、LLM Gateway 和直播电商 AI 助播平台。",
 
   skillGroups: [
     {
@@ -118,7 +118,7 @@ export const fullstackResume: ResumeData = {
       title: "内部管理系统（业务管理与智能客服）",
       href: "https://github.com/c524069797/enterprise-agent-platform",
       stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ / Qdrant",
-      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端为个人扩展实现",
+      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
       bullets: [
         {
           label: "业务流程与后端设计",
@@ -129,8 +129,8 @@ export const fullstackResume: ResumeData = {
           text: "主系统通过只读聚合 API 提供申请、审批和工单状态；将产品文档、历史工单、Wiki 与 SOP 入库，结合 RAG 检索提供审批解释、报错诊断与进度查询，支持引用来源展示和转人工。",
         },
         {
-          label: "Agent 能力扩展（个人项目）",
-          text: "基于 LangGraph 编排意图识别、检索与工具调用，使用 checkpointer 保存会话；在个人扩展平台中实现人工审批、岗位权限、GraphRAG 检索及审计，并以同一 API 契约接入 FastAPI 与 Spring AI 后端。",
+          label: "Agent 能力扩展",
+          text: "基于 LangGraph 编排意图识别、检索与工具调用，使用 checkpointer 保存会话；在扩展平台中实现人工审批、岗位权限、GraphRAG 检索及审计，并以同一 API 契约接入 FastAPI 与 Spring AI 后端。",
         },
         {
           label: "落地成效",
@@ -141,7 +141,7 @@ export const fullstackResume: ResumeData = {
     {
       title: "BackupPilot 智能备份助手",
       stack: "Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd / Typer",
-      desc: "个人项目｜自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
+      desc: "自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
       bullets: [
         {
           label: "Agent 编排与工具接入",
@@ -188,7 +188,7 @@ export const fullstackResume: ResumeData = {
     {
       title: "liveshop-ai 直播电商 AI 助播平台",
       stack: "Java Spring Boot / React / Flutter / Redis / RabbitMQ / RAG",
-      desc: "个人项目 · 企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
+      desc: "企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
       bullets: [
         {
           label: "交易一致性",
@@ -209,5 +209,5 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "长期负责企业业务系统的流程设计、开发与维护，参与智能客服 Agent 上线；个人项目覆盖智能备份、模型网关和直播电商 AI 助播。",
+    "长期负责企业业务系统的流程设计、开发与维护，参与智能客服 Agent 上线；项目覆盖智能备份、模型网关和直播电商 AI 助播。",
 };

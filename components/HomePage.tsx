@@ -77,25 +77,29 @@ const fadeInScale = {
 const visualHighlights = [
   {
     title: '工程现场',
-    caption: '把想法推进到可上线的产品',
+    caption: '工作经历 · 企业级备份恢复系统',
+    href: 'https://www.scutech.com/?cat=41',
     src: '/ai-front.png',
     accent: 'from-cyan-500/70 to-indigo-500/70',
   },
   {
     title: '体育分析',
     caption: '数据、预测与实时体验',
+    href: 'https://sport-oracle-indol.vercel.app',
     src: '/projects/nba-predict.png',
     accent: 'from-orange-500/70 to-sky-500/70',
   },
   {
     title: '插件产品',
     caption: '轻量入口承载高频场景',
+    href: 'https://github.com/c524069797/sports-hub-extension',
     src: '/projects/sports-hub.png',
     accent: 'from-blue-500/70 to-emerald-500/70',
   },
   {
     title: '社区应用',
     caption: '围绕内容和关系做体验',
+    href: 'https://crochet-community-pearl.vercel.app',
     src: '/projects/zhiqu-crochet.png',
     accent: 'from-pink-500/70 to-violet-500/70',
   },
@@ -169,8 +173,11 @@ function VisualDirectionStrip() {
         {visualHighlights.map((item, index) => (
           <a
             key={item.title}
-            href={index === 0 ? '#works' : index === 3 ? '#background' : '#posts'}
-            className={`group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-[0_18px_60px_-36px_rgba(15,23,42,0.7)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10 ${
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${item.title}：${item.caption}（新标签页打开）`}
+            className={`group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-[0_18px_60px_-36px_rgba(15,23,42,0.7)] transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500 dark:border-white/10 ${
               index === 0 ? 'sm:col-span-2 lg:col-span-1' : ''
             }`}
           >

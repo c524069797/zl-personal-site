@@ -4,9 +4,7 @@ import type { OtherWork } from "./types";
 export const OTHER_WORKS: OtherWork[] = [
   {
     title: "SportOracle 体育预测平台",
-    href: "https://nba.clczl.asia/",
-    desc: "AI 驱动的体育预测产品。",
-    linkLabel: "nba.clczl.asia",
+    desc: "AI 驱动的体育预测产品，未合规，暂未上线。",
   },
   {
     title: "Sports Hub 浏览器插件",

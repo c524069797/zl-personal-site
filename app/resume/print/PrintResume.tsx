@@ -248,7 +248,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
             <div className="space-y-0.5 text-[11px] leading-relaxed text-gray-800">
               {data.otherWorks.map((w) => (
                 <p key={w.title}>
-                  <strong>{w.title}</strong>：{w.desc}（{w.linkLabel}）
+                  <strong>{w.title}</strong>：{w.desc}{w.linkLabel && `（${w.linkLabel}）`}
                 </p>
               ))}
             </div>

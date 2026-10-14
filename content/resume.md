@@ -113,7 +113,7 @@ GitHub：https://github.com/c524069797/llm-gateway-java
 
 更多项目可见作品集：https://www.clczl.asia
 
-1. **SportOracle 体育预测平台**：AI 驱动的体育预测产品，支持比赛分析与预测信息展示。在线地址：https://nba.clczl.asia/
+1. **SportOracle 体育预测平台**：AI 驱动的体育预测产品，支持比赛分析与预测信息展示。项目状态：未合规，暂未上线。
 2. **Sports Hub 浏览器插件**：聚合 NBA、足球、电竞赛事信息的 Chrome Extension。GitHub：https://github.com/c524069797/sports-hub-extension
 
 ## 个人优势

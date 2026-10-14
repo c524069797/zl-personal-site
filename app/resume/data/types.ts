@@ -42,9 +42,9 @@ export interface ProjectEntry {
 
 export interface OtherWork {
   title: string;
-  href: string;
+  href?: string;
   desc: string;
-  linkLabel: string;
+  linkLabel?: string;
 }
 
 export interface ResumeData {

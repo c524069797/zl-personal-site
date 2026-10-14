@@ -84,8 +84,8 @@ const visualHighlights = [
   },
   {
     title: '体育分析',
-    caption: '数据、预测与实时体验',
-    href: 'https://sport-oracle-indol.vercel.app',
+    caption: 'SportOracle · 未合规，暂未上线',
+    href: null,
     src: '/projects/nba-predict.png',
     accent: 'from-orange-500/70 to-sky-500/70',
   },

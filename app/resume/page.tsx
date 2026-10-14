@@ -323,14 +323,18 @@ export default function ResumePage() {
                   <span className="resume-work-dot" />
                   <span>
                     <strong>
-                      <a className="resume-title-link" href={work.href} target="_blank" rel="noopener noreferrer">
-                        {work.title}
-                      </a>
+                      {work.href ? (
+                        <a className="resume-title-link" href={work.href} target="_blank" rel="noopener noreferrer">
+                          {work.title}
+                        </a>
+                      ) : work.title}
                     </strong>
                     ：{work.desc}{" "}
-                    <a className="resume-link" href={work.href} target="_blank" rel="noopener noreferrer">
-                      {work.linkLabel}
-                    </a>
+                    {work.href && (
+                      <a className="resume-link" href={work.href} target="_blank" rel="noopener noreferrer">
+                        {work.linkLabel}
+                      </a>
+                    )}
                   </span>
                 </p>
               ))}

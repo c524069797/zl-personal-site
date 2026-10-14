@@ -10,7 +10,7 @@ import {
   GraduationCap,
   Target,
   Sparkles,
-  Lightbulb,
+  Star,
   Zap,
   BarChart3,
   ArchiveRestore,
@@ -133,17 +133,19 @@ function VisionLearningCard({
   desc,
   skillsTitle,
   skillLabels,
-  hoverHint,
+  detailsLabel,
+  ratingLabel,
   icon = <Sparkles size={20} />,
-  showLevels = true,
+  showRatings = true,
 }: {
   title: string
   desc: string
   skillsTitle: string
   skillLabels: string[]
-  hoverHint: string
+  detailsLabel: string
+  ratingLabel: string
   icon?: React.ReactNode
-  showLevels?: boolean
+  showRatings?: boolean
 }) {
   const [isHovered, setIsHovered] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -151,9 +153,9 @@ function VisionLearningCard({
   const detailsId = useId()
   const isOpen = isHovered || isExpanded
 
-  const aiDetailSkills = skillLabels.map((label, i) => ({
+  const detailSkills = skillLabels.map((label, i) => ({
     label,
-    level: [92, 90, 88, 86, 84, 82][i] || 80,
+    stars: [4, 4, 4, 3, 3, 3][i] ?? 3,
   }))
 
   return (
@@ -210,7 +212,7 @@ function VisionLearningCard({
                 <Zap size={14} className="text-cyan-500" />
                 <span className="text-xs font-semibold text-cyan-500 tracking-wide uppercase">{skillsTitle}</span>
               </div>
-              {aiDetailSkills.map((skill, i) => (
+              {detailSkills.map((skill, i) => (
                 <motion.div
                   key={skill.label}
                   initial={false}
@@ -218,20 +220,26 @@ function VisionLearningCard({
                   transition={{ delay: reduceMotion ? 0 : i * 0.05 + 0.1, duration: reduceMotion ? 0 : 0.3 }}
                   className="space-y-1"
                 >
-                  <div className="flex justify-between text-xs">
-                    <span className="text-neutral-500 dark:text-white/60">{skill.label}</span>
-                    {showLevels && <span className="text-cyan-500 font-medium">{skill.level}%</span>}
+                  <div className="flex items-center justify-between gap-3 text-xs">
+                    <span className="min-w-0 text-neutral-500 dark:text-white/60">{skill.label}</span>
+                    {showRatings && (
+                      <span
+                        role="img"
+                        aria-label={ratingLabel.replace('{rating}', String(skill.stars))}
+                        className="flex shrink-0 items-center gap-0.5"
+                      >
+                        {Array.from({ length: 5 }, (_, starIndex) => (
+                          <Star
+                            key={starIndex}
+                            size={12}
+                            aria-hidden="true"
+                            fill={starIndex < skill.stars ? 'currentColor' : 'none'}
+                            className={starIndex < skill.stars ? 'text-cyan-500' : 'text-neutral-300 dark:text-white/20'}
+                          />
+                        ))}
+                      </span>
+                    )}
                   </div>
-                  {showLevels && (
-                    <div className="h-1 rounded-full bg-neutral-100 dark:bg-white/10 overflow-hidden">
-                      <motion.div
-                        initial={false}
-                        animate={{ scaleX: isOpen ? skill.level / 100 : 0 }}
-                        transition={{ delay: reduceMotion ? 0 : i * 0.05 + 0.15, duration: reduceMotion ? 0 : 0.5, ease: 'easeOut' }}
-                        className="h-full origin-left rounded-full bg-gradient-to-r from-cyan-500 to-blue-400"
-                      />
-                    </div>
-                  )}
                 </motion.div>
               ))}
             </div>
@@ -242,15 +250,13 @@ function VisionLearningCard({
           type="button"
           aria-expanded={isOpen}
           aria-controls={detailsId}
+          aria-label={detailsLabel}
           onClick={() => {
             setIsExpanded((prev) => !prev)
             setIsHovered(false)
           }}
-          className="flex items-center gap-1.5 mt-2 min-h-11 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-500"
-        >
-          <Lightbulb size={12} className="text-cyan-400" />
-          <span className="text-[11px] text-cyan-400">{hoverHint}</span>
-        </button>
+          className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-cyan-500"
+        />
       </div>
     </motion.div>
   )
@@ -369,16 +375,25 @@ export default function VisionSection() {
             desc={t('home.vision.aiLearningDesc')}
             skillsTitle={t('home.vision.aiLearningSkillsTitle')}
             skillLabels={visionSkillLabels}
-            hoverHint={t('home.vision.aiLearningHoverHint')}
+            detailsLabel={t('home.vision.aiLearningDetailsLabel')}
+            ratingLabel={t('home.vision.starRatingLabel')}
           />
           <VisionLearningCard
             title={t('home.vision.techDrivenTitle')}
             desc={t('home.vision.techDrivenDesc')}
             skillsTitle={t('home.vision.techDrivenSkillsTitle')}
-            skillLabels={['Harness', 'MCP', 'SKILL', 'multi-agent']}
-            hoverHint={t('home.vision.techDrivenHoverHint')}
+            skillLabels={[
+              t('home.vision.techDrivenSkill0'),
+              t('home.vision.techDrivenSkill1'),
+              t('home.vision.techDrivenSkill2'),
+              t('home.vision.techDrivenSkill3'),
+              t('home.vision.techDrivenSkill4'),
+              t('home.vision.techDrivenSkill5'),
+            ]}
+            detailsLabel={t('home.vision.techDrivenDetailsLabel')}
+            ratingLabel={t('home.vision.starRatingLabel')}
             icon={<BarChart3 size={20} />}
-            showLevels={false}
+            showRatings={false}
           />
         </div>
       </RevealSection>

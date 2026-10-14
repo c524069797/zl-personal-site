@@ -4,7 +4,9 @@ import type { OtherWork } from "./types";
 export const OTHER_WORKS: OtherWork[] = [
   {
     title: "SportOracle 体育预测平台",
+    href: "https://sport-oracle-indol.vercel.app",
     desc: "AI 驱动的体育预测产品，未合规，暂未上线。",
+    linkLabel: "项目入口",
   },
   {
     title: "Sports Hub 浏览器插件",

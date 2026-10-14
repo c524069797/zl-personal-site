@@ -99,7 +99,7 @@ const visualHighlights = [
   {
     title: '社区应用',
     caption: '围绕内容和关系做体验',
-    href: 'https://crochet-community-pearl.vercel.app',
+    href: 'https://api.zhiqu.clczl.asia/',
     src: '/projects/zhiqu-crochet.png',
     accent: 'from-pink-500/70 to-violet-500/70',
   },

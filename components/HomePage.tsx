@@ -103,6 +103,13 @@ const visualHighlights = [
     src: '/projects/zhiqu-crochet.png',
     accent: 'from-pink-500/70 to-violet-500/70',
   },
+  {
+    title: '组件库',
+    caption: '业务组件封装与使用文档',
+    href: null,
+    src: '/projects/component-library.png',
+    accent: 'from-slate-600/80 to-blue-500/60',
+  },
 ]
 
 const fallbackLatestPosts: Post[] = [
@@ -169,25 +176,19 @@ function RevealSection({
 function VisualDirectionStrip() {
   return (
     <section className="px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 mb-14 sm:mb-20">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {visualHighlights.map((item, index) => (
-          <a
-            key={item.title}
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${item.title}：${item.caption}（新标签页打开）`}
-            className={`group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-[0_18px_60px_-36px_rgba(15,23,42,0.7)] transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500 dark:border-white/10 ${
-              index === 0 ? 'sm:col-span-2 lg:col-span-1' : ''
-            }`}
-          >
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {visualHighlights.map((item, index) => {
+          const className = 'group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-[0_18px_60px_-36px_rgba(15,23,42,0.7)] dark:border-white/10'
+          const content = (
             <div className="relative h-44 sm:h-52 lg:h-64">
               <Image
                 src={item.src}
                 alt={item.title}
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 20vw"
+                className={item.href
+                  ? 'object-cover transition-transform duration-700 group-hover:scale-105'
+                  : 'object-cover object-left-top'}
                 priority={index === 0}
               />
               <div className={`absolute inset-0 bg-gradient-to-t ${item.accent} via-neutral-950/20 to-transparent opacity-80`} />
@@ -196,8 +197,25 @@ function VisualDirectionStrip() {
                 <p className="mt-1 text-xs leading-relaxed text-white/75">{item.caption}</p>
               </div>
             </div>
-          </a>
-        ))}
+          )
+
+          return item.href ? (
+            <a
+              key={item.title}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${item.title}：${item.caption}（新标签页打开）`}
+              className={`${className} transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500`}
+            >
+              {content}
+            </a>
+          ) : (
+            <div key={item.title} className={`${className} cursor-default`}>
+              {content}
+            </div>
+          )
+        })}
       </div>
     </section>
   )

@@ -123,8 +123,10 @@ const translations = {
       aiLearningSkill3: 'Prompt Engineering',
       aiLearningSkill4: 'Multimodal Interaction',
       aiLearningSkill5: 'AI Workflow',
-      aiLearningHoverHint: 'Hover to view AI capabilities',
+      aiLearningHoverHint: 'Hover or click to view AI capabilities',
       techDrivenTitle: 'Technology-Driven Innovation',
+      techDrivenSkillsTitle: 'Agent Engineering',
+      techDrivenHoverHint: 'Hover or click to view technology practices',
       techDrivenDesc: 'Technology is not just a tool, but the core engine driving innovation. I believe through continuous learning and practice, we can build a better digital world with code—making the complex simple and the inefficient intelligent.',
     },
     skills: {

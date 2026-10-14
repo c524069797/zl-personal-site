@@ -123,8 +123,10 @@ const zhCN = {
       aiLearningSkill3: 'Prompt工程',
       aiLearningSkill4: '多模态交互',
       aiLearningSkill5: 'AI工作流',
-      aiLearningHoverHint: '悬停查看AI能力详情',
+      aiLearningHoverHint: '悬停或点击查看 AI 能力详情',
       techDrivenTitle: '技术驱动创新',
+      techDrivenSkillsTitle: 'Agent 工程实践',
+      techDrivenHoverHint: '悬停或点击查看技术实践',
       techDrivenDesc: '技术不仅是工具，更是推动创新的核心动力。我相信通过持续学习与实践，可以用代码构建更美好的数字世界，让复杂变简单，让低效变智能。',
     },
     skills: {

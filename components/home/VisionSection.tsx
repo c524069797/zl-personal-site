@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useId, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   Code2,
   Server,
@@ -128,20 +128,28 @@ function TechCard({
   )
 }
 
-function AILearningCard({
+function VisionLearningCard({
   title,
   desc,
   skillsTitle,
   skillLabels,
   hoverHint,
+  icon = <Sparkles size={20} />,
+  showLevels = true,
 }: {
   title: string
   desc: string
   skillsTitle: string
   skillLabels: string[]
   hoverHint: string
+  icon?: React.ReactNode
+  showLevels?: boolean
 }) {
   const [isHovered, setIsHovered] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const detailsId = useId()
+  const isOpen = isHovered || isExpanded
 
   const aiDetailSkills = skillLabels.map((label, i) => ({
     label,
@@ -151,11 +159,13 @@ function AILearningCard({
   return (
     <motion.div
       variants={fadeInUp}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -5, scale: 1.005 }}
+      onPointerEnter={(event) => {
+        if (event.pointerType === 'mouse') setIsHovered(true)
+      }}
+      onPointerLeave={() => setIsHovered(false)}
+      whileHover={reduceMotion ? undefined : { y: -5, scale: 1.005 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-      className="group relative rounded-2xl overflow-hidden cursor-default transition-all duration-500
+      className="group relative rounded-2xl overflow-hidden cursor-default transition-all duration-500 motion-reduce:transition-none
         bg-white/60 dark:bg-white/[0.04]
         backdrop-blur-xl
         border border-neutral-200/60 dark:border-white/[0.08]
@@ -165,22 +175,22 @@ function AILearningCard({
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
         <div
-          className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-          style={{ animation: 'scanLine 3s ease-in-out infinite' }}
+          className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 motion-reduce:transition-none"
+          style={{ animation: reduceMotion ? 'none' : 'scanLine 3s ease-in-out infinite' }}
         />
       </div>
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none overflow-hidden">
-        <div className="absolute inset-[-100%] animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-cyan-500/[0.04] to-transparent" />
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 motion-reduce:transition-none pointer-events-none overflow-hidden">
+        <div className="absolute inset-[-100%] animate-[shimmer_2.5s_infinite] motion-reduce:animate-none bg-gradient-to-r from-transparent via-cyan-500/[0.04] to-transparent" />
       </div>
-      <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700" />
+      <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700 motion-reduce:transform-none motion-reduce:transition-none" />
       <div className="absolute top-0 left-0 w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-cyan-400/40 to-transparent" />
         <div className="absolute top-0 left-0 h-full w-[1px] bg-gradient-to-b from-cyan-400/40 to-transparent" />
       </div>
 
       <div className="relative z-10 p-6 sm:p-8">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white mb-4 shadow-lg shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-          <Sparkles size={20} />
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white mb-4 shadow-lg shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 motion-reduce:transform-none motion-reduce:transition-none">
+          {icon}
         </div>
         <h3 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-white mb-3">
           {title}
@@ -189,53 +199,58 @@ function AILearningCard({
           {desc}
         </p>
 
-        <motion.div
-          initial={false}
-          animate={{
-            height: isHovered ? 'auto' : 0,
-            opacity: isHovered ? 1 : 0,
-          }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="overflow-hidden"
+        <div
+          id={detailsId}
+          aria-hidden={!isOpen}
+          className={`grid transition-[grid-template-rows] duration-300 motion-reduce:transition-none ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
         >
-          <div className="pt-4 border-t border-neutral-100 dark:border-white/10 space-y-3">
-            <div className="flex items-center gap-2 mb-3">
-              <Zap size={14} className="text-cyan-500" />
-              <span className="text-xs font-semibold text-cyan-500 tracking-wide uppercase">{skillsTitle}</span>
+          <div className="min-h-0 overflow-hidden">
+            <div className="pt-4 border-t border-neutral-100 dark:border-white/10 space-y-3">
+              <div className="flex items-center gap-2 mb-3">
+                <Zap size={14} className="text-cyan-500" />
+                <span className="text-xs font-semibold text-cyan-500 tracking-wide uppercase">{skillsTitle}</span>
+              </div>
+              {aiDetailSkills.map((skill, i) => (
+                <motion.div
+                  key={skill.label}
+                  initial={false}
+                  animate={isOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: reduceMotion ? 0 : -10 }}
+                  transition={{ delay: reduceMotion ? 0 : i * 0.05 + 0.1, duration: reduceMotion ? 0 : 0.3 }}
+                  className="space-y-1"
+                >
+                  <div className="flex justify-between text-xs">
+                    <span className="text-neutral-500 dark:text-white/60">{skill.label}</span>
+                    {showLevels && <span className="text-cyan-500 font-medium">{skill.level}%</span>}
+                  </div>
+                  {showLevels && (
+                    <div className="h-1 rounded-full bg-neutral-100 dark:bg-white/10 overflow-hidden">
+                      <motion.div
+                        initial={false}
+                        animate={{ scaleX: isOpen ? skill.level / 100 : 0 }}
+                        transition={{ delay: reduceMotion ? 0 : i * 0.05 + 0.15, duration: reduceMotion ? 0 : 0.5, ease: 'easeOut' }}
+                        className="h-full origin-left rounded-full bg-gradient-to-r from-cyan-500 to-blue-400"
+                      />
+                    </div>
+                  )}
+                </motion.div>
+              ))}
             </div>
-            {aiDetailSkills.map((skill, i) => (
-              <motion.div
-                key={skill.label}
-                initial={{ opacity: 0, x: -10 }}
-                animate={isHovered ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                transition={{ delay: i * 0.05 + 0.1, duration: 0.3 }}
-                className="space-y-1"
-              >
-                <div className="flex justify-between text-xs">
-                  <span className="text-neutral-500 dark:text-white/60">{skill.label}</span>
-                  <span className="text-cyan-500 font-medium">{skill.level}%</span>
-                </div>
-                <div className="h-1 rounded-full bg-neutral-100 dark:bg-white/10 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={isHovered ? { width: `${skill.level}%` } : { width: 0 }}
-                    transition={{ delay: i * 0.05 + 0.15, duration: 0.5, ease: 'easeOut' }}
-                    className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-400"
-                  />
-                </div>
-              </motion.div>
-            ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          animate={{ opacity: isHovered ? 0 : 1 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-center gap-1.5 mt-2"
+        <button
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls={detailsId}
+          onClick={() => {
+            setIsExpanded((prev) => !prev)
+            setIsHovered(false)
+          }}
+          className="flex items-center gap-1.5 mt-2 min-h-11 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-500"
         >
           <Lightbulb size={12} className="text-cyan-400" />
           <span className="text-[11px] text-cyan-400">{hoverHint}</span>
-        </motion.div>
+        </button>
       </div>
     </motion.div>
   )
@@ -349,26 +364,22 @@ export default function VisionSection() {
           subtitle={t('home.vision.visionSubtitle')}
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          <AILearningCard
+          <VisionLearningCard
             title={t('home.vision.aiLearningTitle')}
             desc={t('home.vision.aiLearningDesc')}
             skillsTitle={t('home.vision.aiLearningSkillsTitle')}
             skillLabels={visionSkillLabels}
             hoverHint={t('home.vision.aiLearningHoverHint')}
           />
-          <TechCard glowFrom="from-blue-500/8" glowTo="from-indigo-500/8">
-            <div className="p-6 sm:p-8">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white mb-4 shadow-lg shadow-blue-500/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
-                <BarChart3 size={20} />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-white mb-3">
-                {t('home.vision.techDrivenTitle')}
-              </h3>
-              <p className="text-sm sm:text-base text-neutral-500 dark:text-white/50 leading-relaxed">
-                {t('home.vision.techDrivenDesc')}
-              </p>
-            </div>
-          </TechCard>
+          <VisionLearningCard
+            title={t('home.vision.techDrivenTitle')}
+            desc={t('home.vision.techDrivenDesc')}
+            skillsTitle={t('home.vision.techDrivenSkillsTitle')}
+            skillLabels={['Harness', 'MCP', 'SKILL', 'multi-agent']}
+            hoverHint={t('home.vision.techDrivenHoverHint')}
+            icon={<BarChart3 size={20} />}
+            showLevels={false}
+          />
         </div>
       </RevealSection>
 

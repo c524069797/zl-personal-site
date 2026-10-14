@@ -123,8 +123,10 @@ const translations = {
       aiLearningSkill3: 'Prompt工程',
       aiLearningSkill4: '多模態交互',
       aiLearningSkill5: 'AI工作流',
-      aiLearningHoverHint: '懸停查看AI能力詳情',
+      aiLearningHoverHint: '懸停或點擊查看 AI 能力詳情',
       techDrivenTitle: '技術驅動創新',
+      techDrivenSkillsTitle: 'Agent 工程實踐',
+      techDrivenHoverHint: '懸停或點擊查看技術實踐',
       techDrivenDesc: '技術不僅是工具，更是推動創新的核心動力。我相信通過持續學習與實踐，可以用代碼構建更美好的數字世界，讓複雜變簡單，讓低效變智能。',
     },
     skills: {

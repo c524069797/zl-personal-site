@@ -137,42 +137,6 @@ const fallbackLatestPosts: Post[] = [
   },
 ]
 
-const fallbackHotPosts: Post[] = [
-  {
-    id: 'fallback-rag',
-    slug: 'rag-pitfalls-and-langgraph-practice',
-    title: 'RAG 常见误区与实践修正',
-    date: '2026-03-15',
-    summary: '从检索质量、上下文组织和回答可信度几个角度看 RAG 系统落地。',
-    tags: [],
-    commentCount: 0,
-    readingTime: 9,
-    coverImage: '/ai-front.png',
-  },
-  {
-    id: 'fallback-polymarket',
-    slug: 'web3-prediction-market-polymarket',
-    title: '预测市场与体育分析',
-    date: '2026-03-12',
-    summary: '用产品视角理解预测市场、体育数据和交易体验之间的连接。',
-    tags: [],
-    commentCount: 0,
-    readingTime: 6,
-    coverImage: '/projects/nba-predict.png',
-  },
-  {
-    id: 'fallback-security',
-    slug: 'web-security-protection',
-    title: 'Web 安全防护笔记',
-    date: '2026-03-10',
-    summary: '整理前端与全栈项目中常见的安全边界、风险点和防护方式。',
-    tags: [],
-    commentCount: 0,
-    readingTime: 7,
-    coverImage: '/projects/sports-hub.png',
-  },
-]
-
 // ——————————————————————————————————————————————
 // Section wrapper with scroll-triggered reveal
 // ——————————————————————————————————————————————
@@ -239,24 +203,16 @@ export default function HomePage() {
   const { t } = useTranslation()
   const [heroMode, setHeroMode] = useState<'animated' | 'simple' | '3d'>('3d')
   const [latestPosts, setLatestPosts] = useState<Post[]>([])
-  const [hotPosts, setHotPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true)
       try {
-        const [latestRes, hotRes] = await Promise.all([
-          fetch('/api/posts/latest?limit=3'),
-          fetch('/api/posts/hot?limit=3'),
-        ])
+        const latestRes = await fetch('/api/posts/latest?limit=3')
         if (latestRes.ok) {
           const latestData = await latestRes.json()
           setLatestPosts(latestData.posts || [])
-        }
-        if (hotRes.ok) {
-          const hotData = await hotRes.json()
-          setHotPosts(hotData.posts || [])
         }
       } catch {
         // silent
@@ -274,7 +230,6 @@ export default function HomePage() {
   }
 
   const visibleLatestPosts = latestPosts.length > 0 ? latestPosts : fallbackLatestPosts
-  const visibleHotPosts = hotPosts.length > 0 ? hotPosts : fallbackHotPosts
 
   return (
     <div className="w-full text-neutral-800 dark:text-white overflow-x-clip bg-white dark:bg-[#050816]">
@@ -319,6 +274,11 @@ export default function HomePage() {
               </div>
             </motion.div>
 
+            {loading && (
+              <p role="status" className="text-sm text-neutral-500 dark:text-white/50">
+                {t('common.loading')}
+              </p>
+            )}
             {loading
               ? [1, 2, 3].map((i) => (
                   <motion.div key={i} variants={fadeInUp}>
@@ -429,7 +389,7 @@ export default function HomePage() {
                     陈灼 (Jack Chen)
                   </h3>
                   <p className="text-neutral-400 dark:text-white/40 text-xs sm:text-sm mb-4 sm:mb-5 leading-relaxed">
-                    热爱学习的前端，全栈40%<br />一名篮球爱好者
+                    热爱新技术、健身、篮球。
                   </p>
 
                   {/* Social icons */}
@@ -515,95 +475,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mt-10 sm:mt-14">
-          <motion.div variants={fadeInUp} className="mb-6 sm:mb-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-1 h-6 sm:h-8 bg-gradient-to-b from-orange-500 to-rose-500 rounded-full" />
-                <h2 className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-white">
-                  {t('home.hotPosts')}
-                </h2>
-              </div>
-              <Link
-                href="/blog"
-                className="flex items-center gap-1 text-indigo-500 dark:text-indigo-400 hover:text-indigo-400 dark:hover:text-indigo-300 transition-colors text-sm font-medium"
-              >
-                {t('common.viewAll')} <ChevronRight size={16} />
-              </Link>
-            </div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {loading
-              ? [1, 2, 3].map((i) => (
-                  <motion.div key={i} variants={fadeInScale}>
-                    <div className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] p-4 sm:p-5 animate-pulse">
-                      <div className="h-28 sm:h-32 rounded-xl bg-neutral-200 dark:bg-white/10 mb-4" />
-                      <div className="h-4 bg-neutral-200 dark:bg-white/10 rounded w-3/4 mb-3" />
-                      <div className="h-3 bg-neutral-200 dark:bg-white/10 rounded w-full" />
-                    </div>
-                  </motion.div>
-                ))
-              : visibleHotPosts.map((post) => {
-                  const categoryInfo = categorizeBlog(post.title, post.summary)
-                  return (
-                    <motion.div key={post.id} variants={fadeInScale} className="h-full">
-                      <GlowCard glowColor="rgba(249, 115, 22, 0.3)" className="h-full">
-                        <div className="flex h-full flex-col">
-                          <div className="h-28 sm:h-32 rounded-xl overflow-hidden mb-3 sm:mb-4">
-                            {post.coverImage ? (
-                              <Image
-                                src={post.coverImage}
-                                alt={post.title}
-                                width={360}
-                                height={128}
-                                className="h-full w-full object-cover"
-                              />
-                            ) : (
-                              <PostCoverImage
-                                title={post.title}
-                                summary={post.summary}
-                                height={128}
-                                gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                              />
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2 mb-2 text-[10px] sm:text-xs text-neutral-400 dark:text-white/40">
-                            <span
-                              className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] font-medium"
-                              style={{
-                                background: `${categoryInfo.color}20`,
-                                color: categoryInfo.color,
-                                border: `1px solid ${categoryInfo.color}40`,
-                              }}
-                            >
-                              {categoryInfo.label}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Calendar size={10} /> {formatDate(post.date)}
-                            </span>
-                          </div>
-                          <Link href={`/blog/${post.slug}`}>
-                            <h3 className="min-h-[3.5rem] text-neutral-800 dark:text-white font-semibold text-sm sm:text-base mb-1.5 sm:mb-2 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors line-clamp-2">
-                              {post.title}
-                            </h3>
-                          </Link>
-                          <p className="min-h-[3rem] flex-1 text-neutral-400 dark:text-white/40 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-2 sm:mb-3">
-                            {post.summary}
-                          </p>
-                          <Link
-                            href={`/blog/${post.slug}`}
-                            className="mt-auto inline-flex items-center gap-1 text-xs text-orange-500 dark:text-orange-400 hover:text-orange-400 dark:hover:text-orange-300 transition-colors font-medium"
-                          >
-                            {t('common.readMore')} <ArrowRight size={12} />
-                          </Link>
-                        </div>
-                      </GlowCard>
-                    </motion.div>
-                  )
-                })}
-          </div>
-        </div>
       </RevealSection>
 
       <div id="background" className="home-background-sections">

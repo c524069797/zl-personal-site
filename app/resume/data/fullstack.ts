@@ -93,8 +93,8 @@ export const fullstackResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Vue 3 / TypeScript / WebSocket / C++",
-      desc: "企业级备份软件核心业务系统，长期负责备份恢复流程、通用能力沉淀与复杂业务交互建设。",
+      stack: "Vue 3 / TypeScript / WebSocket",
+      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
       bullets: [
         {
           label: "组件能力",
@@ -105,8 +105,8 @@ export const fullstackResume: ResumeData = {
           text: "主导备份/恢复向导框架设计与实现，基于工厂模式 + Context + Proxy 支持资源类型动态注入与跨步骤状态共享，将新增资源类型的开发周期从 2 周缩短到 2 天。",
         },
         {
-          label: "C++ 服务协作",
-          text: "参与备份引擎 C++ 侧问题排查与小功能开发（任务状态上报、错误码与日志梳理、文件扫描过滤规则），理解引擎多线程任务队列与 RAII 资源管理，能从引擎视角定位备份/恢复链路问题。",
+          label: "引擎接口协作",
+          text: "配合 C++ 备份引擎团队完成接口联调，负责管理端的任务状态、错误信息与日志展示，结合接口响应协助定位备份/恢复链路问题。",
         },
         {
           label: "性能优化",
@@ -209,5 +209,5 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "长期负责企业业务系统的流程设计、开发与维护，参与智能客服 Agent 上线；项目覆盖智能备份、模型网关和直播电商 AI 助播。",
+    "长期参与国内领先的企业级备份恢复产品「鼎甲迪备」研发，负责 Linux 环境下的备份恢复管理、实时任务监控与核心 Web 模块开发；熟悉需求分析、方案设计、开发联调、测试上线及持续维护全流程，并与 C++ 备份引擎团队协作。",
 };

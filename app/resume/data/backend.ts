@@ -92,8 +92,8 @@ export const backendResume: ResumeData = {
           text: "使用 Spring Security + JWT 实现 RBAC 角色权限校验，通过 AOP 切面统一记录操作者、对象及变更前后数据，并使用线程池异步写入审计日志。",
         },
         {
-          label: "C++ 引擎侧协作",
-          text: "参与备份引擎 C++ 侧问题排查与功能开发，涉及任务状态上报、错误码与日志梳理、文件扫描过滤规则等内容；理解引擎多线程任务队列与 RAII 资源管理，能够从 Web 层、服务与引擎协同定位备份/恢复链路问题。",
+          label: "引擎接口协作",
+          text: "配合 C++ 备份引擎团队进行接口联调，负责管理端的任务状态、错误信息与日志展示，结合接口响应协助定位备份/恢复链路问题。",
         },
         {
           label: "AI 开发规范",
@@ -106,8 +106,8 @@ export const backendResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Vue 3 / TypeScript / WebSocket / C++",
-      desc: "企业级备份软件核心业务系统，负责业务流程抽象、实时链路与引擎侧协作",
+      stack: "Vue 3 / TypeScript / WebSocket",
+      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
       bullets: [
         {
           label: "流程抽象",
@@ -118,8 +118,8 @@ export const backendResume: ResumeData = {
           text: "WebSocket 推送结合缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行；配合增量更新与分段加载优化万级任务列表。",
         },
         {
-          label: "引擎侧排查",
-          text: "参与备份引擎 C++ 侧问题排查与小功能开发，理解多线程任务队列与 RAII 资源管理，能跨 Web 层、服务与引擎定位完整链路问题。",
+          label: "接口联调",
+          text: "配合备份引擎团队进行接口联调，结合接口响应和日志协助定位任务状态、错误信息展示等链路问题。",
         },
       ],
     },

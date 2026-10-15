@@ -105,7 +105,7 @@ export const frontendResume: ResumeData = {
     {
       title: "鼎甲迪备备份恢复系统",
       stack: "Vue 3 / TypeScript / WebSocket / grid-layout-plus / ECharts",
-      desc: "企业级备份软件核心业务系统，长期负责 Web 架构、通用能力沉淀与复杂业务交互建设",
+      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
       bullets: [
         {
           label: "流程抽象",

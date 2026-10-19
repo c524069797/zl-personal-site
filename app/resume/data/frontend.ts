@@ -7,7 +7,7 @@ export const frontendResume: ResumeData = {
   role: "Web 开发工程师（React / Next.js，AI 应用方向）",
   meta: "本科｜近 5 年 Web 开发经验｜AI 产品落地实践",
   summary:
-    "近 5 年 Web 开发经验，覆盖企业级中后台、复杂表单向导、可视化大屏、内容型站点与跨端移动应用等多种形态。参与内部智能客服上线，开发流式回答、引用展示和转人工交互；项目实践还覆盖 Agent 审批交互、直播电商 Web 与 Flutter 页面。",
+    "近 5 年 Web 开发经验，覆盖企业级中后台、复杂表单向导、可视化大屏、内容型站点与跨端移动应用等多种形态。参与内部智能客服上线，开发流式回答、引用展示和转人工交互；项目实践还覆盖 Agent 审批交互与跨端应用页面。",
 
   skillGroups: [
     {
@@ -193,25 +193,6 @@ export const frontendResume: ResumeData = {
         {
           label: "性能与验证",
           text: "缓存命中耗时从 35ms 降至 2.8ms，降低 92%；通过自动化脚本验证熔断、降级、恢复、限流、缓存命中与计费事件补偿。",
-        },
-      ],
-    },
-    {
-      title: "liveshop-ai 直播电商 AI 助播平台",
-      stack: "Java Spring Boot / React / Flutter / Redis / RabbitMQ / RAG",
-      desc: "企业场景方案设计｜面向品牌商家的 AI 助播与消费者服务，覆盖主播中控台及观众 Web、Flutter App",
-      bullets: [
-        {
-          label: "交易一致性",
-          text: "现有版本使用 Redis Lua 扣减秒杀库存、RabbitMQ 异步落单与超时释放；扩展方案设计支付确认与关单状态流转，规划条件更新、Outbox、消费幂等及对账补偿，处理重复回调与支付关单竞争。",
-        },
-        {
-          label: "促销与计价方案",
-          text: "设计 SKU 计价、优惠叠加规则及成交快照，规划优惠券占用、核销与释放，结合价格版本校验和优惠分摊处理价格变化与部分退款。",
-        },
-        {
-          label: "AI 助播与业务集成",
-          text: "现有版本支持弹幕批量意图分类、商品 RAG 及 SSE 问答与话术；扩展方案结合 SKU/资料版本过滤和实时价格、库存、本人订单查询工具，规划权限校验、来源展示与失败降级。",
         },
       ],
     },

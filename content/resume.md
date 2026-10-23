@@ -25,7 +25,7 @@
 - **AI Agent 开发**：理解 Agent 的感知、规划、记忆与执行等核心环节，基于 **LangGraph**（状态机、checkpointer、人工审批 HITL）、Mastra、OpenClaw 实践多 Agent 编排、CoT / ReAct 推理链路与工具联动；具备企业级 Agent 从 0 到 1 上线并接入团队日常工作的项目经验。
 - **RAG 工程化**：熟悉 Chunking / Embedding / Hybrid Retrieval / Reranker / **GraphRAG** 链路，实践过 **Qdrant**、sqlite-vec、pgvector 等向量存储方案，掌握多粒度 Chunk 策略、metadata 过滤、来源溯源与父子检索，并围绕评测（Eval）与观测（Observability）完善工程规范。
 - **后端与服务**：具备 Java / Spring Boot / Spring Security / MyBatis-Plus / Spring AI 与 Python / FastAPI / Pydantic 双栈实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、审批状态机、幂等设计、错误包装与环境配置；熟悉 MySQL / PostgreSQL / Redis / RabbitMQ 及向量数据库。
-- **Web 开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，对组件复用与复杂 Web 架构拆分有持续实践。
+- **Web 开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，具有 Three.js / WebGL 资源拓扑与 React Three Fiber 交互实践，对组件复用与复杂 Web 架构拆分有持续实践。
 - **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / **Playwright**（E2E + 布局契约测试），具备首屏性能、长列表与日志展示、增量更新、WebSocket 实时链路和线上问题排查经验，能把 lint、类型检查、测试、构建纳入交付门禁。
 - **移动端、桌面端与跨端**：React Native、Flutter（移动端）、Electron（桌面端）、Taro、uni-app / 微信小程序；具备 React Native iOS / Android 双端项目经验，了解原生工程配置、真机调试、打包发布。
 
@@ -55,6 +55,7 @@
 
 - **备份恢复流程**：基于工厂模式、Context 和 Proxy 实现通用向导，支持资源类型动态注入与跨步骤状态共享，新增资源类型的开发周期从 **2 周缩短到 2 天**。
 - **监控与引擎协作**：实现拖拽式监控大屏与 WebSocket 状态推送，结合增量加载处理长日志；配合引擎团队进行接口联调，协助定位任务状态与错误信息展示问题。
+- **Three.js 拓扑扩展（2026.10）**：围绕备份监控场景实现 Three.js / WebGL 资源拓扑模块，支持节点拾取、关联链路高亮、容量查看及离线/恢复交互；通过 InstancedMesh 复用存储节点几何体，并提供 WebGL 不可用时的列表降级。模块入口：https://www.clczl.asia/projects/backup-topology
 
 ### 智能OA&客服系统
 

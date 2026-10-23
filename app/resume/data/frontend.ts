@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { EMPLOYMENT_DATE, OTHER_WORKS } from "./shared";
+import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
 
 /** AI 应用 Web 版：投 Web 开发工程师（AI 方向） */
 export const frontendResume: ResumeData = {
@@ -36,6 +36,8 @@ export const frontendResume: ResumeData = {
         "长列表与日志优化",
         "SSR / SEO",
         "React Three Fiber",
+        "Three.js",
+        "WebGL",
         "Framer Motion",
         "React Native",
       ],
@@ -123,6 +125,7 @@ export const frontendResume: ResumeData = {
           label: "性能优化",
           text: "围绕任务监控、长列表与日志展示采用增量更新、分段加载和页面拆分，改善复杂页面的交互体验与响应效率。",
         },
+        TOPOLOGY_EXTENSION,
       ],
     },
     {

@@ -1,7 +1,19 @@
-import type { OtherWork } from "./types";
+import type { Bullet, OtherWork } from "./types";
+
+/** 备份监控业务场景的后续扩展，按实际完成时间标注。 */
+export const TOPOLOGY_EXTENSION: Bullet = {
+  label: "Three.js 拓扑扩展（2026.10）",
+  text: "围绕备份监控场景实现 Three.js / WebGL 资源拓扑模块，支持节点拾取、关联链路高亮、容量查看及离线/恢复交互；通过 InstancedMesh 复用存储节点几何体，并提供 WebGL 不可用时的列表降级。",
+};
 
 /** 三个版本共用的个人作品列表 */
 export const OTHER_WORKS: OtherWork[] = [
+  {
+    title: "备份资源拓扑模块",
+    href: "https://www.clczl.asia/projects/backup-topology",
+    desc: "备份监控场景扩展，Three.js / WebGL 节点交互与状态联动。",
+    linkLabel: "体验模块",
+  },
   {
     title: "SportOracle 体育预测平台",
     href: "https://sport-oracle-indol.vercel.app",

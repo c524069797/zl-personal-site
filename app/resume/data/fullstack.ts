@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
+import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
 
 /** AI 全栈版：投 AI Agent / AI 全栈 / 小团队一人多岗 */
 export const fullstackResume: ResumeData = {
@@ -56,6 +56,8 @@ export const fullstackResume: ResumeData = {
         "Tailwind CSS",
         "Three.js",
         "WebGL",
+        "Web SDK",
+        "事件埋点",
         "Playwright",
       ],
     },
@@ -139,6 +141,7 @@ export const fullstackResume: ResumeData = {
           label: "落地成效",
           text: "内部智能客服已接入售后、技术支持团队日常工作，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 30%。",
         },
+        WEB_SDK_EXTENSION,
       ],
     },
     {

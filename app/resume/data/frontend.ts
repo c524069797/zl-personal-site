@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
+import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
 
 /** AI 应用 Web 版：投 Web 开发工程师（AI 方向） */
 export const frontendResume: ResumeData = {
@@ -33,6 +33,8 @@ export const frontendResume: ResumeData = {
         "复杂表单与流程",
         "组件抽象与设计系统",
         "WebSocket 实时链路",
+        "Web SDK 异步加载",
+        "事件埋点与上报去重",
         "长列表与日志优化",
         "SSR / SEO",
         "React Three Fiber",
@@ -150,6 +152,7 @@ export const frontendResume: ResumeData = {
           label: "落地成效",
           text: "内部智能客服已接入售后、技术支持团队日常工作，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 30%。",
         },
+        WEB_SDK_EXTENSION,
       ],
     },
     {

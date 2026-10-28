@@ -6,6 +6,12 @@ export const TOPOLOGY_EXTENSION: Bullet = {
   text: "围绕备份监控场景实现 Three.js / WebGL 资源拓扑模块，支持节点拾取、关联链路高亮、容量查看及离线/恢复交互；通过 InstancedMesh 复用存储节点几何体，并提供 WebGL 不可用时的列表降级。",
 };
 
+/** 企业 Agent 独立 Python 版本中的后续实践，与任职经历分开标注。 */
+export const WEB_SDK_EXTENSION: Bullet = {
+  label: "Web SDK 埋点扩展（2026.10）",
+  text: "在企业 Agent 独立 Python 版本中补充 Web SDK，使用异步加载与初始化前队列接入问答埋点；通过单例初始化、事件/业务动作 ID 和服务端唯一约束处理重复上报，结合批量发送、指数退避、ACK 确认与页面离开时的 keepalive 发送处理网络异常。",
+};
+
 /** 三个版本共用的个人作品列表 */
 export const OTHER_WORKS: OtherWork[] = [
   {

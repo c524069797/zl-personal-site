@@ -27,6 +27,7 @@
 - **后端与服务**：具备 Java / Spring Boot / Spring Security / MyBatis-Plus / Spring AI 与 Python / FastAPI / Pydantic 双栈实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、审批状态机、幂等设计、错误包装与环境配置；熟悉 MySQL / PostgreSQL / Redis / RabbitMQ 及向量数据库。
 - **Web 开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，具有 Three.js / WebGL 资源拓扑与 React Three Fiber 交互实践，对组件复用与复杂 Web 架构拆分有持续实践。
 - **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / **Playwright**（E2E + 布局契约测试），具备首屏性能、长列表与日志展示、增量更新、WebSocket 实时链路和线上问题排查经验，能把 lint、类型检查、测试、构建纳入交付门禁。
+- **Web SDK 与事件采集**：实践 SDK 异步加载、初始化前事件排队、单例与生命周期清理、业务动作去重、批量上报、有限重试及服务端幂等入库，关注登录身份隔离与敏感字段白名单。
 - **移动端、桌面端与跨端**：React Native、Flutter（移动端）、Electron（桌面端）、Taro、uni-app / 微信小程序；具备 React Native iOS / Android 双端项目经验，了解原生工程配置、真机调试、打包发布。
 
 ## 工作经历
@@ -49,6 +50,7 @@
 
 ### 鼎甲迪备备份恢复系统
 
+
 企业级备份恢复系统｜Vue 3 + TypeScript + WebSocket
 
 面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。
@@ -70,6 +72,7 @@ GitHub（扩展验证实现）：https://github.com/c524069797/enterprise-agent-
 - **Agent 能力扩展**：基于 LangGraph 编排意图识别、检索与工具调用，使用 checkpointer 保存会话；在扩展平台中实现人工审批、岗位权限、GraphRAG 检索及审计，并以同一 API 契约接入 FastAPI 与 Spring AI 后端。
 - **小模型替换大模型与评测闭环**：意图识别由"规则 + 大模型兜底"改为"规则 → 蒸馏小模型 → 大模型"三级路由，用教师模型生成 380 条长尾问法训练 bge-small + 逻辑回归学生模型，本地推理约 2 ms；在 119 条口语化长尾评测集上，路由准确率由 54.6% 提升至 77.3%（大模型单独 84%），大模型调用次数由 70 次降至 15 次。建立离线评测闭环：golden / 长尾两套评测集、六种路由模式同台比对、结果版本化与回归门禁脚本，检索失败按召回 / 排序归因。
 - **落地成效**：内部智能客服已接入售后、技术支持团队日常工作，覆盖 **80% 以上**高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 **30%**。
+- **Web SDK 埋点扩展（2026.10）**：在企业 Agent 独立 Python 版本中补充 Web SDK，使用异步加载与初始化前队列接入问答埋点；通过单例初始化、事件/业务动作 ID 和服务端唯一约束处理重复上报，结合批量发送、指数退避、ACK 确认与页面离开时的 keepalive 发送处理网络异常。实现仓库：https://github.com/c524069797/enterprise-agent-platform-python
 
 ### BackupPilot 智能备份助手
 

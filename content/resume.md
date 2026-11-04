@@ -25,7 +25,7 @@
 - **AI Agent 开发**：理解 Agent 的感知、规划、记忆与执行等核心环节，基于 **LangGraph**（状态机、checkpointer、人工审批 HITL）、Mastra、OpenClaw 实践多 Agent 编排、CoT / ReAct 推理链路与工具联动；具备企业级 Agent 从 0 到 1 上线并接入团队日常工作的项目经验。
 - **RAG 工程化**：熟悉 Chunking / Embedding / Hybrid Retrieval / Reranker / **GraphRAG** 链路，实践过 **Qdrant**、sqlite-vec、pgvector 等向量存储方案，掌握多粒度 Chunk 策略、metadata 过滤、来源溯源与父子检索，并围绕评测（Eval）与观测（Observability）完善工程规范。
 - **后端与服务**：具备 Java / Spring Boot / Spring Security / MyBatis-Plus / Spring AI 与 Python / FastAPI / Pydantic 双栈实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、审批状态机、幂等设计、错误包装与环境配置；熟悉 MySQL / PostgreSQL / Redis / RabbitMQ 及向量数据库。
-- **Web 开发技术**：Angular / React / Next.js / TypeScript，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，具有 Three.js / WebGL 资源拓扑与 React Three Fiber 交互实践，对组件复用与复杂 Web 架构拆分有持续实践。
+- **Web 开发技术**：Angular / Vue 3 / React / Next.js / JavaScript / TypeScript，熟悉 HTML5 / CSS3、Sass / SCSS、Vue Router 与 Pinia，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，具有 Three.js / WebGL 资源拓扑与 React Three Fiber 交互实践，对组件复用与复杂 Web 架构拆分有持续实践。
 - **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / **Playwright**（E2E + 布局契约测试），具备首屏性能、长列表与日志展示、增量更新、WebSocket 实时链路和线上问题排查经验，能把 lint、类型检查、测试、构建纳入交付门禁。
 - **Web SDK 与事件采集**：实践 SDK 异步加载、初始化前事件排队、单例与生命周期清理、业务动作去重、批量上报、有限重试及服务端幂等入库，关注登录身份隔离与敏感字段白名单。
 - **移动端、桌面端与跨端**：React Native、Flutter（移动端）、Electron（桌面端）、Taro、uni-app / 微信小程序；具备 React Native iOS / Android 双端项目经验，了解原生工程配置、真机调试、打包发布。

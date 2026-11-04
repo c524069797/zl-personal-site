@@ -55,6 +55,11 @@ export const backendResume: ResumeData = {
       iconKey: "frontend",
       skills: [
         "React",
+        "Vue 3",
+        "Vue Router / Pinia",
+        "JavaScript",
+        "HTML5 / CSS3",
+        "Sass / SCSS",
         "Flutter",
         "Electron",
         "Taro",

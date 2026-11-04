@@ -106,7 +106,7 @@ export const backendResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Vue 3 / TypeScript / WebSocket",
+      stack: "Angular / TypeScript / WebSocket",
       desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
       bullets: [
         {
@@ -131,6 +131,10 @@ export const backendResume: ResumeData = {
       desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
       bullets: [
         {
+          label: "Web 前端与业务交互",
+          text: "使用 React / TypeScript 完成许可证配置表单、审批列表与详情页面，处理字段联动、表单校验、筛选分页和权限控制；在客服页面展示 SSE 流式回答、引用来源与转人工入口，结合加载、错误和重试状态完成接口联调。",
+        },
+        {
           label: "状态机与消息处理",
           text: "使用审批状态机与乐观锁管理许可证流程，以申请单号、数据库唯一索引和 Redis 锁处理生成幂等；RabbitMQ 解耦证书生成与通知，结合本地消息表、消费幂等及每日对账处理异常记录，重复配置时间降低 80% 以上。",
         },
@@ -151,9 +155,13 @@ export const backendResume: ResumeData = {
     },
     {
       title: "BackupPilot 智能备份助手",
-      stack: "Python / LangGraph / Pydantic v2 / MCP / httpx / SQLite / zstd / Typer",
+      stack: "React / TypeScript / Python / LangGraph / Pydantic v2 / MCP / httpx / SQLite / zstd / Typer",
       desc: "自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
       bullets: [
+        {
+          label: "Web 任务与确认交互",
+          text: "使用 React / TypeScript 构建备份任务配置、执行进度与结果查看页面，提供恢复路径校验、覆盖风险提示和人工确认交互；根据任务状态更新操作按钮与错误提示，通过接口联调同步执行结果并处理重复提交。",
+        },
         {
           label: "Agent 编排与工具接入",
           text: "基于 LangGraph 编排意图识别、规划、执行与结果校验，使用 Pydantic schema 约束 LLM 结构化输出，离线场景使用规则解析。工具函数通过 MCP Server 和 langchain @tool 适配复用；恢复操作调用 interrupt() 暂停，人工确认后恢复执行，工具层通过 confirm 参数校验确认状态。",

@@ -19,7 +19,7 @@ export const frontendResume: ResumeData = {
         "Electron",
         "Taro",
         "Next.js",
-        "Vue 3",
+        "Angular",
         "TypeScript",
         "Ant Design",
         "Tailwind CSS",
@@ -83,11 +83,11 @@ export const frontendResume: ResumeData = {
         },
         {
           label: "组件库建设",
-          text: "主导企业级 Vue 3 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 40+ 组件，支撑多条产品线复用。",
+          text: "主导企业级 Angular 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 40+ 组件，支撑多条产品线复用。",
         },
         {
           label: "可视化大屏系统",
-          text: "基于 grid-layout-plus 实现拖拽式大屏布局，支持 12 × 12 网格、碰撞检测、自动放置与布局持久化；通过 VScaleScreen / transform-scale 解决缩放后的坐标对齐问题；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步和长时间稳定运行。",
+          text: "基于 Angular 自定义网格布局 实现拖拽式大屏布局，支持 12 × 12 网格、碰撞检测、自动放置与布局持久化；通过 ResizeObserver / transform-scale 解决缩放后的坐标对齐问题；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步和长时间稳定运行。",
         },
         {
           label: "性能优化",
@@ -108,7 +108,7 @@ export const frontendResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Vue 3 / TypeScript / WebSocket / grid-layout-plus / ECharts",
+      stack: "Angular / TypeScript / WebSocket / Angular 自定义网格布局 / ECharts",
       desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
       bullets: [
         {
@@ -137,6 +137,10 @@ export const frontendResume: ResumeData = {
       desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
       bullets: [
         {
+          label: "Web 前端与业务交互",
+          text: "使用 React / TypeScript 完成许可证配置表单、审批列表与详情页面，处理字段联动、表单校验、筛选分页和权限控制；在客服页面展示 SSE 流式回答、引用来源与转人工入口，结合加载、错误和重试状态完成接口联调。",
+        },
+        {
           label: "业务管理与对话工作台",
           text: "使用 React 实现许可证配置、审批、出货及智能客服页面；对话界面支持流式回答、来源引用、业务状态查询与转人工，重复配置时间降低 80% 以上。",
         },
@@ -157,9 +161,13 @@ export const frontendResume: ResumeData = {
     },
     {
       title: "BackupPilot 智能备份助手",
-      stack: "Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd / Typer",
+      stack: "React / TypeScript / Python / LangGraph / Pydantic v2 / MCP / SQLite / zstd / Typer",
       desc: "自然语言驱动的备份 / 恢复与企业运维智能体，已接入企业备份平台，支持本地离线运行",
       bullets: [
+        {
+          label: "Web 任务与确认交互",
+          text: "使用 React / TypeScript 构建备份任务配置、执行进度与结果查看页面，提供恢复路径校验、覆盖风险提示和人工确认交互；根据任务状态更新操作按钮与错误提示，通过接口联调同步执行结果并处理重复提交。",
+        },
         {
           label: "Agent 编排与工具接入",
           text: "基于 LangGraph 编排意图识别、规划、执行与结果校验，使用 Pydantic schema 约束 LLM 结构化输出，离线场景使用规则解析。工具函数通过 MCP Server 和 langchain @tool 适配复用；恢复操作调用 interrupt() 暂停，人工确认后恢复执行，工具层通过 confirm 参数校验确认状态。",

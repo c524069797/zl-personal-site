@@ -25,7 +25,7 @@
 - **AI Agent 开发**：理解 Agent 的感知、规划、记忆与执行等核心环节，基于 **LangGraph**（状态机、checkpointer、人工审批 HITL）、Mastra、OpenClaw 实践多 Agent 编排、CoT / ReAct 推理链路与工具联动；具备企业级 Agent 从 0 到 1 上线并接入团队日常工作的项目经验。
 - **RAG 工程化**：熟悉 Chunking / Embedding / Hybrid Retrieval / Reranker / **GraphRAG** 链路，实践过 **Qdrant**、sqlite-vec、pgvector 等向量存储方案，掌握多粒度 Chunk 策略、metadata 过滤、来源溯源与父子检索，并围绕评测（Eval）与观测（Observability）完善工程规范。
 - **后端与服务**：具备 Java / Spring Boot / Spring Security / MyBatis-Plus / Spring AI 与 Python / FastAPI / Pydantic 双栈实践，理解接口聚合、统一鉴权、RBAC 权限建模、审计日志、审批状态机、幂等设计、错误包装与环境配置；熟悉 MySQL / PostgreSQL / Redis / RabbitMQ 及向量数据库。
-- **Web 开发技术**：Vue 2 / Vue 3 / React / Next.js / TypeScript，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，具有 Three.js / WebGL 资源拓扑与 React Three Fiber 交互实践，对组件复用与复杂 Web 架构拆分有持续实践。
+- **Web 开发技术**：Angular / React / Next.js / TypeScript，能够独立完成企业级中后台 Web 应用、复杂表单、向导流程、组件抽象、可视化大屏与双端适配开发；熟悉 Ant Design、ECharts、DataV，具有 Three.js / WebGL 资源拓扑与 React Three Fiber 交互实践，对组件复用与复杂 Web 架构拆分有持续实践。
 - **工程化与质量**：Vite / Webpack / Monorepo / ESLint 9 / Vitest / GitLab CI/CD / OpenSpec / **Playwright**（E2E + 布局契约测试），具备首屏性能、长列表与日志展示、增量更新、WebSocket 实时链路和线上问题排查经验，能把 lint、类型检查、测试、构建纳入交付门禁。
 - **Web SDK 与事件采集**：实践 SDK 异步加载、初始化前事件排队、单例与生命周期清理、业务动作去重、批量上报、有限重试及服务端幂等入库，关注登录身份隔离与敏感字段白名单。
 - **移动端、桌面端与跨端**：React Native、Flutter（移动端）、Electron（桌面端）、Taro、uni-app / 微信小程序；具备 React Native iOS / Android 双端项目经验，了解原生工程配置、真机调试、打包发布。
@@ -37,9 +37,9 @@
 负责产品：企业级备份软件、许可证与内部综合管理系统、数据可视化监控大屏等核心业务模块，长期服务复杂流程型场景，支撑 50+ 资源类型接入与多条产品线业务协同。
 
 - **架构设计**：为解决多资源类型备份 / 恢复流程重复开发问题，设计通用向导框架，基于 **工厂模式 + Context + Proxy** 支撑 **50+ 资源类型**动态注入与跨步骤状态共享，将新增资源类型的开发周期从 **2 周缩短到 2 天**。
-- **组件库建设**：主导企业级 Vue 3 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 **40+ 组件**，支撑多条产品线复用。
+- **组件库建设**：主导企业级 Angular 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 **40+ 组件**，支撑多条产品线复用。
 - **业务建模**：主导许可证生成、导入校验、续期升级、套餐 / 功能映射等全流程设计与实现，推动审批、出货与归碟流程由表格 / 钉钉记录转向系统流程，支撑多条产品线与 **50+ 种许可套餐**动态组合，将重复配置时间降低 **80% 以上**。
-- **可视化与实时链路**：基于 **grid-layout-plus** 实现拖拽式大屏布局系统，支持 **12 × 12** 网格、碰撞检测、自动放置与布局持久化；使用 VScaleScreen / transform-scale 解决缩放坐标对齐，结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行。
+- **可视化与实时链路**：基于 **Angular 自定义网格布局** 实现拖拽式大屏布局系统，支持 **12 × 12** 网格、碰撞检测、自动放置与布局持久化；使用 ResizeObserver / transform-scale 解决缩放坐标对齐，结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步与长时间稳定运行。
 - **移动端与跨端实践**：参与 iOS / Android 移动端与跨端项目建设，使用 **React Native** 处理业务页面、接口联调、状态管理、登录态保持、权限与设备适配等能力，熟悉从开发调试到打包发布的基本链路。
 - **引擎接口协作**：配合 C++ 备份引擎团队完成接口联调，负责管理端的任务状态、错误信息与日志展示，结合接口响应协助定位备份 / 恢复链路问题。
 - **性能与问题排查**：围绕任务监控与日志展示引入 **增量更新**、**分段加载** 与页面拆分，优化首屏与长列表交互体验；同时长期承担线上问题定位、状态链路追踪与复杂交互故障排查工作。
@@ -51,7 +51,7 @@
 ### 鼎甲迪备备份恢复系统
 
 
-企业级备份恢复系统｜Vue 3 + TypeScript + WebSocket
+企业级备份恢复系统｜Angular + TypeScript + WebSocket
 
 面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。
 
@@ -67,6 +67,7 @@
 
 GitHub（扩展验证实现）：https://github.com/c524069797/enterprise-agent-platform
 
+- **Web 前端与业务交互**：使用 React / TypeScript 完成许可证配置表单、审批列表与详情页面，处理字段联动、表单校验、筛选分页和权限控制；在客服页面展示 SSE 流式回答、引用来源与转人工入口，结合加载、错误和重试状态完成接口联调。
 - **业务流程与后端设计**：实现许可证生成、导入校验、续期升级及套餐配置；使用审批状态机和乐观锁管理状态流转，以申请单号、数据库唯一索引与 Redis 锁处理生成幂等；审批通过后通过 RabbitMQ 投递证书生成与通知事件，结合本地消息表、消费幂等及每日对账处理异常记录，重复配置时间降低 **80% 以上**。
 - **智能客服接入**：通过主系统只读聚合 API 提供申请、审批和工单状态；将产品文档、历史工单、Wiki 与 SOP 入库，结合 RAG 检索提供审批解释、报错诊断与进度查询，支持引用来源展示和转人工。
 - **Agent 能力扩展**：基于 LangGraph 编排意图识别、检索与工具调用，使用 checkpointer 保存会话；在扩展平台中实现人工审批、岗位权限、GraphRAG 检索及审计，并以同一 API 契约接入 FastAPI 与 Spring AI 后端。
@@ -78,7 +79,9 @@ GitHub（扩展验证实现）：https://github.com/c524069797/enterprise-agent-
 
 **项目概述**：自然语言驱动的备份 / 恢复与企业运维智能体，统一 BackupEngine 抽象让同一套 Agent 内核既驱动本地自研备份引擎，也接入企业备份平台完成多机巡检与运维诊断；恢复等破坏性操作由 HITL 人工审批处理，支持本地离线运行。
 
-**技术栈**：Python + LangGraph + Pydantic v2 + MCP + httpx + SQLite + zstd + Typer
+**技术栈**：React + TypeScript + Python + LangGraph + Pydantic v2 + MCP + httpx + SQLite + zstd + Typer
+
+**Web 前端与交互**：使用 React / TypeScript 构建备份任务配置、执行进度与结果查看页面，提供恢复路径校验、覆盖风险提示和人工确认交互；根据任务状态更新操作按钮与错误提示，通过接口联调同步执行结果并处理重复提交。
 
 **核心功能**：
 

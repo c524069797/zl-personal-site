@@ -23,7 +23,7 @@ export const OTHER_WORKS: OtherWork[] = [
   {
     title: "SportOracle 体育预测平台",
     href: "https://sport-oracle-indol.vercel.app",
-    desc: "AI 驱动的体育预测产品，未合规，暂未上线。",
+    desc: "AI 体育预测与订单簿套利分析：设计盘口价差、YES/NO 互补合约及深度分析，评估滑点、手续费与双腿成交风险；未合规，暂未上线。",
     linkLabel: "项目入口",
   },
   {

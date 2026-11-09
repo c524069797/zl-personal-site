@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
 
 /** AI 应用 Web 版：投 Web 开发工程师（AI 方向） */
 export const frontendResume: ResumeData = {
@@ -132,6 +132,8 @@ export const frontendResume: ResumeData = {
           label: "性能优化",
           text: "围绕任务监控、长列表与日志展示采用增量更新、分段加载和页面拆分，改善复杂页面的交互体验与响应效率。",
         },
+        DEDUP_WORKFLOW,
+        FILE_RESTORE_WORKFLOW,
         TOPOLOGY_EXTENSION,
       ],
     },

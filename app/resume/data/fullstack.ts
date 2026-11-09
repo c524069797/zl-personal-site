@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
 
 /** AI 全栈版：投 AI Agent / AI 全栈 / 小团队一人多岗 */
 export const fullstackResume: ResumeData = {
@@ -121,6 +121,8 @@ export const fullstackResume: ResumeData = {
           label: "性能优化",
           text: "围绕任务监控、长列表和日志展示持续做性能优化，结合增量更新、分段加载和页面拆分，显著改善复杂页面的交互体验与响应效率。",
         },
+        DEDUP_WORKFLOW,
+        FILE_RESTORE_WORKFLOW,
         TOPOLOGY_EXTENSION,
       ],
     },

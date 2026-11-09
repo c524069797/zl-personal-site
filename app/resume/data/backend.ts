@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { EMPLOYMENT_DATE, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
 
 /** AI Agent 后端版：投 Agent 后端 / LLM 应用后端 / Java 后端（AI 方向） */
 export const backendResume: ResumeData = {
@@ -126,6 +126,8 @@ export const backendResume: ResumeData = {
           label: "接口联调",
           text: "配合备份引擎团队进行接口联调，结合接口响应和日志协助定位任务状态、错误信息展示等链路问题。",
         },
+        DEDUP_WORKFLOW,
+        FILE_RESTORE_WORKFLOW,
         TOPOLOGY_EXTENSION,
       ],
     },

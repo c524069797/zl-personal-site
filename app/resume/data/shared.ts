@@ -1,5 +1,15 @@
 import type { Bullet, OtherWork } from "./types";
 
+export const DEDUP_WORKFLOW: Bullet = {
+  label: "重删业务链路",
+  text: "参与重删链路的业务梳理与接口联调，围绕分块指纹、Bloom Filter 预筛与精确索引确认，串联唯一块存储、文件索引及块容器读取；结合日志协助排查块缺失、索引不一致和恢复失败。",
+};
+
+export const FILE_RESTORE_WORKFLOW: Bullet = {
+  label: "文件恢复与后台流程",
+  text: "负责文件恢复管理流程与后台接口联调，覆盖备份集与恢复点选择、目录浏览与文件筛选、目标路径和覆盖策略配置、恢复作业下发及状态跟踪；协同梳理服务端目录查询、块索引定位与数据重组，完善参数校验、异常反馈和结果展示。",
+};
+
 /** 备份监控业务场景的后续扩展，按实际完成时间标注。 */
 export const TOPOLOGY_EXTENSION: Bullet = {
   label: "Three.js 拓扑扩展（2026.10）",

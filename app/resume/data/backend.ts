@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
 
 /** AI Agent 后端版：投 Agent 后端 / LLM 应用后端 / Java 后端（AI 方向） */
 export const backendResume: ResumeData = {
@@ -129,35 +129,6 @@ export const backendResume: ResumeData = {
         DEDUP_WORKFLOW,
         FILE_RESTORE_WORKFLOW,
         TOPOLOGY_EXTENSION,
-      ],
-    },
-    {
-      title: "智能OA&客服系统",
-      href: "https://github.com/c524069797/enterprise-agent-platform",
-      stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ / Qdrant",
-      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
-      bullets: [
-        {
-          label: "Web 前端与业务交互",
-          text: "使用 React / TypeScript 完成许可证配置表单、审批列表与详情页面，处理字段联动、表单校验、筛选分页和权限控制；在客服页面展示 SSE 流式回答、引用来源与转人工入口，结合加载、错误和重试状态完成接口联调。",
-        },
-        {
-          label: "状态机与消息处理",
-          text: "使用审批状态机与乐观锁管理许可证流程，以申请单号、数据库唯一索引和 Redis 锁处理生成幂等；RabbitMQ 解耦证书生成与通知，结合本地消息表、消费幂等及每日对账处理异常记录，重复配置时间降低 80% 以上。",
-        },
-        {
-          label: "业务数据与知识检索",
-          text: "通过主系统只读聚合 API 提供申请、审批及工单状态；将历史工单、Wiki 和 SOP 入库，结合 RAG 检索提供审批解释、报错诊断与进度查询，并记录回答来源。",
-        },
-        {
-          label: "Agent 能力扩展",
-          text: "基于 LangGraph 编排检索与工具调用，通过 checkpointer 保存会话；在扩展平台中实现人工审批、RBAC、GraphRAG 与审计，FastAPI 和 Spring AI 后端遵循同一 API 契约。",
-        },
-        {
-          label: "落地成效",
-          text: "内部智能客服已接入售后、技术支持团队日常工作，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 30%。",
-        },
-        WEB_SDK_EXTENSION,
       ],
     },
     {

@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION, WEB_SDK_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
 
 /** AI 应用 Web 版：投 Web 开发工程师（AI 方向） */
 export const frontendResume: ResumeData = {
@@ -135,35 +135,6 @@ export const frontendResume: ResumeData = {
         DEDUP_WORKFLOW,
         FILE_RESTORE_WORKFLOW,
         TOPOLOGY_EXTENSION,
-      ],
-    },
-    {
-      title: "智能OA&客服系统",
-      href: "https://github.com/c524069797/enterprise-agent-platform",
-      stack: "React / Java Spring Boot / Python FastAPI / LangGraph / RAG / MySQL / Redis / RabbitMQ",
-      desc: "公司内部系统覆盖许可证、审批与售后支持，智能客服已接入日常工作；Agent 审批、GraphRAG 与双后端作为扩展验证能力",
-      bullets: [
-        {
-          label: "Web 前端与业务交互",
-          text: "使用 React / TypeScript 完成许可证配置表单、审批列表与详情页面，处理字段联动、表单校验、筛选分页和权限控制；在客服页面展示 SSE 流式回答、引用来源与转人工入口，结合加载、错误和重试状态完成接口联调。",
-        },
-        {
-          label: "业务管理与对话工作台",
-          text: "使用 React 实现许可证配置、审批、出货及智能客服页面；对话界面支持流式回答、来源引用、业务状态查询与转人工，重复配置时间降低 80% 以上。",
-        },
-        {
-          label: "知识与业务数据接入",
-          text: "将产品文档、历史工单、Wiki 与 SOP 构建为可检索知识库；主系统通过只读聚合 API 提供申请、审批和工单状态，支持审批解释、报错诊断与进度查询。",
-        },
-        {
-          label: "Agent 能力扩展",
-          text: "在扩展平台中实现岗位 Agent 可见范围、人工审批交互与检索证据展示，通过 Playwright 验证页面和 API 契约；后端基于 LangGraph 编排检索与工具调用。",
-        },
-        {
-          label: "落地成效",
-          text: "内部智能客服已接入售后、技术支持团队日常工作，覆盖 80% 以上高频咨询场景，平均响应从分钟级降至秒级，重复工单减少约 30%。",
-        },
-        WEB_SDK_EXTENSION,
       ],
     },
     {

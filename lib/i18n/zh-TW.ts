@@ -176,7 +176,7 @@ const translations = {
       exp0Period: '2021 - 至今',
       exp0Title: 'Web 軟體工程師',
       exp0Company: 'Scutech（廣州鼎甲計算機科技有限公司）',
-      exp0Desc: '負責備份恢復和系統級界面的前端開發，主導核心模塊的框架級界面設計與實現。深度參與 AI Agent 開發，將大語言模型與智能體集成到企業級產品中，提升系統智能化水平。',
+      exp0Desc: '參與企業級備份恢復產品研發，負責備份恢復業務流程、任務配置與即時監控，配合後台及引擎團隊完成介面聯調、測試和問題排查；參與 AI Agent 與企業業務系統的整合。',
       exp1Period: '2020 - 2021',
       exp1Title: 'Web 軟體工程師',
       exp1Company: '廣東匯源通集團有限公司',

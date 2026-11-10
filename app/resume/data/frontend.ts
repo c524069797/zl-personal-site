@@ -24,7 +24,6 @@ export const frontendResume: ResumeData = {
         "Electron",
         "Taro",
         "Next.js",
-        "Angular",
         "TypeScript",
         "Ant Design",
         "Tailwind CSS",
@@ -88,11 +87,11 @@ export const frontendResume: ResumeData = {
         },
         {
           label: "组件库建设",
-          text: "主导企业级 Angular 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 40+ 组件，支撑多条产品线复用。",
+          text: "主导企业级 Vue 组件库与通用能力建设，沉淀 Components / Forms / Layout / Plugins 等 40+ 组件，支撑多条产品线复用。",
         },
         {
           label: "可视化大屏系统",
-          text: "基于 Angular 自定义网格布局 实现拖拽式大屏布局，支持 12 × 12 网格、碰撞检测、自动放置与布局持久化；通过 ResizeObserver / transform-scale 解决缩放后的坐标对齐问题；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步和长时间稳定运行。",
+          text: "基于 Vue 自定义网格布局实现拖拽式大屏布局，支持 12 × 12 网格、碰撞检测、自动放置与布局持久化；通过 ResizeObserver / transform-scale 解决缩放后的坐标对齐问题；结合 WebSocket 推送、缓冲队列与重连机制，保障任务状态秒级同步和长时间稳定运行。",
         },
         {
           label: "性能优化",
@@ -113,8 +112,8 @@ export const frontendResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Angular / TypeScript / WebSocket / Angular 自定义网格布局 / ECharts",
-      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
+      stack: "Vue 3 / TypeScript / WebSocket / Vue 自定义网格布局 / ECharts",
+      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责备份恢复业务流程、任务配置、状态跟踪与后台接口联调。",
       bullets: [
         {
           label: "流程抽象",

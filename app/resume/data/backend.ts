@@ -111,8 +111,8 @@ export const backendResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Angular / TypeScript / WebSocket",
-      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
+      stack: "Vue 3 / TypeScript / WebSocket",
+      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责备份恢复业务流程、任务配置、状态跟踪与后台接口联调。",
       bullets: [
         {
           label: "流程抽象",

@@ -176,7 +176,7 @@ const translations = {
       exp0Period: '2021 - Present',
       exp0Title: 'Web Software Engineer',
       exp0Company: 'Scutech (Guangzhou Dingjia Computer Technology Co., Ltd.)',
-      exp0Desc: 'Responsible for frontend development of backup recovery and system-level interfaces, leading framework-level UI design and implementation of core modules. Deeply involved in AI Agent integration, incorporating large language model and agent capabilities into enterprise products to enhance system intelligence.',
+      exp0Desc: 'Contributed to enterprise backup and recovery products, developing business workflows, task configuration and real-time monitoring. Collaborated with backend and engine teams on API integration, testing and troubleshooting, and participated in AI Agent integration with business systems.',
       exp1Period: '2020 - 2021',
       exp1Title: 'Web Software Engineer',
       exp1Company: 'Guangdong Huiyuantong Group Co., Ltd.',

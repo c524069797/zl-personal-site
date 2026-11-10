@@ -56,7 +56,6 @@ export const fullstackResume: ResumeData = {
         "Taro",
         "Next.js",
         "TypeScript",
-        "Angular",
         "Ant Design",
         "Tailwind CSS",
         "Three.js",
@@ -102,12 +101,12 @@ export const fullstackResume: ResumeData = {
   projects: [
     {
       title: "鼎甲迪备备份恢复系统",
-      stack: "Angular / TypeScript / WebSocket",
-      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责 Web 管理端、通用流程与实时任务监控建设。",
+      stack: "Vue 3 / TypeScript / WebSocket",
+      desc: "面向 Linux 服务器及备份一体机的企业级数据保护平台，统一管理数据库、文件与虚拟化等资源的备份恢复；负责备份恢复业务流程、任务配置、状态跟踪与后台接口联调。",
       bullets: [
         {
           label: "组件能力",
-          text: "主导企业级 Angular 组件库建设，沉淀 Components / Forms / Layout / Plugins 等模块，供多条产品线复用。",
+          text: "主导企业级 Vue 组件库建设，沉淀 Components / Forms / Layout / Plugins 等模块，供多条产品线复用。",
         },
         {
           label: "流程抽象",
@@ -182,5 +181,5 @@ export const fullstackResume: ResumeData = {
   otherWorks: OTHER_WORKS,
 
   advantage:
-    "长期参与国内领先的企业级备份恢复产品「鼎甲迪备」研发，负责 Linux 环境下的备份恢复管理、实时任务监控与核心 Web 模块开发；熟悉需求分析、方案设计、开发联调、测试上线及持续维护全流程，并与 C++ 备份引擎团队协作。",
+    "长期参与国内领先的企业级备份恢复产品「鼎甲迪备」研发，负责 Linux 环境下的备份恢复业务流程、任务配置与实时监控，配合后台及 C++ 备份引擎团队完成接口联调；熟悉需求分析、方案设计、开发联调、测试上线及持续维护全流程。",
 };

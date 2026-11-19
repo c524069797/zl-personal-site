@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, JIALI_EXPERIENCE, JIALI_PROJECT, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, JIALI_EXPERIENCE, JIALI_PROJECT, OTHER_WORKS } from "./shared";
 
 /** AI Agent 后端版：投 Agent 后端 / LLM 应用后端 / Java 后端（AI 方向） */
 export const backendResume: ResumeData = {
@@ -130,7 +130,6 @@ export const backendResume: ResumeData = {
         },
         DEDUP_WORKFLOW,
         FILE_RESTORE_WORKFLOW,
-        TOPOLOGY_EXTENSION,
       ],
     },
     {

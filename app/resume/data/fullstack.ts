@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, JIALI_EXPERIENCE, JIALI_PROJECT, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, JIALI_EXPERIENCE, JIALI_PROJECT, OTHER_WORKS } from "./shared";
 
 /** AI 全栈版：投 AI Agent / AI 全栈 / 小团队一人多岗 */
 export const fullstackResume: ResumeData = {
@@ -124,7 +124,6 @@ export const fullstackResume: ResumeData = {
         },
         DEDUP_WORKFLOW,
         FILE_RESTORE_WORKFLOW,
-        TOPOLOGY_EXTENSION,
       ],
     },
     {

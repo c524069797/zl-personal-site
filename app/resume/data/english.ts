@@ -83,12 +83,6 @@ export const englishResume: ResumeData = {
   ],
   otherWorks: [
     {
-      title: "Backup Resource Map",
-      href: "https://www.clczl.asia/projects/backup-topology",
-      desc: "An interactive view of backup resources and their current status, built with Three.js.",
-      linkLabel: "Open project",
-    },
-    {
       title: "SportOracle",
       href: "https://sport-oracle-indol.vercel.app",
       desc: "A sports prediction and order book analysis project. Public launch is pending compliance review.",

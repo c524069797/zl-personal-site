@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, JIALI_EXPERIENCE, JIALI_PROJECT, OTHER_WORKS, TOPOLOGY_EXTENSION } from "./shared";
 
 /** AI 全栈版：投 AI Agent / AI 全栈 / 小团队一人多岗 */
 export const fullstackResume: ResumeData = {
@@ -68,6 +68,7 @@ export const fullstackResume: ResumeData = {
   ],
 
   experience: [
+    JIALI_EXPERIENCE,
     {
       company: "广州鼎甲计算机科技有限公司",
       date: EMPLOYMENT_DATE,
@@ -99,6 +100,7 @@ export const fullstackResume: ResumeData = {
   ],
 
   projects: [
+    JIALI_PROJECT,
     {
       title: "鼎甲迪备备份恢复系统",
       stack: "Vue 3 / TypeScript / WebSocket",

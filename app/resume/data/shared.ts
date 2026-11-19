@@ -1,4 +1,32 @@
-import type { Bullet, OtherWork } from "./types";
+import type { Bullet, ExperienceEntry, OtherWork, ProjectEntry } from "./types";
+
+export const JIALI_EXPERIENCE: ExperienceEntry = {
+  company: "广东嘉利车灯有限公司",
+  date: "2026.09 - 至今",
+  role: "全栈 AI 工程师",
+  desc: "参与车辆功能安全与 BOM 报价系统研发，负责文档处理、报价导出与 AI 分析，减少人工整理和核对工作，为硬件与结构设计提供参考。",
+  bullets: [],
+};
+
+export const JIALI_PROJECT: ProjectEntry = {
+  title: "车辆功能安全与 BOM 报价系统",
+  stack: "Python / Flask / FAISS / Ollama / Socket.IO",
+  desc: "支持车辆功能安全文档清洗、摘要与导出，以及 BOM 报价和报告导出。",
+  bullets: [
+    {
+      label: "功能安全文档处理",
+      text: "清洗车辆功能安全文档，提炼关键内容并导出摘要，减少人工整理工作。",
+    },
+    {
+      label: "BOM 报价与导出",
+      text: "使用 Python 规则与价格库计算 LED 电流、选择驱动并核算 BOM 成本，支持导出 BOM 报价内容和报告。",
+    },
+    {
+      label: "AI 分析与框图",
+      text: "通过 FAISS 检索客户 SOR 条款，生成可回填的报价条件供工程师核对；由内网模型依据已确定的硬件方案生成系统原理框图，为硬件与结构设计提供参考。",
+    },
+  ],
+};
 
 export const DEDUP_WORKFLOW: Bullet = {
   label: "重删业务链路",

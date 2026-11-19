@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
+import { getResumeLanguage } from "@/app/resume/language";
 
 export async function GET(request: NextRequest) {
   let browser;
@@ -9,7 +10,8 @@ export async function GET(request: NextRequest) {
     const protocol = request.headers.get("x-forwarded-proto") || "http";
     const host = request.headers.get("host") || "localhost:3000";
     const template = request.nextUrl.searchParams.get("template") || "tech";
-    const version = request.nextUrl.searchParams.get("version") || "fullstack";
+    const language = getResumeLanguage(request.nextUrl.searchParams.get("lang"));
+    const version = language === "en" ? "fullstack" : request.nextUrl.searchParams.get("version") || "fullstack";
     const printPath =
       version === "frontend"
         ? "/resume/print/frontend"
@@ -17,7 +19,8 @@ export async function GET(request: NextRequest) {
         ? "/resume/print/backend"
         : "/resume/print";
 
-    const resumeUrl = `${protocol}://${host}${printPath}?template=${encodeURIComponent(template)}`;
+    const printParams = new URLSearchParams({ template, lang: language });
+    const resumeUrl = `${protocol}://${host}${printPath}?${printParams}`;
 
     const isProd = process.env.NODE_ENV === "production";
     const exePath = isProd
@@ -52,17 +55,21 @@ export async function GET(request: NextRequest) {
       timeout: 30000,
     });
 
-    await page.addStyleTag({
-      url: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap",
-    });
+    await page.waitForSelector(`[data-resume-language="${language}"]`);
 
-    await page.addStyleTag({
-      content: `
+    if (language === "zh") {
+      await page.addStyleTag({
+        url: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap",
+      });
+
+      await page.addStyleTag({
+        content: `
         * {
           font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
         }
       `,
-    });
+      });
+    }
 
     await page.evaluateHandle("document.fonts.ready");
 
@@ -88,7 +95,7 @@ export async function GET(request: NextRequest) {
         : version === "backend"
         ? "AI Agent后端工程师"
         : "AI全栈工程师";
-    const filename = `陈子龙-${roleLabel}-简历-${new Date().getFullYear()}.pdf`;
+    const filename = language === "en" ? "Zilong-Chen-Resume-EN.pdf" : `陈子龙-${roleLabel}-简历-${new Date().getFullYear()}.pdf`;
     const encodedFilename = encodeURIComponent(filename);
 
     return new NextResponse(Buffer.from(pdf), {

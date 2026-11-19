@@ -1,0 +1,56 @@
+export function getResumeLanguage(value: string | string[] | null | undefined) {
+  return value === "en" ? "en" : "zh";
+}
+
+export type ResumeLanguage = ReturnType<typeof getResumeLanguage>;
+
+export const resumeLabels = {
+  zh: {
+    name: "陈子龙",
+    back: "返回首页",
+    title: "个人简历",
+    download: "下载 PDF",
+    generating: "生成中...",
+    downloadError: "下载 PDF 失败，请稍后重试",
+    overview: "个人概览",
+    education: "教育",
+    degree: "吉首大学｜软件工程（本科/一批）",
+    certificate: "软件设计师（中级）",
+    languageSkills: "英文技术文档阅读通畅，具备日语听读能力",
+    experience: "工作经历",
+    projects: "项目经历",
+    works: "其他个人作品",
+    display: "显示控制：",
+    advantages: "个人优势",
+    backToResume: "返回展示版",
+    print: "打印 / 另存为 PDF",
+    versions: "简历版本：",
+    templates: "选择模板：",
+    colon: "：",
+    listSeparator: "、",
+  },
+  en: {
+    name: "Zilong Chen",
+    back: "Back to home",
+    title: "Resume",
+    download: "Download PDF",
+    generating: "Generating...",
+    downloadError: "Could not download the PDF. Please try again.",
+    overview: "Summary",
+    education: "Education",
+    degree: "Jishou University | Bachelor's in Software Engineering",
+    certificate: "Software Designer (Intermediate)",
+    languageSkills: "Reads technical English; can read and understand spoken Japanese.",
+    experience: "Work Experience",
+    projects: "Projects",
+    works: "Other Projects",
+    display: "Show:",
+    advantages: "Additional summary",
+    backToResume: "Back to resume",
+    print: "Print / Save as PDF",
+    versions: "Resume version:",
+    templates: "Template:",
+    colon: ": ",
+    listSeparator: ", ",
+  },
+};

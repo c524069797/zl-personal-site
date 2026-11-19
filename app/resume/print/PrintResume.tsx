@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { renderRich } from "../rich-text";
 import { RESUME_VERSIONS, resumeDataMap } from "../data";
 import type { Bullet, ResumeData, ResumeVersion } from "../data";
+import { englishResume } from "../data/english";
+import { getResumeLanguage, resumeLabels, type ResumeLanguage } from "../language";
 
 /**
  * 打印版简历渲染器（PDF 的数据源）。
@@ -22,10 +24,15 @@ const VERSION_LABELS: Record<ResumeVersion, string> = {
 };
 
 const TEMPLATES = [
-  { key: "tech", label: "科技青" },
-  { key: "card", label: "卡片白" },
-  { key: "navy", label: "商务蓝" },
+  { key: "tech", zh: "科技青", en: "Teal" },
+  { key: "card", zh: "卡片白", en: "White" },
+  { key: "navy", zh: "商务蓝", en: "Navy" },
 ];
+
+function printUrl(version: ResumeVersion, template: string, language: ResumeLanguage) {
+  const path = version === "fullstack" || language === "en" ? "/resume/print" : `/resume/print/${version}`;
+  return `${path}?${new URLSearchParams({ template, lang: language })}`;
+}
 
 function SkillTag({ children, template }: { children: React.ReactNode; template: string }) {
   const styles: Record<string, string> = {
@@ -36,12 +43,13 @@ function SkillTag({ children, template }: { children: React.ReactNode; template:
   return <span className={styles[template] || styles.tech}>{children}</span>;
 }
 
-function BulletItems({ bullets, className }: { bullets: Bullet[]; className: string }) {
+function BulletItems({ bullets, className, separator }: { bullets: Bullet[]; className: string; separator: string }) {
+  if (!bullets.length) return null;
   return (
     <ul className={className}>
       {bullets.map((b) => (
         <li key={b.label}>
-          <strong>{b.label}：</strong>
+          <strong>{b.label}{separator}</strong>
           {b.text}
         </li>
       ))}
@@ -49,9 +57,11 @@ function BulletItems({ bullets, className }: { bullets: Bullet[]; className: str
   );
 }
 
-function ResumeContent({ data, template, version }: { data: ResumeData; template: string; version: ResumeVersion }) {
+function ResumeContent({ data, template, version, language }: { data: ResumeData; template: string; version: ResumeVersion; language: ResumeLanguage }) {
   const [showOtherWorks, setShowOtherWorks] = useState(true);
   const [showAdvantages, setShowAdvantages] = useState(true);
+  const labels = resumeLabels[language];
+  const isEnglish = language === "en";
 
   const isCard = template === "card";
   const isNavy = template === "navy";
@@ -82,19 +92,19 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
   const sectionDot = isCard ? <span className="inline-block h-2 w-2 rounded-full bg-cyan-500" /> : null;
 
   const expTitle = `text-sm font-bold ${textMain}`;
-  const expDate = isNavy ? "text-xs text-indigo-400 font-medium" : "text-xs text-gray-400";
+  const expDate = isEnglish ? "shrink-0 text-xs text-gray-600" : isNavy ? "text-xs text-indigo-400 font-medium" : "text-xs text-gray-400";
   const expRole = isNavy ? "text-xs italic text-indigo-500" : "text-xs italic text-gray-500";
-  const expDesc = "text-[11px] text-gray-500 mt-0.5";
-  const expList = "mt-1 list-disc space-y-0.5 pl-4 text-[11px] leading-relaxed text-gray-800";
-  const techStack = isNavy ? "text-[10px] text-indigo-400 font-semibold" : "text-[10px] text-gray-400 font-semibold";
+  const expDesc = isEnglish ? "mt-0.5 text-xs text-gray-700" : "text-[11px] text-gray-500 mt-0.5";
+  const expList = `mt-1 list-disc space-y-0.5 pl-4 leading-relaxed text-gray-800 ${isEnglish ? "text-xs" : "text-[11px]"}`;
+  const techStack = isEnglish ? "text-[11px] font-semibold text-gray-600" : isNavy ? "text-[10px] text-indigo-400 font-semibold" : "text-[10px] text-gray-400 font-semibold";
 
   return (
-    <div className={`bg-white ${textMain}`}>
+    <div className={`bg-white ${textMain}`} lang={isEnglish ? "en" : "zh-CN"} data-resume-language={language}>
       {/* 工具栏：打印时隐藏 */}
       <div className="print:hidden">
         <div className="mx-auto flex max-w-4xl items-center justify-between border-b border-gray-200 bg-gray-50 px-6 py-3">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700">显示控制：</span>
+            <span className="text-sm font-medium text-gray-700">{labels.display}</span>
             <label className="flex cursor-pointer items-center gap-1.5 text-sm text-gray-600">
               <input
                 type="checkbox"
@@ -102,7 +112,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
                 onChange={(e) => setShowOtherWorks(e.target.checked)}
                 className="h-3.5 w-3.5 rounded border-gray-300"
               />
-              其他作品
+              {labels.works}
             </label>
             <label className="flex cursor-pointer items-center gap-1.5 text-sm text-gray-600">
               <input
@@ -111,29 +121,29 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
                 onChange={(e) => setShowAdvantages(e.target.checked)}
                 className="h-3.5 w-3.5 rounded border-gray-300"
               />
-              个人优势
+              {labels.advantages}
             </label>
           </div>
           <div className="flex items-center gap-3">
-            <a href="/resume" className="text-sm text-cyan-600 hover:underline">
-              ← 返回展示版
+            <a href={isEnglish ? "/resume?lang=en" : "/resume"} className="text-sm text-cyan-600 hover:underline">
+              ← {labels.backToResume}
             </a>
             <button
               onClick={() => window.print()}
               className="rounded-md bg-gray-900 px-4 py-1.5 text-sm text-white hover:bg-gray-800"
             >
-              打印 / 另存为 PDF
+              {labels.print}
             </button>
           </div>
         </div>
 
         {/* 版本切换 */}
-        <div className="mx-auto max-w-4xl border-b border-gray-100 bg-white px-6 py-3">
-          <span className="mr-3 text-sm font-medium text-gray-700">简历版本：</span>
+        {!isEnglish && <div className="mx-auto max-w-4xl border-b border-gray-100 bg-white px-6 py-3">
+          <span className="mr-3 text-sm font-medium text-gray-700">{labels.versions}</span>
           {RESUME_VERSIONS.map((v) => (
             <a
               key={v}
-              href={`${v === "fullstack" ? "/resume/print" : `/resume/print/${v}`}?template=${template}`}
+              href={printUrl(v, template, language)}
               className={`mr-2 inline-flex items-center rounded-full px-3 py-1 text-xs transition-colors ${
                 version === v ? "bg-cyan-100 text-cyan-700 ring-1 ring-cyan-300" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
@@ -141,28 +151,28 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
               {VERSION_LABELS[v]}
             </a>
           ))}
-        </div>
+        </div>}
 
         {/* 模板切换 */}
         <div className="mx-auto max-w-4xl border-b border-gray-100 bg-white px-6 py-3">
-          <span className="mr-3 text-sm font-medium text-gray-700">选择模板：</span>
+          <span className="mr-3 text-sm font-medium text-gray-700">{labels.templates}</span>
           {TEMPLATES.map((t) => (
             <a
               key={t.key}
-              href={`${version === "fullstack" ? "/resume/print" : `/resume/print/${version}`}?template=${t.key}`}
+              href={printUrl(version, t.key, language)}
               className={`mr-2 inline-flex items-center rounded-full px-3 py-1 text-xs transition-colors ${
                 template === t.key ? "bg-cyan-100 text-cyan-700 ring-1 ring-cyan-300" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
-              {t.label}
+              {t[language]}
             </a>
           ))}
         </div>
       </div>
 
-      <div className="mx-auto box-border p-8" style={{ width: "210mm", minHeight: "297mm" }}>
+      <div className="mx-auto box-border p-8" style={{ width: isEnglish ? "100%" : "210mm", maxWidth: "210mm", minHeight: isEnglish ? undefined : "297mm" }}>
         <header className={headerWrapper}>
-          <h1 className={headerName}>陈子龙</h1>
+          <h1 className={headerName}>{labels.name}</h1>
           <p className={headerSub}>{data.role}</p>
           <div className={headerMeta}>
             {CONTACTS.map((c) => (
@@ -174,7 +184,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
         <section className="mb-3">
           <h2 className={sectionTitle}>
             {sectionDot}
-            个人概览
+            {labels.overview}
           </h2>
           <div className="text-[12px] leading-relaxed text-gray-900">
             {showAdvantages && (
@@ -183,13 +193,13 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
             <p className="mb-2">{data.summary}</p>
 
             <div className="flex gap-2">
-              <span className="w-16 shrink-0 font-bold">教育</span>
+              <span className="w-16 shrink-0 font-bold">{labels.education}</span>
               <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span className="font-bold">吉首大学 · 软件工程（本科/一批）</span>
-                <span>2017.09 – 2021.06</span>
+                <span className="font-bold">{labels.degree}</span>
+                <span>2017.09 - 2021.06</span>
                 <SkillTag template={template}>CET-6</SkillTag>
-                <SkillTag template={template}>软件设计师（中级）</SkillTag>
-                <span>英文技术文档阅读通畅，具备日语听读能力</span>
+                <SkillTag template={template}>{labels.certificate}</SkillTag>
+                <span>{labels.languageSkills}</span>
               </span>
             </div>
 
@@ -197,7 +207,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
               {data.skillGroups.map((g) => (
                 <div className="flex gap-2" key={g.title}>
                   <span className="w-16 shrink-0 font-bold">{g.title}</span>
-                  <span>{g.skills.join("、")}</span>
+                  <span>{g.skills.join(labels.listSeparator)}</span>
                 </div>
               ))}
             </div>
@@ -207,7 +217,7 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
         <section className="mb-3">
           <h2 className={sectionTitle}>
             {sectionDot}
-            工作经历
+            {labels.experience}
           </h2>
           {data.experience.map((exp) => (
             <div className="mb-2" key={exp.company}>
@@ -217,24 +227,24 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
               </div>
               <p className={expRole}>{exp.role}</p>
               <p className={expDesc}>{exp.desc}</p>
-              <BulletItems bullets={exp.bullets} className={expList} />
+              <BulletItems bullets={exp.bullets} className={expList} separator={labels.colon} />
             </div>
           ))}
         </section>
 
-        <section className="mb-3">
+        <section className={isEnglish ? "mb-3 print:break-before-page" : "mb-3"}>
           <h2 className={sectionTitle}>
             {sectionDot}
-            项目经历
+            {labels.projects}
           </h2>
           {data.projects.map((p) => (
-            <div className="mb-1.5" key={p.title}>
-              <div className="flex items-baseline justify-between">
+            <div className={isEnglish ? "mb-2 break-inside-avoid" : "mb-1.5"} key={p.title}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-2">
                 <h4 className="text-xs font-bold text-gray-900">{p.title}</h4>
                 <span className={techStack}>{p.stack}</span>
               </div>
-              <p className="text-[10px] text-gray-400">{p.desc}</p>
-              <BulletItems bullets={p.bullets} className={expList} />
+              <p className={isEnglish ? "text-xs text-gray-700" : "text-[10px] text-gray-400"}>{p.desc}</p>
+              <BulletItems bullets={p.bullets} className={expList} separator={labels.colon} />
             </div>
           ))}
         </section>
@@ -243,12 +253,12 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
           <section>
             <h2 className={sectionTitle}>
               {sectionDot}
-              其他个人作品
+              {labels.works}
             </h2>
-            <div className="space-y-0.5 text-[11px] leading-relaxed text-gray-800">
+            <div className={`space-y-0.5 leading-relaxed text-gray-800 ${isEnglish ? "text-xs" : "text-[11px]"}`}>
               {data.otherWorks.map((w) => (
                 <p key={w.title}>
-                  <strong>{w.title}</strong>：{w.desc}{w.linkLabel && `（${w.linkLabel}）`}
+                  <strong>{w.title}</strong>{labels.colon}{w.desc}{!isEnglish && w.linkLabel && `（${w.linkLabel}）`}
                 </p>
               ))}
             </div>
@@ -262,7 +272,9 @@ function ResumeContent({ data, template, version }: { data: ResumeData; template
 function PrintInner({ version }: { version: ResumeVersion }) {
   const searchParams = useSearchParams();
   const template = searchParams.get("template") || "tech";
-  return <ResumeContent data={resumeDataMap[version]} template={template} version={version} />;
+  const language = getResumeLanguage(searchParams.get("lang"));
+  const data = language === "en" ? englishResume : resumeDataMap[version];
+  return <ResumeContent data={data} template={template} version={version} language={language} />;
 }
 
 export function PrintResume({ version }: { version: ResumeVersion }) {

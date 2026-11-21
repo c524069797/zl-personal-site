@@ -1,5 +1,5 @@
 import type { ResumeData } from "./types";
-import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, JIALI_EXPERIENCE, JIALI_PROJECT, OTHER_WORKS } from "./shared";
+import { DEDUP_WORKFLOW, EMPLOYMENT_DATE, FILE_RESTORE_WORKFLOW, OTHER_WORKS } from "./shared";
 
 /** AI Agent 后端版：投 Agent 后端 / LLM 应用后端 / Java 后端（AI 方向） */
 export const backendResume: ResumeData = {
@@ -74,7 +74,6 @@ export const backendResume: ResumeData = {
   ],
 
   experience: [
-    JIALI_EXPERIENCE,
     {
       company: "广州鼎甲计算机科技有限公司",
       date: EMPLOYMENT_DATE,
@@ -110,7 +109,6 @@ export const backendResume: ResumeData = {
   ],
 
   projects: [
-    JIALI_PROJECT,
     {
       title: "鼎甲迪备备份恢复系统",
       stack: "Vue 3 / TypeScript / WebSocket",

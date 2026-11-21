@@ -4,8 +4,8 @@ export const englishResume: ResumeData = {
   tabLabel: "AI Full Stack",
   role: "Full-Stack AI Engineer",
   meta: "Enterprise software, AI applications, and workflow tools",
-  summary: "I build web applications and backend services for engineering and operations teams. My recent work covers automotive safety documents, BOM quotes, and AI-assisted review. Before that, I worked on enterprise backup and recovery.",
-  advantage: "I work across requirements, implementation, integration, and testing. I use rules for calculations and language models for tasks such as finding requirements and drafting diagrams.",
+  summary: "I build web applications and backend services for engineering and operations teams. My work has focused on enterprise backup and recovery, licensing, and internal support tools.",
+  advantage: "I work across requirements, implementation, integration, and testing.",
   skillGroups: [
     {
       title: "AI",
@@ -25,13 +25,6 @@ export const englishResume: ResumeData = {
   ],
   experience: [
     {
-      company: "Guangdong Jiali Automotive Lighting Co., Ltd.",
-      date: "Sep 2026 - Present",
-      role: "Full-Stack AI Engineer",
-      desc: "Work on software that helps engineers process safety documents, prepare quotes, and review design inputs.",
-      bullets: [],
-    },
-    {
       company: "Guangzhou Scutech Computer Technology Co., Ltd.",
       date: "Jul 2021 - Jun 2026",
       role: "Web Software Engineer",
@@ -43,16 +36,6 @@ export const englishResume: ResumeData = {
     },
   ],
   projects: [
-    {
-      title: "Vehicle Functional Safety and BOM Quoting",
-      stack: "Python / Flask / FAISS / Ollama / Socket.IO",
-      desc: "Tools for processing safety documents and preparing bills of materials (BOMs) and quotes.",
-      bullets: [
-        { label: "Safety documents", text: "Cleaned up safety documents and exported summaries so engineers could review the key points without sorting through the full files." },
-        { label: "Quotes and exports", text: "Used Python rules and a price database to calculate LED current, select drivers, and estimate BOM costs. Added exports for quotes and reports." },
-        { label: "AI analysis", text: "Used FAISS to find relevant clauses in customer requirements (SORs) and suggest quote inputs for engineers to review. An internal model turns the selected hardware design into a block diagram for the hardware and mechanical design teams." },
-      ],
-    },
     {
       title: "DBackup Enterprise Backup and Recovery",
       stack: "Vue 3 / TypeScript / WebSocket",
